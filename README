@@ -1,0 +1,127 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+Welcome to Apache Kalumet
+=========================
+Apache Kalumet is a complete deployment platform. It's able to manage all kind of environments (J2EE, OSGi,
+custom, etc).
+It's the perfect tool for softwares, middlewares, and data center administrators.
+It's also a good complement to continuous integration (managed by Maven, Continuum, or Jenkins for instance) by adding
+continuous deployment. The whole factory chain is covered and the administrators manages all environments in a secure
+and safe way.
+
+Apache Kalumet is a small OSGi based kernel which provides a
+lightweight container onto which various bundles can be deployed.
+
+Apache Kalumet provides two components:
+    * the agents are installed locally on the target platform
+    * the console controls and manages the agents, allowing the administrator to manipulate, update, install, deploy
+      the target platform and software components.
+
+Getting Started
+===============
+For an Apache Kalumet source distribution, please read
+BUILDING for instructions on building Apache Kalumet.
+
+    Apache Kalumet Agent
+    ---------------------
+        J2SE 1.6
+Apache Lalumet Agent requires at least a Java 1.6 environment to run.
+Refer to http://java.sun.com for detail on how to download and install J2SE 1.6.
+
+        Uncompress binaries
+Select the Kalumet agent file compression format compatible with your system (zip, tar.gz) by clicking directly on
+the link, download it and expand the binary to your hard drive in a new directory ;
+for example /opt/apache-kalumet-agent - from now on this directory will be referenced as <kalumet_agent_home>.
+Please remember the restrictions concerning illegal characters in Java paths, e.g. !, % etc.
+
+        Start agent
+With Apache Kalumet agent already installed, open a command line console and change directory to <kalumet_agent_home>.
+To start the agent, run the following command in Windows:
+
+   bin\apache-kalumet-agent.bat
+
+respectively in Linux/Unix:
+
+   bin/apache-kalumet-agent
+
+The agent launcher expects some arguments:
+ -config <config>           The path/url to the configuration file (e.g. http://<hostname>/kalumet/ConfiugrationWrapper)
+ -id <id>                   The agent id as defined in the configuration
+
+    Apache Kalumet Console
+    -----------------------
+    JSP/Servlet Engine
+Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a J2EE application
+server (like RedHat JBoss, Oracle Weblogic, IBM WebSphere).
+
+    Download binaries
+Select the file compression format compatible with your system (zip, tar.gz) by clicking directly on the link,
+download it and expand the binary to your hard drive in a new directory ; for example /tmp/kalumet_console -
+from now on this directory will be referenced as <kalumet_console_home>. Please remember the restrictions concerning
+illegal characters in Java paths, e.g. !, % etc.
+
+    Apache Kalumet Console Configuration
+By default, Apache Kalumet console uses the following configuration:
+- it reads/writes the Kalumet configuration file located in /var/lib/apache-kalumet/conf/autodeploy.xml.
+Create the directory /var/lib/apache-kalumet/conf
+  (with the permission given to the application server user) and copy the initial Kalumet configuration provided in
+  <kalumet_console_home>/conf/sample/apache-kalumet-store.xml.
+- it reads/writes the Kalumet events journal log files in /var/lib/apache-kalumet/journals. Create this directory
+with the permission given to the application server user.
+
+If this default configuration is not compliant with your environment, you can override this setup using a
+apache-kalumet-console-config.xml file.
+
+You can find this file in the Apache Kalumet console configuration in
+<kalumet_console_home>/conf/apache-kalumet-console-config.xml.
+You need to copy this file into the JSP/Servlet engine classpath. For example, using Apache Tomcat, you can
+copy the apache-kalumet-console-config.xml into the <tomcat_home>/lib directory.
+
+Configure the apache-kalumet-console-config.xml to match your environment settings.
+
+    Deploy Apache Kalumet Console
+Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or J2EE application server
+deploy directory. For example, to deploy on Apache Tomcat, simply copy the war archive into the <tomcat_home>/webapps
+directory.
+
+    Using Apache Kalumet Console
+You should now be able to access to Apache Kalumet console, for example using http://localhost:8080/kalumet/console.
+The default admin user password is admin.
+
+
+Support and Contribution
+========================
+Alternatively, you can also find out how to get started here:
+    http://incubator.apache.org/kalumet/
+
+If you need more help try talking to us on our mailing lists
+    http://incubator.apache.org/kalumet/mailinglists.html
+
+If you find any issues with Apache Kalumet, please submit reports
+with JIRA here:
+    http://issues.apache.org/jira/browse/KALUMET
+
+We welcome contributions, and encourage you to get involved in the 
+Kalumet community. If you'd like to learn more about how you can
+contribute, please see:
+    http://incubator.apache.org/kalumet/contributing.html
+
+Many thanks for using Apache Kalumet.
+
+
+The Kalumet Team
