@@ -25,20 +25,18 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represent the <code>namespacebinding</code> tag in the Kalumet configuration DOM.
+ * Represent the <code>jdbcdatasource</code> tag in the Kalumet configuration DOM.
  */
-public class NameSpaceBinding implements Serializable, Cloneable, Comparable {
+public class JDBCDataSource implements Serializable, Cloneable, Comparable {
 
-   private static final long serialVersionUID = -2336476111740231781L;
+   private static final long serialVersionUID = -6850328756411047364L;
 
    private String name;
-   private String jndiname;
-   private String jndialias;
-   private String providerurl;
+   private String pool;
    private boolean active;
    private boolean blocker;
 
-   public NameSpaceBinding() { }
+   public JDBCDataSource() { }
 
    public String getName() {
       return this.name;
@@ -48,28 +46,12 @@ public class NameSpaceBinding implements Serializable, Cloneable, Comparable {
       this.name = name;
    }
 
-   public String getJndiname() {
-      return this.jndiname;
+   public String getPool() {
+      return this.pool;
    }
 
-   public void setJndiname(String jndiname) {
-      this.jndiname = jndiname;
-   }
-
-   public String getJndialias() {
-      return this.jndialias;
-   }
-
-   public void setJndialias(String jndialias) {
-      this.jndialias = jndialias;
-   }
-
-   public String getProviderurl() {
-      return this.providerurl;
-   }
-
-   public void setProviderurl(String providerurl) {
-      this.providerurl = providerurl;
+   public void setPool(String pool) {
+      this.pool = pool;
    }
 
    public boolean isActive() {
@@ -92,28 +74,24 @@ public class NameSpaceBinding implements Serializable, Cloneable, Comparable {
     * @see java.lang.Object#clone()
     */
    public Object clone() throws CloneNotSupportedException {
-      NameSpaceBinding clone = new NameSpaceBinding();
+      JDBCDataSource clone = new JDBCDataSource();
       clone.setName(this.getName());
-      clone.setJndiname(this.getJndiname());
-      clone.setJndialias(this.getJndialias());
-      clone.setProviderurl(this.getProviderurl());
+      clone.setPool(this.getPool());
       clone.setActive(this.isActive());
       clone.setBlocker(this.isBlocker());
       return clone;
    }
 
    /**
-    * Transform the <code>NameSpaceBinding</code> POJO to a DOM element.
+    * Transforms the <code>JDBCDataSource</code> POJO to a DOM element.
     * 
     * @param document the DOM document.
     * @return the DOM element.
     */
    protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "namespacebinding");
+      ElementImpl element = new ElementImpl(document, "jdbcdatasource");
       element.setAttribute("name", this.getName());
-      element.setAttribute("jndiname", this.getJndiname());
-      element.setAttribute("jndialias", this.getJndialias());
-      element.setAttribute("providerurl", this.getProviderurl());
+      element.setAttribute("pool", this.getPool());
       element.setAttribute("active", new Boolean(this.isActive()).toString());
       element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
       return element;
@@ -122,8 +100,8 @@ public class NameSpaceBinding implements Serializable, Cloneable, Comparable {
    /**
     * @see java.lang.Comparable#compareTo(java.lang.Object)
     */
-   public int compareTo(Object anotherNameSpaceBinding) {
-       return this.getName().compareTo(((NameSpaceBinding)anotherNameSpaceBinding).getName());
+   public int compareTo(Object anotherDataSource) {
+       return this.getName().compareTo(((JDBCDataSource)anotherDataSource).getName());
    }
 
 }

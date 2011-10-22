@@ -28,9 +28,9 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represents the <code>application</code> tag in the Kalumet DOM.
+ * Represents the <code>j2eeapplication</code> tag in the Kalumet DOM.
  */
-public class Application implements Serializable, Cloneable, Comparable {
+public class J2EEApplication implements Serializable, Cloneable, Comparable {
 
    private static final long serialVersionUID = -1198170476993837094L;
 
@@ -45,9 +45,9 @@ public class Application implements Serializable, Cloneable, Comparable {
    private LinkedList databases;
 
    /**
-    * Default constructor to create a <code>Application</code>
+    * Default constructor to create a <code>J2EEApplication</code>
     */
-   public Application() {
+   public J2EEApplication() {
       this.archives = new LinkedList();
       this.contentManagers = new LinkedList();
       this.configurationFiles = new LinkedList();
@@ -95,7 +95,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Add a new <code>Archive</code> in the <code>Application</code> archives container.
+    * Add a new <code>Archive</code> in the <code>J2EEApplication</code> archives container.
     * 
     * @param archive the <code>Archive</code> to add.
     * @throws ModelObjectAlreadyExistsException if the archive name already exists in the application.
@@ -108,7 +108,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Get the <code>Archive</code> list in the <code>Application</code> archives container.
+    * Get the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
     * 
     * @return the <code>Archive</code> list
     */
@@ -117,7 +117,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Overwrite the <code>Archive</code> list in the <code>Application</code> archives container.
+    * Overwrite the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
     * 
     * @param archives the new <code>Archive</code> list.
     */
@@ -126,7 +126,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Get the <code>Archive</code> identified by a given name in the <code>Application</code> archives container.
+    * Get the <code>Archive</code> identified by a given name in the <code>J2EEApplication</code> archives container.
     * 
     * @param name the <code>Archive</code> name.
     * @return the <code>Archive</code> found or null if not found.
@@ -142,7 +142,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Add a new <code>ContentManager</code> in the <code>Application</code> content managers container.
+    * Add a new <code>ContentManager</code> in the <code>J2EEApplication</code> content managers container.
     * 
     * @param contentManager the <code>ContentManager</code> to add.
     * @throws ModelObjectAlreadyExistsException if the <code>ContentManager</code> already exists in the application.
@@ -155,7 +155,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Get the <code>ContentManager</code> list in the <code>Application</code> content managers container.
+    * Get the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
     * 
     * @return the <code>ContentManager</code> list.
     */
@@ -164,7 +164,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Overwrite the <code>ContentManager</code> list in the <code>Application</code> content managers container.
+    * Overwrite the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
     * 
     * @param contentManagers the new <code>ContentManagers</code> list.
     */
@@ -173,7 +173,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Return the <code>ContentManager</code> identified by a given name in the <code>Application</code> content managers container.
+    * Return the <code>ContentManager</code> identified by a given name in the <code>J2EEApplication</code> content managers container.
     * 
     * @return the <code>ContentManager</code> found or null if not found.
     */
@@ -188,7 +188,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Add a new <code>ConfigurationFile</code> in the <code>Application</code>
+    * Add a new <code>ConfigurationFile</code> in the <code>J2EEApplication</code>
     * configuration files container.
     * 
     * @param configurationFile the <code>ConfigurationFile</code> to add.
@@ -203,7 +203,7 @@ public class Application implements Serializable, Cloneable, Comparable {
 
    /**
     * Get the <code>ConfigurationFile</code> list in the
-    * <code>Application</code> configuration files container.
+    * <code>J2EEApplication</code> configuration files container.
     * 
     * @return the <code>ConfigurationFile</code> list.
     */
@@ -213,7 +213,7 @@ public class Application implements Serializable, Cloneable, Comparable {
 
    /**
     * Overwrite the <code>ConfigurationFile</code> list in the
-    * <code>Application</code> configuration files container.
+    * <code>J2EEApplication</code> configuration files container.
     * 
     * @param configurationFiles the new <code>ConfigurationFile</code> list.
     */
@@ -223,7 +223,7 @@ public class Application implements Serializable, Cloneable, Comparable {
 
    /**
     * Get the <code>ConfigurationFile</code> identified by a given name in the
-    * <code>Application</code> configuration files container.
+    * <code>J2EEApplication</code> configuration files container.
     * 
     * @param name the <code>ConfigurationFile</code> name.
     * @return the <code>ConfigurationFile</code> found or null if not found.
@@ -239,7 +239,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Add a new <code>Database</code> in the <code>Application</code>
+    * Add a new <code>Database</code> in the <code>J2EEApplication</code>
     * databases container.
     * 
     * @param database the <code>Database</code> to add.
@@ -253,7 +253,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Get the <code>Database</code> list in the <code>Application</code>
+    * Get the <code>Database</code> list in the <code>J2EEApplication</code>
     * databases container.
     * 
     * @return the <code>Database</code> list.
@@ -263,7 +263,7 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Overwrite the <code>Database</code> list in the <code>Application</code>
+    * Overwrite the <code>Database</code> list in the <code>J2EEApplication</code>
     * databases container.
     * 
     * @param databases the new <code>Database</code> list.
@@ -274,7 +274,7 @@ public class Application implements Serializable, Cloneable, Comparable {
 
    /**
     * Get the <code>Database</code> identified by a given name in the
-    * <code>Application</code> databases container.
+    * <code>J2EEApplication</code> databases container.
     * 
     * @param name the <code>Database</code> name.
     * @return the <code>Database</code> found or null if not found.
@@ -293,7 +293,7 @@ public class Application implements Serializable, Cloneable, Comparable {
     * @see java.lang.Object#clone()
     */
    public Object clone() throws CloneNotSupportedException {
-      Application clone = new Application();
+      J2EEApplication clone = new J2EEApplication();
       clone.setName(this.getName());
       clone.setUri(this.getUri());
       clone.setActive(this.isActive());
@@ -319,13 +319,13 @@ public class Application implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Transforms the <code>Application</code> POJO to a DOM element.
+    * Transforms the <code>J2EEApplication</code> POJO to a DOM element.
     * 
     * @param document the core DOM document.
     * @return the DOM element.
     */
    protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "application");
+      ElementImpl element = new ElementImpl(document, "j2eeapplication");
       element.setAttribute("name", this.getName());
       element.setAttribute("uri", this.getUri());
       element.setAttribute("active", new Boolean(this.isActive()).toString());
@@ -366,7 +366,7 @@ public class Application implements Serializable, Cloneable, Comparable {
     * @see java.lang.Comparable#compareTo(java.lang.Object)
     */
    public int compareTo(Object anotherApplication) {
-       return this.getName().compareTo(((Application)anotherApplication).getName());
+       return this.getName().compareTo(((J2EEApplication)anotherApplication).getName());
    }
 
 }

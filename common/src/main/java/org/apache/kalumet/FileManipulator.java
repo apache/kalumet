@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.vfs.*;
-import org.apache.kalumet.model.Application;
+import org.apache.kalumet.model.J2EEApplication;
 import org.apache.kalumet.model.Environment;
 import org.apache.kalumet.model.Software;
 import org.apache.oro.text.regex.*;
@@ -459,16 +459,16 @@ public class FileManipulator {
     }
 
     /**
-     * Creates an environment application cache directory.
+     * Creates an environment j2EEApplication cache directory.
      *
      * @param environment the <code>Environment</code>.
-     * @param application the <code>Application</code>.
-     * @return the environment application cache directory path.
+     * @param j2EEApplication the <code>J2EEApplication</code>.
+     * @return the environment j2EEApplication cache directory path.
      * @throws FileManipulatorException in case of creation failure.
      */
-    public static String createEnvironmentApplicationCacheDir(Environment environment, Application application) throws FileManipulatorException {
+    public static String createEnvironmentApplicationCacheDir(Environment environment, J2EEApplication j2EEApplication) throws FileManipulatorException {
         String directory = FileManipulator.createEnvironmentCacheDir(environment);
-        directory = directory + "/applications/" + application.getName();
+        directory = directory + "/applications/" + j2EEApplication.getName();
         FileManipulator fileManipulator = FileManipulator.getInstance();
         fileManipulator.createDirectory(directory);
         return directory;

@@ -29,9 +29,9 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represents the <code>applicationserver</code> tag in the Kalumet DOM.
+ * Represents the <code>j2eeapplicationserver</code> tag in the Kalumet DOM.
  */
-public class ApplicationServer implements Serializable, Cloneable, Comparable {
+public class J2EEApplicationServer implements Serializable, Cloneable, Comparable {
 
     private static final long serialVersionUID = 2272703476099937797L;
 
@@ -49,27 +49,27 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     private String startupcommand;
     private String shutdowncommand;
     private String agent;
-    private LinkedList connectionPools;
-    private LinkedList dataSources;
+    private LinkedList jdbcConnectionPools;
+    private LinkedList jdbcDataSources;
     private LinkedList jmsConnectionFactories;
     private LinkedList jmsServers;
-    private LinkedList nameSpaceBindings;
+    private LinkedList jndiBindings;
     private LinkedList sharedLibraries;
-    private LinkedList applications;
+    private LinkedList j2eeApplications;
     private LinkedList caches;
     private LinkedList logAccesses;
 
     /**
-     * Default constructor to create a new <code>ApplicationServer</code>.
+     * Default constructor to create a new <code>J2EEApplicationServer</code>.
      */
-    public ApplicationServer() {
-        this.connectionPools = new LinkedList();
-        this.dataSources = new LinkedList();
+    public J2EEApplicationServer() {
+        this.jdbcConnectionPools = new LinkedList();
+        this.jdbcDataSources = new LinkedList();
         this.jmsConnectionFactories = new LinkedList();
         this.jmsServers = new LinkedList();
-        this.nameSpaceBindings = new LinkedList();
+        this.jndiBindings = new LinkedList();
         this.sharedLibraries = new LinkedList();
-        this.applications = new LinkedList();
+        this.j2eeApplications = new LinkedList();
         this.caches = new LinkedList();
         this.logAccesses = new LinkedList();
     }
@@ -187,102 +187,102 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     }
 
     /**
-     * Add a new <code>ConnectionPool</code> in the
-     * <code>ApplicationServer</code> connection pools container.
+     * Add a new <code>JDBCConnectionPool</code> in the
+     * <code>J2EEApplicationServer</code> connection pools container.
      * 
-     * @param connectionPool the <code>ConnectionPool</code> to add.
-     * @throws ModelObjectAlreadyExistsException if the <code>ConnectionPool</code> name already exists in the application server.
+     * @param JDBCConnectionPool the <code>JDBCConnectionPool</code> to add.
+     * @throws ModelObjectAlreadyExistsException if the <code>JDBCConnectionPool</code> name already exists in the application server.
      */
-    public void addConnectionPool(ConnectionPool connectionPool) throws ModelObjectAlreadyExistsException {
-        if (this.getConnectionPool(connectionPool.getName()) != null) {
-            throw new ModelObjectAlreadyExistsException("Connection pool name already exists in the JZEE server.");
+    public void addJDBCConnectionPool(JDBCConnectionPool JDBCConnectionPool) throws ModelObjectAlreadyExistsException {
+        if (this.getJDBCConnectionPool(JDBCConnectionPool.getName()) != null) {
+            throw new ModelObjectAlreadyExistsException("JDBC connection pool name already exists in the JZEE server.");
         }
-        this.connectionPools.add(connectionPool);
+        this.jdbcConnectionPools.add(JDBCConnectionPool);
     }
 
     /**
-     * Get the <code>ConnectionPool</code> list in the
-     * <code>ApplicationServer</code> connection pools container.
+     * Get the <code>JDBCConnectionPool</code> list in the
+     * <code>J2EEApplicationServer</code> connection pools container.
      * 
-     * @return the <code>ConnectionPool</code> list.
+     * @return the <code>JDBCConnectionPool</code> list.
      */
-    public List getConnectionPools() {
-        return this.connectionPools;
+    public List getJDBCConnectionPools() {
+        return this.jdbcConnectionPools;
     }
 
     /**
-     * Overwrite the <code>ConnectionPool</code> list in the
-     * <code>ApplicationServer</code> connection pools container.
+     * Overwrite the <code>JDBCConnectionPool</code> list in the
+     * <code>J2EEApplicationServer</code> connection pools container.
      * 
-     * @param connectionPools the new <code>ConnectionPool</code> list.
+     * @param jdbcConnectionPools the new <code>JDBCConnectionPool</code> list.
      */
-    public void setConnectionPools(LinkedList connectionPools) {
-        this.connectionPools = connectionPools;
+    public void setJDBCConnectionPools(LinkedList jdbcConnectionPools) {
+        this.jdbcConnectionPools = jdbcConnectionPools;
     }
 
     /**
-     * Get the <code>ConnectionPool</code> identified by a given name in the
-     * <code>ApplicationServer</code> connection pools container.
+     * Get the <code>JDBCConnectionPool</code> identified by a given name in the
+     * <code>J2EEApplicationServer</code> connection pools container.
      * 
-     * @param name the <code>ConnectionPool</code> name.
-     * @return the <code>ConnectionPool</code> found or null if not found.
+     * @param name the <code>JDBCConnectionPool</code> name.
+     * @return the <code>JDBCConnectionPool</code> found or null if not found.
      */
-    public ConnectionPool getConnectionPool(String name) {
-        for (Iterator connectionPoolIterator = this.getConnectionPools().iterator(); connectionPoolIterator.hasNext();) {
-            ConnectionPool connectionPool = (ConnectionPool) connectionPoolIterator.next();
-            if (connectionPool.getName().equals(name)) {
-                return connectionPool;
+    public JDBCConnectionPool getJDBCConnectionPool(String name) {
+        for (Iterator connectionPoolIterator = this.getJDBCConnectionPools().iterator(); connectionPoolIterator.hasNext();) {
+            JDBCConnectionPool JDBCConnectionPool = (JDBCConnectionPool) connectionPoolIterator.next();
+            if (JDBCConnectionPool.getName().equals(name)) {
+                return JDBCConnectionPool;
             }
         }
         return null;
     }
 
     /**
-     * Add a new <code>DataSource</code> in the <code>ApplicationServer</code>
+     * Add a new <code>JDBCDataSource</code> in the <code>J2EEApplicationServer</code>
      * data sources container.
      * 
-     * @param dataSource the <code>DataSource</code> to add.
-     * @throws ModelObjectAlreadyExistsException if the <code>DataSource</code> name already exists in the application server.
+     * @param JDBCDataSource the <code>JDBCDataSource</code> to add.
+     * @throws ModelObjectAlreadyExistsException if the <code>JDBCDataSource</code> name already exists in the application server.
      */
-    public void addDataSource(DataSource dataSource) throws ModelObjectAlreadyExistsException {
-        if (this.getDataSource(dataSource.getName()) != null) {
-            throw new ModelObjectAlreadyExistsException("Datasource name already exists in the JZEE server.");
+    public void addJDBCDataSource(JDBCDataSource JDBCDataSource) throws ModelObjectAlreadyExistsException {
+        if (this.getJDBCDataSource(JDBCDataSource.getName()) != null) {
+            throw new ModelObjectAlreadyExistsException("JDBC data source name already exists in the JZEE server.");
         }
-        this.dataSources.add(dataSource);
+        this.jdbcDataSources.add(JDBCDataSource);
     }
 
     /**
-     * Get the <code>DataSource</code> list in the
-     * <code>ApplicationServer</code> data sources container.
+     * Get the <code>JDBCDataSource</code> list in the
+     * <code>J2EEApplicationServer</code> data sources container.
      * 
-     * @return the <code>DataSource</code> list.
+     * @return the <code>JDBCDataSource</code> list.
      */
-    public List getDataSources() {
-        return this.dataSources;
+    public List getJDBCDataSources() {
+        return this.jdbcDataSources;
     }
 
     /**
-     * Overwrite the <code>DataSource</code> list in the
-     * <code>ApplicationServer</code> data sources container.
+     * Overwrite the <code>JDBCDataSource</code> list in the
+     * <code>J2EEApplicationServer</code> data sources container.
      * 
-     * @param dataSources the new <code>DataSource</code> list.
+     * @param dataSources the new <code>JDBCDataSource</code> list.
      */
-    public void setDataSources(LinkedList dataSources) {
-        this.dataSources = dataSources;
+    public void setJDBCDataSources(LinkedList dataSources) {
+        this.jdbcDataSources = dataSources;
     }
 
     /**
-     * Get the <code>DataSource</code> identified by a given name in the
-     * <code>ApplicationServer</code> data sources container.
+     * Get the <code>JDBCDataSource</code> identified by a given name in the
+     * <code>J2EEApplicationServer</code> data sources container.
      * 
-     * @param name the <code>DataSource</code> name.
-     * @return the <code>DataSource</code> found or null if not found.
+     * @param name the <code>JDBCDataSource</code> name.
+     * @return the <code>JDBCDataSource</code> found or null if not found.
      */
-    public DataSource getDataSource(String name) {
-        for (Iterator dataSourceIterator = this.getDataSources().iterator(); dataSourceIterator.hasNext();) {
-            DataSource dataSource = (DataSource) dataSourceIterator.next();
-            if (dataSource.getName().equals(name)) {
-                return dataSource;
+    public JDBCDataSource getJDBCDataSource(String name) {
+        for (Iterator dataSourceIterator = this.getJDBCDataSources().iterator(); dataSourceIterator.hasNext();) {
+            JDBCDataSource JDBCDataSource = (JDBCDataSource) dataSourceIterator.next();
+            if (JDBCDataSource.getName().equals(name)) {
+                return JDBCDataSource;
             }
         }
         return null;
@@ -290,7 +290,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Add a new <code>JMSConnectionFactory</code> in the
-     * <code>ApplicationServer</code> JMS connection factories container.
+     * <code>J2EEApplicationServer</code> JMS connection factories container.
      * 
      * @param jmsConnectionFactory the <code>JMSConnectionFactory</code> to add.
      * @throws ModelObjectAlreadyExistsException 
@@ -304,7 +304,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Get the <code>JMSConnectionFactory</code> list in the
-     * <code>ApplicationServer</code> JMS connection factories container.
+     * <code>J2EEApplicationServer</code> JMS connection factories container.
      * 
      * @return the <code>JMSConnectionFactory</code> list.
      */
@@ -314,7 +314,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Overwrites the <code>JMSConnectionFactory</code> list in the
-     * <code>ApplicationServer</code> JMS connection factories container.
+     * <code>J2EEApplicationServer</code> JMS connection factories container.
      * 
      * @param jmsConnectionFactories the new <code>JMSConnectionFactory</code> list.
      */
@@ -324,7 +324,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Gets the <code>JMSConnectionFactory</code> identified by a given name in
-     * the <code>ApplicationServer</code> JMS connection factories container.
+     * the <code>J2EEApplicationServer</code> JMS connection factories container.
      * 
      * @param name the <code>JMSConnectionFactory</code> name.
      * @return the <code>JMSConnectionFactory</code> found or null if not found.
@@ -340,7 +340,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     }
 
     /**
-     * Adds a new <code>JMSServer</code> in the <code>ApplicationServer</code>
+     * Adds a new <code>JMSServer</code> in the <code>J2EEApplicationServer</code>
      * JMS servers container.
      * 
      * @param jmsServer the <code>JMSServer</code> to add.
@@ -348,13 +348,13 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
      */
     public void addJMSServer(JMSServer jmsServer) throws ModelObjectAlreadyExistsException {
         if (this.getJMSServer(jmsServer.getName()) != null) {
-            throw new ModelObjectAlreadyExistsException("JMS server name already exists in the JZEE server.");
+            throw new ModelObjectAlreadyExistsException("JMS server name already exists in the JZEE application server.");
         }
         this.jmsServers.add(jmsServer);
     }
 
     /**
-     * Gets the <code>JMSServer</code> list in the <code>ApplicationServer</code>
+     * Gets the <code>JMSServer</code> list in the <code>J2EEApplicationServer</code>
      * JMS servers container.
      * 
      * @return the <code>JMSServer</code> list.
@@ -365,7 +365,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Overwrites the <code>JMSServer</code> list in the
-     * <code>ApplicationServer</code> JMS servers container.
+     * <code>J2EEApplicationServer</code> JMS servers container.
      * 
      * @param jmsServers the new <code>JMSServer</code> list.
      */
@@ -375,7 +375,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Gets the <code>JMSServer</code> identified by a given name in the
-     * <code>ApplicationServer</code> JMS servers container.
+     * <code>J2EEApplicationServer</code> JMS servers container.
      * 
      * @param name the <code>JMSServer</code> name.
      * @return the <code>JMSServer</code> found or null if not found.
@@ -391,51 +391,51 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     }
 
     /**
-     * Adds a new <code>NameSpaceBinding</code> in the
-     * <code>ApplicationServer</code> name space bindings container.
+     * Adds a new <code>JNDIBinding</code> in the
+     * <code>J2EEApplicationServer</code> name space bindings container.
      * 
-     * @param nameSpaceBinding the <code>NameSpaceBinding</code> to add.
-     * @throws ModelObjectAlreadyExistsException if the <code>NameSpaceBinding</code> name already exists in the application server.
+     * @param JNDIBinding the <code>JNDIBinding</code> to add.
+     * @throws ModelObjectAlreadyExistsException if the <code>JNDIBinding</code> name already exists in the application server.
      */
-    public void addNameSpaceBinding(NameSpaceBinding nameSpaceBinding) throws ModelObjectAlreadyExistsException {
-        if (this.getNameSpaceBinding(nameSpaceBinding.getName()) != null) {
+    public void addJNDIBinding(JNDIBinding JNDIBinding) throws ModelObjectAlreadyExistsException {
+        if (this.getJNDIBinding(JNDIBinding.getName()) != null) {
             throw new ModelObjectAlreadyExistsException("Name space binding name already exists in the JZEE server.");
         }
-        this.nameSpaceBindings.add(nameSpaceBinding);
+        this.jndiBindings.add(JNDIBinding);
     }
 
     /**
-     * Gets the <code>NameSpaceBinding</code> list in the
-     * <code>ApplicationServer</code> name space bindings container.
+     * Gets the <code>JNDIBinding</code> list in the
+     * <code>J2EEApplicationServer</code> name space bindings container.
      * 
-     * @return the <code>NameSpaceBinding</code> list.
+     * @return the <code>JNDIBinding</code> list.
      */
-    public List getNameSpaceBindings() {
-        return this.nameSpaceBindings;
+    public List getJNDIBindings() {
+        return this.jndiBindings;
     }
 
     /**
-     * Overwrites the <code>NameSpaceBinding</code> list in the
-     * <code>ApplicationServer</code> name space bindings container.
+     * Overwrites the <code>JNDIBinding</code> list in the
+     * <code>J2EEApplicationServer</code> name space bindings container.
      * 
-     * @param nameSpaceBindings the new <code>NameSpaceBinding</code> list.
+     * @param jndiBindings the new <code>JNDIBinding</code> list.
      */
-    public void setNameSpaceBindings(LinkedList nameSpaceBindings) {
-        this.nameSpaceBindings = nameSpaceBindings;
+    public void setJNDIBindings(LinkedList jndiBindings) {
+        this.jndiBindings = jndiBindings;
     }
 
     /**
-     * Gets the <code>NameSpaceBinding</code> identified by a given name in the
-     * <code>ApplicationServer</code> name space bindings container.
+     * Gets the <code>JNDIBinding</code> identified by a given name in the
+     * <code>J2EEApplicationServer</code> name space bindings container.
      * 
-     * @param name the <code>NameSpaceBinding</code> name.
-     * @return the <code>NameSpaceBinding</code> found or null if not found.
+     * @param name the <code>JNDIBinding</code> name.
+     * @return the <code>JNDIBinding</code> found or null if not found.
      */
-    public NameSpaceBinding getNameSpaceBinding(String name) {
-        for (Iterator nameSpaceBindingIterator = this.getNameSpaceBindings().iterator(); nameSpaceBindingIterator.hasNext();) {
-            NameSpaceBinding nameSpaceBinding = (NameSpaceBinding) nameSpaceBindingIterator.next();
-            if (nameSpaceBinding.getName().equals(name)) {
-                return nameSpaceBinding;
+    public JNDIBinding getJNDIBinding(String name) {
+        for (Iterator jndiBindingIterator = this.getJNDIBindings().iterator(); jndiBindingIterator.hasNext();) {
+            JNDIBinding JNDIBinding = (JNDIBinding) jndiBindingIterator.next();
+            if (JNDIBinding.getName().equals(name)) {
+                return JNDIBinding;
             }
         }
         return null;
@@ -443,7 +443,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Adds a new <code>SharedLibrary</code> in the
-     * <code>ApplicationServer</code> shared libraries container.
+     * <code>J2EEApplicationServer</code> shared libraries container.
      * 
      * @param sharedLibrary the <code>SharedLibrary</code> to add.
      * @throws ModelObjectAlreadyExistsException if the <code>SharedLibrary</code> name already exists in the application server.
@@ -457,7 +457,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Gets the <code>SharedLibrary</code> list in the
-     * <code>ApplicationServer</code> shared libraries container.
+     * <code>J2EEApplicationServer</code> shared libraries container.
      * 
      * @return the <code>SharedLibrary</code> list.
      */
@@ -467,7 +467,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Overwrites the <code>SharedLibrary</code> list in the
-     * <code>ApplicationServer</code> shared libraries container.
+     * <code>J2EEApplicationServer</code> shared libraries container.
      * 
      * @param sharedLibraries the new <code>SharedLibrary</code> list.
      */
@@ -477,7 +477,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Gets the <code>SharedLibrary</code> identified by a given name in the
-     * <code>ApplicationServer</code> shared libraries container.
+     * <code>J2EEApplicationServer</code> shared libraries container.
      * 
      * @param name the <code>SharedLibrary</code> name.
      * @return the <code>SharedLibrary</code> found or null if not found.
@@ -493,58 +493,58 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     }
 
     /**
-     * Adds a new <code>Application</code> in the <code>ApplicationServer</code>
-     * applications container.
+     * Adds a new <code>J2EEApplication</code> in the <code>J2EEApplicationServer</code>
+     * j2eeApplications container.
      * 
-     * @param application the <code>Application</code> to add.
-     * @throws ModelObjectAlreadyExistsException if the <code>Application</code> name already exists in the application server.
+     * @param j2eeApplication the <code>J2EEApplication</code> to add.
+     * @throws ModelObjectAlreadyExistsException if the <code>J2EEApplication</code> name already exists in the j2EEApplication server.
      */
-    public void addApplication(Application application) throws ModelObjectAlreadyExistsException {
-        if (this.getApplication(application.getName()) != null) {
-            throw new ModelObjectAlreadyExistsException("JZEE application name already exists in the JZEE server.");
+    public void addJ2EEApplication(J2EEApplication j2eeApplication) throws ModelObjectAlreadyExistsException {
+        if (this.getJ2EEApplication(j2eeApplication.getName()) != null) {
+            throw new ModelObjectAlreadyExistsException("J2EE application name already exists in the J2EE application server.");
         }
-        this.applications.add(application);
+        this.j2eeApplications.add(j2eeApplication);
     }
 
     /**
-     * Gets the <code>Application</code> list in the
-     * <code>ApplicationServer</code> applications container.
+     * Gets the <code>J2EEApplication</code> list in the
+     * <code>J2EEApplicationServer</code> j2eeApplications container.
      * 
-     * @return the <code>Application</code> list.
+     * @return the <code>J2EEApplication</code> list.
      */
-    public List getApplications() {
-        return this.applications;
+    public List getJ2EEApplications() {
+        return this.j2eeApplications;
     }
 
     /**
-     * Overwrites the <code>Application</code> list in the
-     * <code>ApplicationServer</code> applications container.
+     * Overwrites the <code>J2EEApplication</code> list in the
+     * <code>J2EEApplicationServer</code> j2eeApplications container.
      * 
-     * @param applications the new <code>Application</code> list.
+     * @param j2eeApplications the new <code>J2EEApplication</code> list.
      */
-    public void setApplications(LinkedList applications) {
-        this.applications = applications;
+    public void setJ2EEApplications(LinkedList j2eeApplications) {
+        this.j2eeApplications = j2eeApplications;
     }
 
     /**
-     * Gets the <code>Application</code> identified by a given name in the
-     * <code>ApplicationServer</code> applications container.
+     * Gets the <code>J2EEApplication</code> identified by a given name in the
+     * <code>J2EEApplicationServer</code> j2eeApplications container.
      * 
-     * @param name the <code>Application</code> name.
-     * @return the <code>Application</code> found or null if not found.
+     * @param name the <code>J2EEApplication</code> name.
+     * @return the <code>J2EEApplication</code> found or null if not found.
      */
-    public Application getApplication(String name) {
-        for (Iterator applicationIterator = this.getApplications().iterator(); applicationIterator.hasNext();) {
-            Application application = (Application) applicationIterator.next();
-            if (application.getName().equals(name)) {
-                return application;
+    public J2EEApplication getJ2EEApplication(String name) {
+        for (Iterator applicationIterator = this.getJ2EEApplications().iterator(); applicationIterator.hasNext();) {
+            J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
+            if (j2EEApplication.getName().equals(name)) {
+                return j2EEApplication;
             }
         }
         return null;
     }
 
     /**
-     * Adds a new <code>Cache</code> in the <code>ApplicationServer</code> caches
+     * Adds a new <code>Cache</code> in the <code>J2EEApplicationServer</code> caches
      * container.
      * 
      * @param cache the <code>Cache</code> to add.
@@ -552,13 +552,13 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
      */
     public void addCache(Cache cache) throws ModelObjectAlreadyExistsException {
         if (this.getCache(cache.getPath()) != null) {
-            throw new ModelObjectAlreadyExistsException("Cache path already exists in the J2EE server.");
+            throw new ModelObjectAlreadyExistsException("Cache path already exists in the J2EE application server.");
         }
         this.caches.add(cache);
     }
 
     /**
-     * Gets the <code>Cache</code> list in the <code>ApplicationServer</code>
+     * Gets the <code>Cache</code> list in the <code>J2EEApplicationServer</code>
      * caches container.
      * 
      * @return the <code>Cache</code> list.
@@ -569,7 +569,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Overwrites the <code>Cache</code> list in the
-     * <code>ApplicationServer</code> caches container.
+     * <code>J2EEApplicationServer</code> caches container.
      * 
      * @param caches the new <code>Cache</code> list.
      */
@@ -579,7 +579,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
 
     /**
      * Gets the <code>Cache</code> identified by a given path in the
-     * <code>ApplicationServer</code> caches container.
+     * <code>J2EEApplicationServer</code> caches container.
      * 
      * @param path the <code>Cache</code> path.
      * @return the <code>Cache</code> found or null if not found.
@@ -598,7 +598,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
      * @see java.lang.Object#clone()
      */
     public Object clone() throws CloneNotSupportedException {
-        ApplicationServer clone = new ApplicationServer();
+        J2EEApplicationServer clone = new J2EEApplicationServer();
         clone.setName(this.getName());
         clone.setActive(this.isActive());
         clone.setBlocker(this.isBlocker());
@@ -613,13 +613,13 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
         clone.setStartupcommand(this.getStartupcommand());
         clone.setShutdowncommand(this.getShutdowncommand());
         clone.setAgent(this.getAgent());
-        for (Iterator connectionPoolIterator = this.connectionPools.iterator(); connectionPoolIterator.hasNext();) {
-            ConnectionPool connectionPool = (ConnectionPool) connectionPoolIterator.next();
-            clone.connectionPools.add((ConnectionPool) connectionPool.clone());
+        for (Iterator jdbcConnectionPoolIterator = this.jdbcConnectionPools.iterator(); jdbcConnectionPoolIterator.hasNext();) {
+            JDBCConnectionPool JDBCConnectionPool = (JDBCConnectionPool) jdbcConnectionPoolIterator.next();
+            clone.jdbcConnectionPools.add((JDBCConnectionPool) JDBCConnectionPool.clone());
         }
-        for (Iterator dataSourceIterator = this.dataSources.iterator(); dataSourceIterator.hasNext();) {
-            DataSource dataSource = (DataSource) dataSourceIterator.next();
-            clone.dataSources.add((DataSource) dataSource.clone());
+        for (Iterator jdbcDataSourceIterator = this.jdbcDataSources.iterator(); jdbcDataSourceIterator.hasNext();) {
+            JDBCDataSource JDBCDataSource = (JDBCDataSource) jdbcDataSourceIterator.next();
+            clone.jdbcDataSources.add((JDBCDataSource) JDBCDataSource.clone());
         }
         for (Iterator jmsConnectionFactoryIterator = this.jmsConnectionFactories.iterator(); jmsConnectionFactoryIterator
                 .hasNext();) {
@@ -630,17 +630,17 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
             JMSServer jmsServer = (JMSServer) jmsServerIterator.next();
             clone.jmsServers.add((JMSServer) jmsServer.clone());
         }
-        for (Iterator nameSpaceBindingIterator = this.nameSpaceBindings.iterator(); nameSpaceBindingIterator.hasNext();) {
-            NameSpaceBinding nameSpaceBinding = (NameSpaceBinding) nameSpaceBindingIterator.next();
-            clone.nameSpaceBindings.add((NameSpaceBinding) nameSpaceBinding.clone());
+        for (Iterator jndiBindingIterator = this.jndiBindings.iterator(); jndiBindingIterator.hasNext();) {
+            JNDIBinding JNDIBinding = (JNDIBinding) jndiBindingIterator.next();
+            clone.jndiBindings.add((JNDIBinding) JNDIBinding.clone());
         }
         for (Iterator sharedLibraryIterator = this.sharedLibraries.iterator(); sharedLibraryIterator.hasNext();) {
             SharedLibrary sharedLibrary = (SharedLibrary) sharedLibraryIterator.next();
             clone.sharedLibraries.add((SharedLibrary) sharedLibrary.clone());
         }
-        for (Iterator applicationIterator = this.applications.iterator(); applicationIterator.hasNext();) {
-            Application application = (Application) applicationIterator.next();
-            clone.applications.add((Application) application.clone());
+        for (Iterator applicationIterator = this.j2eeApplications.iterator(); applicationIterator.hasNext();) {
+            J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
+            clone.j2eeApplications.add((J2EEApplication) j2EEApplication.clone());
         }
         for (Iterator cacheIterator = this.caches.iterator(); cacheIterator.hasNext();) {
             Cache cache = (Cache) cacheIterator.next();
@@ -650,13 +650,13 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
     }
 
     /**
-     * Transforms the <code>ApplicationServer</code> POJO to a DOM element.
+     * Transforms the <code>J2EEApplicationServer</code> POJO to a DOM element.
      * 
      * @param document the core XML document.
      * @return the DOM element.
      */
     protected Element toDOMElement(CoreDocumentImpl document) {
-        ElementImpl element = new ElementImpl(document, "applicationserver");
+        ElementImpl element = new ElementImpl(document, "j2eeapplicationserver");
         element.setAttribute("name", this.getName());
         element.setAttribute("active", new Boolean(this.isActive()).toString());
         element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
@@ -680,19 +680,19 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
         shutdowncommand.appendChild(shutdowncommandContent);
         element.appendChild(shutdowncommand);
         // connectionpools
-        ElementImpl connectionpools = new ElementImpl(document, "connectionpools");
-        for (Iterator connectionPoolIterator = this.getConnectionPools().iterator(); connectionPoolIterator.hasNext();) {
-            ConnectionPool connectionPool = (ConnectionPool) connectionPoolIterator.next();
-            connectionpools.appendChild(connectionPool.toDOMElement(document));
+        ElementImpl jdbcconnectionpools = new ElementImpl(document, "jdbcconnectionpools");
+        for (Iterator jdbcConnectionPoolIterator = this.getJDBCConnectionPools().iterator(); jdbcConnectionPoolIterator.hasNext();) {
+            JDBCConnectionPool JDBCConnectionPool = (JDBCConnectionPool) jdbcConnectionPoolIterator.next();
+            jdbcconnectionpools.appendChild(JDBCConnectionPool.toDOMElement(document));
         }
-        element.appendChild(connectionpools);
-        // datasources
-        ElementImpl datasources = new ElementImpl(document, "datasources");
-        for (Iterator dataSourceIterator = this.getDataSources().iterator(); dataSourceIterator.hasNext();) {
-            DataSource dataSource = (DataSource) dataSourceIterator.next();
-            datasources.appendChild(dataSource.toDOMElement(document));
+        element.appendChild(jdbcconnectionpools);
+        // jdbcdatasources
+        ElementImpl jdbcdatasources = new ElementImpl(document, "jdbcdatasources");
+        for (Iterator dataSourceIterator = this.getJDBCDataSources().iterator(); dataSourceIterator.hasNext();) {
+            JDBCDataSource JDBCDataSource = (JDBCDataSource) dataSourceIterator.next();
+            jdbcdatasources.appendChild(JDBCDataSource.toDOMElement(document));
         }
-        element.appendChild(datasources);
+        element.appendChild(jdbcdatasources);
         // jmsconnectionfactories
         ElementImpl jmsconnectionfactories = new ElementImpl(document, "jmsconnectionfactories");
         for (Iterator jmsConnectionFactoryIterator = this.getJMSConnectionFactories().iterator(); jmsConnectionFactoryIterator
@@ -708,14 +708,13 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
             jmsservers.appendChild(jmsServer.toDOMElement(document));
         }
         element.appendChild(jmsservers);
-        // namespacebindings
-        ElementImpl namespacebindings = new ElementImpl(document, "namespacebindings");
-        for (Iterator nameSpaceBindingIterator = this.getNameSpaceBindings().iterator(); nameSpaceBindingIterator
-                .hasNext();) {
-            NameSpaceBinding nameSpaceBinding = (NameSpaceBinding) nameSpaceBindingIterator.next();
-            namespacebindings.appendChild(nameSpaceBinding.toDOMElement(document));
+        // jndibindings
+        ElementImpl jndiBindings = new ElementImpl(document, "jndibindings");
+        for (Iterator jndiBindingIterator = this.getJNDIBindings().iterator(); jndiBindingIterator.hasNext();) {
+            JNDIBinding JNDIBinding = (JNDIBinding) jndiBindingIterator.next();
+            jndiBindings.appendChild(JNDIBinding.toDOMElement(document));
         }
-        element.appendChild(namespacebindings);
+        element.appendChild(jndiBindings);
         // sharedlibraries
         ElementImpl sharedlibraries = new ElementImpl(document, "sharedlibrairies");
         for (Iterator sharedLibraryIterator = this.getSharedLibraries().iterator(); sharedLibraryIterator.hasNext();) {
@@ -723,11 +722,11 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
             sharedlibraries.appendChild(sharedLibrary.toDOMElement(document));
         }
         element.appendChild(sharedlibraries);
-        // applications
-        ElementImpl applications = new ElementImpl(document, "applications");
-        for (Iterator applicationIterator = this.getApplications().iterator(); applicationIterator.hasNext();) {
-            Application application = (Application) applicationIterator.next();
-            applications.appendChild(application.toDOMElement(document));
+        // j2eeApplications
+        ElementImpl applications = new ElementImpl(document, "j2eeApplications");
+        for (Iterator applicationIterator = this.getJ2EEApplications().iterator(); applicationIterator.hasNext();) {
+            J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
+            applications.appendChild(j2EEApplication.toDOMElement(document));
         }
         element.appendChild(applications);
         // caches
@@ -744,7 +743,7 @@ public class ApplicationServer implements Serializable, Cloneable, Comparable {
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object anotherApplicationServer) {
-        return this.getName().compareTo(((ApplicationServer)anotherApplicationServer).getName());
+        return this.getName().compareTo(((J2EEApplicationServer)anotherApplicationServer).getName());
     }
 
 }

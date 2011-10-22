@@ -399,151 +399,151 @@ public class Kalumet implements Serializable, Cloneable {
          digester.addCallMethod("kalumet/environments/environment/notes", "setNotes", 0);
          digester.addCallMethod("kalumet/environments/environment/weblinks", "setWeblinks", 0);
 
-         // applicationservers tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers", "org.apache.kalumet.model.ApplicationServers");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers");
+         // j2eeapplicationservers tag rules
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers", "org.apache.kalumet.model.J2EEApplicationServers");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers");
 
-         // applicationserver tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver", "org.apache.kalumet.model.ApplicationServer");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver");
+         // j2eeapplicationserver tag rules
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver", "org.apache.kalumet.model.J2EEApplicationServer");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver");
 
-         // applicationserver startupcommand and shutdowncommand tag rules
-         digester.addCallMethod("kalumet/environments/environment/applicationservers/applicationserver/startupcommand", "setStartupcommand", 0);
-         digester.addCallMethod("kalumet/environments/environment/applicationservers/applicationserver/shutdowncommand", "setShutdowncommand", 0);
+         // j2eeapplicationserver startupcommand and shutdowncommand tag rules
+         digester.addCallMethod("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/startupcommand", "setStartupcommand", 0);
+         digester.addCallMethod("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/shutdowncommand", "setShutdowncommand", 0);
 
-         // connectionpool tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/connectionpools/connectionpool", "org.apache.kalumet.model.ConnectionPool");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/connectionpools/connectionpool");
+         // jdbcconnectionpool tag rules
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcconnectionpools/jdbcconnectionpool", "org.apache.kalumet.model.JDBCConnectionPool");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcconnectionpools/jdbcconnectionpool");
 
-         // add connectionpool to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/connectionpools/connectionpool", "addConnectionPool", "org.apache.kalumet.model.ConnectionPool");
+         // add jdbcconnectionpool to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcconnectionpools/jdbcconnectionpool", "addJDBCConnectionPool", "org.apache.kalumet.model.JDBCConnectionPool");
 
-         // datasource tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/datasources/datasource", "org.apache.kalumet.model.DataSource");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/datasources/datasource");
+         // jdbcdatasource tag rules
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcdatasources/jdbcdatasource", "org.apache.kalumet.model.JDBCDataSource");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcdatasources/jdbcdatasource");
 
-         // add datasource to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/datasources/datasource", "addDataSource", "org.apache.kalumet.model.DataSource");
+         // add jdbcdatasource to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jdbcdatasources/jdbcdatasource", "addJDBCDataSource", "org.apache.kalumet.model.JDBCDataSource");
 
          // jmsconnectionfactory tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/jmsconnectionfactories/jmsconnectionfactory", "org.apache.kalumet.model.JMSConnectionFactory");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/jmsconnectionfactories/jmsconnectionfactory");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsconnectionfactories/jmsconnectionfactory", "org.apache.kalumet.model.JMSConnectionFactory");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsconnectionfactories/jmsconnectionfactory");
 
-         // add jmsconnectionfactory to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/jmsconnectionfactories/jmsconnectionfactory", "addJMSConnectionFactory", "org.apache.kalumet.model.JMSConnectionFactory");
+         // add jmsconnectionfactory to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsconnectionfactories/jmsconnectionfactory", "addJMSConnectionFactory", "org.apache.kalumet.model.JMSConnectionFactory");
 
          // jmsserver tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver", "org.apache.kalumet.model.JMSServer");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver", "org.apache.kalumet.model.JMSServer");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver");
 
          // jmsqueue tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue", "org.apache.kalumet.model.JMSQueue");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue", "org.apache.kalumet.model.JMSQueue");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue");
 
          // add jmsqueue to jmsserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue", "addJMSQueue", "org.apache.kalumet.model.JMSQueue");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmsqueues/jmsqueue", "addJMSQueue", "org.apache.kalumet.model.JMSQueue");
 
          // jmstopic tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmstopics/jmstopic", "org.apache.kalumet.model.JMSTopic");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmstopics/jmstopic");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmstopics/jmstopic", "org.apache.kalumet.model.JMSTopic");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmstopics/jmstopic");
 
          // add jmstopic to jmsserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver/jmstopics/jmstopic", "addJMSTopic", "org.apache.kalumet.model.JMSTopic");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver/jmstopics/jmstopic", "addJMSTopic", "org.apache.kalumet.model.JMSTopic");
 
-         // add jmsserver to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/jmsservers/jmsserver", "addJMSServer", "org.apache.kalumet.model.JMSServer");
+         // add jmsserver to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jmsservers/jmsserver", "addJMSServer", "org.apache.kalumet.model.JMSServer");
 
-         // namespacebinding tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/namespacebindings/namespacebinding", "org.apache.kalumet.model.NameSpaceBinding");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/namespacebindings/namespacebinding");
+         // jndibinding tag rules
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jndibindings/jndibinding", "org.apache.kalumet.model.JNDIBinding");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jndibindings/jndibinding");
 
-         // add namespacebinding to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/namespacebindings/namespacebinding", "addNameSpaceBinding", "org.apache.kalumet.model.NameSpaceBinding");
+         // add jndibinding to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/jndibindings/jndibinding", "addJNDIBinding", "org.apache.kalumet.model.JNDIBinding");
 
          // sharedlibrary tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/sharedlibrairies/sharedlibrary", "org.apache.kalumet.model.SharedLibrary");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/sharedlibrairies/sharedlibrary");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/sharedlibrairies/sharedlibrary", "org.apache.kalumet.model.SharedLibrary");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/sharedlibrairies/sharedlibrary");
 
-         // add sharedlibrary to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/sharedlibrairies/sharedlibrary", "addSharedLibrary", "org.apache.kalumet.model.SharedLibrary");
+         // add sharedlibrary to j2eeapplicationserver
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/sharedlibrairies/sharedlibrary", "addSharedLibrary", "org.apache.kalumet.model.SharedLibrary");
 
          // application tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application", "org.apache.kalumet.model.Application");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/application", "org.apache.kalumet.model.J2EEApplication");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/application");
 
          // archive tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/archives/archive", "org.apache.kalumet.model.Archive");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/archives/archive");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/archives/archive", "org.apache.kalumet.model.Archive");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/archives/archive");
 
          // add archive archive to application
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/archives/archive", "addArchive", "org.apache.kalumet.model.Archive");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/archives/archive", "addArchive", "org.apache.kalumet.model.Archive");
 
          // contentmanager tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager", "org.apache.kalumet.model.ContentManager");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager", "org.apache.kalumet.model.ContentManager");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager");
 
          // contentmanager property tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager/properties/property", "org.apache.kalumet.model.Property");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager/properties/property");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager/properties/property", "org.apache.kalumet.model.Property");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager/properties/property");
 
          // add property in contentmanager
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager/properties/property", "addProperty", "org.apache.kalumet.model.Property");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager/properties/property", "addProperty", "org.apache.kalumet.model.Property");
 
          // add contentmanager to application
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/contentmanagers/contentmanager", "addContentManager", "org.apache.kalumet.model.ContentManager");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/contentmanagers/contentmanager", "addContentManager", "org.apache.kalumet.model.ContentManager");
 
          // configurationfile tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile", "org.apache.kalumet.model.ConfigurationFile");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile", "org.apache.kalumet.model.ConfigurationFile");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile");
 
          // mapping tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile/mappings/mapping", "org.apache.kalumet.model.Mapping");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile/mappings/mapping");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile/mappings/mapping", "org.apache.kalumet.model.Mapping");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile/mappings/mapping");
 
          // add mapping to configurationfile
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile/mappings/mapping", "addMapping", "org.apache.kalumet.model.Mapping");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile/mappings/mapping", "addMapping", "org.apache.kalumet.model.Mapping");
 
          // add configurationfile to application
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/configurationfiles/configurationfile", "addConfigurationFile",
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/configurationfiles/configurationfile", "addConfigurationFile",
                "org.apache.kalumet.model.ConfigurationFile");
 
          // database tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database", "org.apache.kalumet.model.Database");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database", "org.apache.kalumet.model.Database");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database");
 
          // sqlscript tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript", "org.apache.kalumet.model.SqlScript");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript", "org.apache.kalumet.model.SqlScript");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript");
 
          // sqlscript mapping tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript/mappings/mapping", "org.apache.kalumet.model.Mapping");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript/mappings/mapping");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript/mappings/mapping", "org.apache.kalumet.model.Mapping");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript/mappings/mapping");
 
          // add mapping to sqlscript
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript/mappings/mapping", "addMapping",
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript/mappings/mapping", "addMapping",
                "org.apache.kalumet.model.Mapping");
 
          // add sqlscript to database
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database/sqlscripts/sqlscript", "addSqlScript", "org.apache.kalumet.model.SqlScript");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database/sqlscripts/sqlscript", "addSqlScript", "org.apache.kalumet.model.SqlScript");
 
          // add database to application
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application/databases/database", "addDatabase", "org.apache.kalumet.model.Database");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication/databases/database", "addDatabase", "org.apache.kalumet.model.Database");
 
          // add application to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/applications/application", "addApplication", "org.apache.kalumet.model.Application");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/application", "addApplication", "org.apache.kalumet.model.J2EEApplication");
 
          // cache tag rules
-         digester.addObjectCreate("kalumet/environments/environment/applicationservers/applicationserver/caches/cache", "org.apache.kalumet.model.Cache");
-         digester.addSetProperties("kalumet/environments/environment/applicationservers/applicationserver/caches/cache");
+         digester.addObjectCreate("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/caches/cache", "org.apache.kalumet.model.Cache");
+         digester.addSetProperties("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/caches/cache");
 
          // add cache to applicationserver
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver/caches/cache", "addCache", "org.apache.kalumet.model.Cache");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/caches/cache", "addCache", "org.apache.kalumet.model.Cache");
 
          // add applicationserver to applicationservers tag rule
-         digester.addSetNext("kalumet/environments/environment/applicationservers/applicationserver", "addApplicationServer", "org.apache.kalumet.model.ApplicationServer");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver", "addApplicationServer", "org.apache.kalumet.model.J2EEApplicationServer");
 
          // add applicationservers to environment tag rule
-         digester.addSetNext("kalumet/environments/environment/applicationservers", "setApplicationServers", "org.apache.kalumet.model.ApplicationServers");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers", "setJ2EEApplicationServers", "org.apache.kalumet.model.J2EEApplicationServers");
 
          // logfile tag rules
          digester.addObjectCreate("kalumet/environments/environment/logfiles/logfile", "org.apache.kalumet.model.LogFile");

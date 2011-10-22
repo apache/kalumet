@@ -25,10 +25,10 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represent the <code>connectionpool</code> tag in the Kalumet XML
+ * Represent the <code>jdbcconnectionpool</code> tag in the Kalumet XML
  * configuration file.
  */
-public class ConnectionPool implements Serializable, Cloneable, Comparable {
+public class JDBCConnectionPool implements Serializable, Cloneable, Comparable {
 
    private static final long serialVersionUID = 8052573645587249685L;
 
@@ -45,7 +45,7 @@ public class ConnectionPool implements Serializable, Cloneable, Comparable {
    private boolean active;
    private boolean blocker;
 
-   public ConnectionPool() { }
+   public JDBCConnectionPool() { }
 
    public String getName() {
       return this.name;
@@ -147,7 +147,7 @@ public class ConnectionPool implements Serializable, Cloneable, Comparable {
     * @see java.lang.Object#clone()
     */
    public Object clone() throws CloneNotSupportedException {
-      ConnectionPool clone = new ConnectionPool();
+      JDBCConnectionPool clone = new JDBCConnectionPool();
       clone.setName(this.getName());
       clone.setDriver(this.getDriver());
       clone.setHelperclass(this.getHelperclass());
@@ -164,13 +164,13 @@ public class ConnectionPool implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Transform the <code>ConnectionPool</code> POJO to a DOM element.
+    * Transform the <code>JDBCConnectionPool</code> POJO to a DOM element.
     * 
     * @param document the core XML document.
     * @return the DOM element.
     */
    protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "connectionpool");
+      ElementImpl element = new ElementImpl(document, "jdbcconnectionpool");
       element.setAttribute("name", this.getName());
       element.setAttribute("driver", this.getDriver());
       element.setAttribute("helperclass", this.getHelperclass());
@@ -190,7 +190,7 @@ public class ConnectionPool implements Serializable, Cloneable, Comparable {
     * @see java.lang.Comparable#compareTo(java.lang.Object)
     */
    public int compareTo(Object anotherConnectionPool) {
-       return this.getName().compareTo(((ConnectionPool)anotherConnectionPool).getName());
+       return this.getName().compareTo(((JDBCConnectionPool)anotherConnectionPool).getName());
    }
 
 }

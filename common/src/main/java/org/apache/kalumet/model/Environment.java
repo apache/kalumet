@@ -47,7 +47,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
    private LinkedList variables;
    private LinkedList freeFields;
    private LinkedList accesses;
-   private ApplicationServers applicationServers;
+   private J2EEApplicationServers j2EEApplicationServers;
    private LinkedList softwares;
    private LinkedList logFiles;
    private Notifiers notifiers;
@@ -58,7 +58,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
       this.variables = new LinkedList();
       this.freeFields = new LinkedList();
       this.accesses = new LinkedList();
-      this.applicationServers = new ApplicationServers();
+      this.j2EEApplicationServers = new J2EEApplicationServers();
       this.softwares = new LinkedList();
       this.logFiles = new LinkedList();
       this.notifiers = new Notifiers();
@@ -289,23 +289,23 @@ public class Environment implements Serializable, Cloneable, Comparable {
    }
 
    /**
-    * Set the <code>ApplicationServers</code> container in the
+    * Set the <code>J2EEApplicationServers</code> container in the
     * <code>Environment</code>.
     * 
-    * @param applicationServers the <code>ApplicationServers</code> to set.
+    * @param j2EEApplicationServers the <code>J2EEApplicationServers</code> to set.
     */
-   public void setApplicationServers(ApplicationServers applicationServers) {
-      this.applicationServers = applicationServers;
+   public void setJ2EEApplicationServers(J2EEApplicationServers j2EEApplicationServers) {
+      this.j2EEApplicationServers = j2EEApplicationServers;
    }
 
    /**
-    * Get the <code>ApplicationServers</code> container in the
+    * Get the <code>J2EEApplicationServers</code> container in the
     * <code>Environment</code>.
     * 
-    * @return the <code>ApplicationServers</code> container.
+    * @return the <code>J2EEApplicationServers</code> container.
     */
-   public ApplicationServers getApplicationServers() {
-      return this.applicationServers;
+   public J2EEApplicationServers getJ2EEApplicationServers() {
+      return this.j2EEApplicationServers;
    }
 
    /**
@@ -517,7 +517,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
           Access access = (Access)accessIterator.next();
           clone.accesses.add((Access)access.clone());
       }
-      clone.setApplicationServers((ApplicationServers) this.getApplicationServers().clone());
+      clone.setJ2EEApplicationServers((J2EEApplicationServers) this.getJ2EEApplicationServers().clone());
       for (Iterator softwareIterator = this.softwares.iterator(); softwareIterator.hasNext(); ) {
           Software software = (Software)softwareIterator.next();
           clone.softwares.add((Software)software.clone());
@@ -588,7 +588,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
       weblinks.appendChild(weblinksContent);
       element.appendChild(weblinks);
       // add J2EE servers
-      element.appendChild(this.getApplicationServers().toDOMElement(document));
+      element.appendChild(this.getJ2EEApplicationServers().toDOMElement(document));
       // softwares element
       ElementImpl softwares = new ElementImpl(document, "softwares");
       // add software to softwares

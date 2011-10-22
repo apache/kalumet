@@ -18,37 +18,33 @@
  */
 package org.apache.kalumet.ws.client;
 
-
 /**
- * J2EEApplication WS client.
+ * Environment WS client.
  */
-public class ApplicationClient extends AbstractClient {
+public class EnvironmentClient extends AbstractClient {
 
     /**
      * Default constructor.
      *
-     * @param host hostname or IP address of the Kalumet agent WS server.
-     * @param port port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
+     * @param host the hostname or IP address of the Kalumet agent WS server.
+     * @param port the port number of the Kalumet agent WS server.
+     * @throws AbstractClient in case of communication failure.
      */
-    public ApplicationClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationServer");
+    public EnvironmentClient(String host, int port) throws ClientException {
+        super("http://" + host + ":" + port + "/axis/services/EnvironmentService");
     }
 
     /**
-     * Wrapper method to update a J2EE application.
+     * Wrapper method to update an environment.
      *
      * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName
-     * @param delegation
-     * @throws ClientException
+     * @throws ClientException in case of update failure.
      */
-    public void update(String environmentName, String applicationServerName, String applicationName, boolean delegation) throws ClientException {
+    public void update(String environmentName) throws ClientException {
         try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, new Boolean(delegation) });
+            call.invoke("update", new Object[]{ environmentName });
         } catch (Exception e) {
-            throw new ClientException("J2EE application " + applicationName + " update failed", e);
+            throw new ClientException("Environment " + environmentName + " update failed", e);
         }
     }
 

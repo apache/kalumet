@@ -25,18 +25,20 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represent the <code>datasource</code> tag in the Kalumet configuration DOM.
+ * Represent the <code>jndibinding</code> tag in the Kalumet configuration DOM.
  */
-public class DataSource implements Serializable, Cloneable, Comparable {
+public class JNDIBinding implements Serializable, Cloneable, Comparable {
 
-   private static final long serialVersionUID = -6850328756411047364L;
+   private static final long serialVersionUID = -2336476111740231781L;
 
    private String name;
-   private String pool;
+   private String jndiname;
+   private String jndialias;
+   private String providerurl;
    private boolean active;
    private boolean blocker;
 
-   public DataSource() { }
+   public JNDIBinding() { }
 
    public String getName() {
       return this.name;
@@ -46,12 +48,28 @@ public class DataSource implements Serializable, Cloneable, Comparable {
       this.name = name;
    }
 
-   public String getPool() {
-      return this.pool;
+   public String getJndiname() {
+      return this.jndiname;
    }
 
-   public void setPool(String pool) {
-      this.pool = pool;
+   public void setJndiname(String jndiname) {
+      this.jndiname = jndiname;
+   }
+
+   public String getJndialias() {
+      return this.jndialias;
+   }
+
+   public void setJndialias(String jndialias) {
+      this.jndialias = jndialias;
+   }
+
+   public String getProviderurl() {
+      return this.providerurl;
+   }
+
+   public void setProviderurl(String providerurl) {
+      this.providerurl = providerurl;
    }
 
    public boolean isActive() {
@@ -74,24 +92,28 @@ public class DataSource implements Serializable, Cloneable, Comparable {
     * @see java.lang.Object#clone()
     */
    public Object clone() throws CloneNotSupportedException {
-      DataSource clone = new DataSource();
+      JNDIBinding clone = new JNDIBinding();
       clone.setName(this.getName());
-      clone.setPool(this.getPool());
+      clone.setJndiname(this.getJndiname());
+      clone.setJndialias(this.getJndialias());
+      clone.setProviderurl(this.getProviderurl());
       clone.setActive(this.isActive());
       clone.setBlocker(this.isBlocker());
       return clone;
    }
 
    /**
-    * Transforms the <code>DataSource</code> POJO to a DOM element.
+    * Transform the <code>JNDIBinding</code> POJO to a DOM element.
     * 
     * @param document the DOM document.
     * @return the DOM element.
     */
    protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "datasource");
+      ElementImpl element = new ElementImpl(document, "jndibinding");
       element.setAttribute("name", this.getName());
-      element.setAttribute("pool", this.getPool());
+      element.setAttribute("jndiname", this.getJndiname());
+      element.setAttribute("jndialias", this.getJndialias());
+      element.setAttribute("providerurl", this.getProviderurl());
       element.setAttribute("active", new Boolean(this.isActive()).toString());
       element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
       return element;
@@ -100,8 +122,8 @@ public class DataSource implements Serializable, Cloneable, Comparable {
    /**
     * @see java.lang.Comparable#compareTo(java.lang.Object)
     */
-   public int compareTo(Object anotherDataSource) {
-       return this.getName().compareTo(((DataSource)anotherDataSource).getName());
+   public int compareTo(Object anotherNameSpaceBinding) {
+       return this.getName().compareTo(((JNDIBinding)anotherNameSpaceBinding).getName());
    }
 
 }

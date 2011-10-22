@@ -28,16 +28,16 @@ import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
 /**
- * Represents the <code>applicationservers</code> tag in the Kalumet DOM.
+ * Represents the <code>j2eeapplicationservers</code> tag in the Kalumet DOM.
  */
-public class ApplicationServers implements Serializable, Cloneable {
+public class J2EEApplicationServers implements Serializable, Cloneable {
 
    private static final long serialVersionUID = -4940898204749451109L;
 
    private boolean cluster;
    private LinkedList applicationServers;
 
-   public ApplicationServers() {
+   public J2EEApplicationServers() {
       this.applicationServers = new LinkedList();
    }
 
@@ -50,50 +50,50 @@ public class ApplicationServers implements Serializable, Cloneable {
    }
 
    /**
-    * Adds a new <code>ApplicationServer</code> in the
-    * <code>ApplicationServers</code> container.
+    * Adds a new <code>J2EEApplicationServer</code> in the
+    * <code>J2EEApplicationServers</code> container.
     * 
-    * @param applicationServer the <code>ApplicationServer</code> to add.
+    * @param j2EEApplicationServer the <code>J2EEApplicationServer</code> to add.
     */
-   public void addApplicationServer(ApplicationServer applicationServer) throws ModelObjectAlreadyExistsException {
-      if (this.getApplicationServer(applicationServer.getName()) != null) {
-         throw new ModelObjectAlreadyExistsException("J2EE server name already exists in the environment.");
+   public void addApplicationServer(J2EEApplicationServer j2EEApplicationServer) throws ModelObjectAlreadyExistsException {
+      if (this.getApplicationServer(j2EEApplicationServer.getName()) != null) {
+         throw new ModelObjectAlreadyExistsException("J2EE application server name already exists in the environment.");
       }
-      this.applicationServers.add(applicationServer);
+      this.applicationServers.add(j2EEApplicationServer);
    }
 
    /**
-    * Gets the <code>ApplicationServer</code> list in the
-    * <code>ApplicationServers</code> container.
+    * Gets the <code>J2EEApplicationServer</code> list in the
+    * <code>J2EEApplicationServers</code> container.
     * 
-    * @return the <code>ApplicationServer</code> list.
+    * @return the <code>J2EEApplicationServer</code> list.
     */
    public List getApplicationServers() {
       return this.applicationServers;
    }
 
    /**
-    * Overwrites the <code>ApplicationServer</code> list in the
-    * <code>ApplicationServers</code> container.
+    * Overwrites the <code>J2EEApplicationServer</code> list in the
+    * <code>J2EEApplicationServers</code> container.
     * 
-    * @param applicationServers the new <code>ApplicationServer</code> list.
+    * @param applicationServers the new <code>J2EEApplicationServer</code> list.
     */
    public void setApplicationServers(LinkedList applicationServers) {
       this.applicationServers = applicationServers;
    }
 
    /**
-    * Gets the <code>ApplicationServer</code> identified by a given name in the
-    * <code>ApplicationServers</code> container.
+    * Gets the <code>J2EEApplicationServer</code> identified by a given name in the
+    * <code>J2EEApplicationServers</code> container.
     * 
-    * @param name the <code>ApplicationServer</code> name.
-    * @return the <code>ApplicationServer</code> found or null if no found.
+    * @param name the <code>J2EEApplicationServer</code> name.
+    * @return the <code>J2EEApplicationServer</code> found or null if no found.
     */
-   public ApplicationServer getApplicationServer(String name) {
+   public J2EEApplicationServer getApplicationServer(String name) {
       for (Iterator applicationServerIterator = this.getApplicationServers().iterator(); applicationServerIterator.hasNext();) {
-         ApplicationServer applicationServer = (ApplicationServer) applicationServerIterator.next();
-         if (applicationServer.getName().equals(name)) {
-            return applicationServer;
+         J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+         if (j2EEApplicationServer.getName().equals(name)) {
+            return j2EEApplicationServer;
          }
       }
       return null;
@@ -103,28 +103,28 @@ public class ApplicationServers implements Serializable, Cloneable {
     * @see java.lang.Object#clone()
     */
    public Object clone() throws CloneNotSupportedException {
-      ApplicationServers clone = new ApplicationServers();
+      J2EEApplicationServers clone = new J2EEApplicationServers();
       clone.setCluster(this.isCluster());
       for (Iterator applicationServerIterator = this.applicationServers.iterator(); applicationServerIterator.hasNext(); ) {
-          ApplicationServer applicationServer = (ApplicationServer) applicationServerIterator.next();
-          clone.applicationServers.add((ApplicationServer)applicationServer.clone());
+          J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+          clone.applicationServers.add((J2EEApplicationServer) j2EEApplicationServer.clone());
       }
       return clone;
    }
 
    /**
-    * Transforms the <code>ApplicationServers</code> POJO to a DOM element.
+    * Transforms the <code>J2EEApplicationServers</code> POJO to a DOM element.
     * 
     * @param document the DOM document.
     * @return the DOM element.
     */
    protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "applicationservers");
+      ElementImpl element = new ElementImpl(document, "j2eeapplicationservers");
       element.setAttribute("cluster", new Boolean(this.isCluster()).toString());
       // add applicationserver child nodes
       for (Iterator applicationServerIterator = this.getApplicationServers().iterator(); applicationServerIterator.hasNext();) {
-         ApplicationServer applicationServer = (ApplicationServer) applicationServerIterator.next();
-         element.appendChild(applicationServer.toDOMElement(document));
+         J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+         element.appendChild(j2EEApplicationServer.toDOMElement(document));
       }
       return element;
    }
