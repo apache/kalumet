@@ -159,7 +159,7 @@ public class FileManipulator {
      * @param vfsPath the VFS path
      * @return true if the VFS path exists, false else
      */
-    public boolean pathAvailable(String vfsPath) {
+    public boolean exists(String vfsPath) {
         FileObject fileObject = null;
         try {
             fileObject = this.resolveFile(vfsPath);

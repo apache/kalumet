@@ -540,7 +540,7 @@ public class Kalumet implements Serializable, Cloneable {
          digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/caches/cache", "addCache", "org.apache.kalumet.model.Cache");
 
          // add applicationserver to applicationservers tag rule
-         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver", "addApplicationServer", "org.apache.kalumet.model.J2EEApplicationServer");
+         digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver", "addJ2EEApplicationServer", "org.apache.kalumet.model.J2EEApplicationServer");
 
          // add applicationservers to environment tag rule
          digester.addSetNext("kalumet/environments/environment/j2eeapplicationservers", "setJ2EEApplicationServers", "org.apache.kalumet.model.J2EEApplicationServers");

@@ -90,7 +90,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
        this.tag = flag;
    }
 
-   public boolean getAutoupdate() {
+   public boolean isAutoupdate() {
       return this.autoupdate;
    }
 
@@ -499,7 +499,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
       clone.setName(this.getName());
       clone.setGroup(this.getGroup());
       clone.setTag(this.getTag());
-      clone.setAutoupdate(this.getAutoupdate());
+      clone.setAutoupdate(this.isAutoupdate());
       clone.setAgent(this.getAgent());
       clone.setLock(this.getLock());
       clone.setReleaseLocation(this.getReleaseLocation());
@@ -546,7 +546,7 @@ public class Environment implements Serializable, Cloneable, Comparable {
       element.setAttribute("name", this.getName());
       element.setAttribute("group", this.getGroup());
       element.setAttribute("tag", this.getTag());
-      element.setAttribute("autoupdate", new Boolean(this.getAutoupdate()).toString());
+      element.setAttribute("autoupdate", new Boolean(this.isAutoupdate()).toString());
       element.setAttribute("agent", this.getAgent());
       element.setAttribute("lock", this.getLock());
       element.setAttribute("releaseLocation", this.getReleaseLocation());

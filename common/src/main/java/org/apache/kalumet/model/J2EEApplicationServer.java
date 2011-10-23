@@ -130,7 +130,7 @@ public class J2EEApplicationServer implements Serializable, Cloneable, Comparabl
         this.adminpassword = adminpassword;
     }
 
-    public boolean getUpdateRequireRestart() {
+    public boolean isUpdateRequireRestart() {
         return this.updateRequireRestart;
     }
 
@@ -606,7 +606,7 @@ public class J2EEApplicationServer implements Serializable, Cloneable, Comparabl
         clone.setJmxurl(this.getJmxurl());
         clone.setAdminuser(this.getAdminuser());
         clone.setAdminpassword(this.getAdminpassword());
-        clone.setUpdateRequireRestart(this.getUpdateRequireRestart());
+        clone.setUpdateRequireRestart(this.isUpdateRequireRestart());
         clone.setUpdateRequireCacheCleaning(this.isUpdateRequireCacheCleaning());
         clone.setUsejmxstop(this.isUsejmxstop());
         clone.setDeletecomponents(this.isDeletecomponents());
@@ -664,7 +664,7 @@ public class J2EEApplicationServer implements Serializable, Cloneable, Comparabl
         element.setAttribute("jmxurl", this.getJmxurl());
         element.setAttribute("adminuser", this.getAdminuser());
         element.setAttribute("adminpassword", this.getAdminpassword());
-        element.setAttribute("updateRequireRestart", new Boolean(this.getUpdateRequireRestart()).toString());
+        element.setAttribute("updateRequireRestart", new Boolean(this.isUpdateRequireRestart()).toString());
         element.setAttribute("updateRequireCacheCleaning", new Boolean(this.isUpdateRequireCacheCleaning()).toString());
         element.setAttribute("usejmxstop", new Boolean(this.isUsejmxstop()).toString());
         element.setAttribute("deletecomponents", new Boolean(this.isDeletecomponents()).toString());

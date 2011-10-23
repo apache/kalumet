@@ -35,8 +35,8 @@ public class Agent implements Serializable, Cloneable, Comparable {
    private String hostname;
    private int port;
    private String cron;
-   private int maxenvironments;
-   private int maxapplicationserverssactive;
+   private int maxmanagedenvironments;
+   private int maxj2eeapplicationserversstarted;
 
    public Agent() { }
 
@@ -72,20 +72,20 @@ public class Agent implements Serializable, Cloneable, Comparable {
        this.cron = cron;
    }
 
-   public int getMaxenvironments() {
-      return this.maxenvironments;
+   public int getMaxmanagedenvironments() {
+      return this.maxmanagedenvironments;
    }
 
-   public void setMaxenvironments(int maxenvironments) {
-      this.maxenvironments = maxenvironments;
+   public void setMaxmanagedenvironments(int maxmanagedenvironments) {
+      this.maxmanagedenvironments = maxmanagedenvironments;
    }
 
-   public int getMaxapplicationserversactive() {
-      return this.maxapplicationserverssactive;
+   public int getMaxj2eeapplicationserversstarted() {
+      return this.maxj2eeapplicationserversstarted;
    }
 
-   public void setMaxapplicationserversactive(int maxenvironmentsactive) {
-      this.maxapplicationserverssactive = maxenvironmentsactive;
+   public void setMaxj2eeapplicationserversstarted(int maxenvironmentsactive) {
+      this.maxj2eeapplicationserversstarted = maxenvironmentsactive;
    }
 
    /**
@@ -97,8 +97,8 @@ public class Agent implements Serializable, Cloneable, Comparable {
       clone.setHostname(this.getHostname());
       clone.setPort(this.getPort());
       clone.setCron(this.getCron());
-      clone.setMaxenvironments(this.getMaxenvironments());
-      clone.setMaxapplicationserversactive(this.getMaxapplicationserversactive());
+      clone.setMaxmanagedenvironments(this.getMaxmanagedenvironments());
+      clone.setMaxj2eeapplicationserversstarted(this.getMaxj2eeapplicationserversstarted());
       return clone;
    }
 
@@ -114,8 +114,8 @@ public class Agent implements Serializable, Cloneable, Comparable {
       element.setAttribute("hostname", this.getHostname());
       element.setAttribute("port", new Integer(this.getPort()).toString());
       element.setAttribute("cron", this.getCron());
-      element.setAttribute("maxenvironments", new Integer(this.getMaxenvironments()).toString());
-      element.setAttribute("maxenvironmentsactive", new Integer(this.getMaxapplicationserversactive()).toString());
+      element.setAttribute("maxmanagedenvironments", new Integer(this.getMaxmanagedenvironments()).toString());
+      element.setAttribute("maxj2eeapplicationserversstarted", new Integer(this.getMaxj2eeapplicationserversstarted()).toString());
       return element;
    }
    

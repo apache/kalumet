@@ -38,7 +38,7 @@ public class Software implements Serializable, Cloneable, Comparable {
     private String agent;
     private boolean active;
     private boolean blocker;
-    private boolean beforejee;
+    private boolean beforej2ee;
     private LinkedList updatePlan;
 
     public Software() {
@@ -85,12 +85,12 @@ public class Software implements Serializable, Cloneable, Comparable {
         this.blocker = blocker;
     }
 
-    public boolean isBeforejee() {
-        return beforejee;
+    public boolean isBeforej2ee() {
+        return beforej2ee;
     }
 
-    public void setBeforejee(boolean beforejee) {
-        this.beforejee = beforejee;
+    public void setBeforej2ee(boolean beforej2ee) {
+        this.beforej2ee = beforej2ee;
     }
 
     public LinkedList getUpdatePlan() {
@@ -260,7 +260,7 @@ public class Software implements Serializable, Cloneable, Comparable {
         clone.setUri(this.getUri());
         clone.setActive(this.isActive());
         clone.setBlocker(this.isBlocker());
-        clone.setBeforejee(this.isBeforejee());
+        clone.setBeforej2ee(this.isBeforej2ee());
         for (Iterator updatePlanIterator = this.getUpdatePlan().iterator(); updatePlanIterator.hasNext(); ) {
             Object item = updatePlanIterator.next();
             if (item instanceof Command) {
@@ -292,7 +292,7 @@ public class Software implements Serializable, Cloneable, Comparable {
         element.setAttribute("agent", this.getAgent());
         element.setAttribute("active", new Boolean(this.isActive()).toString());
         element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-        element.setAttribute("beforejee", new Boolean(this.isBeforejee()).toString());
+        element.setAttribute("beforej2ee", new Boolean(this.isBeforej2ee()).toString());
         ElementImpl updateplan = new ElementImpl(document, "updateplan");
         element.appendChild(updateplan);
         for (Iterator updatePlanIterator = this.getUpdatePlan().iterator(); updatePlanIterator.hasNext(); ) {

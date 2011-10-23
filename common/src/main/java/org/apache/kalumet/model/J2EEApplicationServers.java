@@ -35,10 +35,10 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
    private static final long serialVersionUID = -4940898204749451109L;
 
    private boolean cluster;
-   private LinkedList applicationServers;
+   private LinkedList j2eeApplicationServers;
 
    public J2EEApplicationServers() {
-      this.applicationServers = new LinkedList();
+      this.j2eeApplicationServers = new LinkedList();
    }
 
    public boolean isCluster() {
@@ -55,11 +55,11 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
     * 
     * @param j2EEApplicationServer the <code>J2EEApplicationServer</code> to add.
     */
-   public void addApplicationServer(J2EEApplicationServer j2EEApplicationServer) throws ModelObjectAlreadyExistsException {
-      if (this.getApplicationServer(j2EEApplicationServer.getName()) != null) {
+   public void addJ2EEApplicationServer(J2EEApplicationServer j2EEApplicationServer) throws ModelObjectAlreadyExistsException {
+      if (this.getJ2EEApplicationServer(j2EEApplicationServer.getName()) != null) {
          throw new ModelObjectAlreadyExistsException("J2EE application server name already exists in the environment.");
       }
-      this.applicationServers.add(j2EEApplicationServer);
+      this.j2eeApplicationServers.add(j2EEApplicationServer);
    }
 
    /**
@@ -68,18 +68,18 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
     * 
     * @return the <code>J2EEApplicationServer</code> list.
     */
-   public List getApplicationServers() {
-      return this.applicationServers;
+   public List getJ2EEApplicationServers() {
+      return this.j2eeApplicationServers;
    }
 
    /**
     * Overwrites the <code>J2EEApplicationServer</code> list in the
     * <code>J2EEApplicationServers</code> container.
     * 
-    * @param applicationServers the new <code>J2EEApplicationServer</code> list.
+    * @param j2eeApplicationServers the new <code>J2EEApplicationServer</code> list.
     */
-   public void setApplicationServers(LinkedList applicationServers) {
-      this.applicationServers = applicationServers;
+   public void setJ2EEApplicationServers(LinkedList j2eeApplicationServers) {
+      this.j2eeApplicationServers = j2eeApplicationServers;
    }
 
    /**
@@ -89,8 +89,8 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
     * @param name the <code>J2EEApplicationServer</code> name.
     * @return the <code>J2EEApplicationServer</code> found or null if no found.
     */
-   public J2EEApplicationServer getApplicationServer(String name) {
-      for (Iterator applicationServerIterator = this.getApplicationServers().iterator(); applicationServerIterator.hasNext();) {
+   public J2EEApplicationServer getJ2EEApplicationServer(String name) {
+      for (Iterator applicationServerIterator = this.getJ2EEApplicationServers().iterator(); applicationServerIterator.hasNext();) {
          J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
          if (j2EEApplicationServer.getName().equals(name)) {
             return j2EEApplicationServer;
@@ -105,9 +105,9 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
    public Object clone() throws CloneNotSupportedException {
       J2EEApplicationServers clone = new J2EEApplicationServers();
       clone.setCluster(this.isCluster());
-      for (Iterator applicationServerIterator = this.applicationServers.iterator(); applicationServerIterator.hasNext(); ) {
+      for (Iterator applicationServerIterator = this.j2eeApplicationServers.iterator(); applicationServerIterator.hasNext(); ) {
           J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
-          clone.applicationServers.add((J2EEApplicationServer) j2EEApplicationServer.clone());
+          clone.j2eeApplicationServers.add((J2EEApplicationServer) j2EEApplicationServer.clone());
       }
       return clone;
    }
@@ -122,7 +122,7 @@ public class J2EEApplicationServers implements Serializable, Cloneable {
       ElementImpl element = new ElementImpl(document, "j2eeapplicationservers");
       element.setAttribute("cluster", new Boolean(this.isCluster()).toString());
       // add applicationserver child nodes
-      for (Iterator applicationServerIterator = this.getApplicationServers().iterator(); applicationServerIterator.hasNext();) {
+      for (Iterator applicationServerIterator = this.getJ2EEApplicationServers().iterator(); applicationServerIterator.hasNext();) {
          J2EEApplicationServer j2EEApplicationServer = (J2EEApplicationServer) applicationServerIterator.next();
          element.appendChild(j2EEApplicationServer.toDOMElement(document));
       }

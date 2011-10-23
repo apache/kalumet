@@ -72,7 +72,7 @@ public class UpdateLog {
       this.status = status;
       this.time = time;
       this.title = title;
-      this.basedir = FileManipulator.initEnvironmentCacheDir(environment);
+      this.basedir = FileManipulator.createEnvironmentCacheDir(environment);
       this.updated = updated;
    }
    
