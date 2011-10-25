@@ -93,7 +93,7 @@ public final class Main {
         // start the WS server
         try {
             int port = kalumet.getAgent(agentId).getPort();
-            WsServer wsServer = new WsServer(port, "/kalumet-ws-server.wsdd");
+            WsServer wsServer = new WsServer(port, "/apache-kalumet.wsdd");
             wsServer.start();
             LOGGER.info("WS server started on {}", port);
         } catch (Exception e) {

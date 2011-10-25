@@ -22,7 +22,7 @@ package org.apache.kalumet.ws.client;
 /**
  * J2EEApplication WS client.
  */
-public class ApplicationClient extends AbstractClient {
+public class J2EEApplicationClient extends AbstractClient {
 
     /**
      * Default constructor.
@@ -31,8 +31,8 @@ public class ApplicationClient extends AbstractClient {
      * @param port port number of the Kalumet agent WS server.
      * @throws ClientException in case of communication failure.
      */
-    public ApplicationClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationServer");
+    public J2EEApplicationClient(String host, int port) throws ClientException {
+        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationService");
     }
 
     /**

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment name="defaultClientConfig"
+            xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+            xmlns:handler="http://xml.apache.org/axis/wsdd/providers/handler">
+
+    <globalConfiguration>
+        <parameter name="disablePrettyXML" value="true"/>
+        <parameter name="dotNetSoapEncFix" value="true"/>
+        <parameter name="enableNamespacePrefixOptimization" value="false"/>
+        <requestFlow>
+            <handler type="java:org.apache.axis.handlers.JWSHandler">
+                <parameter name="scope" value="session"/>
+            </handler>
+            <handler type="java:org.apache.axis.handlers.JWSHandler">
+                <parameter name="scope" value="request"/>
+                <parameter name="extension" value=".jwr"/>
+            </handler>
+        </requestFlow>
+    </globalConfiguration>
+
+    <handler type="java:org.apache.axis.handlers.http.URLMapper" name="URLMapper"/>
+    <handler type="java:org.apache.axis.transport.local.LocalResponder" name="LocalResponder"/>
+    <handler type="java:org;apache.axis.handlers.SimpleAuthenticationHandler" name="Authenticate"/>
+
+    <service name="WsServerAdminService" provider="java:MSG">
+        <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+        <parameter name="allowedMethods" value="AdminService"/>
+        <parameter name="enableRemoteAdmin" value="false"/>
+        <parameter name="className" value="org.apache.axis.utils.Admin"/>
+    </service>
+
+    <service name="EnvironmentService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.EnvironmentUpdater"/>
+    </service>
+
+    <service name="J2EEApplicationServerService" provider="java:RPC">
+        <parameter name="allowedMethods" value="start
+            stop
+            status
+            update"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.J2EEApplicationServerUpdater"/>
+    </service>
+
+    <service name="J2EEApplicationService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.J2EEApplicationUpdater"/>
+    </service>
+
+    <service name="ArchiveService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.ArchiveUpdater"/>
+    </service>
+
+    <service name="ConfigurationFileService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.ConfigurationFileUpdater"/>
+    </service>
+
+    <service name="ContentManagerService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.ContentManagerUpdater"/>
+    </service>
+
+    <service name="DatabaseService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.DatabaseUpdater"/>
+    </service>
+
+    <service name="JDBCConnectionPoolService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.JDBCConnectionPoolUpdater"/>
+    </service>
+
+    <service name="JDBCDataSourceService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.JDBCDataSourceUpdater"/>
+    </service>
+
+    <service name="JMSConnectionFactoryService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.JMSConnectionFactoryUpdater"/>
+    </service>
+
+    <service name="JMSServerService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.JMSServerUpdater"/>
+    </service>
+
+    <service name="JNDIBindingService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.JNDIBindingUpdater"/>
+    </service>
+
+    <service name="SharedLibraryService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            check"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.SharedLibraryUpdater"/>
+    </service>
+
+    <service name="SqlScriptService" provider="java:RPC">
+        <parameter name="allowedMethods" value="execute"/>
+        <parameter name="className" value="org.apache.kalumet.agent.updater.SqlScriptUpdater"/>
+    </service>
+
+    <service name="SoftwareService" provider="java:RPC">
+        <parameter name="allowedMethods" value="update
+            executeCommand
+            updateLocation
+            updateConfigurationFile
+            updateDatabase"/>
+        <parameter name="className" value="org.apache.kalumet.updater.SoftwareUpdater"/>
+    </service>
+
+    <service name="FileService" provider="java:RPC">
+        <parameter name="allowedMethods" value="view
+            browse"/>
+        <parameter name="className" value="org.apache.kalumet.agent.utils.FileUtils"/>
+    </service>
+
+    <service name="CommandService" provider="java:RPC">
+        <parameter name="allowedMethods" value="execute"/>
+        <parameter name="className" value="org.apache.kalumet.agent.utils.CommandUtils"/>
+    </service>
+
+    <service name="AgentService" provider="java:RPC">
+        <parameter name="allowedMethods" value="getVersion"/>
+        <parameter name="className" value="org.apache.kalumet.agent.utils.AgentUtils"/>
+    </service>
+
+    <transport name="http">
+        <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+        <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+        <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+        <requestFlow>
+            <handler type="URLMapper"/>
+            <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+        </requestFlow>
+    </transport>
+
+    <transport name="local">
+        <responseFlow>
+            <handler type="LocalResponder"/>
+        </responseFlow>
+    </transport>
+
+</deployment>
