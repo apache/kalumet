@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.kalumet.agent.utils;
+package org.apache.kalumet.utils;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs.FileObject;

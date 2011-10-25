@@ -36,6 +36,7 @@
 
     <modules>
         <module>common</module>
+        <module>utils</module>
         <module>agent</module>
     </modules>
 
@@ -247,6 +248,11 @@
             <dependency>
                 <groupId>org.apache.kalumet</groupId>
                 <artifactId>org.apache.kalumet.common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kalumet</groupId>
+                <artifactId>org.apache.kalumet.utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.kalumet.agent.utils;
+package org.apache.kalumet.utils;
 
 /**
  * Util class to get version from the MANIFEST package specification.

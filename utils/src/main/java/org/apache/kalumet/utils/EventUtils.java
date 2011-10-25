@@ -16,11 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.kalumet.agent.utils;
+package org.apache.kalumet.utils;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.model.Environment;
 import org.apache.kalumet.model.Kalumet;
 import org.slf4j.Logger;
@@ -40,21 +39,9 @@ public class EventUtils {
      * @param author the author of the event.
      * @param severity the severity severity of the event.
      * @param event the event event.
+     * @param kalumet the Kalumet configuration.
      */
-    public static void post(Environment environment, String author, String severity, String event) {
-        LOGGER.debug("Loading configuration from cache");
-        Kalumet kalumet = Configuration.CONFIG_CACHE;
-        if (kalumet == null) {
-            LOGGER.debug("Configuration not in cache, loading it");
-            try {
-                kalumet = Kalumet.digeste(Configuration.CONFIG_LOCATION);
-                Configuration.CONFIG_CACHE = kalumet;
-            } catch (Exception e) {
-                LOGGER.warn("Can't post event", e);
-                return;
-            }
-        }
-
+    public static void post(Environment environment, String author, String severity, String event, Kalumet kalumet) {
         LOGGER.debug("Getting LogEventAppender property in Kalumet configuration");
         if (kalumet.getProperty("LogEventAppender") == null) {
             LOGGER.warn("Can't post event because the LogEventAppender is not define in the configuration");
@@ -78,17 +65,6 @@ public class EventUtils {
         } finally {
             postMethod.releaseConnection();
         }
-    }
-
-    /**
-     * Post an event to the Kalumet journal.
-     *
-     * @param environment the target environment.
-     * @param severity the event severity level.
-     * @param event the event message.
-     */
-    public static void post(Environment environment, String severity, String event) {
-        EventUtils.post(environment, Configuration.AGENT_ID, severity, event);
     }
 
 }
