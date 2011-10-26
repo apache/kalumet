@@ -19,8 +19,8 @@
 package org.apache.kalumet.agent;
 
 import org.apache.commons.cli.*;
-import org.apache.kalumet.agent.utils.AgentUtils;
 import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.utils.AgentUtils;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;

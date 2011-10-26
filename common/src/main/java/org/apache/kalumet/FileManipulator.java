@@ -466,7 +466,7 @@ public class FileManipulator {
      * @return the environment j2EEApplication cache directory path.
      * @throws FileManipulatorException in case of creation failure.
      */
-    public static String createEnvironmentApplicationCacheDir(Environment environment, J2EEApplication j2EEApplication) throws FileManipulatorException {
+    public static String createJ2EEApplicationCacheDir(Environment environment, J2EEApplication j2EEApplication) throws FileManipulatorException {
         String directory = FileManipulator.createEnvironmentCacheDir(environment);
         directory = directory + "/applications/" + j2EEApplication.getName();
         FileManipulator fileManipulator = FileManipulator.getInstance();
@@ -482,7 +482,7 @@ public class FileManipulator {
      * @return the environment software cache directory path.
      * @throws FileManipulatorException in case of creation failure.
      */
-    public static String createEnvironmentSoftwareCacheDir(Environment environment, Software software) throws FileManipulatorException {
+    public static String createSoftwareCacheDir(Environment environment, Software software) throws FileManipulatorException {
         String directory = FileManipulator.createEnvironmentCacheDir(environment);
         directory = directory + "/softwares/" + software.getName();
         FileManipulator fileManipulator = FileManipulator.getInstance();
