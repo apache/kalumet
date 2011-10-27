@@ -37,6 +37,7 @@
     <modules>
         <module>common</module>
         <module>utils</module>
+        <module>controller</module>
         <module>agent</module>
     </modules>
 
