@@ -371,7 +371,7 @@ public class SoftwareUpdater {
     public static void updateLocation(String environmentName, String softwareName, String locationName, boolean delegation) throws KalumetException {
         LOGGER.info("Software {} location {} update requested by WS", softwareName, locationName);
 
-        // loading AutoDeploy configuration
+        // loading configuration
         LOGGER.debug("Loading configuration");
         Kalumet kalumet = Kalumet.digeste(Configuration.CONFIG_LOCATION);
         Environment environment = kalumet.getEnvironment(environmentName);
