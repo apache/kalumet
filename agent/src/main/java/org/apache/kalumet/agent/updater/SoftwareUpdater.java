@@ -43,10 +43,10 @@ public class SoftwareUpdater {
     private static final transient Logger LOGGER = LoggerFactory.getLogger(SoftwareUpdater.class);
 
     /**
-     * Updates a <code>Software</code>.
+     * Updates a software.
      *
-     * @param environment the target environment.
-     * @param software    the target software.
+     * @param environment the target <code>Environment</code>.
+     * @param software    the target <code>Software</code>.
      * @param updateLog   the <code>UpdateLog</code> to use.
      */
     public static void update(Environment environment, Software software, UpdateLog updateLog) throws UpdateException {

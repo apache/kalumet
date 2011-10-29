@@ -319,7 +319,7 @@ public class J2EEApplicationServerUpdater {
         for (Iterator applicationIterator = server.getJ2EEApplications().iterator(); applicationIterator.hasNext(); ) {
             J2EEApplication application = (J2EEApplication) applicationIterator.next();
             try {
-                JEEApplicationUpdater.update(environment, server, application, updateLog);
+                J2EEApplicationUpdater.update(environment, server, application, updateLog);
             } catch (UpdateException updateException) {
                 // the J2EE application update has failed
                 if (application.isBlocker()) {
