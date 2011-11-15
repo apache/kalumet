@@ -22,21 +22,45 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.kalumet</groupId>
-        <artifactId>kalumet</artifactId>
+        <groupId>org.apache.kalumet.controller</groupId>
+        <artifactId>controller</artifactId>
         <version>0.6-incubating</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.apache.kalumet.controller</groupId>
-    <artifactId>controller</artifactId>
-    <packaging>pom</packaging>
-    <name>Apache Kalumet :: Controller</name>
+    <artifactId>org.apache.kalumet.controller.weblogic</artifactId>
+    <packaging>jar</packaging>
+    <name>Apache Kalumet :: Controller :: Oracle Weblogic AS</name>
 
-    <modules>
-        <module>core</module>
-        <module>weblogic</module>
-        <module>websphere</module>
-    </modules>
+    <properties>
+        <weblogic.version>8.1.2</weblogic.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>kalumet.m2</id>
+            <name>Kalumet M2 repo</name>
+            <url>https://svn.apache.org/repos/asf/incubator/kalumet/m2-repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kalumet.controller</groupId>
+            <artifactId>org.apache.kalumet.controller.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.weblogic</groupId>
+            <artifactId>server</artifactId>
+            <version>${weblogic.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>
