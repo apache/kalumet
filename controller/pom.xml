@@ -35,6 +35,7 @@
 
     <modules>
         <module>core</module>
+        <module>jboss</module>
         <module>weblogic</module>
         <module>websphere</module>
     </modules>
