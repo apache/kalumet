@@ -81,10 +81,10 @@ public class PublisherUtils {
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer(new StreamSource(xslFile));
                     transformer.transform(new StreamSource(inputFile), new StreamResult(new FileOutputStream(outputFile)));
-                    EmailUtils.sendHTMLEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "AutoDeploy Update Report - Environment " + environment.getName(), addresses, (String) FileUtils.readFileToString(new File(outputFile), null));
+                    EmailUtils.sendHTMLEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "Apache Kalumet Report - Environment " + environment.getName(), addresses, (String) FileUtils.readFileToString(new File(outputFile), null));
                 } else {
                     LOGGER.debug("No XSL transformation file found, send a text e-mail");
-                    EmailUtils.sendTextEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "AutoDeploy Update Report - Environmment " + environment.getName(), addresses, (String) FileUtils.readFileToString(new File(environmentCacheDir + "/" + UpdateLog.MAIN_LOG_FILE)));
+                    EmailUtils.sendTextEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "Apache Kalumet Report - Environmment " + environment.getName(), addresses, (String) FileUtils.readFileToString(new File(environmentCacheDir + "/" + UpdateLog.MAIN_LOG_FILE)));
                 }
             }
         } catch (Exception e) {

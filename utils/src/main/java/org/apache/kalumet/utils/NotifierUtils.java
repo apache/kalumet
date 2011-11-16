@@ -64,7 +64,7 @@ public class NotifierUtils {
                     Destination destination = (Destination) destinationIterator.next();
                     addresses.add(VariableUtils.replace(destination.getAddress(), environment.getVariables()));
                 }
-                EmailUtils.sendHTMLEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "AutoDeploy Update Notification - Environment " + environment.getName(), addresses, notifyContent);
+                EmailUtils.sendHTMLEmail(VariableUtils.replace(email.getMailhost(), environment.getVariables()), VariableUtils.replace(email.getFrom(), environment.getVariables()), "Apache Kalumet Notification - Environment " + environment.getName(), addresses, notifyContent);
             }
         } catch (Exception e) {
             LOGGER.warn("Can't send notification.", e);
