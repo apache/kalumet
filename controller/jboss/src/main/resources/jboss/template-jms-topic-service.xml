@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Apache Kalumet JBoss JMS Server Template file -->
+
+<server>
+    <mbean code="org.jboss.mq.server.jmx.Topic"
+        name="jboss.mq.destination:service=Topic,name={0}">
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+    </mbean>
+</server>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Apache Kalumet JBoss DataSource Template File -->
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>{0}</jndi-name>
+    <driver-class>{1}</driver-class>
+    <connection-url>{2}</connection-url>
+    <user-name>{3}</user-name>
+    <password>{4}</password>
+    <min-pool-size>{5}</min-pool-size>
+    <max-pool-size>{6}</max-pool-size>
+    <idle-timeout-minutes>0</idle-timeout-minutes>
+    <track-statements/>
+  </local-tx-datasource>
+</datasources>

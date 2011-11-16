@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Apache Kalumet JBoss XA DataSource Template File -->
+
+<datasources>
+  <xa-datasource>
+    <jndi-name>{0}</jndi-name>
+    <track-connection-by-tx/>
+    <isSameRM-override-value>false</isSameRM-override-value>
+    <xa-datasource-class>{1}</xa-datasource-class>
+    <xa-datasource-property name="URL">{2}</xa-datasource-property>
+    <xa-datasource-property name="User">{3}</xa-datasource-property>
+    <xa-datasource-property name="Password">{4}</xa-datasource-property>
+    <min-pool-size>{5}</min-pool-size>
+    <max-pool-size>{6}</max-pool-size>
+    <no-tx-separate-pools/>
+  </xa-datasource>
+</datasources>
