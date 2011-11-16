@@ -77,8 +77,8 @@ illegal characters in Java paths, e.g. !, % etc.
 
     Apache Kalumet Console Configuration
 By default, Apache Kalumet console uses the following configuration:
-- it reads/writes the Kalumet configuration file located in /var/lib/apache-kalumet/conf/autodeploy.xml.
-Create the directory /var/lib/apache-kalumet/conf
+- it reads/writes the Kalumet configuration file located in /var/lib/apache-kalumet/db/kalumet.xml.
+Create the directory /var/lib/apache-kalumet/db
   (with the permission given to the application server user) and copy the initial Kalumet configuration provided in
   <kalumet_console_home>/conf/sample/apache-kalumet-store.xml.
 - it reads/writes the Kalumet events journal log files in /var/lib/apache-kalumet/journals. Create this directory

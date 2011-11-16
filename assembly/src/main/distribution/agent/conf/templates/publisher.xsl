@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
-   *********************************
-   * Kalumet Mail Publisher XSL *
-   * Author : Jean-Baptiste ONOFRE *
-   * E-mail : jb@nanthrax.net      *
-   *********************************
+   *************************************
+   * Apache Kalumet Mail Publisher XSL *
+   * Author : Jean-Baptiste ONOFRE       *
+   * E-mail : jb@nanthrax.net                *
+   *************************************
    
    This XSL is optionnal. It's used to send a HTML e-mail
-   when an Kalumet agent publish an update result.
+   when an Apache Kalumet agent publish an update result.
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -75,7 +75,7 @@
             </div>
             <div id="footer">
                <hr/>
-               Copyright (c) 2009 - BuildProcess Team - All Rights Reserved
+               Copyright (c) 2011 - Apache Kalumet - All Rights Reserved
             </div>
          </body>
       </html>
