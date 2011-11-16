@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<kalumet-console>
+
+  <property name="ConfigurationLocation" value="/var/lib/apache-kalumet/db/kalumet.xml"/>
+  <property name="JournalsLocation" value="/var/lib/apache-kalumet/journals"/>
+
+</kalumet-console>
