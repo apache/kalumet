@@ -31,11 +31,13 @@ public class StackTraceUtils {
      * @return the string representation of the stack trace.
      */
     public static String toString(StackTraceElement[] elements) {
-        String trace = "";
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < elements.length; i++) {
-            trace += elements[i].toString() + "\n";
+
+            builder.append(elements[i].toString());
+            builder.append('\n');
         }
-        return trace;
+        return builder.toString();
     }
 
 }
