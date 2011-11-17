@@ -19,7 +19,7 @@
 package org.apache.kalumet.console.configuration.model;
 
 /**
- * Represents the <code>property</code> tag in the WebAutoDeploy-config.xml
+ * Represents the <code>property</code> tag in the kalumet-console-config.xml
  * configuration file.
  */
 public class Property {
