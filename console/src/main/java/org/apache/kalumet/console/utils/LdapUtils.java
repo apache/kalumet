@@ -64,12 +64,12 @@ public class LdapUtils {
          throw new IllegalStateException("The LDAP authentication is not active in Apache Kalumet. Can't bind on LDAP.");
       }
       // step 1 : connect to the LDAP server (anonymous) to get the user DN
-      LOGGER.debug("LDAP Authentification Backend Step 1 : grab the user DN");
+      LOGGER.debug("LDAP Authentification Backend Step 1: grab the user DN");
       LOGGER.debug("Create the LDAP initial context");
       Hashtable env = new Hashtable();
       // TODO use a generic LDAP Context Factory compliant with IBM JDK
       env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-      LOGGER.debug("Connect to the LDAP server ldap://" + kalumet.getProperty("LdapServer").getValue());
+      LOGGER.debug("Connect to the LDAP server ldap://{}", kalumet.getProperty("LdapServer").getValue());
       env.put(Context.PROVIDER_URL, "ldap://" + kalumet.getProperty("LdapServer").getValue());
       String userDN;
       String userName;
@@ -81,11 +81,11 @@ public class LdapUtils {
          SearchControls controls = new SearchControls();
          controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
          LOGGER.debug("Looking for the user in LDAP ...");
-         LOGGER.debug("  Base DN : " + kalumet.getProperty("LdapBaseDN").getValue());
-         LOGGER.debug("  Filter  : (" + kalumet.getProperty("LdapUidAttribute").getValue() + "=" + user + ")");
+         LOGGER.debug("  Base DN: {}", kalumet.getProperty("LdapBaseDN").getValue());
+         LOGGER.debug("  Filter:  ({}={})", kalumet.getProperty("LdapUidAttribute").getValue(), user);
          NamingEnumeration namingEnumeration = context.search(kalumet.getProperty("LdapBaseDN").getValue(), "(" + kalumet.getProperty("LdapUidAttribute").getValue() + "=" + user + ")", controls);
          if (!namingEnumeration.hasMore()) {
-            LOGGER.warn("User " + user + " not found in LDAP");
+            LOGGER.warn("User {} not found in LDAP", user);
             return false;
          }
          LOGGER.debug("Get the user object");
@@ -94,25 +94,25 @@ public class LdapUtils {
          Attributes attributes = result.getAttributes();
          LOGGER.debug("Trying to get the DN attribute");
          userDN = (String) result.getName();
-         LOGGER.debug("Get the LDAP user DN : " + userDN);
+         LOGGER.debug("Get the LDAP user DN: {}", userDN);
          userName = (String) attributes.get(kalumet.getProperty("LdapCnAttribute").getValue()).get();
-         LOGGER.debug("Get the LDAP user name : " + userName);
+         LOGGER.debug("Get the LDAP user name: {}", userName);
          userEmail = (String) attributes.get(kalumet.getProperty("LdapMailAttribute").getValue()).get();
-         LOGGER.debug("Get the LDAP user e-mail : " + userEmail);
+         LOGGER.debug("Get the LDAP user e-mail: {}", userEmail);
          context.close();
       } catch (Exception e) {
-         LOGGER.error("Can't connect to the LDAP server.", e);
-         throw new IllegalStateException("Can't connect to the LDAP server.", e);
+         LOGGER.error("Can't connect to the LDAP server", e);
+         throw new IllegalStateException("Can't connect to the LDAP server", e);
       }
       // step 2 : I have the DN, try to bind the user
-      LOGGER.debug("LDAP Authentification Backend Step 2 : bind the user with the DN/password");
+      LOGGER.debug("LDAP Authentification Backend Step 2: bind the user with the DN/password");
       env = new Hashtable();
       env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-      LOGGER.debug("Connect to the LDAP server ldap://" + kalumet.getProperty("LdapServer").getValue());
+      LOGGER.debug("Connect to the LDAP server ldap://{}", kalumet.getProperty("LdapServer").getValue());
       env.put(Context.PROVIDER_URL, "ldap://" + kalumet.getProperty("LdapServer").getValue());
       LOGGER.debug("Define a simple authentication");
       env.put(Context.SECURITY_AUTHENTICATION, "simple");
-      LOGGER.debug("Define the security principal to " + userDN + "," + kalumet.getProperty("LdapBaseDN").getValue());
+      LOGGER.debug("Define the security principal to {},{}", userDN, kalumet.getProperty("LdapBaseDN").getValue());
       env.put(Context.SECURITY_PRINCIPAL, userDN + "," + kalumet.getProperty("LdapBaseDN").getValue());
       env.put(Context.SECURITY_CREDENTIALS, password);
       LOGGER.debug("Init the JNDI context ...");
