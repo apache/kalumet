@@ -32,8 +32,7 @@ public class StackTraceUtils {
      */
     public static String toString(StackTraceElement[] elements) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < elements.length; i++) {
-
+        for (int i = 0, size=elements.length; i < size; i++) {
             builder.append(elements[i].toString());
             builder.append('\n');
         }
