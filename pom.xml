@@ -165,6 +165,8 @@
         <commons-lang.version>2.6</commons-lang.version>
         <commons-net.version>3.0.1</commons-net.version>
         <commons-vfs.version>1.0</commons-vfs.version>
+        <echo2.version>2.1.1</echo2.version>
+        <echo2.extras.version>2.1.0</echo2.extras.version>
         <junit.version>4.9</junit.version>
         <jta.version>1.1.1</jta.version>
         <log4j.version>1.2.16</log4j.version>
@@ -175,6 +177,20 @@
         <xerces.version>2.9.1</xerces.version>
         <xml-apis.version>2.0.2</xml-apis.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>kalumet.m2</id>
+            <name>Kalumet M2 repo</name>
+            <url>https://svn.apache.org/repos/asf/incubator/kalumet/m2-repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -272,6 +288,31 @@
                 <groupId>commons-vfs</groupId>
                 <artifactId>commons-vfs</artifactId>
                 <version>${commons-vfs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nextapp.echo</groupId>
+                <artifactId>app</artifactId>
+                <version>${echo2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nextapp.echo</groupId>
+                <artifactId>webcontainer</artifactId>
+                <version>${echo2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nextapp.echo</groupId>
+                <artifactId>webrender</artifactId>
+                <version>${echo2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nextapp.echo.extras</groupId>
+                <artifactId>app</artifactId>
+                <version>${echo2.extras.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nextapp.echo.extras</groupId>
+                <artifactId>webcontainer</artifactId>
+                <version>${echo2.extras.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
