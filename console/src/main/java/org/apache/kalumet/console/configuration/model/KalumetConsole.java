@@ -94,7 +94,9 @@ public class KalumetConsole {
 
          kalumetConsole = (KalumetConsole) digester.parse(path);
       } catch (Exception e) {
-         throw new IOException("Can't read the Apache Kalumet console configuration", e);
+          IOException ioe = new IOException("Can't read the Apache Kalumet console configuration");
+          ioe.initCause( e );
+          throw ioe;
       }
       return kalumetConsole;
    }
