@@ -36,7 +36,7 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.extras.app.TabPane;
 import nextapp.echo2.extras.app.layout.TabPaneLayoutData;
-import org.apache.kalumet.console.configuration.ConfigurationManager;;
+import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
 import org.apache.kalumet.model.ContentManager;
 import org.apache.kalumet.model.Kalumet;
