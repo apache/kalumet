@@ -4,3 +4,4 @@ target
 .settings
 *.i??
 .DS_Store
+.idea
