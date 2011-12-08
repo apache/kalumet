@@ -73,9 +73,10 @@ public class HomePageWindow extends WindowPane {
                 KalumetConsoleApplication.getApplication().getLogPane().addWarning(Messages.getString("homepage.warn.mandatory"));
                 return;
             }
+            FileManipulator fileManipulator = null;
             try {
                 // init a file manipulator
-                FileManipulator fileManipulator = FileManipulator.getInstance();
+                fileManipulator = new FileManipulator();
                 // write the homepage area in the output stream
                 PrintWriter writer = new PrintWriter(fileManipulator.write(homePageLocation));
                 writer.print(area.getText());
@@ -84,6 +85,10 @@ public class HomePageWindow extends WindowPane {
             } catch (Exception e) {
                 KalumetConsoleApplication.getApplication().getLogPane().addWarning(Messages.getString("homepage.warn.error") + ": " + e.getMessage());
                 return;
+            } finally {
+                if (fileManipulator != null) {
+                    fileManipulator.close();
+                }
             }
             KalumetConsoleApplication.getApplication().getLogPane().addConfirm(Messages.getString("homepage.generated"));
         }

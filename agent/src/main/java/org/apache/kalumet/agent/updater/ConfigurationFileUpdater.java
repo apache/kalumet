@@ -98,7 +98,7 @@ public class ConfigurationFileUpdater {
         FileManipulator fileManipulator = null;
         try {
             LOGGER.debug("Initializing file manipulator");
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException fileManipulatorException) {
             LOGGER.error("Can't initialize file manipulator", fileManipulatorException);
             throw new UpdateException("Can't initialize file manipulator", fileManipulatorException);
@@ -291,7 +291,7 @@ public class ConfigurationFileUpdater {
 
         // initialize the file manipulator.
         LOGGER.debug("Initializing file manipulator");
-        FileManipulator fileManipulator = FileManipulator.getInstance();
+        FileManipulator fileManipulator = new FileManipulator();
 
         // constructs the configuration file URI.
         String configurationFileUri = VariableUtils.replace(configurationFile.getUri(), environment.getVariables());

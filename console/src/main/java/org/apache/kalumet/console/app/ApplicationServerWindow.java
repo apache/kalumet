@@ -44,6 +44,11 @@ public class ApplicationServerWindow extends WindowPane {
     private ApplicationServerGeneralPane generalPane;
     private ApplicationServerCachesPane cachesPane;
 
+    public final static String JBOSS4_CONTROLLER_CLASSNAME = "org.apache.kalumet.controller.jboss.JBoss4Controller";
+    public final static String JBOSS6_CONTROLLER_CLASSNAME = "org.apache.kalumet.controller.jboss.JBoss6Controller";
+    public final static String WEBLOGIC_CONTROLLER_CLASSNAME = "org.apache.kalumet.controller.weblogic.WeblogicController";
+    public final static String WEBSPHERE_CONTROLLER_CLASSNAME = "org.apache.kalumet.controller.websphere.WebsphereController";
+
     // status thread
     class StatusThread extends Thread {
 
@@ -239,13 +244,16 @@ public class ApplicationServerWindow extends WindowPane {
                 server.setBlocker(false);
             }
             if (typeFieldIndex == 0) {
-                server.setClassname("org.apache.kalumet.controller.jboss.JBossController");
+                server.setClassname(ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME);
             }
             if (typeFieldIndex == 1) {
-                server.setClassname("org.apache.kalumet.controller.weblogic.WeblogicController");
+                server.setClassname(ApplicationServerWindow.JBOSS6_CONTROLLER_CLASSNAME);
             }
             if (typeFieldIndex == 2) {
-                server.setClassname("org.apache.kalumet.controller.websphere.WebsphereController");
+                server.setClassname(ApplicationServerWindow.WEBLOGIC_CONTROLLER_CLASSNAME);
+            }
+            if (typeFieldIndex == 3) {
+                server.setClassname(ApplicationServerWindow.WEBSPHERE_CONTROLLER_CLASSNAME);
             }
             server.setJmxurl(jmxFieldValue);
             server.setAdminuser(adminUserFieldValue);

@@ -219,9 +219,10 @@ public class PublishReleaseWindow extends WindowPane {
             // update the environment location
             parent.getEnvironment().setReleaseLocation(baseLocation);
             parent.setUpdated(true);
+            FileManipulator fileManipulator = null;
             try {
                 // init file manipulator
-                FileManipulator fileManipulator = FileManipulator.getInstance();
+                fileManipulator = new FileManipulator();
                 // iterate in the application checkboxes
                 for (Iterator applicationCheckBoxIterator = applicationCheckBoxes.iterator(); applicationCheckBoxIterator.hasNext(); ) {
                     ApplicationCheckBox checkBox = (ApplicationCheckBox) applicationCheckBoxIterator.next();
@@ -295,6 +296,10 @@ public class PublishReleaseWindow extends WindowPane {
             } catch (Exception e) {
                 KalumetConsoleApplication.getApplication().getLogPane().addError(Messages.getString("release.error") + ": " + e.getMessage(), parent.getEnvironmentName());
                 return;
+            } finally {
+                if (fileManipulator != null) {
+                    fileManipulator.close();
+                }
             }
             KalumetConsoleApplication.getApplication().getLogPane().addConfirm(Messages.getString("release.published"));
         }

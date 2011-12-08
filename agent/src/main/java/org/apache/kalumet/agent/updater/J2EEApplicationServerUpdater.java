@@ -534,7 +534,7 @@ public class J2EEApplicationServerUpdater {
             updateLog.addUpdateMessage(new UpdateMessage("info", "J2EE application server " + server.getName() + " caches cleaning is required"));
             EventUtils.post(environment, "UPDATE", "J2EE application server " + server.getName() + " caches cleaning is required");
             // initializes the file manipulator instance
-            FileManipulator fileManipulator = FileManipulator.getInstance();
+            FileManipulator fileManipulator = new FileManipulator();
             for (Iterator cacheIterator = server.getCaches().iterator(); cacheIterator.hasNext(); ) {
                 Cache cache = (Cache) cacheIterator.next();
                 String path = VariableUtils.replace(cache.getPath(), environment.getVariables());

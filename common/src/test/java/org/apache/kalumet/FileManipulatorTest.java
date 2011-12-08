@@ -32,7 +32,7 @@ public class FileManipulatorTest {
 
     @Before
     public void setUp() throws Exception {
-        fileManipulator = FileManipulator.getInstance();
+        fileManipulator = new FileManipulator();
     }
 
     @Test

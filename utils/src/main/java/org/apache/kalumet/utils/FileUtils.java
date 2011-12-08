@@ -45,9 +45,10 @@ public class FileUtils {
     public static String view(String path) {
         String content = null;
         InputStream stream = null;
+        FileManipulator fileManipulator = null;
         try  {
             // get a file manipulator instance
-            FileManipulator fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
             // get the file content
             stream = fileManipulator.read(path);
             // populate the content string
@@ -63,6 +64,9 @@ public class FileUtils {
                     // nothing to do
                 }
             }
+            if (fileManipulator != null) {
+                fileManipulator.close();
+            }
         }
         return content;
     }
@@ -75,9 +79,10 @@ public class FileUtils {
      */
     public static SimplifiedFileObject[] browse(String path) {
         SimplifiedFileObject[] children = null;
+        FileManipulator fileManipulator = null;
         try {
             // get a file manipulator instance
-            FileManipulator fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
             // get the path children
             FileObject[] fileObjects = fileManipulator.browse(path);
             children = new SimplifiedFileObject[fileObjects.length];
@@ -96,6 +101,10 @@ public class FileUtils {
             }
         } catch (Exception e) {
             LOGGER.warn("Can't browse {}", path, e);
+        } finally {
+            if (fileManipulator != null) {
+                fileManipulator.close();
+            }
         }
         return children;
     }

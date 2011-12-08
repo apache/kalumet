@@ -41,7 +41,9 @@ import org.apache.kalumet.model.Kalumet;
  */
 public class ApplicationServerGeneralPane extends ContentPane {
 
-    private static String[] APPLICATIONSERVER_TYPES = new String[]{Messages.getString("jboss4"), Messages.getString("weblogic8"),
+    private static String[] APPLICATIONSERVER_TYPES = new String[]{Messages.getString("jboss4"),
+            Messages.getString("jboss6"),
+            Messages.getString("weblogic8"),
             Messages.getString("websphere5")};
 
     private ApplicationServerWindow parent;
@@ -222,15 +224,18 @@ public class ApplicationServerGeneralPane extends ContentPane {
         } else {
             blockerField.setSelectedIndex(1);
         }
-        // update the JEE server type field
-        if (StringUtils.containsIgnoreCase(parent.getApplicationServer().getClassname(), "jboss")) {
+        // update the J2EE application server type field
+        if (parent.getApplicationServer().getClassname().equals(ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME)) {
             typeField.setSelectedIndex(0);
         }
-        if (StringUtils.containsIgnoreCase(parent.getApplicationServer().getClassname(), "weblogic")) {
+        if (parent.getApplicationServer().getClassname().equals(ApplicationServerWindow.JBOSS6_CONTROLLER_CLASSNAME)) {
             typeField.setSelectedIndex(1);
         }
-        if (StringUtils.containsIgnoreCase(parent.getApplicationServer().getClassname(), "websphere")) {
+        if (parent.getApplicationServer().getClassname().equals(ApplicationServerWindow.WEBLOGIC_CONTROLLER_CLASSNAME)) {
             typeField.setSelectedIndex(2);
+        }
+        if (parent.getApplicationServer().getClassname().equals(ApplicationServerWindow.WEBSPHERE_CONTROLLER_CLASSNAME)) {
+            typeField.setSelectedIndex(3);
         }
         // update the jee application server jmx field
         jmxField.setText(parent.getApplicationServer().getJmxurl());

@@ -87,7 +87,7 @@ public class SqlScriptUpdater {
         // get file manipulator instance
         FileManipulator fileManipulator = null;
         try {
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException fileManipulatorException) {
             LOGGER.error("Can't initialize the file manipulator", fileManipulatorException);
             throw new UpdateException("Can't initialize the file manipulator", fileManipulatorException);

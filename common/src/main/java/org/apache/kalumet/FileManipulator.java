@@ -69,7 +69,7 @@ public class FileManipulator {
      *
      * @throws FileManipulatorException in <code>FileManipulator</code> init failed.
      */
-    private FileManipulator() throws FileManipulatorException {
+    public FileManipulator() throws FileManipulatorException {
         try {
             LOGGER.debug("Creating VFS file system manager ...");
             this.fileSystemManager = VFS.getManager();
@@ -83,22 +83,11 @@ public class FileManipulator {
     }
 
     /**
-     * Get a single instance of the <code>FileManipulator</code>.
-     *
-     * @return the <code>FileManipulator</code> instance.
-     * @throws FileManipulatorException in case of init failure.
+     * Cleanly close the file manipulator.
      */
-    public static FileManipulator getInstance() throws FileManipulatorException {
-        try {
-            if (_singleton == null) {
-                _singleton = new FileManipulator();
-                LOGGER.debug("File manipulator initialized");
-            }
-            return _singleton;
-        } catch (Exception e) {
-            LOGGER.error("File manipulator initialization failure", e);
-            throw new FileManipulatorException("File manipulator initialization failure", e);
-        }
+    public void close() {
+        // nothing to do
+        // just a hook in case of custom VFS filesystem implementation
     }
 
     /**
@@ -455,8 +444,9 @@ public class FileManipulator {
      */
     public static String createEnvironmentCacheDir(Environment environment) throws FileManipulatorException {
         String directory = FileManipulator.getBaseDir() + "/" + FileManipulator.WORKING_DIR + "/" + environment.getName();
-        FileManipulator fileManipulator = FileManipulator.getInstance();
+        FileManipulator fileManipulator = new FileManipulator();
         fileManipulator.createDirectory(directory);
+        fileManipulator.close();
         return directory;
     }
 
@@ -471,8 +461,9 @@ public class FileManipulator {
     public static String createJ2EEApplicationCacheDir(Environment environment, J2EEApplication j2EEApplication) throws FileManipulatorException {
         String directory = FileManipulator.createEnvironmentCacheDir(environment);
         directory = directory + "/applications/" + j2EEApplication.getName();
-        FileManipulator fileManipulator = FileManipulator.getInstance();
+        FileManipulator fileManipulator = new FileManipulator();
         fileManipulator.createDirectory(directory);
+        fileManipulator.close();
         return directory;
     }
 
@@ -487,8 +478,9 @@ public class FileManipulator {
     public static String createSoftwareCacheDir(Environment environment, Software software) throws FileManipulatorException {
         String directory = FileManipulator.createEnvironmentCacheDir(environment);
         directory = directory + "/softwares/" + software.getName();
-        FileManipulator fileManipulator = FileManipulator.getInstance();
+        FileManipulator fileManipulator = new FileManipulator();
         fileManipulator.createDirectory(directory);
+        fileManipulator.close();
         return directory;
     }
 

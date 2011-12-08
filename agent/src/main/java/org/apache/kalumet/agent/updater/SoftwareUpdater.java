@@ -483,7 +483,7 @@ public class SoftwareUpdater {
         // get a file manipulator
         FileManipulator fileManipulator = null;
         try {
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException fileManipulatorException) {
             LOGGER.error("Can't initialize file manipulator", fileManipulatorException);
             throw new UpdateException("Can't initialize file manipulator", fileManipulatorException);
@@ -638,7 +638,7 @@ public class SoftwareUpdater {
         LOGGER.debug("Initializing file manipulator");
         FileManipulator fileManipulator = null;
         try {
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException fileManipulatorException) {
             LOGGER.error("Can't initialize file manipulator", fileManipulatorException);
             throw new UpdateException("Can't initialize file manipulator", fileManipulatorException);
@@ -863,7 +863,7 @@ public class SoftwareUpdater {
         LOGGER.debug("Initializing file manipulator");
         FileManipulator fileManipulator = null;
         try {
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException fileManipulatorException) {
             LOGGER.error("Can't initialize file manipulator", fileManipulatorException);
             throw new UpdateException("Can't initialize file manipulator", fileManipulatorException);

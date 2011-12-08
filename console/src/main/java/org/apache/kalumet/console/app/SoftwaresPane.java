@@ -415,11 +415,16 @@ public class SoftwaresPane extends ContentPane {
             TextField uriField = (TextField) SoftwaresPane.this.getComponent("softwareuri_" + parent.getEnvironmentName() + "_" + name);
             String uri = FileManipulator.format(uriField.getText());
             boolean exists = false;
+            FileManipulator fileManipulator = null;
             try {
-                FileManipulator fileManipulator = FileManipulator.getInstance();
+                fileManipulator = new FileManipulator();
                 exists = fileManipulator.exists(uri);
             } catch (Exception e) {
                 KalumetConsoleApplication.getApplication().getLogPane().addWarning("Can't check the URI " + uri + ": " + e.getMessage(), parent.getEnvironmentName());
+            } finally {
+                if (fileManipulator != null) {
+                    fileManipulator.close();
+                }
             }
             if (exists) {
                 KalumetConsoleApplication.getApplication().getLogPane().addConfirm("URI " + uri + " exists.", parent.getEnvironmentName());

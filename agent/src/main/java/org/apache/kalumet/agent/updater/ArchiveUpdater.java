@@ -183,10 +183,14 @@ public class ArchiveUpdater {
         FileManipulator fileManipulator = null;
         try {
             applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir(environment, application);
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
         } catch (FileManipulatorException e) {
             LOGGER.error("Can't create J2EE application {} cache directory", application.getName(), e);
             throw new UpdateException("Can't create J2EE application " + application.getName() + " cache directory", e);
+        } finally {
+            if (fileManipulator != null) {
+                fileManipulator.close();
+            }
         }
         // define the archive cache location
         String archiveCache = applicationCacheDir + "/" + archive.getName();
@@ -328,41 +332,48 @@ public class ArchiveUpdater {
             return client.check(environmentName, serverName, applicationName, archiveName);
         }
 
-        // initialize file manipulator
-        LOGGER.debug("Initializing file manipulator");
-        FileManipulator fileManipulator = FileManipulator.getInstance();
 
         // get J2EE application server controller
         LOGGER.debug("Getting J2EE application server controller");
         J2EEApplicationServerController controller = J2EEApplicationServerControllerFactory.getController(environment, applicationServer);
 
-        // get application cache directory
-        LOGGER.debug("Getting application cache directory");
-        String applicationCacheDirectory = FileManipulator.createJ2EEApplicationCacheDir(environment, application);
 
-        // construct the archive URI
-        String archiveUri = VariableUtils.replace(archive.getUri(), environment.getVariables());
-        if (!FileManipulator.protocolExists(archiveUri)) {
-            // the archive URI is relative (doesn't contain the protocol prefix), construct the URI using the application URI
-            archiveUri = VariableUtils.replace(application.getUri(), environment.getVariables()) + "!/" + archiveUri;
-        }
+        FileManipulator fileManipulator = null;
+        try {
+            fileManipulator = new FileManipulator();
 
-        // get the archive cache
-        String archiveCache = applicationCacheDirectory + "/" + archive.getName();
+            // get application cache directory
+            LOGGER.debug("Getting application cache directory");
+            String applicationCacheDirectory = FileManipulator.createJ2EEApplicationCacheDir(environment, application);
 
-        // get the archive installation path
-        if (archive.getPath() == null || archive.getPath().trim().length() < 1) {
-            LOGGER.error("Archive {} path is not defined", archive.getName());
-            throw new KalumetException("Archive " + archive.getName() + " path is not defined");
-        }
-        String archiveInstallation = VariableUtils.replace(archive.getPath(), environment.getVariables());
+            // construct the archive URI
+            String archiveUri = VariableUtils.replace(archive.getUri(), environment.getVariables());
+            if (!FileManipulator.protocolExists(archiveUri)) {
+                // the archive URI is relative (doesn't contain the protocol prefix), construct the URI using the application URI
+                archiveUri = VariableUtils.replace(application.getUri(), environment.getVariables()) + "!/" + archiveUri;
+            }
 
-        if (controller.isJ2EEApplicationDeployed(archiveInstallation, archive.getName())) {
-            // check if the archive is deployed or not
-            if (fileManipulator.checksumEquals(archiveUri, archiveCache)) {
-                // archive URI and cache are the same
-                LOGGER.debug("Archive URI and agent cache are the same");
-                return true;
+            // get the archive cache
+            String archiveCache = applicationCacheDirectory + "/" + archive.getName();
+
+            // get the archive installation path
+            if (archive.getPath() == null || archive.getPath().trim().length() < 1) {
+                LOGGER.error("Archive {} path is not defined", archive.getName());
+                throw new KalumetException("Archive " + archive.getName() + " path is not defined");
+            }
+            String archiveInstallation = VariableUtils.replace(archive.getPath(), environment.getVariables());
+
+            if (controller.isJ2EEApplicationDeployed(archiveInstallation, archive.getName())) {
+                // check if the archive is deployed or not
+                if (fileManipulator.checksumEquals(archiveUri, archiveCache)) {
+                    // archive URI and cache are the same
+                    LOGGER.debug("Archive URI and agent cache are the same");
+                    return true;
+                }
+            }
+        } finally {
+            if (fileManipulator != null) {
+                fileManipulator.close();
             }
         }
 

@@ -660,13 +660,16 @@ public class ApplicationServersPane extends ContentPane {
             serversGrid.add(serverName);
             // server type
             Label serverType = new Label(Messages.getString("unknown"));
-            if (server.getClassname().equals("org.apache.kalumet.controller.jboss.JBossController")) {
+            if (server.getClassname().equals(ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME)) {
                 serverType = new Label(Messages.getString("jboss4"));
             }
-            if (server.getClassname().equals("org.apache.kalumet.controller.weblogic.WeblogicController")) {
+            if (server.getClassname().equals(ApplicationServerWindow.JBOSS6_CONTROLLER_CLASSNAME)) {
+                serverType = new Label(Messages.getString("jboss6"));
+            }
+            if (server.getClassname().equals(ApplicationServerWindow.WEBLOGIC_CONTROLLER_CLASSNAME)) {
                 serverType = new Label(Messages.getString("weblogic8"));
             }
-            if (server.getClassname().equals("org.apache.kalumet.controller.websphere.WebsphereController")) {
+            if (server.getClassname().equals(ApplicationServerWindow.WEBSPHERE_CONTROLLER_CLASSNAME)) {
                 serverType = new Label(Messages.getString("websphere5"));
             }
             serverType.setStyleName("default");

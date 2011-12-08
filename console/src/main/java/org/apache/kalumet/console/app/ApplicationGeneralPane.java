@@ -46,11 +46,16 @@ public class ApplicationGeneralPane extends ContentPane {
         public void actionPerformed(ActionEvent event) {
             String uri = FileManipulator.format(getUriField().getText());
             boolean exists = false;
+            FileManipulator fileManipulator = null;
             try {
-                FileManipulator fileManipulator = FileManipulator.getInstance();
+                fileManipulator = new FileManipulator();
                 exists = fileManipulator.exists(uri);
             } catch (Exception e) {
                 KalumetConsoleApplication.getApplication().getLogPane().addWarning("Can't check the URI " + uri + ": " + e.getMessage(), parent.getEnvironmentWindow().getEnvironmentName());
+            } finally {
+                if (fileManipulator != null) {
+                    fileManipulator.close();
+                }
             }
             if (exists) {
                 KalumetConsoleApplication.getApplication().getLogPane().addConfirm("URI " + uri + " exists.", parent.getEnvironmentWindow().getEnvironmentName());

@@ -328,7 +328,7 @@ public class JBoss6Controller extends AbstractJ2EEApplicationServerController {
         this.jdbcConnectionPoolWriteFile(tempFile, name, driver, increment, initial, maximal, user, password, url);
         FileManipulator fileManipulator = null;
         try {
-            fileManipulator = FileManipulator.getInstance();
+            fileManipulator = new FileManipulator();
             if (fileManipulator.contentEquals(deployURL.getPath() + "/" + name + "-ds.xml", deployURL.getPath() + "/" + name + "-ds.xml.temp")) {
                 LOGGER.debug("JDBC connection pool {} is already up to date", name);
                 return true;
