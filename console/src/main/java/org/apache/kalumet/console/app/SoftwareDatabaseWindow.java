@@ -496,7 +496,7 @@ public class SoftwareDatabaseWindow extends WindowPane {
                 return;
             }
             // check if some change has not yet been saved
-            if (!getEnvironmentWindow().isUpdated()) {
+            if (getEnvironmentWindow().isUpdated()) {
                 KalumetConsoleApplication.getApplication().getLogPane().addWarning(Messages.getString("environment.notsaved"), getEnvironmentWindow().getEnvironmentName());
                 return;
             }
