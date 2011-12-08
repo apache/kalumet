@@ -129,8 +129,8 @@ public class SqlScriptUpdater {
                             String command = VariableUtils.replace(database.getSqlCommand(), environment.getVariables());
                             String output = SqlScriptUtils.executeUsingCommand(singleSqlScriptRuntime, command);
                             updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + name + " executed: " + output));
-                            EventUtils.post(environment, "UPDATE", "SQL script " + name + " executed: " + output);
-                            LOGGER.info("SQL script " + name + " executed: " + output);
+                            EventUtils.post(environment, "UPDATE", "SQL script " + name + " executed:" + output);
+                            LOGGER.info("SQL script " + name + " executed successfully");
                         } else {
                             // execute SQL script using JDBC
                             String user = null;
@@ -252,66 +252,6 @@ public class SqlScriptUpdater {
         for (Iterator mappingIterator = sqlScript.getMappings().iterator(); mappingIterator.hasNext(); ) {
             Mapping mapping = (Mapping) mappingIterator.next();
             FileManipulator.searchAndReplace(mapping.getKey(), VariableUtils.replace(mapping.getValue(), environment.getVariables()), sqlScriptCache);
-        }
-
-        // compare the SQL script with the target one
-        try {
-            if (sqlScript.isForce() || (!fileManipulator.contentEquals(sqlScriptCache, sqlScriptRuntime))) {
-                // the SQL script needs to be updated and executed
-                // copy the SQL script to the target
-                fileManipulator.copy(sqlScriptCache, sqlScriptRuntime);
-                if (database.getSqlCommand() != null && database.getSqlCommand().trim().length() > 0) {
-                    // execute SQL script using system command
-                    String command = VariableUtils.replace(database.getSqlCommand(), environment.getVariables());
-                    String output = SqlScriptUtils.executeUsingCommand(applicationCacheDir + "/sql/" + sqlScript.getName(), command);
-                    updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + sqlScript.getName() + " executed: " + output));
-                    EventUtils.post(environment, "UPDATE", "SQL script " + sqlScript.getName() + " executed: " + output);
-                    LOGGER.info("SQL script {} executed: {}", sqlScript.getName(), output);
-                } else {
-                    // execute SQL script using JDBC
-                    String user = null;
-                    String password = null;
-                    String driver = null;
-                    String url = null;
-                    if (database.getConnectionPool() != null && database.getConnectionPool().trim().length() > 0) {
-                        // the database is linked to a connection pool
-                        // looking for the connection pool (from the cache)
-                        String connectionPoolName = VariableUtils.replace(database.getConnectionPool(), environment.getVariables());
-                        JDBCConnectionPool connectionPool = server.getJDBCConnectionPool(connectionPoolName);
-                        if (connectionPool == null) {
-                            LOGGER.error("JDBC connection pool {} is not found in J2EE application server {}", database.getConnectionPool(), server.getName());
-                            throw new UpdateException("JDBC connection pool " + database.getConnectionPool() + " is not found in J2EE application server " + server.getName());
-                        }
-                        user = VariableUtils.replace(connectionPool.getUser(), environment.getVariables());
-                        password = VariableUtils.replace(connectionPool.getPassword(), environment.getVariables());
-                        driver = VariableUtils.replace(connectionPool.getDriver(), environment.getVariables());
-                        url = VariableUtils.replace(connectionPool.getUrl(), environment.getVariables());
-                    } else {
-                        // use the database connection data
-                        user = VariableUtils.replace(database.getUser(), environment.getVariables());
-                        password = VariableUtils.replace(database.getPassword(), environment.getVariables());
-                        driver = VariableUtils.replace(database.getDriver(), environment.getVariables());
-                        url = VariableUtils.replace(database.getJdbcurl(), environment.getVariables());
-                    }
-                    // execute SQL script using JDBC
-                    SqlScriptUtils.executeUsingJdbc(sqlScriptRuntime, driver, user, password, url);
-                }
-                // add message
-                updateLog.setStatus("Update performed");
-                updateLog.setUpdated(true);
-                updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + sqlScript.getName() + " executed"));
-                EventUtils.post(environment, "UPDATE", "SQL script " + sqlScript.getName() + " executed");
-                LOGGER.info("SQL script {} executed", sqlScript.getName());
-            }
-        } catch (Exception e) {
-            // SQL script execution failed, delete the SQL script from the cache
-            try {
-                fileManipulator.delete(sqlScriptRuntime);
-            } catch (FileManipulatorException fileManipulatorException) {
-                LOGGER.warn("Can't delete {}/sql/{}", new Object[]{applicationCacheDir, sqlScript.getName()}, fileManipulatorException);
-            }
-            LOGGER.error("SQL script {} execution failed", sqlScript.getName(), e);
-            throw new UpdateException("SQL script " + sqlScript.getName() + " execution failed", e);
         }
     }
 

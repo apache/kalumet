@@ -23,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.vfs.*;
+import org.apache.commons.vfs.impl.StandardFileSystemManager;
 import org.apache.kalumet.model.J2EEApplication;
 import org.apache.kalumet.model.Environment;
 import org.apache.kalumet.model.Software;
@@ -74,7 +75,7 @@ public class FileManipulator {
             this.fileSystemManager = VFS.getManager();
             // this.fileSystemManager = new StandardFileSystemManager();
             // fileSystemManager.setCacheStrategy(CacheStrategy.ON_CALL);
-            // fileSystemManager.setReplicator(new KalumetFileReplicator());
+            ((StandardFileSystemManager) this.fileSystemManager).setReplicator(new KalumetFileReplicator());
             // fileSystemManager.init();
         } catch (Exception e) {
             throw new FileManipulatorException(e);
@@ -150,6 +151,7 @@ public class FileManipulator {
             LOGGER.error("No file matching {} found on {}", pattern, baseName);
             throw new FileManipulatorException("No file matching " + pattern + " found on " + baseName);
         }
+        baseUrl.close();
         return fileObjects[0];
     }
 

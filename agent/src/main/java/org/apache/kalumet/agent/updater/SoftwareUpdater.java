@@ -908,7 +908,7 @@ public class SoftwareUpdater {
                             String output = SqlScriptUtils.executeUsingCommand(singleSqlScriptRuntime, command);
                             updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + name + " executed: " + output));
                             EventUtils.post(environment, "UPDATE", "SQL script " + name + " executed: " + output);
-                            LOGGER.info("SQL script {} executed: {}", name, output);
+                            LOGGER.info("SQL script {} executed succesfully", name);
                         } else {
                             // execute SQL script using JDBC
                             String user = null;
@@ -990,7 +990,7 @@ public class SoftwareUpdater {
                         String output = SqlScriptUtils.executeUsingCommand(sqlScriptRuntime, command);
                         updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + sqlScript.getName() + " executed: " + output));
                         EventUtils.post(environment, "UPDATE", "SQL script " + sqlScript.getName() + " executed: " + output);
-                        LOGGER.info("SQL script " + sqlScript.getName() + " executed: " + output);
+                        LOGGER.info("SQL script {} executed successfully", sqlScript.getName());
                     } else {
                         // execute SQL script using JDBC
                         LOGGER.info("Executing SQL script using JDBC");
@@ -1035,7 +1035,7 @@ public class SoftwareUpdater {
                     updateLog.setUpdated(true);
                     updateLog.addUpdateMessage(new UpdateMessage("info", "SQL script " + sqlScript.getName() + " executed"));
                     EventUtils.post(environment, "UPDATE", "SQL script " + sqlScript.getName() + " executed");
-                    LOGGER.info("SQL script " + sqlScript.getName() + " executed");
+                    LOGGER.info("SQL script {} executed sucessfully", sqlScript.getName());
                 }
             } catch (Exception e) {
                 // SQL script execution failed, delete SQL script from the cache

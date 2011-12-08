@@ -44,16 +44,25 @@ public class FileUtils {
      */
     public static String view(String path) {
         String content = null;
+        InputStream stream = null;
         try  {
             // get a file manipulator instance
             FileManipulator fileManipulator = FileManipulator.getInstance();
             // get the file content
-            InputStream stream = fileManipulator.read(path);
+            stream = fileManipulator.read(path);
             // populate the content string
             content = IOUtils.toString(stream);
         }
         catch (Exception e) {
             LOGGER.warn("Can't view {}", path, e);
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (Exception e) {
+                    // nothing to do
+                }
+            }
         }
         return content;
     }
