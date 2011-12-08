@@ -1,0 +1,40 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+Apache Kalumet JBoss Controller
+===============================
+
+Apache Kalumet provides two JBoss controllers:
+- one for the JBoss 4.x version (which use the JBoss RMIAdaptor)
+- one for the JBoss 6.x
+
+    JBoss 4.x Controller Installation
+    ---------------------------------
+Copy the following jar file to <kalumet_agent_home>/lib/extras:
+        * <jboss_home>/client/jbossall-client.jar
+
+    JBoss 6.x Controller Installation
+    ---------------------------------
+Setup your JBoss application server to allow remote JMX connection.
+To do that in the bin/run.conf (on Unix) or bin/run.bat (on Windows), add:
+
+       JAVA_OPTS="$JAVA_OPTS -Djboss.platform.mbeanserver -Djavax.management.builder.initial=org.jboss.system.server.jmx.MBeanServerBuilderImpl -Dcom.sun.management.jmxremote.port=myport -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dorg.jboss.logging.Logger.pluginClass=org.jboss.logging.logmanager.LoggerPluginImpl"
+       JBOSS_CLASSPATH="$JBOSS_HOME/lib/jboss-logmanager.jar
+
+NB: JBOSS_HOME should be defined and contains the absolute path to the jboss-logmanager.jar file.
+NB: replace myport by your port. This port will be used in the AutoDeploy Console in the JMX URL, which should looks like service:jmx:rmi:///jndi/rmi://host:myport/jmxrmi
+
