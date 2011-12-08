@@ -1,0 +1,77 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+Apache Kalumet WebSphere Controller
+===================================
+
+Apache Kalumet provides a controller for IBM WebSphere application server.
+This controller works with:
+- IBM WebSphere 5.x
+- IBM WebSphere 6.x
+
+    Controller Installation for WebSphere 5.x
+    -----------------------------------------
+Copy the following jar files to <kalumet_agent_home>/lib/extras:
+        * <websphere_home>/lib/admin.jar
+        * <websphere_home>/lib/bootstrap.jar
+        * <websphere_home>/lib/common.jar
+        * <websphere_home>/lib/commonArchive.jar
+        * <websphere_home>/lib/deployutils.jar
+        * <websphere_home>/lib/ecore.jar
+        * <websphere_home>/lib/ecore.utilities.jar
+        * <websphere_home>/lib/ecore.xmi.jar
+        * <websphere_home>/lib/ecutils.jar
+        * <websphere_home>/lib/ffdc.jar
+        * <websphere_home>/lib/idl.jar
+        * <websphere_home>/lib/iwsorb.jar
+        * <websphere_home>/lib/j2ee.jar
+        * <websphere_home>/lib/jflt.jar
+        * <websphere_home>/lib/jmxc.jar
+        * <websphere_home>/lib/jmxext.jar
+        * <websphere_home>/lib/jmxx.jar
+        * <websphere_home>/lib/mofj2ee.jar
+        * <websphere_home>/lib/mofjava.jar
+        * <websphere_home>/lib/naming.jar
+        * <websphere_home>/lib/namingclient.jar
+        * <websphere_home>/lib/ras.jar
+        * <websphere_home>/lib/runtimefw.jar
+        * <websphere_home>/lib/sas.jar
+        * <websphere_home>/lib/security.jar
+        * <websphere_home>/lib/soap.jar
+        * <websphere_home>/lib/soap-sec.jar
+        * <websphere_home>/lib/utils.jar
+        * <websphere_home>/lib/wasjmx.jar
+        * <websphere_home>/lib/wftutils.jar
+        * <websphere_home>/lib/wjmxapp.jar
+        * <websphere_home>/lib/workspace.jar
+        * <websphere_home>/lib/ws-base-resources.jar
+        * <websphere_home>/lib/ws-config-appdeploy.jar
+        * <websphere_home>/lib/ws-config-common.jar
+        * <websphere_home>/lib/ws-config-servers.jar
+        * <websphere_home>/lib/ws-j2eex.jar
+        * <websphere_home>/lib/wsexception.jar
+        * <websphere_home>/lib/wssec.jar
+    Warning: using the IBM JDK, you need to copy the IBM <java_home>/jre/lib/ext/*.jar into <kalumet_agent_home>/lib/extras.
+
+    Controller Installation for WebSphere 6.x
+    -----------------------------------------
+Copy the following jar files to <kalumet_agent_home>/lib/extras:
+        * <websphere_home>/runtimes/com.ibm.ws.admin.client_6.1.0.jar
+        * <websphere_home>/runtimes/com.ibm.ws.webservices.thinclient_6.1.0.jar
+        * <websphere_home>/plugins/com.ibm.ws.runtime_6.1.0.jar
+        * <websphere_home>/plugins/com.ibm.ws.security.crypto_6.1.0.jar
+
