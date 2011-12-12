@@ -36,5 +36,5 @@ To do that in the bin/run.conf (on Unix) or bin/run.bat (on Windows), add:
        JBOSS_CLASSPATH="$JBOSS_HOME/lib/jboss-logmanager.jar
 
 NB: JBOSS_HOME should be defined and contains the absolute path to the jboss-logmanager.jar file.
-NB: replace myport by your port. This port will be used in the AutoDeploy Console in the JMX URL, which should looks like service:jmx:rmi:///jndi/rmi://host:myport/jmxrmi
+NB: replace myport by your port. This port will be used in the Kalumet Console in the JMX URL, which should looks like service:jmx:rmi:///jndi/rmi://host:myport/jmxrmi
 
