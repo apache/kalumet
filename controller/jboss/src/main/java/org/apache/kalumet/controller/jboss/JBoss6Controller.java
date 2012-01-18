@@ -101,7 +101,7 @@ public class JBoss6Controller extends AbstractJ2EEApplicationServerController {
             ObjectName deploymentScannerMBean = new ObjectName("jboss.deployment:flavor=URL,type=DeploymentScanner");
             server.invoke(deploymentScannerMBean, "stop", null, null);
             ObjectName serverConfigMBean = new ObjectName("jboss.system:type=ServerConfig");
-            String deployFolder = ((String) server.getAttribute(serverConfigMBean, "ServerHomeLocation")) + "/deploy";
+            String deployFolder = ((URL) server.getAttribute(serverConfigMBean, "ServerHomeLocation")).toString() + "/deploy";
             this.deployURL = new URL(deployFolder);
         } catch (Exception e) {
             LOGGER.error("Can't stop the JBoss deployment scanner or get the deploy folder", e);
