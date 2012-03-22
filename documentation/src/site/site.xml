@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+  <bannerLeft>
+    <name>Apache Kalumet</name>
+    <src>http://incubator.apache.org/kalumet/images/logo.png</src>
+    <href>http://incubator.apache.org/kalumet</href>
+  </bannerLeft>
+
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.1</version>
+  </skin>
+
+  <publishDate format="yyyy-MM-dd" position="right"/>
+  <version position="right"/>
+
+  <body>
+
+    <breadcrumbs>
+      <item name="${project.version}" href="/index.html"/>
+    </breadcrumbs>
+
+    <menu name="Introduction">
+      <item name="Quick Start" href="/quick-start.html"/>
+      <item name="Feature Tour" href="/tour/quick.html"/>
+      <item name="Release Notes" href="/release-notes.html"/>
+      <item name="Downloads" href="http://incubator.apache.org/kalumet/download.html"/>
+    </menu>
+
+    <menu name="Administrator Guide">
+      <item name="Installation">
+        <item name="Agent installation" href="/adminguide/agent.html"/>
+        <item name="Console installation" href="/adminguide/console.html"/>
+        <item name="Upgrade to a New Version" href="/adminguide/upgrade.html"/>
+      </item>
+    </menu>
+  </body>
+
+</project>

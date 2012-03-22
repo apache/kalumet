@@ -41,6 +41,7 @@
     <module>controller</module>
     <module>agent</module>
     <module>console</module>
+    <module>documentation</module>
     <module>assembly</module>
   </modules>
 
