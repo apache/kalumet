@@ -1,0 +1,55 @@
+ -----
+ Installing Apache Kalumet Agent
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+Installing Apache Kalumet agent
+
+  The Kalumet agents are responsible of the environment updated and
+  interaction with the underlying system.
+
+  The agents are installed locally on the target servers. The agents
+  connect to Kalumet console to get the configuration.
+
+  In the same way, Kalumet console fires action on the agents.
+
+  * Prerequisites
+
+    ** J2SE 1.6
+
+      Kalumet agent requires a Java 6 environment to run. Refer to http://java.oracle.com for detail on how to download and install J2SE 1.6.
+
+    ** Download binaries
+
+      Download the target version of the Kalumet agent.
+
+      Select the file compression format compatible with your system (zip or tar.gz). Download the archive and expand the binary to your hard driver in a new directory ; for example /opt/apache-kalumet.
+      Please remember the restrictions concerning illegal characters in Java paths, e.g. !, % etc.
+
+  * Start Kalumet Agent
+
+    Open a command line and go in the Kalumet agent installation directory. To start the agent, run the following command in Windows:
+
+    bin\agent.bat -config <path to Kalumet console> -id <agent id>
+
+    respectively in Linux/Unix:
+
+    bin/agent -config <path to Kalumet console> -id <agent id>
