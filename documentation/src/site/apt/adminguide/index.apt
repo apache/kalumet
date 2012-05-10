@@ -29,8 +29,8 @@ System Administrators Guide to Apache Kalumet
   The following sections describe the process for configuring
   Kalumet for use:
 
-    * {{{./agent.html} Installing Apache Kalumet agent}}
-
     * {{{./console.hmtl} Installing Apache Kalumet console}}
+
+    * {{{./agent.html} Installing Apache Kalumet agent}}
 
     * {{{./webservice.html} Agent WebServices}}
