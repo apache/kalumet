@@ -139,6 +139,11 @@
       <artifactId>org.apache.kalumet.utils</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.kalumet</groupId>
+      <artifactId>org.apache.kalumet.console</artifactId>
+      <type>war</type>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
@@ -178,13 +183,29 @@
             <id>agent-bin</id>
             <phase>package</phase>
             <goals>
-              <goal>attached</goal>
+              <goal>single</goal>
             </goals>
             <configuration>
               <descriptors>
                 <descriptor>src/main/descriptors/agent-bin.xml</descriptor>
               </descriptors>
               <appendAssemblyId>false</appendAssemblyId>
+              <finalName>apache-kalumet-agent-${project.version}</finalName>
+              <tarLongFileMode>gnu</tarLongFileMode>
+            </configuration>
+          </execution>
+          <execution>
+            <id>console-bin</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/descriptors/console-bin.xml</descriptor>
+              </descriptors>
+              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>apache-kalumet-console-${project.version}</finalName>
               <tarLongFileMode>gnu</tarLongFileMode>
             </configuration>
           </execution>
