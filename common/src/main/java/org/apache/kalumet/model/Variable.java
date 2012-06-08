@@ -18,68 +18,81 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent a <code>variable</code> tag in the Kalumet configuration DOM.
  */
-public class Variable implements Serializable, Cloneable, Comparable {
+public class Variable
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = -7869565872871570323L;
+  private static final long serialVersionUID = -7869565872871570323L;
 
-   private String name;
-   private String value;
+  private String name;
 
-   public Variable() { }
+  private String value;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  public Variable()
+  {
+  }
 
-   public String getName() {
-      return this.name;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   public void setValue(String value) {
-      this.value = value;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public String getValue() {
-      return this.value;
-   }
+  public void setValue( String value )
+  {
+    this.value = value;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Variable clone = new Variable();
-      clone.setName(this.getName());
-      clone.setValue(this.getValue());
-      return clone;
-   }
+  public String getValue()
+  {
+    return this.value;
+  }
 
-   /**
-    * Transform the <code>Variable</code> POJO to a DOM Element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "variable");
-      element.setAttribute("name", this.getName());
-      element.setAttribute("value", this.getValue());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherVariable) {
-       return this.getName().compareTo(((Variable)anotherVariable).getName());
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Variable clone = new Variable();
+    clone.setName( this.getName() );
+    clone.setValue( this.getValue() );
+    return clone;
+  }
+
+  /**
+   * Transform the <code>Variable</code> POJO to a DOM Element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "variable" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "value", this.getValue() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherVariable )
+  {
+    return this.getName().compareTo( ( (Variable) anotherVariable ).getName() );
+  }
 
 }

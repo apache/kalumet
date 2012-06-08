@@ -18,135 +18,158 @@
  */
 package org.apache.kalumet.model;
 
+import org.apache.xerces.dom.CoreDocumentImpl;
+import org.apache.xerces.dom.ElementImpl;
+import org.w3c.dom.Element;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.xerces.dom.CoreDocumentImpl;
-import org.apache.xerces.dom.ElementImpl;
-import org.w3c.dom.Element;
-
 /**
  * Represent the <code>Email</code> tag in the Kalumet configuration DOM.
  */
-public class Email implements Serializable, Cloneable, Comparable {
+public class Email
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = -88087573038809801L;
+  private static final long serialVersionUID = -88087573038809801L;
 
-   private String mailhost;
-   private String from;
-   private LinkedList destinations;
+  private String mailhost;
 
-   public Email() {
-      this.destinations = new LinkedList();
-   }
+  private String from;
 
-   public String getMailhost() {
-      return this.mailhost;
-   }
+  private LinkedList destinations;
 
-   public void setMailhost(String mailhost) {
-      this.mailhost = mailhost;
-   }
+  public Email()
+  {
+    this.destinations = new LinkedList();
+  }
 
-   public String getFrom() {
-      return this.from;
-   }
+  public String getMailhost()
+  {
+    return this.mailhost;
+  }
 
-   public void setFrom(String from) {
-      this.from = from;
-   }
+  public void setMailhost( String mailhost )
+  {
+    this.mailhost = mailhost;
+  }
 
-   /**
-    * Add a new <code>Destination</code> in the <code>Email</code>
-    * destinations container.
-    * 
-    * @param destination the <code>Destination</code> to add.
-    */
-   public void addDestination(Destination destination) throws ModelObjectAlreadyExistsException {
-      if (this.getDestination(destination.getAddress()) != null) {
-         throw new ModelObjectAlreadyExistsException("Destination address already exists in the email destinations.");
+  public String getFrom()
+  {
+    return this.from;
+  }
+
+  public void setFrom( String from )
+  {
+    this.from = from;
+  }
+
+  /**
+   * Add a new <code>Destination</code> in the <code>Email</code>
+   * destinations container.
+   *
+   * @param destination the <code>Destination</code> to add.
+   */
+  public void addDestination( Destination destination )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getDestination( destination.getAddress() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "Destination address already exists in the email destinations." );
+    }
+    this.destinations.add( destination );
+  }
+
+  /**
+   * Get the <code>Destination</code> list in the <code>Email</code>
+   * destinations container.
+   *
+   * @return the <code>Destination</code> list.
+   */
+  public List getDestinations()
+  {
+    return this.destinations;
+  }
+
+  /**
+   * Set the <code>Destination</code> list in the <code>Email</code>
+   * destinations container.
+   *
+   * @param destinations the new <code>Destination</code> list.
+   */
+  public void setDestinations( LinkedList destinations )
+  {
+    this.destinations = destinations;
+  }
+
+  /**
+   * Get the <code>Destination</code> identified by a given address in the
+   * <code>Email</code> destinations container.
+   *
+   * @param address the <code>Destination</code> address.
+   * @return the <code>Destination</code> found or null if not found.
+   */
+  public Destination getDestination( String address )
+  {
+    for ( Iterator destinationIterator = this.getDestinations().iterator(); destinationIterator.hasNext(); )
+    {
+      Destination destination = (Destination) destinationIterator.next();
+      if ( destination.getAddress().equals( address ) )
+      {
+        return destination;
       }
-      this.destinations.add(destination);
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Get the <code>Destination</code> list in the <code>Email</code>
-    * destinations container.
-    * 
-    * @return the <code>Destination</code> list.
-    */
-   public List getDestinations() {
-      return this.destinations;
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Email clone = new Email();
+    clone.setMailhost( this.getMailhost() );
+    clone.setFrom( this.getFrom() );
+    for ( Iterator destinationIterator = this.destinations.iterator(); destinationIterator.hasNext(); )
+    {
+      Destination destination = (Destination) destinationIterator.next();
+      clone.destinations.add( (Destination) destination.clone() );
+    }
+    return clone;
+  }
 
-   /**
-    * Set the <code>Destination</code> list in the <code>Email</code>
-    * destinations container.
-    * 
-    * @param destinations the new <code>Destination</code> list.
-    */
-   public void setDestinations(LinkedList destinations) {
-      this.destinations = destinations;
-   }
+  /**
+   * Transform the <code>Email</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "email" );
+    element.setAttribute( "mailhost", this.getMailhost() );
+    element.setAttribute( "from", this.getFrom() );
+    // destinations
+    ElementImpl destinations = new ElementImpl( document, "destinations" );
+    for ( Iterator destinationIterator = this.getDestinations().iterator(); destinationIterator.hasNext(); )
+    {
+      Destination destination = (Destination) destinationIterator.next();
+      destinations.appendChild( destination.toDOMElement( document ) );
+    }
+    element.appendChild( destinations );
+    return element;
+  }
 
-   /**
-    * Get the <code>Destination</code> identified by a given address in the
-    * <code>Email</code> destinations container.
-    * 
-    * @param address the <code>Destination</code> address.
-    * @return the <code>Destination</code> found or null if not found.
-    */
-   public Destination getDestination(String address) {
-      for (Iterator destinationIterator = this.getDestinations().iterator(); destinationIterator.hasNext();) {
-         Destination destination = (Destination) destinationIterator.next();
-         if (destination.getAddress().equals(address)) {
-            return destination;
-         }
-      }
-      return null;
-   }
-
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Email clone = new Email();
-      clone.setMailhost(this.getMailhost());
-      clone.setFrom(this.getFrom());
-      for (Iterator destinationIterator = this.destinations.iterator(); destinationIterator.hasNext(); ) {
-          Destination destination = (Destination)destinationIterator.next();
-          clone.destinations.add((Destination)destination.clone());
-      }
-      return clone;
-   }
-
-   /**
-    * Transform the <code>Email</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "email");
-      element.setAttribute("mailhost", this.getMailhost());
-      element.setAttribute("from", this.getFrom());
-      // destinations
-      ElementImpl destinations = new ElementImpl(document, "destinations");
-      for (Iterator destinationIterator = this.getDestinations().iterator(); destinationIterator.hasNext();) {
-         Destination destination = (Destination) destinationIterator.next();
-         destinations.appendChild(destination.toDOMElement(document));
-      }
-      element.appendChild(destinations);
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherEmail) {
-       return this.getMailhost().compareTo(((Email)anotherEmail).getMailhost());
-   }
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherEmail )
+  {
+    return this.getMailhost().compareTo( ( (Email) anotherEmail ).getMailhost() );
+  }
 
 }

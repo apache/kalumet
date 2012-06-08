@@ -21,52 +21,67 @@ package org.apache.kalumet.ws.client;
 /**
  * JMS connection factory WS client.
  */
-public class JMSConnectionFactoryClient extends AbstractClient {
+public class JMSConnectionFactoryClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public JMSConnectionFactoryClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/JMSConnectionFactoryService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public JMSConnectionFactoryClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/JMSConnectionFactoryService" );
+  }
 
-    /**
-     * Wrapper method to update a JMS connection factory.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param connectionFactoryName the target JMS connection factory.
-     * @throws ClientException in case of update failure.
-     */
-    public void update(String environmentName, String applicationServerName, String connectionFactoryName) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, connectionFactoryName });
-        } catch (Exception e) {
-            throw new ClientException("JMS connection factory " + connectionFactoryName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a JMS connection factory.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param connectionFactoryName the target JMS connection factory.
+   * @throws ClientException in case of update failure.
+   */
+  public void update( String environmentName, String applicationServerName, String connectionFactoryName )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, connectionFactoryName } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JMS connection factory " + connectionFactoryName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to check if a JMS connection factory is up to date or not.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param connectionFactoryName the target JMS connection factory name.
-     * @return true if the JMS connection factory is up to date, false else.
-     * @throws ClientException in case of status check failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String connectionFactoryName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, connectionFactoryName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("JMS connection factory " + connectionFactoryName + " status check failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to check if a JMS connection factory is up to date or not.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param connectionFactoryName the target JMS connection factory name.
+   * @return true if the JMS connection factory is up to date, false else.
+   * @throws ClientException in case of status check failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String connectionFactoryName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check", new Object[]{ environmentName, applicationServerName,
+        connectionFactoryName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JMS connection factory " + connectionFactoryName + " status check failed", e );
+    }
+    return upToDate;
+  }
 
 }

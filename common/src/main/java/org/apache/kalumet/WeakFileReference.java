@@ -25,27 +25,31 @@ import java.lang.ref.WeakReference;
 /**
  * Managed files by reference.
  */
-public class WeakFileReference extends WeakReference {
+public class WeakFileReference
+  extends WeakReference
+{
 
-    private String absolutePath;
+  private String absolutePath;
 
-    /**
-     * Default constructor.
-     *
-     * @param file the file to manage reference.
-     * @param queue the references queue.
-     */
-    public WeakFileReference(File file, ReferenceQueue queue) {
-        super(file, queue);
-        this.absolutePath = file.getAbsolutePath();
-    }
+  /**
+   * Default constructor.
+   *
+   * @param file  the file to manage reference.
+   * @param queue the references queue.
+   */
+  public WeakFileReference( File file, ReferenceQueue queue )
+  {
+    super( file, queue );
+    this.absolutePath = file.getAbsolutePath();
+  }
 
-    /**
-     * Gets the absolute path of the file.
-     *
-     * @return the absolute path of the file.
-     */
-    public String getPath() {
-        return this.absolutePath;
-    }
+  /**
+   * Gets the absolute path of the file.
+   *
+   * @return the absolute path of the file.
+   */
+  public String getPath()
+  {
+    return this.absolutePath;
+  }
 }

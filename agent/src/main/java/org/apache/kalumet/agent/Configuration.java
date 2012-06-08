@@ -23,10 +23,13 @@ import org.apache.kalumet.model.Kalumet;
 /**
  * Static class to store Kalumet agent configuration.
  */
-public class Configuration {
+public class Configuration
+{
 
-    public static String CONFIG_LOCATION;
-    public static String AGENT_ID;
-    public static Kalumet CONFIG_CACHE = null;
+  public static String CONFIG_LOCATION;
+
+  public static String AGENT_ID;
+
+  public static Kalumet CONFIG_CACHE = null;
 
 }

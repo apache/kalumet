@@ -21,68 +21,68 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-    <appender name="FILE" class="org.apache.log4j.FileAppender">
-        <param name="threshold" value="DEBUG"/>
-        <param name="File" value="apache-kalumet-console.log"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ABSOLUTE} | %-5p | %-10t | %-24.24c{1} | %-30.30C %4L | %m%n"/>
-        </layout>
-    </appender>
+  <appender name="FILE" class="org.apache.log4j.FileAppender">
+    <param name="threshold" value="DEBUG"/>
+    <param name="File" value="apache-kalumet-console.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ABSOLUTE} | %-5p | %-10t | %-24.24c{1} | %-30.30C %4L | %m%n"/>
+    </layout>
+  </appender>
 
-    <logger name="org.apache">
-        <level value="WARN"/>
-    </logger>
+  <logger name="org.apache">
+    <level value="WARN"/>
+  </logger>
 
-    <logger name="org.quartz">
-        <level value="WARN"/>
-    </logger>
+  <logger name="org.quartz">
+    <level value="WARN"/>
+  </logger>
 
-    <logger name="org.apache.kalumet">
-        <!-- To enable debug logging, replace the INFO by DEBUG -->
-        <level value="INFO"/>
-    </logger>
+  <logger name="org.apache.kalumet">
+    <!-- To enable debug logging, replace the INFO by DEBUG -->
+    <level value="INFO"/>
+  </logger>
 
-    <root>
-        <level value="INFO"/>
-        <appender-ref ref="FILE"/>
-    </root>
+  <root>
+    <level value="INFO"/>
+    <appender-ref ref="FILE"/>
+  </root>
 
 
 </log4j:configuration>
 
-<!--
+    <!--
 
-Log4J Configuration Quick Reference:
-====================================
+    Log4J Configuration Quick Reference:
+    ====================================
 
-Priority order is DEBUG < INFO < WARN < ERROR < FATAL
+    Priority order is DEBUG < INFO < WARN < ERROR < FATAL
 
-PatternLayout conversion characters:
+    PatternLayout conversion characters:
 
-%c   Category of the logging event
-%C   Fully qualified class name of the caller
-%d   Date of the logging event  (example: %d{HH:mm:ss,SSS} )
-%F   File name where the logging request was issued (caution: extremely slow)
-%l   Location information of the caller (caution: extremely slow)
-%L   Line number from where the logging request was issued (caution: extremely slow)
-%m   Application-supplied message
-%M   Method name from where the logging request was issued (caution: extremely slow)
-%n   Line separator
-%p   Priority of the logging event
-%r   Number of milliseconds since the start of the application
-%t   Name of the thread that generated the logging event
-%x   Nested diagnotic context associated with the thread
-%%   A single percent sign
+    %c   Category of the logging event
+    %C   Fully qualified class name of the caller
+    %d   Date of the logging event  (example: %d{HH:mm:ss,SSS} )
+    %F   File name where the logging request was issued (caution: extremely slow)
+    %l   Location information of the caller (caution: extremely slow)
+    %L   Line number from where the logging request was issued (caution: extremely slow)
+    %m   Application-supplied message
+    %M   Method name from where the logging request was issued (caution: extremely slow)
+    %n   Line separator
+    %p   Priority of the logging event
+    %r   Number of milliseconds since the start of the application
+    %t   Name of the thread that generated the logging event
+    %x   Nested diagnotic context associated with the thread
+    %%   A single percent sign
 
-Format modifiers examples:
+    Format modifiers examples:
 
-%20c     Left pad with spaces if category is less than 20 characters long
-%-20c    Right pad with spaces if category is less than 20 characters long
-%.30c    Truncate from the beginning if category is more than 30 chars long
-%20.30c  Left pad 20 chars + truncate from beginning if more than 30 chars
-%-20.30c Right pad 20 chars + truncate from beginning if more than 30 chars
+    %20c     Left pad with spaces if category is less than 20 characters long
+    %-20c    Right pad with spaces if category is less than 20 characters long
+    %.30c    Truncate from the beginning if category is more than 30 chars long
+    %20.30c  Left pad 20 chars + truncate from beginning if more than 30 chars
+    %-20.30c Right pad 20 chars + truncate from beginning if more than 30 chars
 
-Examples:  "%r [%t] %-5p %c %x - %m\n"
-"%-6r [%15.15t] %-5p %30.30c %x - %m\n"
+    Examples:  "%r [%t] %-5p %c %x - %m\n"
+    "%-6r [%15.15t] %-5p %30.30c %x - %m\n"
 
--->
+    -->

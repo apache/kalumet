@@ -18,355 +18,427 @@
  */
 package org.apache.kalumet.model;
 
+import org.apache.xerces.dom.CoreDocumentImpl;
+import org.apache.xerces.dom.ElementImpl;
+import org.w3c.dom.Element;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.xerces.dom.CoreDocumentImpl;
-import org.apache.xerces.dom.ElementImpl;
-import org.w3c.dom.Element;
-
 /**
  * Represents the <code>j2eeapplication</code> tag in the Kalumet DOM.
  */
-public class J2EEApplication implements Serializable, Cloneable, Comparable {
+public class J2EEApplication
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = -1198170476993837094L;
+  private static final long serialVersionUID = -1198170476993837094L;
 
-   private String name;
-   private String uri;
-   private boolean active;
-   private boolean blocker;
-   private String agent;
-   private LinkedList archives;
-   private LinkedList contentManagers;
-   private LinkedList configurationFiles;
-   private LinkedList databases;
+  private String name;
 
-   /**
-    * Default constructor to create a <code>J2EEApplication</code>
-    */
-   public J2EEApplication() {
-      this.archives = new LinkedList();
-      this.contentManagers = new LinkedList();
-      this.configurationFiles = new LinkedList();
-      this.databases = new LinkedList();
-   }
+  private String uri;
 
-   public String getName() {
-      return this.name;
-   }
+  private boolean active;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  private boolean blocker;
 
-   public String getUri() {
-      return this.uri;
-   }
+  private String agent;
 
-   public void setUri(String uri) {
-      this.uri = uri;
-   }
+  private LinkedList archives;
 
-   public boolean isActive() {
-      return this.active;
-   }
+  private LinkedList contentManagers;
 
-   public void setActive(boolean active) {
-      this.active = active;
-   }
+  private LinkedList configurationFiles;
 
-   public boolean isBlocker() {
-      return this.blocker;
-   }
+  private LinkedList databases;
 
-   public void setBlocker(boolean blocker) {
-      this.blocker = blocker;
-   }
+  /**
+   * Default constructor to create a <code>J2EEApplication</code>
+   */
+  public J2EEApplication()
+  {
+    this.archives = new LinkedList();
+    this.contentManagers = new LinkedList();
+    this.configurationFiles = new LinkedList();
+    this.databases = new LinkedList();
+  }
 
-   public String getAgent() {
-       return agent;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public void setAgent(String agent) {
-       this.agent = agent;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   /**
-    * Add a new <code>Archive</code> in the <code>J2EEApplication</code> archives container.
-    * 
-    * @param archive the <code>Archive</code> to add.
-    * @throws ModelObjectAlreadyExistsException if the archive name already exists in the application.
-    */
-   public void addArchive(Archive archive) throws ModelObjectAlreadyExistsException {
-      if (this.getArchive(archive.getName()) != null) {
-         throw new ModelObjectAlreadyExistsException("Archive name already exists in the JZEE application.");
+  public String getUri()
+  {
+    return this.uri;
+  }
+
+  public void setUri( String uri )
+  {
+    this.uri = uri;
+  }
+
+  public boolean isActive()
+  {
+    return this.active;
+  }
+
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
+
+  public boolean isBlocker()
+  {
+    return this.blocker;
+  }
+
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
+
+  public String getAgent()
+  {
+    return agent;
+  }
+
+  public void setAgent( String agent )
+  {
+    this.agent = agent;
+  }
+
+  /**
+   * Add a new <code>Archive</code> in the <code>J2EEApplication</code> archives container.
+   *
+   * @param archive the <code>Archive</code> to add.
+   * @throws ModelObjectAlreadyExistsException
+   *          if the archive name already exists in the application.
+   */
+  public void addArchive( Archive archive )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getArchive( archive.getName() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "Archive name already exists in the JZEE application." );
+    }
+    this.archives.add( archive );
+  }
+
+  /**
+   * Get the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
+   *
+   * @return the <code>Archive</code> list
+   */
+  public List getArchives()
+  {
+    return this.archives;
+  }
+
+  /**
+   * Overwrite the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
+   *
+   * @param archives the new <code>Archive</code> list.
+   */
+  public void setArchives( LinkedList archives )
+  {
+    this.archives = archives;
+  }
+
+  /**
+   * Get the <code>Archive</code> identified by a given name in the <code>J2EEApplication</code> archives container.
+   *
+   * @param name the <code>Archive</code> name.
+   * @return the <code>Archive</code> found or null if not found.
+   */
+  public Archive getArchive( String name )
+  {
+    for ( Iterator archiveIterator = this.getArchives().iterator(); archiveIterator.hasNext(); )
+    {
+      Archive archive = (Archive) archiveIterator.next();
+      if ( archive.getName().equals( name ) )
+      {
+        return archive;
       }
-      this.archives.add(archive);
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Get the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
-    * 
-    * @return the <code>Archive</code> list
-    */
-   public List getArchives() {
-      return this.archives;
-   }
+  /**
+   * Add a new <code>ContentManager</code> in the <code>J2EEApplication</code> content managers container.
+   *
+   * @param contentManager the <code>ContentManager</code> to add.
+   * @throws ModelObjectAlreadyExistsException
+   *          if the <code>ContentManager</code> already exists in the application.
+   */
+  public void addContentManager( ContentManager contentManager )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getContentManager( contentManager.getName() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "Content manager name already exists in the JZEE application." );
+    }
+    this.contentManagers.add( contentManager );
+  }
 
-   /**
-    * Overwrite the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
-    * 
-    * @param archives the new <code>Archive</code> list.
-    */
-   public void setArchives(LinkedList archives) {
-      this.archives = archives;
-   }
+  /**
+   * Get the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
+   *
+   * @return the <code>ContentManager</code> list.
+   */
+  public List getContentManagers()
+  {
+    return this.contentManagers;
+  }
 
-   /**
-    * Get the <code>Archive</code> identified by a given name in the <code>J2EEApplication</code> archives container.
-    * 
-    * @param name the <code>Archive</code> name.
-    * @return the <code>Archive</code> found or null if not found.
-    */
-   public Archive getArchive(String name) {
-      for (Iterator archiveIterator = this.getArchives().iterator(); archiveIterator.hasNext();) {
-         Archive archive = (Archive) archiveIterator.next();
-         if (archive.getName().equals(name)) {
-            return archive;
-         }
+  /**
+   * Overwrite the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
+   *
+   * @param contentManagers the new <code>ContentManagers</code> list.
+   */
+  public void setContentManagers( LinkedList contentManagers )
+  {
+    this.contentManagers = contentManagers;
+  }
+
+  /**
+   * Return the <code>ContentManager</code> identified by a given name in the <code>J2EEApplication</code> content managers container.
+   *
+   * @return the <code>ContentManager</code> found or null if not found.
+   */
+  public ContentManager getContentManager( String name )
+  {
+    for ( Iterator contentManagerIterator = this.getContentManagers().iterator(); contentManagerIterator.hasNext(); )
+    {
+      ContentManager contentManager = (ContentManager) contentManagerIterator.next();
+      if ( contentManager.getName().equals( name ) )
+      {
+        return contentManager;
       }
-      return null;
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Add a new <code>ContentManager</code> in the <code>J2EEApplication</code> content managers container.
-    * 
-    * @param contentManager the <code>ContentManager</code> to add.
-    * @throws ModelObjectAlreadyExistsException if the <code>ContentManager</code> already exists in the application.
-    */
-   public void addContentManager(ContentManager contentManager) throws ModelObjectAlreadyExistsException {
-      if (this.getContentManager(contentManager.getName()) != null) {
-         throw new ModelObjectAlreadyExistsException("Content manager name already exists in the JZEE application.");
-      }
-      this.contentManagers.add(contentManager);
-   }
+  /**
+   * Add a new <code>ConfigurationFile</code> in the <code>J2EEApplication</code>
+   * configuration files container.
+   *
+   * @param configurationFile the <code>ConfigurationFile</code> to add.
+   * @throws ModelObjectAlreadyExistsException
+   *          if the <code>ConfigurationFile</code> name already exists in the application.
+   */
+  public void addConfigurationFile( ConfigurationFile configurationFile )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getConfigurationFile( configurationFile.getName() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "Configuration file name already exists in the JZEE application." );
+    }
+    this.configurationFiles.add( configurationFile );
+  }
 
-   /**
-    * Get the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
-    * 
-    * @return the <code>ContentManager</code> list.
-    */
-   public List getContentManagers() {
-      return this.contentManagers;
-   }
+  /**
+   * Get the <code>ConfigurationFile</code> list in the
+   * <code>J2EEApplication</code> configuration files container.
+   *
+   * @return the <code>ConfigurationFile</code> list.
+   */
+  public List getConfigurationFiles()
+  {
+    return this.configurationFiles;
+  }
 
-   /**
-    * Overwrite the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
-    * 
-    * @param contentManagers the new <code>ContentManagers</code> list.
-    */
-   public void setContentManagers(LinkedList contentManagers) {
-      this.contentManagers = contentManagers;
-   }
+  /**
+   * Overwrite the <code>ConfigurationFile</code> list in the
+   * <code>J2EEApplication</code> configuration files container.
+   *
+   * @param configurationFiles the new <code>ConfigurationFile</code> list.
+   */
+  public void setConfigurationFiles( LinkedList configurationFiles )
+  {
+    this.configurationFiles = configurationFiles;
+  }
 
-   /**
-    * Return the <code>ContentManager</code> identified by a given name in the <code>J2EEApplication</code> content managers container.
-    * 
-    * @return the <code>ContentManager</code> found or null if not found.
-    */
-   public ContentManager getContentManager(String name) {
-      for (Iterator contentManagerIterator = this.getContentManagers().iterator(); contentManagerIterator.hasNext();) {
-         ContentManager contentManager = (ContentManager) contentManagerIterator.next();
-         if (contentManager.getName().equals(name)) {
-            return contentManager;
-         }
+  /**
+   * Get the <code>ConfigurationFile</code> identified by a given name in the
+   * <code>J2EEApplication</code> configuration files container.
+   *
+   * @param name the <code>ConfigurationFile</code> name.
+   * @return the <code>ConfigurationFile</code> found or null if not found.
+   */
+  public ConfigurationFile getConfigurationFile( String name )
+  {
+    for ( Iterator configurationFileIterator = this.getConfigurationFiles().iterator();
+          configurationFileIterator.hasNext(); )
+    {
+      ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
+      if ( configurationFile.getName().equals( name ) )
+      {
+        return configurationFile;
       }
-      return null;
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Add a new <code>ConfigurationFile</code> in the <code>J2EEApplication</code>
-    * configuration files container.
-    * 
-    * @param configurationFile the <code>ConfigurationFile</code> to add.
-    * @throws ModelObjectAlreadyExistsException if the <code>ConfigurationFile</code> name already exists in the application.
-    */
-   public void addConfigurationFile(ConfigurationFile configurationFile) throws ModelObjectAlreadyExistsException {
-      if (this.getConfigurationFile(configurationFile.getName()) != null) {
-         throw new ModelObjectAlreadyExistsException("Configuration file name already exists in the JZEE application.");
-      }
-      this.configurationFiles.add(configurationFile);
-   }
+  /**
+   * Add a new <code>Database</code> in the <code>J2EEApplication</code>
+   * databases container.
+   *
+   * @param database the <code>Database</code> to add.
+   * @throws ModelObjectAlreadyExistsException
+   *          if the <code>Database</code> name already exists in the application.
+   */
+  public void addDatabase( Database database )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getDatabase( database.getName() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "Database name already exists in the J2EE application." );
+    }
+    this.databases.add( database );
+  }
 
-   /**
-    * Get the <code>ConfigurationFile</code> list in the
-    * <code>J2EEApplication</code> configuration files container.
-    * 
-    * @return the <code>ConfigurationFile</code> list.
-    */
-   public List getConfigurationFiles() {
-      return this.configurationFiles;
-   }
+  /**
+   * Get the <code>Database</code> list in the <code>J2EEApplication</code>
+   * databases container.
+   *
+   * @return the <code>Database</code> list.
+   */
+  public List getDatabases()
+  {
+    return this.databases;
+  }
 
-   /**
-    * Overwrite the <code>ConfigurationFile</code> list in the
-    * <code>J2EEApplication</code> configuration files container.
-    * 
-    * @param configurationFiles the new <code>ConfigurationFile</code> list.
-    */
-   public void setConfigurationFiles(LinkedList configurationFiles) {
-      this.configurationFiles = configurationFiles;
-   }
+  /**
+   * Overwrite the <code>Database</code> list in the <code>J2EEApplication</code>
+   * databases container.
+   *
+   * @param databases the new <code>Database</code> list.
+   */
+  public void setDatabases( LinkedList databases )
+  {
+    this.databases = databases;
+  }
 
-   /**
-    * Get the <code>ConfigurationFile</code> identified by a given name in the
-    * <code>J2EEApplication</code> configuration files container.
-    * 
-    * @param name the <code>ConfigurationFile</code> name.
-    * @return the <code>ConfigurationFile</code> found or null if not found.
-    */
-   public ConfigurationFile getConfigurationFile(String name) {
-      for (Iterator configurationFileIterator = this.getConfigurationFiles().iterator(); configurationFileIterator.hasNext();) {
-         ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
-         if (configurationFile.getName().equals(name)) {
-            return configurationFile;
-         }
+  /**
+   * Get the <code>Database</code> identified by a given name in the
+   * <code>J2EEApplication</code> databases container.
+   *
+   * @param name the <code>Database</code> name.
+   * @return the <code>Database</code> found or null if not found.
+   */
+  public Database getDatabase( String name )
+  {
+    for ( Iterator databaseIterator = this.getDatabases().iterator(); databaseIterator.hasNext(); )
+    {
+      Database database = (Database) databaseIterator.next();
+      if ( database.getName().equals( name ) )
+      {
+        return database;
       }
-      return null;
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Add a new <code>Database</code> in the <code>J2EEApplication</code>
-    * databases container.
-    * 
-    * @param database the <code>Database</code> to add.
-    * @throws ModelObjectAlreadyExistsException if the <code>Database</code> name already exists in the application.
-    */
-   public void addDatabase(Database database) throws ModelObjectAlreadyExistsException {
-      if (this.getDatabase(database.getName()) != null) {
-         throw new ModelObjectAlreadyExistsException("Database name already exists in the J2EE application.");
-      }
-      this.databases.add(database);
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    J2EEApplication clone = new J2EEApplication();
+    clone.setName( this.getName() );
+    clone.setUri( this.getUri() );
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    clone.setAgent( this.getAgent() );
+    for ( Iterator archiveIterator = this.archives.iterator(); archiveIterator.hasNext(); )
+    {
+      Archive archive = (Archive) archiveIterator.next();
+      clone.archives.add( (Archive) archive.clone() );
+    }
+    for ( Iterator contentManagerIterator = this.contentManagers.iterator(); contentManagerIterator.hasNext(); )
+    {
+      ContentManager contentManager = (ContentManager) contentManagerIterator.next();
+      clone.contentManagers.add( (ContentManager) contentManager.clone() );
+    }
+    for ( Iterator configurationFileIterator = this.configurationFiles.iterator();
+          configurationFileIterator.hasNext(); )
+    {
+      ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
+      clone.configurationFiles.add( (ConfigurationFile) configurationFile.clone() );
+    }
+    for ( Iterator databaseIterator = this.databases.iterator(); databaseIterator.hasNext(); )
+    {
+      Database database = (Database) databaseIterator.next();
+      clone.databases.add( (Database) database.clone() );
+    }
+    return clone;
+  }
 
-   /**
-    * Get the <code>Database</code> list in the <code>J2EEApplication</code>
-    * databases container.
-    * 
-    * @return the <code>Database</code> list.
-    */
-   public List getDatabases() {
-      return this.databases;
-   }
+  /**
+   * Transforms the <code>J2EEApplication</code> POJO to a DOM element.
+   *
+   * @param document the core DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "j2eeapplication" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "uri", this.getUri() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+    element.setAttribute( "agent", this.getAgent() );
+    // archives
+    ElementImpl archives = new ElementImpl( document, "archives" );
+    for ( Iterator archiveIterator = this.getArchives().iterator(); archiveIterator.hasNext(); )
+    {
+      Archive archive = (Archive) archiveIterator.next();
+      archives.appendChild( archive.toDOMElement( document ) );
+    }
+    element.appendChild( archives );
+    // contentmanagers
+    ElementImpl contentmanagers = new ElementImpl( document, "contentmanagers" );
+    for ( Iterator contentManagerIterator = this.getContentManagers().iterator(); contentManagerIterator.hasNext(); )
+    {
+      ContentManager contentManager = (ContentManager) contentManagerIterator.next();
+      contentmanagers.appendChild( contentManager.toDOMElement( document ) );
+    }
+    element.appendChild( contentmanagers );
+    // configurationfiles
+    ElementImpl configurationfiles = new ElementImpl( document, "configurationfiles" );
+    for ( Iterator configurationFileIterator = this.getConfigurationFiles().iterator();
+          configurationFileIterator.hasNext(); )
+    {
+      ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
+      configurationfiles.appendChild( configurationFile.toDOMElement( document ) );
+    }
+    element.appendChild( configurationfiles );
+    // databases
+    ElementImpl databases = new ElementImpl( document, "databases" );
+    for ( Iterator databaseIterator = this.getDatabases().iterator(); databaseIterator.hasNext(); )
+    {
+      Database database = (Database) databaseIterator.next();
+      databases.appendChild( database.toDOMElement( document ) );
+    }
+    element.appendChild( databases );
+    return element;
+  }
 
-   /**
-    * Overwrite the <code>Database</code> list in the <code>J2EEApplication</code>
-    * databases container.
-    * 
-    * @param databases the new <code>Database</code> list.
-    */
-   public void setDatabases(LinkedList databases) {
-      this.databases = databases;
-   }
-
-   /**
-    * Get the <code>Database</code> identified by a given name in the
-    * <code>J2EEApplication</code> databases container.
-    * 
-    * @param name the <code>Database</code> name.
-    * @return the <code>Database</code> found or null if not found.
-    */
-   public Database getDatabase(String name) {
-      for (Iterator databaseIterator = this.getDatabases().iterator(); databaseIterator.hasNext();) {
-         Database database = (Database) databaseIterator.next();
-         if (database.getName().equals(name)) {
-            return database;
-         }
-      }
-      return null;
-   }
-
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      J2EEApplication clone = new J2EEApplication();
-      clone.setName(this.getName());
-      clone.setUri(this.getUri());
-      clone.setActive(this.isActive());
-      clone.setBlocker(this.isBlocker());
-      clone.setAgent(this.getAgent());
-      for (Iterator archiveIterator = this.archives.iterator(); archiveIterator.hasNext(); ) {
-          Archive archive = (Archive)archiveIterator.next();
-          clone.archives.add((Archive)archive.clone());
-      }
-      for (Iterator contentManagerIterator = this.contentManagers.iterator(); contentManagerIterator.hasNext(); ) {
-          ContentManager contentManager = (ContentManager)contentManagerIterator.next();
-          clone.contentManagers.add((ContentManager)contentManager.clone());
-      }
-      for (Iterator configurationFileIterator = this.configurationFiles.iterator(); configurationFileIterator.hasNext(); ) {
-          ConfigurationFile configurationFile = (ConfigurationFile)configurationFileIterator.next();
-          clone.configurationFiles.add((ConfigurationFile)configurationFile.clone());
-      }
-      for (Iterator databaseIterator = this.databases.iterator(); databaseIterator.hasNext(); ) {
-          Database database = (Database)databaseIterator.next();
-          clone.databases.add((Database)database.clone());
-      }
-      return clone;
-   }
-
-   /**
-    * Transforms the <code>J2EEApplication</code> POJO to a DOM element.
-    * 
-    * @param document the core DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "j2eeapplication");
-      element.setAttribute("name", this.getName());
-      element.setAttribute("uri", this.getUri());
-      element.setAttribute("active", new Boolean(this.isActive()).toString());
-      element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-      element.setAttribute("agent", this.getAgent());
-      // archives
-      ElementImpl archives = new ElementImpl(document, "archives");
-      for (Iterator archiveIterator = this.getArchives().iterator(); archiveIterator.hasNext();) {
-         Archive archive = (Archive) archiveIterator.next();
-         archives.appendChild(archive.toDOMElement(document));
-      }
-      element.appendChild(archives);
-      // contentmanagers
-      ElementImpl contentmanagers = new ElementImpl(document, "contentmanagers");
-      for (Iterator contentManagerIterator = this.getContentManagers().iterator(); contentManagerIterator.hasNext();) {
-         ContentManager contentManager = (ContentManager) contentManagerIterator.next();
-         contentmanagers.appendChild(contentManager.toDOMElement(document));
-      }
-      element.appendChild(contentmanagers);
-      // configurationfiles
-      ElementImpl configurationfiles = new ElementImpl(document, "configurationfiles");
-      for (Iterator configurationFileIterator = this.getConfigurationFiles().iterator(); configurationFileIterator.hasNext();) {
-         ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
-         configurationfiles.appendChild(configurationFile.toDOMElement(document));
-      }
-      element.appendChild(configurationfiles);
-      // databases
-      ElementImpl databases = new ElementImpl(document, "databases");
-      for (Iterator databaseIterator = this.getDatabases().iterator(); databaseIterator.hasNext();) {
-         Database database = (Database) databaseIterator.next();
-         databases.appendChild(database.toDOMElement(document));
-      }
-      element.appendChild(databases);
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherApplication) {
-       return this.getName().compareTo(((J2EEApplication)anotherApplication).getName());
-   }
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherApplication )
+  {
+    return this.getName().compareTo( ( (J2EEApplication) anotherApplication ).getName() );
+  }
 
 }

@@ -31,19 +31,26 @@ import java.io.PrintWriter;
  * This servlet reads the Kalumet configuration store and push it to the
  * servlet response stream.
  */
-public class KalumetConfigurationWrapperServlet extends HttpServlet {
+public class KalumetConfigurationWrapperServlet
+  extends HttpServlet
+{
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter writer = resp.getWriter();
-        String content;
-        try {
-            content = ConfigurationManager.readStore();
-        } catch (Exception e) {
-            throw new ServletException("Can't read the Apache Kalumet configuration store", e);
-        }
-        writer.print(content);
-        writer.flush();
-        writer.close();
+  public void doGet( HttpServletRequest req, HttpServletResponse resp )
+    throws ServletException, IOException
+  {
+    PrintWriter writer = resp.getWriter();
+    String content;
+    try
+    {
+      content = ConfigurationManager.readStore();
     }
+    catch ( Exception e )
+    {
+      throw new ServletException( "Can't read the Apache Kalumet configuration store", e );
+    }
+    writer.print( content );
+    writer.flush();
+    writer.close();
+  }
 
 }

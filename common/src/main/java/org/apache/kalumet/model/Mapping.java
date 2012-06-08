@@ -18,68 +18,81 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent the <code>mapping</code> tag in the Kalumet configuration DOM.
  */
-public class Mapping implements Serializable, Cloneable, Comparable {
+public class Mapping
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 6313869273116904013L;
+  private static final long serialVersionUID = 6313869273116904013L;
 
-   private String key;
-   private String value;
+  private String key;
 
-   public Mapping() { }
+  private String value;
 
-   public String getKey() {
-      return this.key;
-   }
+  public Mapping()
+  {
+  }
 
-   public void setKey(String key) {
-      this.key = key;
-   }
+  public String getKey()
+  {
+    return this.key;
+  }
 
-   public String getValue() {
-      return this.value;
-   }
+  public void setKey( String key )
+  {
+    this.key = key;
+  }
 
-   public void setValue(String value) {
-      this.value = value;
-   }
+  public String getValue()
+  {
+    return this.value;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Mapping clone = new Mapping();
-      clone.setKey(this.getKey());
-      clone.setValue(this.getValue());
-      return clone;
-   }
+  public void setValue( String value )
+  {
+    this.value = value;
+  }
 
-   /**
-    * Transform the <code>Mapping</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "mapping");
-      element.setAttribute("key", this.getKey());
-      element.setAttribute("value", this.getValue());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherMapping) {
-       return this.getKey().compareTo(((Mapping)anotherMapping).getKey());
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Mapping clone = new Mapping();
+    clone.setKey( this.getKey() );
+    clone.setValue( this.getValue() );
+    return clone;
+  }
+
+  /**
+   * Transform the <code>Mapping</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "mapping" );
+    element.setAttribute( "key", this.getKey() );
+    element.setAttribute( "value", this.getValue() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherMapping )
+  {
+    return this.getKey().compareTo( ( (Mapping) anotherMapping ).getKey() );
+  }
 
 }

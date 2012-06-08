@@ -18,57 +18,67 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent the <code>destination</code> tag in the Kalumet configuration DOM.
  */
-public class Destination implements Serializable, Cloneable, Comparable {
+public class Destination
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 1088692045286398988L;
+  private static final long serialVersionUID = 1088692045286398988L;
 
-   private String address;
+  private String address;
 
-   public Destination() { }
+  public Destination()
+  {
+  }
 
-   public String getAddress() {
-      return this.address;
-   }
+  public String getAddress()
+  {
+    return this.address;
+  }
 
-   public void setAddress(String address) {
-      this.address = address;
-   }
+  public void setAddress( String address )
+  {
+    this.address = address;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Destination clone = new Destination();
-      clone.setAddress(this.getAddress());
-      return clone;
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Destination clone = new Destination();
+    clone.setAddress( this.getAddress() );
+    return clone;
+  }
 
-   /**
-    * Transform the <code>Destination</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "destination");
-      element.setAttribute("address", this.getAddress());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherDestination) {
-       return this.getAddress().compareTo(((Destination)anotherDestination).getAddress());
-   }
+  /**
+   * Transform the <code>Destination</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "destination" );
+    element.setAttribute( "address", this.getAddress() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherDestination )
+  {
+    return this.getAddress().compareTo( ( (Destination) anotherDestination ).getAddress() );
+  }
 
 }

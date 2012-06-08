@@ -18,6 +18,16 @@
  */
 package org.apache.kalumet.model;
 
+import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
+import org.apache.commons.digester.Digester;
+import org.apache.kalumet.FileManipulator;
+import org.apache.kalumet.KalumetException;
+import org.apache.xerces.dom.CoreDocumentImpl;
+import org.apache.xerces.dom.ElementImpl;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
+import org.w3c.dom.Element;
+
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,17 +35,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
-import org.apache.kalumet.KalumetException;
-import org.apache.kalumet.FileManipulator;
-
-import org.apache.commons.digester.Digester;
-import org.apache.xerces.dom.CoreDocumentImpl;
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
-import org.w3c.dom.Element;
 
 /**
  * Represents the <code>kalumet</code> root tag in the main Kalumet DOM.

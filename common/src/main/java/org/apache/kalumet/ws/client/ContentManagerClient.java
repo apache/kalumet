@@ -21,35 +21,46 @@ package org.apache.kalumet.ws.client;
 /**
  * Content manager WS client.
  */
-public class ContentManagerClient extends AbstractClient {
+public class ContentManagerClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or UP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public ContentManagerClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationContentManagerService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or UP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public ContentManagerClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationContentManagerService" );
+  }
 
-    /**
-     * Wrapper method to update a J2EE application content manager.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param contentManagerName the target content manager name.
-     * @param delegation true if the call is a delegation from another agent, false else.
-     * @throws ClientException
-     */
-    public void update(String environmentName, String applicationServerName, String applicationName, String contentManagerName, boolean delegation) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, contentManagerName, new Boolean(delegation) });
-        } catch (Exception e) {
-            throw new ClientException("Content manager " + contentManagerName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a J2EE application content manager.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param contentManagerName    the target content manager name.
+   * @param delegation            true if the call is a delegation from another agent, false else.
+   * @throws ClientException
+   */
+  public void update( String environmentName, String applicationServerName, String applicationName,
+                      String contentManagerName, boolean delegation )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, applicationName, contentManagerName,
+        new Boolean( delegation ) } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Content manager " + contentManagerName + " update failed", e );
+    }
+  }
 
 }

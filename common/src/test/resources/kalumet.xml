@@ -2,127 +2,138 @@
 <!-- Unit test on the Kalumet model -->
 <kalumet>
 
-    <properties>
-        <property name="test" value="test"/>
-    </properties>
+  <properties>
+    <property name="test" value="test"/>
+  </properties>
 
-    <security>
+  <security>
+    <users>
+      <user id="test" name="Test Test" email="test@example.com" password=""/>
+    </users>
+    <groups>
+      <group id="test" name="Test Group">
         <users>
-            <user id="test" name="Test Test" email="test@example.com" password=""/>
+          <user id="test"/>
         </users>
-        <groups>
-            <group id="test" name="Test Group">
-                <users>
-                    <user id="test"/>
-                </users>
-            </group>
-        </groups>
-    </security>
+      </group>
+    </groups>
+  </security>
 
-    <agents>
-        <agent id="test" hostname="localhost" port="5000" cron="0 * * * * *" maxmanagedenvironments="5" maxj2eeapplicationserversstarted="3"/>
-    </agents>
+  <agents>
+    <agent id="test" hostname="localhost" port="5000" cron="0 * * * * *" maxmanagedenvironments="5"
+           maxj2eeapplicationserversstarted="3"/>
+  </agents>
 
-    <environments>
-        <environment name="test_auto" group="TEST" tag="test" autoupdate="false" agent="test" lock="test" releaseLocation="ftp://remote/release/${RELEASE_VERSION}">
-            <notes>
-<![CDATA[
+  <environments>
+    <environment name="test_auto" group="TEST" tag="test" autoupdate="false" agent="test" lock="test"
+                 releaseLocation="ftp://remote/release/${RELEASE_VERSION}">
+      <notes>
+        <![CDATA[
 Notes test.
 ]]>
-            </notes>
-            <weblinks>
-<![CDATA[
+      </notes>
+      <weblinks>
+        <![CDATA[
 Weblinks test.
 ]]>
-            </weblinks>
-            <variables>
-                <variable name="RELEASE_VERSION" value="test"/>
-            </variables>
-            <freefields>
-                <freefield name="FREE">
-<![CDATA[
+      </weblinks>
+      <variables>
+        <variable name="RELEASE_VERSION" value="test"/>
+      </variables>
+      <freefields>
+        <freefield name="FREE">
+          <![CDATA[
 field
 ]]>
-                </freefield>
-            </freefields>
-            <accesses>
-                <access group="test">
-                    <properties>
-                        <property name="admin" value="false"/>
-                        <property name="update" value="true"/>
-                        <property name="j2ee_application_servers_change" value="true"/>
-                        <property name="j2ee_application_servers_update" value="true"/>
-                        <property name="j2ee_application_servers_control" value="true"/>
-                        <property name="j2ee_resources_change" value="true"/>
-                        <property name="j2ee_resources_update" value="true"/>
-                        <property name="j2ee_applications_change" value="true"/>
-                        <property name="j2ee_applications_update" value="true"/>
-                        <property name="softwares_change" value="true"/>
-                        <property name="softwares_update" value="true"/>
-                        <property name="release" value="true"/>
-                        <property name="shell" value="true"/>
-                        <property name="browser" value="true"/>
-                        <property name="homepage" value="true"/>
-                    </properties>
-                </access>
-            </accesses>
-            <logfiles>
-                <logfile name="test" path="/tmp" agent="test"/>
-            </logfiles>
-            <j2eeapplicationservers cluster="false">
-                <j2eeapplicationserver name="as_test" classname="org.apache.kalumet.jmx.plugins.DummyPlugin" jmxurl="dummy://localhost:1099" adminuser="admin_user" adminpassword="admin_password"
-                    updateRequireRestart="true" updateRequireCacheCleaning="true" usejmxstop="false" deletecomponents="false" agent="test">
-                    <startupcommand>
-                        <![CDATA[
+        </freefield>
+      </freefields>
+      <accesses>
+        <access group="test">
+          <properties>
+            <property name="admin" value="false"/>
+            <property name="update" value="true"/>
+            <property name="j2ee_application_servers_change" value="true"/>
+            <property name="j2ee_application_servers_update" value="true"/>
+            <property name="j2ee_application_servers_control" value="true"/>
+            <property name="j2ee_resources_change" value="true"/>
+            <property name="j2ee_resources_update" value="true"/>
+            <property name="j2ee_applications_change" value="true"/>
+            <property name="j2ee_applications_update" value="true"/>
+            <property name="softwares_change" value="true"/>
+            <property name="softwares_update" value="true"/>
+            <property name="release" value="true"/>
+            <property name="shell" value="true"/>
+            <property name="browser" value="true"/>
+            <property name="homepage" value="true"/>
+          </properties>
+        </access>
+      </accesses>
+      <logfiles>
+        <logfile name="test" path="/tmp" agent="test"/>
+      </logfiles>
+      <j2eeapplicationservers cluster="false">
+        <j2eeapplicationserver name="as_test" classname="org.apache.kalumet.jmx.plugins.DummyPlugin"
+                               jmxurl="dummy://localhost:1099" adminuser="admin_user" adminpassword="admin_password"
+                               updateRequireRestart="true" updateRequireCacheCleaning="true" usejmxstop="false"
+                               deletecomponents="false" agent="test">
+          <startupcommand>
+            <![CDATA[
 echo "Startup"
                         ]]>
-                    </startupcommand>
-                    <shutdowncommand>
-                        <![CDATA[
+          </startupcommand>
+          <shutdowncommand>
+            <![CDATA[
 echo "Shutdown"
                         ]]>
-                    </shutdowncommand>
-                    <jdbcconnectionpools>
-                        <jdbcconnectionpool name="test"/>
-                    </jdbcconnectionpools>
-                    <jdbcdatasources>
-                        <jdbcdatasource name="test"/>
-                    </jdbcdatasources>
-                </j2eeapplicationserver>
-            </j2eeapplicationservers>
-            <softwares>
-                <software name="test" uri="http://www.example.com/software" agent="test" active="true" blocker="false" beforej2ee="false">
-                    <updateplan>
-                        <command name="command_test" agent="test" active="true" blocker="false">
-                            <![CDATA[
+          </shutdowncommand>
+          <jdbcconnectionpools>
+            <jdbcconnectionpool name="test"/>
+          </jdbcconnectionpools>
+          <jdbcdatasources>
+            <jdbcdatasource name="test"/>
+          </jdbcdatasources>
+        </j2eeapplicationserver>
+      </j2eeapplicationservers>
+      <softwares>
+        <software name="test" uri="http://www.example.com/software" agent="test" active="true" blocker="false"
+                  beforej2ee="false">
+          <updateplan>
+            <command name="command_test" agent="test" active="true" blocker="false">
+              <![CDATA[
 ls /tmp
                             ]]>
-                        </command>
-                        <location name="location_test" active="true" blocker="false" agent="test" uri="http://www.example.com/location" path="/tmp/location" override="false"/>
-                        <configurationfile name="configurationfile_test" active="true" blocker="false" uri="http://www.example.com/configurationfile" path="/tmp/configurationfile" agent="test">
-                            <mappings>
-                                <mapping key="test" value="test"/>
-                            </mappings>
-                        </configurationfile>
-                        <database name="db_test" active="true" blocker="false" driver="com.example.test.Driver" user="user_test" password="password_test" jdbcurl="jdbc://example.com:3306/test" connectionPool="" sqlCommand="" agent="test">
-                            <sqlscripts>
-                                <sqlscript name="sqlscript_test" active="true" blocker="false" force="true" uri="http://www.example.com/sqlscript">
-                                    <mappings>
-                                        <mapping key="test" value="test"/>
-                                    </mappings>
-                                </sqlscript>
-                            </sqlscripts>
-                        </database>
-                    </updateplan>
-                </software>
-            </softwares>
-            <notifiers>
+            </command>
+            <location name="location_test" active="true" blocker="false" agent="test"
+                      uri="http://www.example.com/location" path="/tmp/location" override="false"/>
+            <configurationfile name="configurationfile_test" active="true" blocker="false"
+                               uri="http://www.example.com/configurationfile" path="/tmp/configurationfile"
+                               agent="test">
+              <mappings>
+                <mapping key="test" value="test"/>
+              </mappings>
+            </configurationfile>
+            <database name="db_test" active="true" blocker="false" driver="com.example.test.Driver" user="user_test"
+                      password="password_test" jdbcurl="jdbc://example.com:3306/test" connectionPool="" sqlCommand=""
+                      agent="test">
+              <sqlscripts>
+                <sqlscript name="sqlscript_test" active="true" blocker="false" force="true"
+                           uri="http://www.example.com/sqlscript">
+                  <mappings>
+                    <mapping key="test" value="test"/>
+                  </mappings>
+                </sqlscript>
+              </sqlscripts>
+            </database>
+          </updateplan>
+        </software>
+      </softwares>
+      <notifiers>
 
-            </notifiers>
-            <publishers>
+      </notifiers>
+      <publishers>
 
-            </publishers>
-        </environment>
-    </environments>
+      </publishers>
+    </environment>
+  </environments>
 
 </kalumet>

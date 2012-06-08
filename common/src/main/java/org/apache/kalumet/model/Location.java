@@ -18,112 +18,137 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * A <code>location</code> is a general wrapper for files and directories.
  */
-public class Location implements Cloneable, Serializable, Comparable {
+public class Location
+  implements Cloneable, Serializable, Comparable
+{
 
-    private static final long serialVersionUID = 3632838715316673949L;
-    
-    private String name;
-    private boolean active;
-    private boolean blocker;
-    private String uri;
-    private String path;
-    private String agent;
-    
-    public Location() { }
+  private static final long serialVersionUID = 3632838715316673949L;
 
-    public boolean isActive() {
-        return active;
-    }
+  private String name;
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+  private boolean active;
 
-    public boolean isBlocker() {
-        return blocker;
-    }
+  private boolean blocker;
 
-    public void setBlocker(boolean blocker) {
-        this.blocker = blocker;
-    }
+  private String uri;
 
-    public String getName() {
-        return name;
-    }
+  private String path;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  private String agent;
 
-    public String getUri() {
-        return uri;
-    }
+  public Location()
+  {
+  }
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+  public boolean isActive()
+  {
+    return active;
+  }
 
-    public String getPath() {
-        return path;
-    }
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
 
-    public String getAgent() {
-        return agent;
-    }
+  public boolean isBlocker()
+  {
+    return blocker;
+  }
 
-    public void setAgent(String agent) {
-        this.agent = agent;
-    }
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+  public String getName()
+  {
+    return name;
+  }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() throws CloneNotSupportedException {
-        Location clone = new Location();
-        clone.setActive(this.isActive());
-        clone.setBlocker(this.isBlocker());
-        clone.setName(this.getName());
-        clone.setUri(this.getUri());
-        clone.setPath(this.getPath());
-        clone.setAgent(this.getAgent());
-        return clone;
-    }
-    
-    /**
-     * Transform a <code>location</code> into a DOM element.
-     * 
-     * @param document the DOM document.
-     * @return the DOM element.
-     */
-    public Element toDOMElement(CoreDocumentImpl document) {
-        ElementImpl element = new ElementImpl(document, "location");
-        element.setAttribute("name", this.getName());
-        element.setAttribute("active", new Boolean(this.isActive()).toString());
-        element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-        element.setAttribute("uri", this.getUri());
-        element.setAttribute("path", this.getPath());
-        element.setAttribute("agent", this.getAgent());
-        return element;
-    }
-    
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    public int compareTo(Object anotherLocation) {
-        return this.getName().compareTo(((Location)anotherLocation).getName());
-    }
-    
+  public void setName( String name )
+  {
+    this.name = name;
+  }
+
+  public String getUri()
+  {
+    return uri;
+  }
+
+  public void setUri( String uri )
+  {
+    this.uri = uri;
+  }
+
+  public String getPath()
+  {
+    return path;
+  }
+
+  public String getAgent()
+  {
+    return agent;
+  }
+
+  public void setAgent( String agent )
+  {
+    this.agent = agent;
+  }
+
+  public void setPath( String path )
+  {
+    this.path = path;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Location clone = new Location();
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    clone.setName( this.getName() );
+    clone.setUri( this.getUri() );
+    clone.setPath( this.getPath() );
+    clone.setAgent( this.getAgent() );
+    return clone;
+  }
+
+  /**
+   * Transform a <code>location</code> into a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  public Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "location" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+    element.setAttribute( "uri", this.getUri() );
+    element.setAttribute( "path", this.getPath() );
+    element.setAttribute( "agent", this.getAgent() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherLocation )
+  {
+    return this.getName().compareTo( ( (Location) anotherLocation ).getName() );
+  }
+
 }

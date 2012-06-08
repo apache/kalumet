@@ -21,35 +21,44 @@ package org.apache.kalumet.ws.client;
 /**
  * WebService client dedicated to Kalumet agent operations.
  */
-public class AgentClient extends AbstractClient {
+public class AgentClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of connection failure.
-     */
-    public AgentClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/AgentService");
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of connection failure.
+   */
+  public AgentClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/AgentService" );
+  }
+
+  /**
+   * Wrapper method to the get agent version.
+   *
+   * @return the agent version.
+   * @throws ClientException in case of communication failure.
+   */
+  public String getVersion()
+    throws ClientException
+  {
+    String version = null;
+    try
+    {
+      version = (String) call.invoke( "getVersion", null );
     }
-
-    /**
-     * Wrapper method to the get agent version.
-     *
-     * @return the agent version.
-     * @throws ClientException in case of communication failure.
-     */
-    public String getVersion() throws ClientException {
-        String version = null;
-        try {
-            version = (String) call.invoke("getVersion", null);
-        } catch (Exception e) {
-            throw new ClientException("Can't get agent version", e);
-        }
-        return version;
+    catch ( Exception e )
+    {
+      throw new ClientException( "Can't get agent version", e );
     }
+    return version;
+  }
 
-    // TODO update method to fully update an agent
+  // TODO update method to fully update an agent
 
 }

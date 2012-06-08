@@ -23,187 +23,213 @@ import java.util.List;
 /**
  * Abstract J2EE application server controller.
  */
-public abstract class AbstractJ2EEApplicationServerController implements J2EEApplicationServerController {
+public abstract class AbstractJ2EEApplicationServerController
+  implements J2EEApplicationServerController
+{
 
-    private String url;
-    private String username;
-    private String password;
-    private String serverName;
-    private boolean cluster;
+  private String url;
 
-    /**
-     * Default constructor.
-     *
-     * @param url        JMX URL of the J2EE application server.
-     * @param username   the administrative user.
-     * @param password   the administrative password.
-     * @param serverName the J2EE application server name.
-     * @param cluster    true means that the server is a cluster, or single.
-     * @throws ControllerException in case of connection failure.
-     */
-    public AbstractJ2EEApplicationServerController(String url, String username, String password, String serverName, Boolean cluster) throws ControllerException {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-        this.serverName = serverName;
-        this.cluster = cluster.booleanValue();
-        this.init();
-    }
+  private String username;
 
-    /**
-     * Abstract method to initialize a specific J2EE application server.
-     *
-     * @throws ControllerException in case of initialization error.
-     */
-    protected abstract void init() throws ControllerException;
+  private String password;
 
-    public String getUrl() {
-        return this.url;
-    }
+  private String serverName;
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+  private boolean cluster;
 
-    public String getUsername() {
-        return this.username;
-    }
+  /**
+   * Default constructor.
+   *
+   * @param url        JMX URL of the J2EE application server.
+   * @param username   the administrative user.
+   * @param password   the administrative password.
+   * @param serverName the J2EE application server name.
+   * @param cluster    true means that the server is a cluster, or single.
+   * @throws ControllerException in case of connection failure.
+   */
+  public AbstractJ2EEApplicationServerController( String url, String username, String password, String serverName,
+                                                  Boolean cluster )
+    throws ControllerException
+  {
+    this.url = url;
+    this.username = username;
+    this.password = password;
+    this.serverName = serverName;
+    this.cluster = cluster.booleanValue();
+    this.init();
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  /**
+   * Abstract method to initialize a specific J2EE application server.
+   *
+   * @throws ControllerException in case of initialization error.
+   */
+  protected abstract void init()
+    throws ControllerException;
 
-    public String getPassword() {
-        return this.password;
-    }
+  public String getUrl()
+  {
+    return this.url;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setUrl( String url )
+  {
+    this.url = url;
+  }
 
-    public String getServerName() {
-        return this.serverName;
-    }
+  public String getUsername()
+  {
+    return this.username;
+  }
 
-    public void setServerName(String serverName) {
-        this.serverName = serverName;
-    }
+  public void setUsername( String username )
+  {
+    this.username = username;
+  }
 
-    public boolean isCluster() {
-        return this.cluster;
-    }
+  public String getPassword()
+  {
+    return this.password;
+  }
 
-    public void setCluster(boolean cluster) {
-        this.cluster = cluster;
-    }
+  public void setPassword( String password )
+  {
+    this.password = password;
+  }
 
-    public abstract void shutdown() throws ControllerException;
+  public String getServerName()
+  {
+    return this.serverName;
+  }
 
-    public abstract String status() throws ControllerException;
+  public void setServerName( String serverName )
+  {
+    this.serverName = serverName;
+  }
 
-    public abstract boolean isStopped() throws ControllerException;
+  public boolean isCluster()
+  {
+    return this.cluster;
+  }
 
-    public abstract boolean isJ2EEApplicationDeployed(String path, String name) throws ControllerException;
+  public void setCluster( boolean cluster )
+  {
+    this.cluster = cluster;
+  }
 
-    public abstract void deployJ2EEApplication(String path, String name, String classLoaderOrder, String classLoaderPolicy, String virtualHost) throws ControllerException;
+  public abstract void shutdown()
+    throws ControllerException;
 
-    public abstract void undeployJ2EEApplication(String path, String name) throws ControllerException;
+  public abstract String status()
+    throws ControllerException;
 
-    public abstract void redeployJ2EEApplication(String path, String name) throws ControllerException;
+  public abstract boolean isStopped()
+    throws ControllerException;
 
-    public abstract boolean isJDBCConnectionPoolDeployed(String name) throws ControllerException;
+  public abstract boolean isJ2EEApplicationDeployed( String path, String name )
+    throws ControllerException;
 
-    public abstract boolean isJDBCConnectionPoolUpToDate(String name,
-                                                String jdbcDriverClassName,
-                                                int capacityIncrement,
-                                                int initialCapacity,
-                                                int maxCapacity,
-                                                String username,
-                                                String password,
-                                                String jdbcURL,
-                                                String classPath) throws ControllerException;
+  public abstract void deployJ2EEApplication( String path, String name, String classLoaderOrder,
+                                              String classLoaderPolicy, String virtualHost )
+    throws ControllerException;
 
-    public abstract boolean updateJDBCConnectionPool(String name,
-                                            String jdbcDriverClassName,
-                                            int capacityIncrement,
-                                            int initialCapacity,
-                                            int maxCapacity,
-                                            String username,
-                                            String password,
-                                            String jdbcURL,
-                                            String classPath) throws ControllerException;
+  public abstract void undeployJ2EEApplication( String path, String name )
+    throws ControllerException;
 
-    public abstract void deployJDBCConnectionPool(String name,
-                                         String jdbcDriverClassName,
-                                         int capacityIncrement,
-                                         int initialCapacity,
-                                         int maxCapacity,
-                                         String username,
-                                         String password,
-                                         String jdbcURL,
-                                         String classPath) throws ControllerException;
+  public abstract void redeployJ2EEApplication( String path, String name )
+    throws ControllerException;
 
-    public abstract void undeployJDBCConnectionPool(String name) throws ControllerException;
+  public abstract boolean isJDBCConnectionPoolDeployed( String name )
+    throws ControllerException;
 
-    public abstract boolean isJDBCDataSourceDeployed(String name) throws ControllerException;
+  public abstract boolean isJDBCConnectionPoolUpToDate( String name, String jdbcDriverClassName, int capacityIncrement,
+                                                        int initialCapacity, int maxCapacity, String username,
+                                                        String password, String jdbcURL, String classPath )
+    throws ControllerException;
 
-    public abstract boolean isJDBCDataSourceUpToDate(String name,
-                                            String jdbcConnectionPool,
-                                            String jdbcURL,
-                                            String helpClassName) throws ControllerException;
+  public abstract boolean updateJDBCConnectionPool( String name, String jdbcDriverClassName, int capacityIncrement,
+                                                    int initialCapacity, int maxCapacity, String username,
+                                                    String password, String jdbcURL, String classPath )
+    throws ControllerException;
 
-    public abstract void deployJDBCDataSource(String name,
-                                     String jdbcConnectionPool,
-                                     String jdbcURL,
-                                     String helpClassName) throws ControllerException;
+  public abstract void deployJDBCConnectionPool( String name, String jdbcDriverClassName, int capacityIncrement,
+                                                 int initialCapacity, int maxCapacity, String username, String password,
+                                                 String jdbcURL, String classPath )
+    throws ControllerException;
 
-    public abstract void undeployJDBCDataSource(String name) throws ControllerException;
+  public abstract void undeployJDBCConnectionPool( String name )
+    throws ControllerException;
 
-    public abstract boolean updateJDBCDataSource(String name,
-                                        String jdbcConnectionPool,
-                                        String jdbcURL,
-                                        String helperClassName) throws ControllerException;
+  public abstract boolean isJDBCDataSourceDeployed( String name )
+    throws ControllerException;
 
-    public abstract boolean isJMSConnectionFactoryDeployed(String name) throws ControllerException;
+  public abstract boolean isJDBCDataSourceUpToDate( String name, String jdbcConnectionPool, String jdbcURL,
+                                                    String helpClassName )
+    throws ControllerException;
 
-    public abstract void deployJMSConnectionFactory(String name) throws ControllerException;
+  public abstract void deployJDBCDataSource( String name, String jdbcConnectionPool, String jdbcURL,
+                                             String helpClassName )
+    throws ControllerException;
 
-    public abstract void undeployJMSConnectionFactory(String name) throws ControllerException;
+  public abstract void undeployJDBCDataSource( String name )
+    throws ControllerException;
 
-    public abstract boolean isJMSServerDeployed(String name) throws ControllerException;
+  public abstract boolean updateJDBCDataSource( String name, String jdbcConnectionPool, String jdbcURL,
+                                                String helperClassName )
+    throws ControllerException;
 
-    public abstract boolean isJMSServerUpToDate(String name,
-                                       List queues,
-                                       List topics) throws ControllerException;
+  public abstract boolean isJMSConnectionFactoryDeployed( String name )
+    throws ControllerException;
 
-    public abstract void deployJMSServer(String name,
-                                List queues,
-                                List topics) throws ControllerException;
+  public abstract void deployJMSConnectionFactory( String name )
+    throws ControllerException;
 
-    public abstract boolean updateJMSServer(String name,
-                                   List queues,
-                                   List topics) throws ControllerException;
+  public abstract void undeployJMSConnectionFactory( String name )
+    throws ControllerException;
 
-    public abstract void undeployJMSServer(String name) throws ControllerException;
+  public abstract boolean isJMSServerDeployed( String name )
+    throws ControllerException;
 
-    public abstract boolean isJNDIBindingDeployed(String name) throws ControllerException;
+  public abstract boolean isJMSServerUpToDate( String name, List queues, List topics )
+    throws ControllerException;
 
-    public abstract void deployJNDIBinding(String name, String jndiName, String jndiAlias, String providerUrl) throws ControllerException;
+  public abstract void deployJMSServer( String name, List queues, List topics )
+    throws ControllerException;
 
-    public abstract void undeployJNDIBinding(String name) throws ControllerException;
+  public abstract boolean updateJMSServer( String name, List queues, List topics )
+    throws ControllerException;
 
-    public abstract boolean isJNDIBindingUpToDate(String name, String jndiName, String jndiAlias, String providerUrl) throws ControllerException;
+  public abstract void undeployJMSServer( String name )
+    throws ControllerException;
 
-    public abstract boolean updateJNDIBinding(String name, String jndiName, String jndiAlias, String providerUrl) throws ControllerException;
+  public abstract boolean isJNDIBindingDeployed( String name )
+    throws ControllerException;
 
-    public abstract boolean isSharedLibraryDeployed(String name) throws ControllerException;
+  public abstract void deployJNDIBinding( String name, String jndiName, String jndiAlias, String providerUrl )
+    throws ControllerException;
 
-    public abstract void deploySharedLibrary(String name, String classpath) throws ControllerException;
+  public abstract void undeployJNDIBinding( String name )
+    throws ControllerException;
 
-    public abstract void undeploySharedLibrary(String name) throws ControllerException;
+  public abstract boolean isJNDIBindingUpToDate( String name, String jndiName, String jndiAlias, String providerUrl )
+    throws ControllerException;
 
-    public abstract boolean isSharedLibraryUpToDate(String name, String classpath) throws ControllerException;
+  public abstract boolean updateJNDIBinding( String name, String jndiName, String jndiAlias, String providerUrl )
+    throws ControllerException;
 
-    public abstract boolean updateSharedLibrary(String name, String classpath) throws ControllerException;
+  public abstract boolean isSharedLibraryDeployed( String name )
+    throws ControllerException;
+
+  public abstract void deploySharedLibrary( String name, String classpath )
+    throws ControllerException;
+
+  public abstract void undeploySharedLibrary( String name )
+    throws ControllerException;
+
+  public abstract boolean isSharedLibraryUpToDate( String name, String classpath )
+    throws ControllerException;
+
+  public abstract boolean updateSharedLibrary( String name, String classpath )
+    throws ControllerException;
 
 }

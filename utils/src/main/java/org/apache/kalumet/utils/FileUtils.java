@@ -32,81 +32,103 @@ import java.util.Date;
 /**
  * Utils to manipulate file (view, browse)
  */
-public class FileUtils {
+public class FileUtils
+{
 
-    private final static transient Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
+  private final static transient Logger LOGGER = LoggerFactory.getLogger( FileUtils.class );
 
-    /**
-     * Wrapper method to read a file.
-     *
-     * @param path the file VFS path.
-     * @return the file content.
-     */
-    public static String view(String path) {
-        String content = null;
-        InputStream stream = null;
-        FileManipulator fileManipulator = null;
-        try  {
-            // get a file manipulator instance
-            fileManipulator = new FileManipulator();
-            // get the file content
-            stream = fileManipulator.read(path);
-            // populate the content string
-            content = IOUtils.toString(stream);
-        }
-        catch (Exception e) {
-            LOGGER.warn("Can't view {}", path, e);
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (Exception e) {
-                    // nothing to do
-                }
-            }
-            if (fileManipulator != null) {
-                fileManipulator.close();
-            }
-        }
-        return content;
+  /**
+   * Wrapper method to read a file.
+   *
+   * @param path the file VFS path.
+   * @return the file content.
+   */
+  public static String view( String path )
+  {
+    String content = null;
+    InputStream stream = null;
+    FileManipulator fileManipulator = null;
+    try
+    {
+      // get a file manipulator instance
+      fileManipulator = new FileManipulator();
+      // get the file content
+      stream = fileManipulator.read( path );
+      // populate the content string
+      content = IOUtils.toString( stream );
     }
-
-    /**
-     * Wrapper method to browse a path.
-     *
-     * @param path the path to browse.
-     * @return the list of children.
-     */
-    public static SimplifiedFileObject[] browse(String path) {
-        SimplifiedFileObject[] children = null;
-        FileManipulator fileManipulator = null;
-        try {
-            // get a file manipulator instance
-            fileManipulator = new FileManipulator();
-            // get the path children
-            FileObject[] fileObjects = fileManipulator.browse(path);
-            children = new SimplifiedFileObject[fileObjects.length];
-            for (int i = 0; i < fileObjects.length; i++) {
-                SimplifiedFileObject file = new SimplifiedFileObject();
-                file.setName(fileObjects[i].getName().getBaseName());
-                file.setPath(fileObjects[i].getName().getPath());
-                file.setFile(fileObjects[i].getType().equals(FileType.FILE));
-                file.setLastModificationDate(new Date(fileObjects[i].getContent().getLastModifiedTime()));
-                if (fileObjects[i].getType().equals(FileType.FILE)){
-                    file.setSize(fileObjects[i].getContent().getSize());
-                } else {
-                    file.setSize(0);
-                }
-                children[i] = file;
-            }
-        } catch (Exception e) {
-            LOGGER.warn("Can't browse {}", path, e);
-        } finally {
-            if (fileManipulator != null) {
-                fileManipulator.close();
-            }
-        }
-        return children;
+    catch ( Exception e )
+    {
+      LOGGER.warn( "Can't view {}", path, e );
     }
+    finally
+    {
+      if ( stream != null )
+      {
+        try
+        {
+          stream.close();
+        }
+        catch ( Exception e )
+        {
+          // nothing to do
+        }
+      }
+      if ( fileManipulator != null )
+      {
+        fileManipulator.close();
+      }
+    }
+    return content;
+  }
+
+  /**
+   * Wrapper method to browse a path.
+   *
+   * @param path the path to browse.
+   * @return the list of children.
+   */
+  public static SimplifiedFileObject[] browse( String path )
+  {
+    SimplifiedFileObject[] children = null;
+    FileManipulator fileManipulator = null;
+    try
+    {
+      // get a file manipulator instance
+      fileManipulator = new FileManipulator();
+      // get the path children
+      FileObject[] fileObjects = fileManipulator.browse( path );
+      children = new SimplifiedFileObject[fileObjects.length];
+      for ( int i = 0; i < fileObjects.length; i++ )
+      {
+        SimplifiedFileObject file = new SimplifiedFileObject();
+        file.setName( fileObjects[i].getName().getBaseName() );
+        file.setPath( fileObjects[i].getName().getPath() );
+        file.setFile( fileObjects[i].getType().equals( FileType.FILE ) );
+        file.setLastModificationDate( new Date( fileObjects[i].getContent().getLastModifiedTime() ) );
+        if ( fileObjects[i].getType().equals( FileType.FILE ) )
+        {
+          file.setSize( fileObjects[i].getContent().getSize() );
+        }
+        else
+        {
+          file.setSize( 0 );
+        }
+        children[i] = file;
+      }
+    }
+    catch ( Exception e )
+    {
+      LOGGER.warn( "Can't browse {}", path, e );
+    }
+    finally
+    {
+      if ( fileManipulator != null )
+      {
+        fileManipulator.close();
+      }
+    }
+    return children;
+  }
 
 }

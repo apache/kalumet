@@ -21,18 +21,23 @@ package org.apache.kalumet;
 /**
  * Exception wrapper for all file manipulation failures.
  */
-public class FileManipulatorException extends KalumetException {
+public class FileManipulatorException
+  extends KalumetException
+{
 
-    public FileManipulatorException(String message) {
-        super(message);
-    }
+  public FileManipulatorException( String message )
+  {
+    super( message );
+  }
 
-    public FileManipulatorException(Throwable cause) {
-        super(cause);
-    }
+  public FileManipulatorException( Throwable cause )
+  {
+    super( cause );
+  }
 
-    public FileManipulatorException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public FileManipulatorException( String message, Throwable cause )
+  {
+    super( message, cause );
+  }
 
 }

@@ -26,49 +26,63 @@ import org.quartz.JobExecutionException;
 import org.quartz.StatefulJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.security.krb5.Config;
 
 import java.util.Iterator;
 
 /**
  * Kalumet job in the quartz scheduler.
  */
-public class SchedulerJob implements StatefulJob {
+public class SchedulerJob
+  implements StatefulJob
+{
 
-    private final static transient Logger LOGGER = LoggerFactory.getLogger(SchedulerJob.class);
+  private final static transient Logger LOGGER = LoggerFactory.getLogger( SchedulerJob.class );
 
-    public SchedulerJob() { }
+  public SchedulerJob()
+  {
+  }
 
-    /**
-     * Launch the main agent job.
-     *
-     * @param path the Kalumet configuration file location.
-     * @param agentId the Kalumet agent ID.
-     */
-    public static void perform(String path, String agentId) {
-        Kalumet kalumet = null;
-        try {
-            LOGGER.debug("Loading Kalumet configuration");
-            kalumet = Kalumet.digeste(path);
-        } catch (Exception e) {
-            LOGGER.error("Can't load Apache Kalumet configuration from {}", path, e);
-            throw new RuntimeException("Can't load Apache Kalumet configuration from " + path, e);
-        }
-        // loop to update all environments managed by the agent
-        for (Iterator environmentIterator = kalumet.getEnvironmentsByAgent(agentId).iterator(); environmentIterator.hasNext(); ) {
-            try {
-                EnvironmentUpdater.update((Environment) environmentIterator.next());
-            } catch (Exception e) {
-                // ignore
-            }
-        }
+  /**
+   * Launch the main agent job.
+   *
+   * @param path    the Kalumet configuration file location.
+   * @param agentId the Kalumet agent ID.
+   */
+  public static void perform( String path, String agentId )
+  {
+    Kalumet kalumet = null;
+    try
+    {
+      LOGGER.debug( "Loading Kalumet configuration" );
+      kalumet = Kalumet.digeste( path );
     }
-
-    /**
-     * @see org.quartz.StatefulJob#execute(org.quartz.JobExecutionContext)
-     */
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        SchedulerJob.perform(Configuration.CONFIG_LOCATION, Configuration.AGENT_ID);
+    catch ( Exception e )
+    {
+      LOGGER.error( "Can't load Apache Kalumet configuration from {}", path, e );
+      throw new RuntimeException( "Can't load Apache Kalumet configuration from " + path, e );
     }
+    // loop to update all environments managed by the agent
+    for ( Iterator environmentIterator = kalumet.getEnvironmentsByAgent( agentId ).iterator();
+          environmentIterator.hasNext(); )
+    {
+      try
+      {
+        EnvironmentUpdater.update( (Environment) environmentIterator.next() );
+      }
+      catch ( Exception e )
+      {
+        // ignore
+      }
+    }
+  }
+
+  /**
+   * @see org.quartz.StatefulJob#execute(org.quartz.JobExecutionContext)
+   */
+  public void execute( JobExecutionContext context )
+    throws JobExecutionException
+  {
+    SchedulerJob.perform( Configuration.CONFIG_LOCATION, Configuration.AGENT_ID );
+  }
 
 }

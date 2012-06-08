@@ -21,20 +21,23 @@ package org.apache.kalumet.utils;
 /**
  * Util class to get version from the MANIFEST package specification.
  */
-public class AgentUtils {
+public class AgentUtils
+{
 
-    /**
-     * Get the version from Kalumet package.
-     *
-     * @return the Kalumet version.
-     */
-    public static String getVersion() {
-        String version = "";
-        Package p = Package.getPackage("org.apache.kalumet.agent");
-        if (p != null) {
-            version = p.getImplementationVersion();
-        }
-        return version;
+  /**
+   * Get the version from Kalumet package.
+   *
+   * @return the Kalumet version.
+   */
+  public static String getVersion()
+  {
+    String version = "";
+    Package p = Package.getPackage( "org.apache.kalumet.agent" );
+    if ( p != null )
+    {
+      version = p.getImplementationVersion();
     }
+    return version;
+  }
 
 }

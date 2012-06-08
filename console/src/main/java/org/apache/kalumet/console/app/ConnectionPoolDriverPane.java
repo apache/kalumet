@@ -24,122 +24,142 @@ import nextapp.echo2.app.Grid;
 import nextapp.echo2.app.Label;
 import nextapp.echo2.app.SelectField;
 import nextapp.echo2.app.TextField;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
  * JDBC connection pool driver tab <code>ContentPane</code>
  */
-public class ConnectionPoolDriverPane extends ContentPane {
+public class ConnectionPoolDriverPane
+  extends ContentPane
+{
 
-    // constants
-    private static String[] DRIVERS = new String[]{Messages.getString("jdbc.driver.oracle.thin"), Messages.getString("jdbc.driver.oracle.xa"),
-            Messages.getString("jdbc.driver.ibm.db2"), Messages.getString("jdbc.driver.mysql"), Messages.getString("jdbc.driver.postgresql")};
-    private static String[] HELPERS = new String[]{" ", Messages.getString("jdbc.helper.websphere.generic"),
-            Messages.getString("jdbc.helper.websphere.oracle")};
+  // constants
+  private static String[] DRIVERS =
+    new String[]{ Messages.getString( "jdbc.driver.oracle.thin" ), Messages.getString( "jdbc.driver.oracle.xa" ),
+      Messages.getString( "jdbc.driver.ibm.db2" ), Messages.getString( "jdbc.driver.mysql" ),
+      Messages.getString( "jdbc.driver.postgresql" ) };
 
-    // attributes
-    private ConnectionPoolWindow parent;
+  private static String[] HELPERS = new String[]{ " ", Messages.getString( "jdbc.helper.websphere.generic" ),
+    Messages.getString( "jdbc.helper.websphere.oracle" ) };
 
-    private SelectField driverField;
-    private SelectField helperField;
-    private TextField classpathField;
+  // attributes
+  private ConnectionPoolWindow parent;
 
-    /**
-     * Create a new <code>JDBCConnectionPoolDriverTabPane</code>.
-     *
-     * @param parent the parent <code>JDBCConnectionPoolWindow</code>.
-     */
-    public ConnectionPoolDriverPane(ConnectionPoolWindow parent) {
-        super();
-        setStyleName("tab;content");
+  private SelectField driverField;
 
-        // update parent
-        this.parent = parent;
+  private SelectField helperField;
 
-        // add the driver layout grid
-        Grid layout = new Grid(2);
-        layout.setStyleName("default");
-        layout.setColumnWidth(0, new Extent(20, Extent.PERCENT));
-        layout.setColumnWidth(1, new Extent(80, Extent.PERCENT));
-        add(layout);
+  private TextField classpathField;
 
-        // add the driver field
-        Label driverLabel = new Label(Messages.getString("jdbc.driver"));
-        driverLabel.setStyleName("grid.cell");
-        layout.add(driverLabel);
-        driverField = new SelectField(ConnectionPoolDriverPane.DRIVERS);
-        driverField.setStyleName("default");
-        driverField.setWidth(new Extent(50, Extent.EX));
-        driverField.setSelectedIndex(0);
-        layout.add(driverField);
+  /**
+   * Create a new <code>JDBCConnectionPoolDriverTabPane</code>.
+   *
+   * @param parent the parent <code>JDBCConnectionPoolWindow</code>.
+   */
+  public ConnectionPoolDriverPane( ConnectionPoolWindow parent )
+  {
+    super();
+    setStyleName( "tab;content" );
 
-        // add the helper field
-        Label helperLabel = new Label(Messages.getString("jdbc.helper"));
-        helperLabel.setStyleName("grid.cell");
-        layout.add(helperLabel);
-        helperField = new SelectField(ConnectionPoolDriverPane.HELPERS);
-        helperField.setStyleName("default");
-        helperField.setWidth(new Extent(50, Extent.EX));
-        helperField.setSelectedIndex(0);
-        layout.add(helperField);
+    // update parent
+    this.parent = parent;
 
-        // add the classpath field
-        Label classpathLabel = new Label(Messages.getString("classpath"));
-        classpathLabel.setStyleName("grid.cell");
-        layout.add(classpathLabel);
-        classpathField = new TextField();
-        classpathField.setStyleName("default");
-        classpathField.setWidth(new Extent(100, Extent.PERCENT));
-        layout.add(classpathField);
+    // add the driver layout grid
+    Grid layout = new Grid( 2 );
+    layout.setStyleName( "default" );
+    layout.setColumnWidth( 0, new Extent( 20, Extent.PERCENT ) );
+    layout.setColumnWidth( 1, new Extent( 80, Extent.PERCENT ) );
+    add( layout );
 
-        // update the pane
-        update();
+    // add the driver field
+    Label driverLabel = new Label( Messages.getString( "jdbc.driver" ) );
+    driverLabel.setStyleName( "grid.cell" );
+    layout.add( driverLabel );
+    driverField = new SelectField( ConnectionPoolDriverPane.DRIVERS );
+    driverField.setStyleName( "default" );
+    driverField.setWidth( new Extent( 50, Extent.EX ) );
+    driverField.setSelectedIndex( 0 );
+    layout.add( driverField );
+
+    // add the helper field
+    Label helperLabel = new Label( Messages.getString( "jdbc.helper" ) );
+    helperLabel.setStyleName( "grid.cell" );
+    layout.add( helperLabel );
+    helperField = new SelectField( ConnectionPoolDriverPane.HELPERS );
+    helperField.setStyleName( "default" );
+    helperField.setWidth( new Extent( 50, Extent.EX ) );
+    helperField.setSelectedIndex( 0 );
+    layout.add( helperField );
+
+    // add the classpath field
+    Label classpathLabel = new Label( Messages.getString( "classpath" ) );
+    classpathLabel.setStyleName( "grid.cell" );
+    layout.add( classpathLabel );
+    classpathField = new TextField();
+    classpathField.setStyleName( "default" );
+    classpathField.setWidth( new Extent( 100, Extent.PERCENT ) );
+    layout.add( classpathField );
+
+    // update the pane
+    update();
+  }
+
+  /**
+   * Update the pane
+   */
+  public void update()
+  {
+    // update the JDBC connection pool driver field
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getDriver(), "oracle" ) )
+    {
+      if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getDriver(), "xa" ) )
+      {
+        driverField.setSelectedIndex( 1 );
+      }
+      else
+      {
+        driverField.setSelectedIndex( 0 );
+      }
     }
-
-    /**
-     * Update the pane
-     */
-    public void update() {
-        // update the JDBC connection pool driver field
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getDriver(), "oracle")) {
-            if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getDriver(), "xa")) {
-                driverField.setSelectedIndex(1);
-            } else {
-                driverField.setSelectedIndex(0);
-            }
-        }
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getDriver(), "db2")) {
-            driverField.setSelectedIndex(2);
-        }
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getDriver(), "mysql")) {
-            driverField.setSelectedIndex(3);
-        }
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getDriver(), "postgres")) {
-            driverField.setSelectedIndex(4);
-        }
-        // update the JDBC connection pool helper field
-        helperField.setSelectedIndex(0);
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getHelperclass(), "generic")) {
-            helperField.setSelectedIndex(1);
-        }
-        if (StringUtils.containsIgnoreCase(parent.getConnectionPool().getHelperclass(), "oracle")) {
-            helperField.setSelectedIndex(2);
-        }
-        // update the JDBC connection pool classpath field
-        classpathField.setText(parent.getConnectionPool().getClasspath());
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getDriver(), "db2" ) )
+    {
+      driverField.setSelectedIndex( 2 );
     }
-
-    public SelectField getDriverField() {
-        return this.driverField;
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getDriver(), "mysql" ) )
+    {
+      driverField.setSelectedIndex( 3 );
     }
-
-    public SelectField getHelperField() {
-        return this.helperField;
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getDriver(), "postgres" ) )
+    {
+      driverField.setSelectedIndex( 4 );
     }
-
-    public TextField getClasspathField() {
-        return this.classpathField;
+    // update the JDBC connection pool helper field
+    helperField.setSelectedIndex( 0 );
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getHelperclass(), "generic" ) )
+    {
+      helperField.setSelectedIndex( 1 );
     }
+    if ( StringUtils.containsIgnoreCase( parent.getConnectionPool().getHelperclass(), "oracle" ) )
+    {
+      helperField.setSelectedIndex( 2 );
+    }
+    // update the JDBC connection pool classpath field
+    classpathField.setText( parent.getConnectionPool().getClasspath() );
+  }
+
+  public SelectField getDriverField()
+  {
+    return this.driverField;
+  }
+
+  public SelectField getHelperField()
+  {
+    return this.helperField;
+  }
+
+  public TextField getClasspathField()
+  {
+    return this.classpathField;
+  }
 
 }

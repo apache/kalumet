@@ -18,77 +18,91 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent the <code>jmsconnectionfactory</code> tag in the Kalumet configuration DOM.
  */
-public class JMSConnectionFactory implements Serializable, Cloneable, Comparable {
+public class JMSConnectionFactory
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 4118489349470578800L;
+  private static final long serialVersionUID = 4118489349470578800L;
 
-   private String name;
-   private boolean active;
-   private boolean blocker;
+  private String name;
 
-   public String getName() {
-      return this.name;
-   }
+  private boolean active;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  private boolean blocker;
 
-   public boolean isActive() {
-      return this.active;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public void setActive(boolean active) {
-      this.active = active;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   public boolean isBlocker() {
-      return this.blocker;
-   }
+  public boolean isActive()
+  {
+    return this.active;
+  }
 
-   public void setBlocker(boolean blocker) {
-      this.blocker = blocker;
-   }
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      JMSConnectionFactory clone = new JMSConnectionFactory();
-      clone.setName(this.getName());
-      clone.setActive(this.isActive());
-      clone.setBlocker(this.isBlocker());
-      return clone;
-   }
+  public boolean isBlocker()
+  {
+    return this.blocker;
+  }
 
-   /**
-    * Transform the <code>JMSConnectionFactory</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "jmsconnectionfactory");
-      element.setAttribute("name", this.getName());
-      element.setAttribute("active", new Boolean(this.isActive()).toString());
-      element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherJMSConnectionFactory) {
-       return this.getName().compareTo(((JMSConnectionFactory)anotherJMSConnectionFactory).getName());
-   }
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    JMSConnectionFactory clone = new JMSConnectionFactory();
+    clone.setName( this.getName() );
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    return clone;
+  }
+
+  /**
+   * Transform the <code>JMSConnectionFactory</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "jmsconnectionfactory" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherJMSConnectionFactory )
+  {
+    return this.getName().compareTo( ( (JMSConnectionFactory) anotherJMSConnectionFactory ).getName() );
+  }
 
 }

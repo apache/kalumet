@@ -18,75 +18,88 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Store environment statistics (number of update, etc).
- *
  */
-public class Statistics implements Serializable, Cloneable {
+public class Statistics
+  implements Serializable, Cloneable
+{
 
-    private static final long serialVersionUID = -6110824574514994557L;
-    
-    private int updateCount;
-    private String lastUpdateDate;
-    private String lastChangeDate;
-    
-    public Statistics() {
-        updateCount = 0;
-    }
+  private static final long serialVersionUID = -6110824574514994557L;
 
-    public int getUpdateCount() {
-        return updateCount;
-    }
+  private int updateCount;
 
-    public void setUpdateCount(int updateCount) {
-        this.updateCount = updateCount;
-    }
+  private String lastUpdateDate;
 
-    public String getLastUpdateDate() {
-        return lastUpdateDate;
-    }
+  private String lastChangeDate;
 
-    public void setLastUpdateDate(String lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
+  public Statistics()
+  {
+    updateCount = 0;
+  }
 
-    public String getLastChangeDate() {
-        return lastChangeDate;
-    }
+  public int getUpdateCount()
+  {
+    return updateCount;
+  }
 
-    public void setLastChangeDate(String lastChangeDate) {
-        this.lastChangeDate = lastChangeDate;
-    }
-    
-    /**
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() throws CloneNotSupportedException {
-        Statistics clone = new Statistics();
-        clone.setUpdateCount(this.getUpdateCount());
-        clone.setLastChangeDate(this.getLastChangeDate());
-        clone.setLastUpdateDate(this.getLastUpdateDate());
-        return clone;
-    }
-    
-    /**
-     * Transform the <code>Statistics</code> POJO to a DOM element.
-     * 
-     * @param document the DOM document.
-     * @return the DOM element.
-     */
-    protected Element toDOMElement(CoreDocumentImpl document) {
-        ElementImpl element = new ElementImpl(document, "statistics");
-        element.setAttribute("updatecount", new Integer(this.getUpdateCount()).toString());
-        element.setAttribute("lastupdatedate", this.getLastUpdateDate());
-        element.setAttribute("lastchangedate", this.getLastChangeDate());
-        return element;
-    }
+  public void setUpdateCount( int updateCount )
+  {
+    this.updateCount = updateCount;
+  }
+
+  public String getLastUpdateDate()
+  {
+    return lastUpdateDate;
+  }
+
+  public void setLastUpdateDate( String lastUpdateDate )
+  {
+    this.lastUpdateDate = lastUpdateDate;
+  }
+
+  public String getLastChangeDate()
+  {
+    return lastChangeDate;
+  }
+
+  public void setLastChangeDate( String lastChangeDate )
+  {
+    this.lastChangeDate = lastChangeDate;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Statistics clone = new Statistics();
+    clone.setUpdateCount( this.getUpdateCount() );
+    clone.setLastChangeDate( this.getLastChangeDate() );
+    clone.setLastUpdateDate( this.getLastUpdateDate() );
+    return clone;
+  }
+
+  /**
+   * Transform the <code>Statistics</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "statistics" );
+    element.setAttribute( "updatecount", new Integer( this.getUpdateCount() ).toString() );
+    element.setAttribute( "lastupdatedate", this.getLastUpdateDate() );
+    element.setAttribute( "lastchangedate", this.getLastChangeDate() );
+    return element;
+  }
 
 }

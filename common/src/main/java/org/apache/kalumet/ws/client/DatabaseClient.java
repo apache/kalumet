@@ -21,35 +21,46 @@ package org.apache.kalumet.ws.client;
 /**
  * Database WS client.
  */
-public class DatabaseClient extends AbstractClient {
+public class DatabaseClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public DatabaseClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationDatabaseService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public DatabaseClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationDatabaseService" );
+  }
 
-    /**
-     * Wrapper method to update a database.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param databaseName the target database name.
-     * @param delegation if true, the call is a delegation from another agent, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public void update(String environmentName, String applicationServerName, String applicationName, String databaseName, boolean delegation) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, databaseName, new Boolean(delegation) });
-        } catch (Exception e) {
-            throw new ClientException("Database " + databaseName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a database.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param databaseName          the target database name.
+   * @param delegation            if true, the call is a delegation from another agent, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public void update( String environmentName, String applicationServerName, String applicationName, String databaseName,
+                      boolean delegation )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, applicationName, databaseName,
+        new Boolean( delegation ) } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Database " + databaseName + " update failed", e );
+    }
+  }
 
 }

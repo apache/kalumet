@@ -18,90 +18,109 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent the <code>jdbcdatasource</code> tag in the Kalumet configuration DOM.
  */
-public class JDBCDataSource implements Serializable, Cloneable, Comparable {
+public class JDBCDataSource
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = -6850328756411047364L;
+  private static final long serialVersionUID = -6850328756411047364L;
 
-   private String name;
-   private String pool;
-   private boolean active;
-   private boolean blocker;
+  private String name;
 
-   public JDBCDataSource() { }
+  private String pool;
 
-   public String getName() {
-      return this.name;
-   }
+  private boolean active;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  private boolean blocker;
 
-   public String getPool() {
-      return this.pool;
-   }
+  public JDBCDataSource()
+  {
+  }
 
-   public void setPool(String pool) {
-      this.pool = pool;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public boolean isActive() {
-      return this.active;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   public void setActive(boolean active) {
-      this.active = active;
-   }
+  public String getPool()
+  {
+    return this.pool;
+  }
 
-   public boolean isBlocker() {
-      return this.blocker;
-   }
+  public void setPool( String pool )
+  {
+    this.pool = pool;
+  }
 
-   public void setBlocker(boolean blocker) {
-      this.blocker = blocker;
-   }
+  public boolean isActive()
+  {
+    return this.active;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      JDBCDataSource clone = new JDBCDataSource();
-      clone.setName(this.getName());
-      clone.setPool(this.getPool());
-      clone.setActive(this.isActive());
-      clone.setBlocker(this.isBlocker());
-      return clone;
-   }
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
 
-   /**
-    * Transforms the <code>JDBCDataSource</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "jdbcdatasource");
-      element.setAttribute("name", this.getName());
-      element.setAttribute("pool", this.getPool());
-      element.setAttribute("active", new Boolean(this.isActive()).toString());
-      element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherDataSource) {
-       return this.getName().compareTo(((JDBCDataSource)anotherDataSource).getName());
-   }
+  public boolean isBlocker()
+  {
+    return this.blocker;
+  }
+
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    JDBCDataSource clone = new JDBCDataSource();
+    clone.setName( this.getName() );
+    clone.setPool( this.getPool() );
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    return clone;
+  }
+
+  /**
+   * Transforms the <code>JDBCDataSource</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "jdbcdatasource" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "pool", this.getPool() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherDataSource )
+  {
+    return this.getName().compareTo( ( (JDBCDataSource) anotherDataSource ).getName() );
+  }
 
 }

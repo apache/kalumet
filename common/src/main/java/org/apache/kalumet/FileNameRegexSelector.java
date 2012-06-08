@@ -21,51 +21,65 @@ package org.apache.kalumet;
 import org.apache.commons.vfs.FileSelectInfo;
 import org.apache.commons.vfs.FileSelector;
 import org.apache.oro.text.GlobCompiler;
-import org.apache.oro.text.regex.*;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * VFS file selector based on name regex.
  */
-public class FileNameRegexSelector implements FileSelector {
+public class FileNameRegexSelector
+  implements FileSelector
+{
 
-    private static final transient Logger LOGGER = LoggerFactory.getLogger(FileNameRegexSelector.class);
+  private static final transient Logger LOGGER = LoggerFactory.getLogger( FileNameRegexSelector.class );
 
-    private Pattern pattern;
-    private PatternMatcher matcher;
+  private Pattern pattern;
 
-    /**
-     * Default constructor with the matcher pattern.
-     *
-     * @param pattern the file name regex pattern to use.
-     * @throws FileManipulatorException if the regex pattern is malformed.
-     */
-    public FileNameRegexSelector(String pattern) throws FileManipulatorException {
-        LOGGER.debug("Creating the glob regex");
-        PatternCompiler compiler = new GlobCompiler();
-        try {
-            this.pattern = compiler.compile(pattern);
-            this.matcher = new Perl5Matcher();
-        } catch (MalformedPatternException malformedPatternException) {
-            LOGGER.error("Invalid regex pattern " + pattern, malformedPatternException);
-            throw new FileManipulatorException("Invalid regex pattern " + pattern, malformedPatternException);
-        }
+  private PatternMatcher matcher;
+
+  /**
+   * Default constructor with the matcher pattern.
+   *
+   * @param pattern the file name regex pattern to use.
+   * @throws FileManipulatorException if the regex pattern is malformed.
+   */
+  public FileNameRegexSelector( String pattern )
+    throws FileManipulatorException
+  {
+    LOGGER.debug( "Creating the glob regex" );
+    PatternCompiler compiler = new GlobCompiler();
+    try
+    {
+      this.pattern = compiler.compile( pattern );
+      this.matcher = new Perl5Matcher();
     }
-
-    /**
-     * @see org.apache.commons.vfs.FileSelector#includeFile(org.apache.commons.vfs.FileSelectInfo)
-     */
-    public boolean includeFile(FileSelectInfo fileInfo) {
-        String fileName = fileInfo.getFile().getName().getBaseName();
-        return matcher.matches(fileName, pattern);
+    catch ( MalformedPatternException malformedPatternException )
+    {
+      LOGGER.error( "Invalid regex pattern " + pattern, malformedPatternException );
+      throw new FileManipulatorException( "Invalid regex pattern " + pattern, malformedPatternException );
     }
+  }
 
-    /**
-     * @see org.apache.commons.vfs.FileSelector#traverseDescendents(org.apache.commons.vfs.FileSelectInfo)
-     */
-    public boolean traverseDescendents(FileSelectInfo fileInfo) {
-        return true;
-    }
+  /**
+   * @see org.apache.commons.vfs.FileSelector#includeFile(org.apache.commons.vfs.FileSelectInfo)
+   */
+  public boolean includeFile( FileSelectInfo fileInfo )
+  {
+    String fileName = fileInfo.getFile().getName().getBaseName();
+    return matcher.matches( fileName, pattern );
+  }
+
+  /**
+   * @see org.apache.commons.vfs.FileSelector#traverseDescendents(org.apache.commons.vfs.FileSelectInfo)
+   */
+  public boolean traverseDescendents( FileSelectInfo fileInfo )
+  {
+    return true;
+  }
 
 }

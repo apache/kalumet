@@ -26,52 +26,62 @@ import org.w3c.dom.Element;
 /**
  * Represents a <code>updatemessage</code> tag in the Kalumet update log DOM.
  */
-public class UpdateMessage {
+public class UpdateMessage
+{
 
-   private String priority;
-   private String message;
+  private String priority;
 
-   public UpdateMessage() { }
+  private String message;
 
-   /**
-    * Creates a UpdateMessage with a defined message content.
-    * 
-    * @param priority the message priority (info, error, ...).
-    * @param message the message content.
-    */
-   public UpdateMessage(String priority, String message) {
-      this.priority = priority;
-      this.message = message;
-   }
+  public UpdateMessage()
+  {
+  }
 
-   public String getPriority() {
-      return this.priority;
-   }
+  /**
+   * Creates a UpdateMessage with a defined message content.
+   *
+   * @param priority the message priority (info, error, ...).
+   * @param message  the message content.
+   */
+  public UpdateMessage( String priority, String message )
+  {
+    this.priority = priority;
+    this.message = message;
+  }
 
-   public void setPriority(String priority) {
-      this.priority = priority;
-   }
+  public String getPriority()
+  {
+    return this.priority;
+  }
 
-   public String getMessage() {
-      return this.message;
-   }
+  public void setPriority( String priority )
+  {
+    this.priority = priority;
+  }
 
-   public void setMessage(String message) {
-      this.message = message;
-   }
+  public String getMessage()
+  {
+    return this.message;
+  }
 
-   /**
-    * Transforms the <code>UpdateMessage</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "updatemessage");
-      element.setAttribute("priority", this.getPriority());
-      CDATASectionImpl message = new CDATASectionImpl(document, this.getMessage());
-      element.appendChild(message);
-      return element;
-   }
+  public void setMessage( String message )
+  {
+    this.message = message;
+  }
+
+  /**
+   * Transforms the <code>UpdateMessage</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "updatemessage" );
+    element.setAttribute( "priority", this.getPriority() );
+    CDATASectionImpl message = new CDATASectionImpl( document, this.getMessage() );
+    element.appendChild( message );
+    return element;
+  }
 
 }

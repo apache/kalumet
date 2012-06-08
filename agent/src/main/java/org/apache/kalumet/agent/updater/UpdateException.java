@@ -23,34 +23,39 @@ import org.apache.kalumet.KalumetException;
 /**
  * Exception wrapper for updaters.
  */
-public class UpdateException extends KalumetException {
+public class UpdateException
+  extends KalumetException
+{
 
-    /**
-     * Update exception with the explanation message.
-     *
-     * @param message the explanation message.
-     */
-    public UpdateException(String message) {
-        super(message);
-    }
+  /**
+   * Update exception with the explanation message.
+   *
+   * @param message the explanation message.
+   */
+  public UpdateException( String message )
+  {
+    super( message );
+  }
 
-    /**
-     * Update exception with the cause.
-     *
-     * @param cause the cause.
-     */
-    public UpdateException(Throwable cause) {
-        super(cause);
-    }
+  /**
+   * Update exception with the cause.
+   *
+   * @param cause the cause.
+   */
+  public UpdateException( Throwable cause )
+  {
+    super( cause );
+  }
 
-    /**
-     * Update exception with the explanation message and cause.
-     *
-     * @param message the explanation message.
-     * @param cause the cause.
-     */
-    public UpdateException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  /**
+   * Update exception with the explanation message and cause.
+   *
+   * @param message the explanation message.
+   * @param cause   the cause.
+   */
+  public UpdateException( String message, Throwable cause )
+  {
+    super( message, cause );
+  }
 
 }

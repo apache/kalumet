@@ -28,43 +28,50 @@ import org.slf4j.LoggerFactory;
 /**
  * Agent utils method to post event.
  */
-public class EventUtils {
+public class EventUtils
+{
 
-    private final static transient Logger LOGGER = LoggerFactory.getLogger(EventUtils.class);
+  private final static transient Logger LOGGER = LoggerFactory.getLogger( EventUtils.class );
 
-    /**
-     * Wrapper method to post an event.
-     *
-     * @param environment the target environment.
-     * @param author the event author.
-     * @param severity the event severity.
-     * @param event the event message.
-     */
-    public static void post(Environment environment, String author, String severity, String event) {
-        LOGGER.debug("Loading configuration from the cache");
-        Kalumet kalumet = Configuration.CONFIG_CACHE;
-        if (kalumet == null) {
-            LOGGER.debug("No configuration in cache, updating it");
-            try {
-                kalumet = Kalumet.digeste(Configuration.CONFIG_LOCATION);
-            } catch (KalumetException kalumetException) {
-                LOGGER.warn("Can't post journal event", kalumetException);
-                return;
-            }
-            Configuration.CONFIG_CACHE = kalumet;
-        }
-        org.apache.kalumet.utils.EventUtils.post(environment, author, severity, event, kalumet);
+  /**
+   * Wrapper method to post an event.
+   *
+   * @param environment the target environment.
+   * @param author      the event author.
+   * @param severity    the event severity.
+   * @param event       the event message.
+   */
+  public static void post( Environment environment, String author, String severity, String event )
+  {
+    LOGGER.debug( "Loading configuration from the cache" );
+    Kalumet kalumet = Configuration.CONFIG_CACHE;
+    if ( kalumet == null )
+    {
+      LOGGER.debug( "No configuration in cache, updating it" );
+      try
+      {
+        kalumet = Kalumet.digeste( Configuration.CONFIG_LOCATION );
+      }
+      catch ( KalumetException kalumetException )
+      {
+        LOGGER.warn( "Can't post journal event", kalumetException );
+        return;
+      }
+      Configuration.CONFIG_CACHE = kalumet;
     }
+    org.apache.kalumet.utils.EventUtils.post( environment, author, severity, event, kalumet );
+  }
 
-    /**
-     * Wrapper method to post an event.
-     *
-     * @param environment the target environment.
-     * @param severity the event severity.
-     * @param event the event message.
-     */
-    public static void post(Environment environment, String severity, String event) {
-        EventUtils.post(environment, Configuration.AGENT_ID, severity, event);
-    }
+  /**
+   * Wrapper method to post an event.
+   *
+   * @param environment the target environment.
+   * @param severity    the event severity.
+   * @param event       the event message.
+   */
+  public static void post( Environment environment, String severity, String event )
+  {
+    EventUtils.post( environment, Configuration.AGENT_ID, severity, event );
+  }
 
 }

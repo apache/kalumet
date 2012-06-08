@@ -18,103 +18,125 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CDATASectionImpl;
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent a <code>command</code> tag, mainly inside <code>software</code>.
  */
-public class Command implements Serializable, Cloneable, Comparable {
+public class Command
+  implements Serializable, Cloneable, Comparable
+{
 
-    private static final long serialVersionUID = -3671135569540426579L;
-    
-    private String name;
-    private boolean active;
-    private boolean blocker;
-    private String agent;
-    private String command;
-    
-    public Command() { }
+  private static final long serialVersionUID = -3671135569540426579L;
 
-    public String getName() {
-        return name;
-    }
+  private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  private boolean active;
 
-    public boolean isActive() {
-        return active;
-    }
+  private boolean blocker;
 
-    public boolean isBlocker() {
-        return blocker;
-    }
+  private String agent;
 
-    public void setBlocker(boolean blocker) {
-        this.blocker = blocker;
-    }
+  private String command;
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+  public Command()
+  {
+  }
 
-    public String getAgent() {
-        return agent;
-    }
+  public String getName()
+  {
+    return name;
+  }
 
-    public void setAgent(String agent) {
-        this.agent = agent;
-    }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-    public String getCommand() {
-        return command;
-    }
+  public boolean isActive()
+  {
+    return active;
+  }
 
-    public void setCommand(String command) {
-        this.command = command;
-    }
-    
-    /**
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() throws CloneNotSupportedException {
-        Command clone = new Command();
-        clone.setName(this.getName());
-        clone.setActive(this.isActive());
-        clone.setBlocker(this.isBlocker());
-        clone.setAgent(this.getAgent());
-        clone.setCommand(this.getCommand());
-        return clone;
-    }
-    
-    /**
-     * Transforms a <code>command</code> into a XML DOM element.
-     * 
-     * @param document the DOM document.
-     * @return the <code>command</code> DOM element.
-     */
-    protected Element toDOMElement(CoreDocumentImpl document) {
-        ElementImpl element = new ElementImpl(document, "command");
-        element.setAttribute("name", this.getName());
-        element.setAttribute("active", new Boolean(this.isActive()).toString());
-        element.setAttribute("blocker", new Boolean(this.isBlocker()).toString());
-        element.setAttribute("agent", this.getAgent());
-        CDATASectionImpl content = new CDATASectionImpl(document, this.getCommand());
-        element.appendChild(content);
-        return element;
-    }
-    
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    public int compareTo(Object anotherCommand) {
-        return this.getName().compareTo(((Command)anotherCommand).getName());
-    }
-    
+  public boolean isBlocker()
+  {
+    return blocker;
+  }
+
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
+
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
+
+  public String getAgent()
+  {
+    return agent;
+  }
+
+  public void setAgent( String agent )
+  {
+    this.agent = agent;
+  }
+
+  public String getCommand()
+  {
+    return command;
+  }
+
+  public void setCommand( String command )
+  {
+    this.command = command;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Command clone = new Command();
+    clone.setName( this.getName() );
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    clone.setAgent( this.getAgent() );
+    clone.setCommand( this.getCommand() );
+    return clone;
+  }
+
+  /**
+   * Transforms a <code>command</code> into a XML DOM element.
+   *
+   * @param document the DOM document.
+   * @return the <code>command</code> DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "command" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+    element.setAttribute( "agent", this.getAgent() );
+    CDATASectionImpl content = new CDATASectionImpl( document, this.getCommand() );
+    element.appendChild( content );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherCommand )
+  {
+    return this.getName().compareTo( ( (Command) anotherCommand ).getName() );
+  }
+
 }

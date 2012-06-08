@@ -21,52 +21,67 @@ package org.apache.kalumet.ws.client;
 /**
  * Shared library WS client.
  */
-public class SharedLibraryClient extends AbstractClient {
+public class SharedLibraryClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public SharedLibraryClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/SharedLibraryService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public SharedLibraryClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/SharedLibraryService" );
+  }
 
-    /**
-     * Wrapper method to update a shared library.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param sharedLibraryName the target shared library name.
-     * @throws ClientException in case of update failure.
-     */
-    public void update(String environmentName, String applicationServerName, String sharedLibraryName) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, sharedLibraryName });
-        } catch (Exception e) {
-            throw new ClientException("Shared library " + sharedLibraryName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a shared library.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param sharedLibraryName     the target shared library name.
+   * @throws ClientException in case of update failure.
+   */
+  public void update( String environmentName, String applicationServerName, String sharedLibraryName )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, sharedLibraryName } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Shared library " + sharedLibraryName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to check if a shared library is up to date or not.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param sharedLibraryName the target shared library name.
-     * @return true if the shared library is up to date, false else.
-     * @throws ClientException in case of status check failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String sharedLibraryName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, sharedLibraryName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("Shared library " + sharedLibraryName + " status check failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to check if a shared library is up to date or not.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param sharedLibraryName     the target shared library name.
+   * @return true if the shared library is up to date, false else.
+   * @throws ClientException in case of status check failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String sharedLibraryName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check", new Object[]{ environmentName, applicationServerName,
+        sharedLibraryName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Shared library " + sharedLibraryName + " status check failed", e );
+    }
+    return upToDate;
+  }
 
 }

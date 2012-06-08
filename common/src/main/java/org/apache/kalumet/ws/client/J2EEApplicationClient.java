@@ -22,34 +22,44 @@ package org.apache.kalumet.ws.client;
 /**
  * J2EEApplication WS client.
  */
-public class J2EEApplicationClient extends AbstractClient {
+public class J2EEApplicationClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host hostname or IP address of the Kalumet agent WS server.
-     * @param port port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public J2EEApplicationClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host hostname or IP address of the Kalumet agent WS server.
+   * @param port port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public J2EEApplicationClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationService" );
+  }
 
-    /**
-     * Wrapper method to update a J2EE application.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName
-     * @param delegation
-     * @throws ClientException
-     */
-    public void update(String environmentName, String applicationServerName, String applicationName, boolean delegation) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, new Boolean(delegation) });
-        } catch (Exception e) {
-            throw new ClientException("J2EE application " + applicationName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a J2EE application.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName
+   * @param delegation
+   * @throws ClientException
+   */
+  public void update( String environmentName, String applicationServerName, String applicationName, boolean delegation )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update",
+                   new Object[]{ environmentName, applicationServerName, applicationName, new Boolean( delegation ) } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "J2EE application " + applicationName + " update failed", e );
+    }
+  }
 
 }

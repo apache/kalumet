@@ -18,79 +18,95 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Define the access to a log file.
  */
-public class LogFile implements Cloneable, Serializable, Comparable {
+public class LogFile
+  implements Cloneable, Serializable, Comparable
+{
 
-    private static final long serialVersionUID = -544824580684870083L;
-    
-    private String name;
-    private String path;
-    private String agent;
-    
-    public LogFile() {}
+  private static final long serialVersionUID = -544824580684870083L;
 
-    public String getName() {
-        return name;
-    }
+  private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  private String path;
 
-    public String getPath() {
-        return path;
-    }
+  private String agent;
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+  public LogFile()
+  {
+  }
 
-    public String getAgent() {
-        return agent;
-    }
+  public String getName()
+  {
+    return name;
+  }
 
-    public void setAgent(String agent) {
-        this.agent = agent;
-    }
-    
-    /**
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() throws CloneNotSupportedException {
-       LogFile logFile = new LogFile();
-       logFile.setAgent(this.getAgent());
-       logFile.setName(this.getName());
-       logFile.setPath(this.getPath());
-       return logFile;
-    }
-    
-    /**
-     * Transform a <code>logfile</code> into a DOM element.
-     * 
-     * @param document the DOM document.
-     * @return the DOM element.
-     */
-    public Element toDOMElement(CoreDocumentImpl document) {
-        ElementImpl element = new ElementImpl(document, "logfile");
-        element.setAttribute("name", this.getName());
-        element.setAttribute("path", this.getPath());
-        element.setAttribute("agent", this.getAgent());
-        return element;
-    }
-    
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    public int compareTo(Object anotherLogFile) {
-       return this.getName().compareTo(((LogFile)anotherLogFile).getName()); 
-    }
-    
+  public void setName( String name )
+  {
+    this.name = name;
+  }
+
+  public String getPath()
+  {
+    return path;
+  }
+
+  public void setPath( String path )
+  {
+    this.path = path;
+  }
+
+  public String getAgent()
+  {
+    return agent;
+  }
+
+  public void setAgent( String agent )
+  {
+    this.agent = agent;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    LogFile logFile = new LogFile();
+    logFile.setAgent( this.getAgent() );
+    logFile.setName( this.getName() );
+    logFile.setPath( this.getPath() );
+    return logFile;
+  }
+
+  /**
+   * Transform a <code>logfile</code> into a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  public Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "logfile" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "path", this.getPath() );
+    element.setAttribute( "agent", this.getAgent() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherLogFile )
+  {
+    return this.getName().compareTo( ( (LogFile) anotherLogFile ).getName() );
+  }
+
 }

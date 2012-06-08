@@ -21,34 +21,43 @@ package org.apache.kalumet.ws.client;
 /**
  * Command WS client.
  */
-public class CommandClient extends AbstractClient {
+public class CommandClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host hostname or IP address of the Kalumet agent WS server.
-     * @param port port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public CommandClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/CommandService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host hostname or IP address of the Kalumet agent WS server.
+   * @param port port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public CommandClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/CommandService" );
+  }
 
-    /**
-     * Wrapper method to execute a command.
-     *
-     * @param command the command to execute.
-     * @return the command output.
-     * @throws ClientException in case of communication failure.
-     */
-    public String execute(String command) throws ClientException {
-        String output = null;
-        try {
-            output = (String) call.invoke("execute", new Object[]{ command });
-        } catch (Exception e) {
-            throw new ClientException("Command " + command + " execute failed", e);
-        }
-        return output;
+  /**
+   * Wrapper method to execute a command.
+   *
+   * @param command the command to execute.
+   * @return the command output.
+   * @throws ClientException in case of communication failure.
+   */
+  public String execute( String command )
+    throws ClientException
+  {
+    String output = null;
+    try
+    {
+      output = (String) call.invoke( "execute", new Object[]{ command } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Command " + command + " execute failed", e );
+    }
+    return output;
+  }
 
 }

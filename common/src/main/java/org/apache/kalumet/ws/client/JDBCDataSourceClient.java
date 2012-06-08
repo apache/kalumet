@@ -21,52 +21,67 @@ package org.apache.kalumet.ws.client;
 /**
  * JDBCDataSource WS client.
  */
-public class JDBCDataSourceClient extends AbstractClient {
+public class JDBCDataSourceClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public JDBCDataSourceClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/JDBCDataSourceService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public JDBCDataSourceClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/JDBCDataSourceService" );
+  }
 
-    /**
-     * Wrapper method to update a JDBC data source.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param dataSourceName the target data source name.
-     * @throws ClientException in case of update failure.
-     */
-    public void update(String environmentName, String applicationServerName, String dataSourceName) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, dataSourceName });
-        } catch (Exception e) {
-            throw new ClientException("JDBC data source " + dataSourceName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a JDBC data source.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param dataSourceName        the target data source name.
+   * @throws ClientException in case of update failure.
+   */
+  public void update( String environmentName, String applicationServerName, String dataSourceName )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, dataSourceName } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JDBC data source " + dataSourceName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to check if a JDBC data source is up to date or not.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param dataSourceName the target data source name.
-     * @return true if the data source is up to date, false else.
-     * @throws ClientException in case of check failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String dataSourceName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, dataSourceName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("JDBC data source " + dataSourceName + " status check failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to check if a JDBC data source is up to date or not.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param dataSourceName        the target data source name.
+   * @return true if the data source is up to date, false else.
+   * @throws ClientException in case of check failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String dataSourceName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check", new Object[]{ environmentName, applicationServerName,
+        dataSourceName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JDBC data source " + dataSourceName + " status check failed", e );
+    }
+    return upToDate;
+  }
 
 }

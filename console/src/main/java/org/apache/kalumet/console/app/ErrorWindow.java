@@ -31,50 +31,55 @@ import nextapp.echo2.app.event.ActionListener;
 /**
  * Error window.
  */
-public class ErrorWindow extends WindowPane {
+public class ErrorWindow
+  extends WindowPane
+{
 
-    /**
-     * Create a new <code>WindowPane</code> with the error message and the
-     * exception stack trace.
-     *
-     * @param message the error message to display.
-     * @param details the error detailed message.
-     */
-    public ErrorWindow(String message, String details) {
-        super();
+  /**
+   * Create a new <code>WindowPane</code> with the error message and the
+   * exception stack trace.
+   *
+   * @param message the error message to display.
+   * @param details the error detailed message.
+   */
+  public ErrorWindow( String message, String details )
+  {
+    super();
 
-        setTitle(message);
-        setStyleName("error");
-        setIcon(Styles.EXCLAMATION);
-        setModal(true);
+    setTitle( message );
+    setStyleName( "error" );
+    setIcon( Styles.EXCLAMATION );
+    setModal( true );
 
-        // define the split pane containing control row
-        SplitPane splitPane = new SplitPane(SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent(32));
-        add(splitPane);
+    // define the split pane containing control row
+    SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+    add( splitPane );
 
-        // define the control row
-        Row controlRow = new Row();
-        controlRow.setStyleName("control");
-        splitPane.add(controlRow);
+    // define the control row
+    Row controlRow = new Row();
+    controlRow.setStyleName( "control" );
+    splitPane.add( controlRow );
 
-        // define the close button
-        Button closeButton = new Button(Messages.getString("close"), Styles.CROSS);
-        closeButton.setStyleName("control");
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ErrorWindow.this.userClose();
-            }
-        });
-        controlRow.add(closeButton);
+    // define the close button
+    Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
+    closeButton.setStyleName( "control" );
+    closeButton.addActionListener( new ActionListener()
+    {
+      public void actionPerformed( ActionEvent e )
+      {
+        ErrorWindow.this.userClose();
+      }
+    } );
+    controlRow.add( closeButton );
 
-        // define a content pane
-        ContentPane contentPane = new ContentPane();
-        splitPane.add(contentPane);
+    // define a content pane
+    ContentPane contentPane = new ContentPane();
+    splitPane.add( contentPane );
 
-        // define the details
-        Label detailsLabel = new Label(details);
-        detailsLabel.setStyleName("error");
-        contentPane.add(detailsLabel);
-    }
+    // define the details
+    Label detailsLabel = new Label( details );
+    detailsLabel.setStyleName( "error" );
+    contentPane.add( detailsLabel );
+  }
 
 }

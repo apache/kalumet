@@ -34,130 +34,144 @@ import nextapp.echo2.app.event.ActionListener;
 /**
  * Login screen <code>ContentPane</code>.
  */
-public class LoginScreen extends ContentPane {
+public class LoginScreen
+  extends ContentPane
+{
 
-    private TextField usernameField;
-    private PasswordField passwordField;
+  private TextField usernameField;
 
-    // the menu listener
-    private ActionListener aboutButtonActionListener = new ActionListener() {
+  private PasswordField passwordField;
 
-        public void actionPerformed(ActionEvent event) {
-            if (KalumetConsoleApplication.getApplication().getDefaultWindow().getComponent("about") == null) {
-                KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add(new AboutWindow());
-            }
-        }
+  // the menu listener
+  private ActionListener aboutButtonActionListener = new ActionListener()
+  {
 
-    };
-
-    /**
-     * Create a new <code>LoginScreen</code>.
-     */
-    public LoginScreen() {
-        super();
-
-        // define a title pane
-        SplitPane titlePane = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(30, Extent.PX));
-        titlePane.setResizable(false);
-        add(titlePane);
-        Label titleLabel = new Label(Messages.getString("kalumet.console"));
-        titleLabel.setStyleName("title");
-        titlePane.add(titleLabel);
-
-        // create a menu pane
-        SplitPane menuPane = new SplitPane(SplitPane.ORIENTATION_VERTICAL, new Extent(26));
-        menuPane.setResizable(false);
-        titlePane.add(menuPane);
-
-        // create the menu row
-        Row menuRow = new Row();
-        menuRow.setStyleName("menu");
-        menuPane.add(menuRow);
-        Button aboutButton = new Button(Messages.getString("about"), Styles.INFORMATION);
-        aboutButton.setStyleName("default");
-        aboutButton.addActionListener(aboutButtonActionListener);
-        menuRow.add(aboutButton);
-
-        // create the split central pane
-        SplitPane mainPane = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(200, Extent.PX));
-        menuPane.add(mainPane);
-        ContentPane leftPane = new ContentPane();
-        leftPane.setStyleName("left");
-        mainPane.add(leftPane);
-        ContentPane centralPane = new ContentPane();
-        centralPane.setStyleName("central");
-        mainPane.add(centralPane);
-
-        // create a new window for login fields
-        WindowPane loginWindow = new WindowPane();
-        loginWindow.setStyleName("login");
-        loginWindow.setTitle(Messages.getString("login"));
-        loginWindow.setIcon(Styles.USER);
-        loginWindow.setDefaultCloseOperation(WindowPane.DO_NOTHING_ON_CLOSE);
-        add(loginWindow);
-
-        SplitPane splitPane = new SplitPane(SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent(32));
-        loginWindow.add(splitPane);
-
-        Row controlRow = new Row();
-        controlRow.setStyleName("control");
-        splitPane.add(controlRow);
-
-        Button button = new Button(Messages.getString("continue"), Styles.ACCEPT);
-        button.setStyleName("control");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                processLogin();
-            }
-        });
-        controlRow.add(button);
-
-        Grid layoutGrid = new Grid();
-        layoutGrid.setStyleName("login");
-        splitPane.add(layoutGrid);
-
-        Label label = new Label(Messages.getString("username"));
-        label.setStyleName("default");
-        layoutGrid.add(label);
-
-        usernameField = new TextField();
-        usernameField.setStyleName("default");
-        usernameField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                KalumetConsoleApplication.getApplication().setFocusedComponent(passwordField);
-            }
-        });
-        layoutGrid.add(usernameField);
-
-        label = new Label(Messages.getString("password"));
-        label.setStyleName("default");
-        layoutGrid.add(label);
-
-        passwordField = new PasswordField();
-        passwordField.setStyleName("default");
-        layoutGrid.add(passwordField);
-        passwordField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                processLogin();
-            }
-        });
-
-        KalumetConsoleApplication.getApplication().setFocusedComponent(usernameField);
+    public void actionPerformed( ActionEvent event )
+    {
+      if ( KalumetConsoleApplication.getApplication().getDefaultWindow().getComponent( "about" ) == null )
+      {
+        KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add( new AboutWindow() );
+      }
     }
 
-    /**
-     * Process a user log-in request
-     */
-    private void processLogin() {
+  };
 
-        String userid = usernameField.getText();
-        String password = passwordField.getText();
+  /**
+   * Create a new <code>LoginScreen</code>.
+   */
+  public LoginScreen()
+  {
+    super();
 
-        usernameField.setText("");
-        passwordField.setText("");
-        KalumetConsoleApplication.getApplication().setFocusedComponent(usernameField);
+    // define a title pane
+    SplitPane titlePane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent( 30, Extent.PX ) );
+    titlePane.setResizable( false );
+    add( titlePane );
+    Label titleLabel = new Label( Messages.getString( "kalumet.console" ) );
+    titleLabel.setStyleName( "title" );
+    titlePane.add( titleLabel );
 
-        KalumetConsoleApplication.getApplication().connect(userid, password);
-    }
+    // create a menu pane
+    SplitPane menuPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL, new Extent( 26 ) );
+    menuPane.setResizable( false );
+    titlePane.add( menuPane );
+
+    // create the menu row
+    Row menuRow = new Row();
+    menuRow.setStyleName( "menu" );
+    menuPane.add( menuRow );
+    Button aboutButton = new Button( Messages.getString( "about" ), Styles.INFORMATION );
+    aboutButton.setStyleName( "default" );
+    aboutButton.addActionListener( aboutButtonActionListener );
+    menuRow.add( aboutButton );
+
+    // create the split central pane
+    SplitPane mainPane = new SplitPane( SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent( 200, Extent.PX ) );
+    menuPane.add( mainPane );
+    ContentPane leftPane = new ContentPane();
+    leftPane.setStyleName( "left" );
+    mainPane.add( leftPane );
+    ContentPane centralPane = new ContentPane();
+    centralPane.setStyleName( "central" );
+    mainPane.add( centralPane );
+
+    // create a new window for login fields
+    WindowPane loginWindow = new WindowPane();
+    loginWindow.setStyleName( "login" );
+    loginWindow.setTitle( Messages.getString( "login" ) );
+    loginWindow.setIcon( Styles.USER );
+    loginWindow.setDefaultCloseOperation( WindowPane.DO_NOTHING_ON_CLOSE );
+    add( loginWindow );
+
+    SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+    loginWindow.add( splitPane );
+
+    Row controlRow = new Row();
+    controlRow.setStyleName( "control" );
+    splitPane.add( controlRow );
+
+    Button button = new Button( Messages.getString( "continue" ), Styles.ACCEPT );
+    button.setStyleName( "control" );
+    button.addActionListener( new ActionListener()
+    {
+      public void actionPerformed( ActionEvent e )
+      {
+        processLogin();
+      }
+    } );
+    controlRow.add( button );
+
+    Grid layoutGrid = new Grid();
+    layoutGrid.setStyleName( "login" );
+    splitPane.add( layoutGrid );
+
+    Label label = new Label( Messages.getString( "username" ) );
+    label.setStyleName( "default" );
+    layoutGrid.add( label );
+
+    usernameField = new TextField();
+    usernameField.setStyleName( "default" );
+    usernameField.addActionListener( new ActionListener()
+    {
+      public void actionPerformed( ActionEvent e )
+      {
+        KalumetConsoleApplication.getApplication().setFocusedComponent( passwordField );
+      }
+    } );
+    layoutGrid.add( usernameField );
+
+    label = new Label( Messages.getString( "password" ) );
+    label.setStyleName( "default" );
+    layoutGrid.add( label );
+
+    passwordField = new PasswordField();
+    passwordField.setStyleName( "default" );
+    layoutGrid.add( passwordField );
+    passwordField.addActionListener( new ActionListener()
+    {
+      public void actionPerformed( ActionEvent e )
+      {
+        processLogin();
+      }
+    } );
+
+    KalumetConsoleApplication.getApplication().setFocusedComponent( usernameField );
+  }
+
+  /**
+   * Process a user log-in request
+   */
+  private void processLogin()
+  {
+
+    String userid = usernameField.getText();
+    String password = passwordField.getText();
+
+    usernameField.setText( "" );
+    passwordField.setText( "" );
+    KalumetConsoleApplication.getApplication().setFocusedComponent( usernameField );
+
+    KalumetConsoleApplication.getApplication().connect( userid, password );
+  }
 
 }

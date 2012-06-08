@@ -26,45 +26,61 @@ import javax.xml.namespace.QName;
 /**
  * File WS client.
  */
-public class FileClient extends AbstractClient {
+public class FileClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public FileClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/FileService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public FileClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/FileService" );
+  }
 
-    /**
-     * Wrapper method to view the content of a VFS file.
-     *
-     * @param path the VFS path.
-     * @return the file content.
-     * @throws ClientException in case of viewing failure.
-     */
-    public String view(String path) throws ClientException {
-        String content = null;
-        try {
-            content = ((String) call.invoke("view", new Object[]{ path }));
-        } catch (Exception e) {
-            throw new ClientException("Can't view the file " + path + " content", e);
-        }
-        return content;
+  /**
+   * Wrapper method to view the content of a VFS file.
+   *
+   * @param path the VFS path.
+   * @return the file content.
+   * @throws ClientException in case of viewing failure.
+   */
+  public String view( String path )
+    throws ClientException
+  {
+    String content = null;
+    try
+    {
+      content = ( (String) call.invoke( "view", new Object[]{ path } ) );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Can't view the file " + path + " content", e );
+    }
+    return content;
+  }
 
-    public SimplifiedFileObject[] browse(String path) throws ClientException {
-        call.registerTypeMapping(SimplifiedFileObject.class, new QName("http://kalumet.apache.org", "SimplifiedFileObject"), BeanSerializerFactory.class, BeanDeserializerFactory.class);
-        SimplifiedFileObject[] children = null;
-        try {
-            children = ((SimplifiedFileObject[]) call.invoke("browse", new Object[]{ path }));
-        } catch (Exception e) {
-            throw new ClientException("Can't browse " + path, e);
-        }
-        return children;
+  public SimplifiedFileObject[] browse( String path )
+    throws ClientException
+  {
+    call.registerTypeMapping( SimplifiedFileObject.class,
+                              new QName( "http://kalumet.apache.org", "SimplifiedFileObject" ),
+                              BeanSerializerFactory.class, BeanDeserializerFactory.class );
+    SimplifiedFileObject[] children = null;
+    try
+    {
+      children = ( (SimplifiedFileObject[]) call.invoke( "browse", new Object[]{ path } ) );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "Can't browse " + path, e );
+    }
+    return children;
+  }
 
 }

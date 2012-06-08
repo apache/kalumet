@@ -24,52 +24,68 @@ import java.util.Date;
 /**
  * Simplified VFS file object to be used via WS.
  */
-public class SimplifiedFileObject implements Serializable {
+public class SimplifiedFileObject
+  implements Serializable
+{
 
-    private String name;
-    private String path;
-    private boolean file;
-    private long size;
-    private Date lastModificationDate;
+  private String name;
 
-    public String getName() {
-        return this.name;
-    }
+  private String path;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  private boolean file;
 
-    public String getPath() {
-        return this.path;
-    }
+  private long size;
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+  private Date lastModificationDate;
 
-    public boolean isFile() {
-        return this.file;
-    }
+  public String getName()
+  {
+    return this.name;
+  }
 
-    public void setFile(boolean file) {
-        this.file = file;
-    }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-    public Date getLastModificationDate() {
-        return this.lastModificationDate;
-    }
+  public String getPath()
+  {
+    return this.path;
+  }
 
-    public void setLastModificationDate(Date lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
+  public void setPath( String path )
+  {
+    this.path = path;
+  }
 
-    public long getSize() {
-        return this.size;
-    }
+  public boolean isFile()
+  {
+    return this.file;
+  }
 
-    public void setSize(long size) {
-        this.size = size;
-    }
+  public void setFile( boolean file )
+  {
+    this.file = file;
+  }
+
+  public Date getLastModificationDate()
+  {
+    return this.lastModificationDate;
+  }
+
+  public void setLastModificationDate( Date lastModificationDate )
+  {
+    this.lastModificationDate = lastModificationDate;
+  }
+
+  public long getSize()
+  {
+    return this.size;
+  }
+
+  public void setSize( long size )
+  {
+    this.size = size;
+  }
 
 }

@@ -18,10 +18,6 @@
  */
 package org.apache.kalumet.console.configuration;
 
-import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.kalumet.console.configuration.model.KalumetConsole;
 import org.apache.kalumet.console.configuration.model.Property;
@@ -29,6 +25,10 @@ import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.log.Journal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Load and manipulate the Kalumet configuration store.
@@ -175,9 +175,16 @@ public class ConfigurationManager
         "The property JournalsLocation is not found in the Apache Kalumet Console configuration. This property is required to store the environment journals and must contain the directory path for the journal files." );
     }
     String journalPath;
-    if (System.getProperty( "kalumet.home" ) != null)
-      journalPath = System.getProperty( "kalumet.home" ) + "/" + kalumetConsoleProperty.getValue() + "/" + environment + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
-    else journalPath = kalumetConsoleProperty.getValue() + "/" + environment + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+    if ( System.getProperty( "kalumet.home" ) != null )
+    {
+      journalPath = System.getProperty( "kalumet.home" ) + "/" + kalumetConsoleProperty.getValue() + "/" + environment
+        + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+    }
+    else
+    {
+      journalPath =
+        kalumetConsoleProperty.getValue() + "/" + environment + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+    }
 
     File journalDir = new File( journalPath );
     journalDir.getParentFile().mkdirs();

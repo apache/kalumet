@@ -22,28 +22,35 @@ package org.apache.kalumet.console.configuration.model;
  * Represents the <code>property</code> tag in the kalumet-console-config.xml
  * configuration file.
  */
-public class Property {
+public class Property
+{
 
-   private String name;
-   private String value;
+  private String name;
 
-   public Property() {
-   }
+  private String value;
 
-   public String getName() {
-      return this.name;
-   }
+  public Property()
+  {
+  }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public String getValue() {
-      return this.value;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   public void setValue(String value) {
-      this.value = value;
-   }
+  public String getValue()
+  {
+    return this.value;
+  }
+
+  public void setValue( String value )
+  {
+    this.value = value;
+  }
 
 }

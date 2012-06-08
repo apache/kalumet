@@ -18,7 +18,6 @@
  */
 package org.apache.kalumet.controller.core;
 
-import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.apache.kalumet.model.Environment;
 import org.apache.kalumet.model.J2EEApplicationServer;
 import org.apache.kalumet.utils.VariableUtils;
@@ -30,31 +29,44 @@ import java.lang.reflect.Constructor;
 /**
  * Factory to get a <code>J2EEApplicationServerController</code>.
  */
-public class J2EEApplicationServerControllerFactory {
+public class J2EEApplicationServerControllerFactory
+{
 
-    private final static transient Logger LOGGER = LoggerFactory.getLogger(J2EEApplicationServerControllerFactory.class);
+  private final static transient Logger LOGGER =
+    LoggerFactory.getLogger( J2EEApplicationServerControllerFactory.class );
 
-    public static J2EEApplicationServerController getController(Environment environment, J2EEApplicationServer server) throws ControllerException {
-        LOGGER.debug("Connecting to {}", VariableUtils.replace(server.getJmxurl(), environment.getVariables()));
-        String jmxUrl = VariableUtils.replace(server.getJmxurl(), environment.getVariables());
-        String adminUser = VariableUtils.replace(server.getAdminuser(), environment.getVariables());
-        String adminPassword = VariableUtils.replace(server.getAdminpassword(), environment.getVariables());
-        J2EEApplicationServerController controller = null;
-        try {
-           Class controllerClass = Class.forName(server.getClassname());
-           Constructor controllerConstructor = controllerClass.getConstructor(new Class[] { String.class, String.class, String.class, String.class, Boolean.class });
-           controller = (J2EEApplicationServerController) controllerConstructor.newInstance(new Object[] { jmxUrl, adminUser, adminPassword, server.getName(), new Boolean(environment.getJ2EEApplicationServers().isCluster()) });
-        }
-        catch (Exception e) {
-            LOGGER.error("Can't initialize controller", e);
-            if (e != null) {
-                throw new ControllerException("Can't initialize controller", e);
-            } else {
-                throw new ControllerException("Can't initialize controller. Check if the J2EE application server libraries are present in the agent classpath and check the agent log");
-            }
-        }
-        return controller;
-
+  public static J2EEApplicationServerController getController( Environment environment, J2EEApplicationServer server )
+    throws ControllerException
+  {
+    LOGGER.debug( "Connecting to {}", VariableUtils.replace( server.getJmxurl(), environment.getVariables() ) );
+    String jmxUrl = VariableUtils.replace( server.getJmxurl(), environment.getVariables() );
+    String adminUser = VariableUtils.replace( server.getAdminuser(), environment.getVariables() );
+    String adminPassword = VariableUtils.replace( server.getAdminpassword(), environment.getVariables() );
+    J2EEApplicationServerController controller = null;
+    try
+    {
+      Class controllerClass = Class.forName( server.getClassname() );
+      Constructor controllerConstructor = controllerClass.getConstructor(
+        new Class[]{ String.class, String.class, String.class, String.class, Boolean.class } );
+      controller = (J2EEApplicationServerController) controllerConstructor.newInstance(
+        new Object[]{ jmxUrl, adminUser, adminPassword, server.getName(),
+          new Boolean( environment.getJ2EEApplicationServers().isCluster() ) } );
     }
+    catch ( Exception e )
+    {
+      LOGGER.error( "Can't initialize controller", e );
+      if ( e != null )
+      {
+        throw new ControllerException( "Can't initialize controller", e );
+      }
+      else
+      {
+        throw new ControllerException(
+          "Can't initialize controller. Check if the J2EE application server libraries are present in the agent classpath and check the agent log" );
+      }
+    }
+    return controller;
+
+  }
 
 }

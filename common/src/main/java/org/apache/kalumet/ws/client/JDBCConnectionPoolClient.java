@@ -21,52 +21,67 @@ package org.apache.kalumet.ws.client;
 /**
  * J2EE application server JDBC connection pool WS client.
  */
-public class JDBCConnectionPoolClient extends AbstractClient {
+public class JDBCConnectionPoolClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host hostname or IP address of the Kalumet agent WS server.
-     * @param port port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public JDBCConnectionPoolClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/JDBCConnectionPoolService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host hostname or IP address of the Kalumet agent WS server.
+   * @param port port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public JDBCConnectionPoolClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/JDBCConnectionPoolService" );
+  }
 
-    /**
-     * Wrapper method to update a JDBC connection pool.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param connectionPoolName the target connection pool name.
-     * @throws ClientException in case of communication failure.
-     */
-    public void update(String environmentName, String applicationServerName, String connectionPoolName) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, connectionPoolName });
-        } catch (Exception e) {
-            throw new ClientException("JDBC connection pool " + connectionPoolName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a JDBC connection pool.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param connectionPoolName    the target connection pool name.
+   * @throws ClientException in case of communication failure.
+   */
+  public void update( String environmentName, String applicationServerName, String connectionPoolName )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, connectionPoolName } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JDBC connection pool " + connectionPoolName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to check if a JDBC connection pool is up to date or not.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param connectionPoolName the target connection pool name.
-     * @return true if the connection pool is up to date, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String connectionPoolName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, connectionPoolName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("JDBC connection pool " + connectionPoolName + " status check failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to check if a JDBC connection pool is up to date or not.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param connectionPoolName    the target connection pool name.
+   * @return true if the connection pool is up to date, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String connectionPoolName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check", new Object[]{ environmentName, applicationServerName,
+        connectionPoolName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "JDBC connection pool " + connectionPoolName + " status check failed", e );
+    }
+    return upToDate;
+  }
 
 }

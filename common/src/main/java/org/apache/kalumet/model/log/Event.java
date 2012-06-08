@@ -26,61 +26,76 @@ import org.w3c.dom.Element;
 /**
  * Represents the <code>event</code> tag in the journal DOM.
  */
-public class Event {
+public class Event
+{
 
-   private String date;
-   private String severity;
-   private String author;
-   private String content;
+  private String date;
 
-   public Event() { }
+  private String severity;
 
-   public String getDate() {
-      return this.date;
-   }
+  private String author;
 
-   public void setDate(String date) {
-      this.date = date;
-   }
+  private String content;
 
-   public String getSeverity() {
-      return this.severity;
-   }
+  public Event()
+  {
+  }
 
-   public void setSeverity(String severity) {
-      this.severity = severity;
-   }
+  public String getDate()
+  {
+    return this.date;
+  }
 
-   public String getAuthor() {
-      return this.author;
-   }
+  public void setDate( String date )
+  {
+    this.date = date;
+  }
 
-   public void setAuthor(String author) {
-      this.author = author;
-   }
+  public String getSeverity()
+  {
+    return this.severity;
+  }
 
-   public String getContent() {
-      return this.content;
-   }
+  public void setSeverity( String severity )
+  {
+    this.severity = severity;
+  }
 
-   public void setContent(String content) {
-      this.content = content;
-   }
+  public String getAuthor()
+  {
+    return this.author;
+  }
 
-   /**
-    * Transforms the <code>Event</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "event");
-      element.setAttribute("date", this.getDate());
-      element.setAttribute("severity", this.getSeverity());
-      element.setAttribute("author", this.getAuthor());
-      CDATASectionImpl content = new CDATASectionImpl(document, this.getContent());
-      element.appendChild(content);
-      return element;
-   }
+  public void setAuthor( String author )
+  {
+    this.author = author;
+  }
+
+  public String getContent()
+  {
+    return this.content;
+  }
+
+  public void setContent( String content )
+  {
+    this.content = content;
+  }
+
+  /**
+   * Transforms the <code>Event</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "event" );
+    element.setAttribute( "date", this.getDate() );
+    element.setAttribute( "severity", this.getSeverity() );
+    element.setAttribute( "author", this.getAuthor() );
+    CDATASectionImpl content = new CDATASectionImpl( document, this.getContent() );
+    element.appendChild( content );
+    return element;
+  }
 
 }

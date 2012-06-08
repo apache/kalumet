@@ -28,96 +28,111 @@ import nextapp.echo2.app.TextField;
 /**
  * JMS server general tab <code>ContentPane</code>.
  */
-public class JmsServerGeneralPane extends ContentPane {
+public class JmsServerGeneralPane
+  extends ContentPane
+{
 
-    private JmsServerWindow parent;
+  private JmsServerWindow parent;
 
-    private TextField nameField;
-    private SelectField activeField;
-    private SelectField blockerField;
+  private TextField nameField;
 
-    /**
-     * Create a new <code>JMSServerGeneralTabPane</code>.
-     *
-     * @param parent the parent <code>JMSServerWindow</code>.
-     */
-    public JmsServerGeneralPane(JmsServerWindow parent) {
-        super();
-        setStyleName("tab.content");
+  private SelectField activeField;
 
-        // update parent
-        this.parent = parent;
+  private SelectField blockerField;
 
-        // grid layout
-        Grid layout = new Grid(2);
-        layout.setStyleName("default");
-        layout.setColumnWidth(0, new Extent(20, Extent.PERCENT));
-        layout.setColumnWidth(1, new Extent(80, Extent.PERCENT));
-        add(layout);
+  /**
+   * Create a new <code>JMSServerGeneralTabPane</code>.
+   *
+   * @param parent the parent <code>JMSServerWindow</code>.
+   */
+  public JmsServerGeneralPane( JmsServerWindow parent )
+  {
+    super();
+    setStyleName( "tab.content" );
 
-        // add name field
-        Label nameLabel = new Label(Messages.getString("name"));
-        nameLabel.setStyleName("grid.cell");
-        layout.add(nameLabel);
-        nameField = new TextField();
-        nameField.setStyleName("default");
-        nameField.setWidth(new Extent(100, Extent.PERCENT));
-        layout.add(nameField);
+    // update parent
+    this.parent = parent;
 
-        // add active field
-        Label activeLabel = new Label(Messages.getString("active"));
-        activeLabel.setStyleName("grid.cell");
-        layout.add(activeLabel);
-        activeField = new SelectField(MainScreen.LABELS);
-        activeField.setSelectedIndex(0);
-        activeField.setStyleName("default");
-        activeField.setWidth(new Extent(10, Extent.EX));
-        layout.add(activeField);
+    // grid layout
+    Grid layout = new Grid( 2 );
+    layout.setStyleName( "default" );
+    layout.setColumnWidth( 0, new Extent( 20, Extent.PERCENT ) );
+    layout.setColumnWidth( 1, new Extent( 80, Extent.PERCENT ) );
+    add( layout );
 
-        // add blocker field
-        Label blockerLabel = new Label(Messages.getString("blocker"));
-        blockerLabel.setStyleName("grid.cell");
-        layout.add(blockerLabel);
-        blockerField = new SelectField(MainScreen.LABELS);
-        blockerField.setSelectedIndex(0);
-        blockerField.setStyleName("default");
-        blockerField.setWidth(new Extent(10, Extent.EX));
-        layout.add(blockerField);
+    // add name field
+    Label nameLabel = new Label( Messages.getString( "name" ) );
+    nameLabel.setStyleName( "grid.cell" );
+    layout.add( nameLabel );
+    nameField = new TextField();
+    nameField.setStyleName( "default" );
+    nameField.setWidth( new Extent( 100, Extent.PERCENT ) );
+    layout.add( nameField );
 
-        // update the pane
-        update();
+    // add active field
+    Label activeLabel = new Label( Messages.getString( "active" ) );
+    activeLabel.setStyleName( "grid.cell" );
+    layout.add( activeLabel );
+    activeField = new SelectField( MainScreen.LABELS );
+    activeField.setSelectedIndex( 0 );
+    activeField.setStyleName( "default" );
+    activeField.setWidth( new Extent( 10, Extent.EX ) );
+    layout.add( activeField );
+
+    // add blocker field
+    Label blockerLabel = new Label( Messages.getString( "blocker" ) );
+    blockerLabel.setStyleName( "grid.cell" );
+    layout.add( blockerLabel );
+    blockerField = new SelectField( MainScreen.LABELS );
+    blockerField.setSelectedIndex( 0 );
+    blockerField.setStyleName( "default" );
+    blockerField.setWidth( new Extent( 10, Extent.EX ) );
+    layout.add( blockerField );
+
+    // update the pane
+    update();
+  }
+
+  /**
+   * Update the pane
+   */
+  public void update()
+  {
+    // update the name field
+    nameField.setText( parent.getJMSServer().getName() );
+    // update the active field
+    if ( parent.getJMSServer().isActive() )
+    {
+      activeField.setSelectedIndex( 0 );
     }
-
-    /**
-     * Update the pane
-     */
-    public void update() {
-        // update the name field
-        nameField.setText(parent.getJMSServer().getName());
-        // update the active field
-        if (parent.getJMSServer().isActive()) {
-            activeField.setSelectedIndex(0);
-        } else {
-            activeField.setSelectedIndex(1);
-        }
-        // update the blocker field
-        if (parent.getJMSServer().isBlocker()) {
-            blockerField.setSelectedIndex(0);
-        } else {
-            blockerField.setSelectedIndex(1);
-        }
+    else
+    {
+      activeField.setSelectedIndex( 1 );
     }
-
-    public TextField getNameField() {
-        return this.nameField;
+    // update the blocker field
+    if ( parent.getJMSServer().isBlocker() )
+    {
+      blockerField.setSelectedIndex( 0 );
     }
-
-    public SelectField getActiveField() {
-        return this.activeField;
+    else
+    {
+      blockerField.setSelectedIndex( 1 );
     }
+  }
 
-    public SelectField getBlockerField() {
-        return this.blockerField;
-    }
+  public TextField getNameField()
+  {
+    return this.nameField;
+  }
+
+  public SelectField getActiveField()
+  {
+    return this.activeField;
+  }
+
+  public SelectField getBlockerField()
+  {
+    return this.blockerField;
+  }
 
 }

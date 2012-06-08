@@ -18,179 +18,222 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
+
+import java.io.Serializable;
 
 /**
  * Represent the <code>jdbcconnectionpool</code> tag in the Kalumet XML
  * configuration file.
  */
-public class JDBCConnectionPool implements Serializable, Cloneable, Comparable {
+public class JDBCConnectionPool
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 8052573645587249685L;
+  private static final long serialVersionUID = 8052573645587249685L;
 
-   private String name;
-   private String driver;
-   private String helperclass;
-   private int increment;
-   private int initial;
-   private int maximal;
-   private String user;
-   private String password;
-   private String url;
-   private String classpath;
-   private boolean active;
-   private boolean blocker;
+  private String name;
 
-   public JDBCConnectionPool() { }
+  private String driver;
 
-   public String getName() {
-      return this.name;
-   }
+  private String helperclass;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  private int increment;
 
-   public String getDriver() {
-      return this.driver;
-   }
+  private int initial;
 
-   public void setDriver(String driver) {
-      this.driver = driver;
-   }
+  private int maximal;
 
-   public String getHelperclass() {
-      return this.helperclass;
-   }
+  private String user;
 
-   public void setHelperclass(String helperclass) {
-      this.helperclass = helperclass;
-   }
+  private String password;
 
-   public int getIncrement() {
-      return this.increment;
-   }
+  private String url;
 
-   public void setIncrement(int increment) {
-      this.increment = increment;
-   }
+  private String classpath;
 
-   public int getInitial() {
-      return this.initial;
-   }
+  private boolean active;
 
-   public void setInitial(int initial) {
-      this.initial = initial;
-   }
+  private boolean blocker;
 
-   public int getMaximal() {
-      return this.maximal;
-   }
+  public JDBCConnectionPool()
+  {
+  }
 
-   public void setMaximal(int maximal) {
-      this.maximal = maximal;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public String getUser() {
-      return this.user;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   public void setUser(String user) {
-      this.user = user;
-   }
+  public String getDriver()
+  {
+    return this.driver;
+  }
 
-   public String getPassword() {
-      return this.password;
-   }
+  public void setDriver( String driver )
+  {
+    this.driver = driver;
+  }
 
-   public void setPassword(String password) {
-      this.password = password;
-   }
+  public String getHelperclass()
+  {
+    return this.helperclass;
+  }
 
-   public String getUrl() {
-      return this.url;
-   }
+  public void setHelperclass( String helperclass )
+  {
+    this.helperclass = helperclass;
+  }
 
-   public void setUrl(String url) {
-      this.url = url;
-   }
+  public int getIncrement()
+  {
+    return this.increment;
+  }
 
-   public String getClasspath() {
-      return this.classpath;
-   }
+  public void setIncrement( int increment )
+  {
+    this.increment = increment;
+  }
 
-   public void setClasspath(String classpath) {
-      this.classpath = classpath;
-   }
+  public int getInitial()
+  {
+    return this.initial;
+  }
 
-   public boolean isActive() {
-      return this.active;
-   }
+  public void setInitial( int initial )
+  {
+    this.initial = initial;
+  }
 
-   public void setActive(boolean active) {
-      this.active = active;
-   }
+  public int getMaximal()
+  {
+    return this.maximal;
+  }
 
-   public boolean isBlocker() {
-      return this.blocker;
-   }
+  public void setMaximal( int maximal )
+  {
+    this.maximal = maximal;
+  }
 
-   public void setBlocker(boolean blocker) {
-      this.blocker = blocker;
-   }
+  public String getUser()
+  {
+    return this.user;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      JDBCConnectionPool clone = new JDBCConnectionPool();
-      clone.setName(this.getName());
-      clone.setDriver(this.getDriver());
-      clone.setHelperclass(this.getHelperclass());
-      clone.setIncrement(this.getIncrement());
-      clone.setInitial(this.getInitial());
-      clone.setMaximal(this.getMaximal());
-      clone.setUser(this.getUser());
-      clone.setPassword(this.getPassword());
-      clone.setUrl(this.getUrl());
-      clone.setClasspath(this.getClasspath());
-      clone.setActive(this.isActive());
-      clone.setBlocker(this.isBlocker());
-      return clone;
-   }
+  public void setUser( String user )
+  {
+    this.user = user;
+  }
 
-   /**
-    * Transform the <code>JDBCConnectionPool</code> POJO to a DOM element.
-    * 
-    * @param document the core XML document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "jdbcconnectionpool");
-      element.setAttribute("name", this.getName());
-      element.setAttribute("driver", this.getDriver());
-      element.setAttribute("helperclass", this.getHelperclass());
-      element.setAttribute("increment", new Integer(this.getIncrement()).toString());
-      element.setAttribute("initial", new Integer(this.getInitial()).toString());
-      element.setAttribute("maximal", new Integer(this.getMaximal()).toString());
-      element.setAttribute("user", this.getUser());
-      element.setAttribute("password", this.getPassword());
-      element.setAttribute("url", this.getUrl());
-      element.setAttribute("classpath", this.getClasspath());
-      element.setAttribute("active", new Boolean(this.isActive()).toString());
-      element.setAttribute("blocker", new Boolean(this.isActive()).toString());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherConnectionPool) {
-       return this.getName().compareTo(((JDBCConnectionPool)anotherConnectionPool).getName());
-   }
+  public String getPassword()
+  {
+    return this.password;
+  }
+
+  public void setPassword( String password )
+  {
+    this.password = password;
+  }
+
+  public String getUrl()
+  {
+    return this.url;
+  }
+
+  public void setUrl( String url )
+  {
+    this.url = url;
+  }
+
+  public String getClasspath()
+  {
+    return this.classpath;
+  }
+
+  public void setClasspath( String classpath )
+  {
+    this.classpath = classpath;
+  }
+
+  public boolean isActive()
+  {
+    return this.active;
+  }
+
+  public void setActive( boolean active )
+  {
+    this.active = active;
+  }
+
+  public boolean isBlocker()
+  {
+    return this.blocker;
+  }
+
+  public void setBlocker( boolean blocker )
+  {
+    this.blocker = blocker;
+  }
+
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    JDBCConnectionPool clone = new JDBCConnectionPool();
+    clone.setName( this.getName() );
+    clone.setDriver( this.getDriver() );
+    clone.setHelperclass( this.getHelperclass() );
+    clone.setIncrement( this.getIncrement() );
+    clone.setInitial( this.getInitial() );
+    clone.setMaximal( this.getMaximal() );
+    clone.setUser( this.getUser() );
+    clone.setPassword( this.getPassword() );
+    clone.setUrl( this.getUrl() );
+    clone.setClasspath( this.getClasspath() );
+    clone.setActive( this.isActive() );
+    clone.setBlocker( this.isBlocker() );
+    return clone;
+  }
+
+  /**
+   * Transform the <code>JDBCConnectionPool</code> POJO to a DOM element.
+   *
+   * @param document the core XML document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "jdbcconnectionpool" );
+    element.setAttribute( "name", this.getName() );
+    element.setAttribute( "driver", this.getDriver() );
+    element.setAttribute( "helperclass", this.getHelperclass() );
+    element.setAttribute( "increment", new Integer( this.getIncrement() ).toString() );
+    element.setAttribute( "initial", new Integer( this.getInitial() ).toString() );
+    element.setAttribute( "maximal", new Integer( this.getMaximal() ).toString() );
+    element.setAttribute( "user", this.getUser() );
+    element.setAttribute( "password", this.getPassword() );
+    element.setAttribute( "url", this.getUrl() );
+    element.setAttribute( "classpath", this.getClasspath() );
+    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+    element.setAttribute( "blocker", new Boolean( this.isActive() ).toString() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherConnectionPool )
+  {
+    return this.getName().compareTo( ( (JDBCConnectionPool) anotherConnectionPool ).getName() );
+  }
 
 }

@@ -18,135 +18,158 @@
  */
 package org.apache.kalumet.model;
 
+import org.apache.xerces.dom.CoreDocumentImpl;
+import org.apache.xerces.dom.ElementImpl;
+import org.w3c.dom.Element;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.xerces.dom.CoreDocumentImpl;
-import org.apache.xerces.dom.ElementImpl;
-import org.w3c.dom.Element;
-
 /**
  * Represent the <code>group</code> tag in the Kalumet configuration DOM.
  */
-public class Group implements Serializable, Cloneable, Comparable {
+public class Group
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 5188524193501221530L;
+  private static final long serialVersionUID = 5188524193501221530L;
 
-   private String id;
-   private String name;
-   private LinkedList users;
+  private String id;
 
-   public Group() {
-      this.users = new LinkedList();
-   }
+  private String name;
 
-   public String getId() {
-      return this.id;
-   }
+  private LinkedList users;
 
-   public void setId(String id) {
-      this.id = id;
-   }
+  public Group()
+  {
+    this.users = new LinkedList();
+  }
 
-   public String getName() {
-      return this.name;
-   }
+  public String getId()
+  {
+    return this.id;
+  }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  public void setId( String id )
+  {
+    this.id = id;
+  }
 
-   /**
-    * Add a new <code>User</code> in the <code>Group</code> container.
-    * 
-    * @param user the <code>User</code> to add.
-    */
-   public void addUser(User user) throws ModelObjectAlreadyExistsException {
-      if (this.getUser(user.getId()) != null) {
-         throw new ModelObjectAlreadyExistsException("User id already exists in group.");
+  public String getName()
+  {
+    return this.name;
+  }
+
+  public void setName( String name )
+  {
+    this.name = name;
+  }
+
+  /**
+   * Add a new <code>User</code> in the <code>Group</code> container.
+   *
+   * @param user the <code>User</code> to add.
+   */
+  public void addUser( User user )
+    throws ModelObjectAlreadyExistsException
+  {
+    if ( this.getUser( user.getId() ) != null )
+    {
+      throw new ModelObjectAlreadyExistsException( "User id already exists in group." );
+    }
+    this.users.add( user );
+  }
+
+  /**
+   * Get the <code>User</code> list in the <code>Group</code> container.
+   *
+   * @return the <code>User</code> list.
+   */
+  public List getUsers()
+  {
+    return this.users;
+  }
+
+  /**
+   * Set the <code>User</code> list in the <code>Group</code>
+   * container.
+   *
+   * @param users the new <code>User</code> list.
+   */
+  public void setUsers( LinkedList users )
+  {
+    this.users = users;
+  }
+
+  /**
+   * Get a <code>User</code> identified by a given id in the
+   * <code>Group</code> container;
+   *
+   * @param id the <code>User</code> id.
+   * @return the found <code>User</code> or null if not found.
+   */
+  public User getUser( String id )
+  {
+    for ( Iterator userIterator = this.getUsers().iterator(); userIterator.hasNext(); )
+    {
+      User user = (User) userIterator.next();
+      if ( user.getId().equals( id ) )
+      {
+        return user;
       }
-      this.users.add(user);
-   }
+    }
+    return null;
+  }
 
-   /**
-    * Get the <code>User</code> list in the <code>Group</code> container.
-    * 
-    * @return the <code>User</code> list.
-    */
-   public List getUsers() {
-      return this.users;
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Group clone = new Group();
+    clone.setId( this.getId() );
+    clone.setName( this.getName() );
+    for ( Iterator userIterator = this.users.iterator(); userIterator.hasNext(); )
+    {
+      User user = (User) userIterator.next();
+      clone.users.add( (User) user.clone() );
+    }
+    return clone;
+  }
 
-   /**
-    * Set the <code>User</code> list in the <code>Group</code>
-    * container.
-    * 
-    * @param users the new <code>User</code> list.
-    */
-   public void setUsers(LinkedList users) {
-      this.users = users;
-   }
+  /**
+   * Transform the <code>Group</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "group" );
+    element.setAttribute( "id", this.getId() );
+    element.setAttribute( "name", this.getName() );
+    // users element
+    ElementImpl users = new ElementImpl( document, "users" );
+    // add user in the users element
+    for ( Iterator userIterator = this.getUsers().iterator(); userIterator.hasNext(); )
+    {
+      User user = (User) userIterator.next();
+      users.appendChild( user.toDOMElement( document ) );
+    }
+    // add users to group element
+    element.appendChild( users );
+    return element;
+  }
 
-   /**
-    * Get a <code>User</code> identified by a given id in the
-    * <code>Group</code> container;
-    * 
-    * @param id the <code>User</code> id.
-    * @return the found <code>User</code> or null if not found.
-    */
-   public User getUser(String id) {
-      for (Iterator userIterator = this.getUsers().iterator(); userIterator.hasNext();) {
-         User user = (User) userIterator.next();
-         if (user.getId().equals(id)) {
-            return user;
-         }
-      }
-      return null;
-   }
-
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Group clone = new Group();
-      clone.setId(this.getId());
-      clone.setName(this.getName());
-      for (Iterator userIterator = this.users.iterator(); userIterator.hasNext(); ) {
-          User user = (User)userIterator.next();
-          clone.users.add((User)user.clone());
-      }
-      return clone;
-   }
-
-   /**
-    * Transform the <code>Group</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "group");
-      element.setAttribute("id", this.getId());
-      element.setAttribute("name", this.getName());
-      // users element
-      ElementImpl users = new ElementImpl(document, "users");
-      // add user in the users element
-      for (Iterator userIterator = this.getUsers().iterator(); userIterator.hasNext();) {
-         User user = (User) userIterator.next();
-         users.appendChild(user.toDOMElement(document));
-      }
-      // add users to group element
-      element.appendChild(users);
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherGroup) {
-       return this.getId().compareTo(((Group)anotherGroup).getId());
-   }
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherGroup )
+  {
+    return this.getId().compareTo( ( (Group) anotherGroup ).getId() );
+  }
 
 }

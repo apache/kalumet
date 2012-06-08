@@ -21,55 +21,76 @@ package org.apache.kalumet.ws.client;
 /**
  * ConfigurationFIle WS client.
  */
-public class ConfigurationFileClient extends AbstractClient {
+public class ConfigurationFileClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public ConfigurationFileClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationConfigurationFileService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public ConfigurationFileClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationConfigurationFileService" );
+  }
 
-    /**
-     * Wrapper method to update a J2EE application configuration file.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param configurationFileName the target configuration file name.
-     * @param delegation true if the call is a delegation from another agent, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public void update(String environmentName, String applicationServerName, String applicationName, String configurationFileName, boolean delegation) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, configurationFileName, new Boolean(delegation) });
-        } catch (Exception e) {
-            throw new ClientException("J2EE application configuration file " + configurationFileName + " update failed", e);
-        }
+  /**
+   * Wrapper method to update a J2EE application configuration file.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param configurationFileName the target configuration file name.
+   * @param delegation            true if the call is a delegation from another agent, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public void update( String environmentName, String applicationServerName, String applicationName,
+                      String configurationFileName, boolean delegation )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update",
+                   new Object[]{ environmentName, applicationServerName, applicationName, configurationFileName,
+                     new Boolean( delegation ) } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "J2EE application configuration file " + configurationFileName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to check if the J2EE application configuration file is up to date.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param configurationFileName the target configuration file name.
-     * @return true if the configuration file is up to date, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String applicationName, String configurationFileName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, applicationName, configurationFileName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("J2EE application configuration file " + configurationFileName + " status check failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to check if the J2EE application configuration file is up to date.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param configurationFileName the target configuration file name.
+   * @return true if the configuration file is up to date, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String applicationName,
+                        String configurationFileName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check",
+                                          new Object[]{ environmentName, applicationServerName, applicationName,
+                                            configurationFileName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException(
+        "J2EE application configuration file " + configurationFileName + " status check failed", e );
+    }
+    return upToDate;
+  }
 
 }

@@ -31,83 +31,95 @@ import nextapp.echo2.app.event.ActionListener;
 /**
  * About window.
  */
-public class AboutWindow extends WindowPane {
+public class AboutWindow
+  extends WindowPane
+{
 
-    /**
-     * Create a new <code>AboutWindow</code>.
-     */
-    public AboutWindow() {
-        super();
+  /**
+   * Create a new <code>AboutWindow</code>.
+   */
+  public AboutWindow()
+  {
+    super();
 
-        setTitle(Messages.getString("about"));
-        setIcon(Styles.INFORMATION);
-        setStyleName("about");
-        setId("aboutwindow");
-        setModal(true);
-        setDefaultCloseOperation(WindowPane.DISPOSE_ON_CLOSE);
+    setTitle( Messages.getString( "about" ) );
+    setIcon( Styles.INFORMATION );
+    setStyleName( "about" );
+    setId( "aboutwindow" );
+    setModal( true );
+    setDefaultCloseOperation( WindowPane.DISPOSE_ON_CLOSE );
 
-        Label label;
+    Label label;
 
-        // split pane to put control
-        SplitPane splitPane = new SplitPane(SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent(32));
-        add(splitPane);
+    // split pane to put control
+    SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+    add( splitPane );
 
-        // control row
-        Row controlRow = new Row();
-        controlRow.setStyleName("control");
-        splitPane.add(controlRow);
+    // control row
+    Row controlRow = new Row();
+    controlRow.setStyleName( "control" );
+    splitPane.add( controlRow );
 
-        // close button
-        Button closeButton = new Button(Messages.getString("close"), Styles.CROSS);
-        closeButton.setStyleName("control");
-        closeButton.addActionListener(new ActionListener() {
+    // close button
+    Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
+    closeButton.setStyleName( "control" );
+    closeButton.addActionListener( new ActionListener()
+    {
 
-            private static final long serialVersionUID = 8624164259974769878L;
+      private static final long serialVersionUID = 8624164259974769878L;
 
-            public void actionPerformed(ActionEvent e) {
-                AboutWindow.this.userClose();
-            }
-        });
-        controlRow.add(closeButton);
+      public void actionPerformed( ActionEvent e )
+      {
+        AboutWindow.this.userClose();
+      }
+    } );
+    controlRow.add( closeButton );
 
-        // define a column to store the several labels
-        Column column = new Column();
-        column.setStyleName("about");
-        column.setCellSpacing(new Extent(5));
+    // define a column to store the several labels
+    Column column = new Column();
+    column.setStyleName( "about" );
+    column.setCellSpacing( new Extent( 5 ) );
 
-        // define the title label
-        label = new Label(Messages.getString("kalumet.console"));
-        label.setStyleName("about.title");
-        column.add(label);
+    // define the title label
+    label = new Label( Messages.getString( "kalumet.console" ) );
+    label.setStyleName( "about.title" );
+    column.add( label );
 
-        // define version label if possible
-        Package p = Package.getPackage("org.apache.kalumet.console");
-        if (p != null && p.getImplementationVersion() != null) {
-            label = new Label("Version: " + p.getImplementationVersion());
-        } else {
-            label = new Label("");
-        }
-        label.setStyleName("default");
-        column.add(label);
-
-        // define the jvm label
-        label = new Label("JVM: " + System.getProperty("java.vm.vendor") + " " + System.getProperty("java.vm.name") + " " + System.getProperty("java.vm.version"));
-        label.setStyleName("default");
-        column.add(label);
-
-        // define the os label
-        label = new Label("Host: " + System.getProperty("os.arch") + " " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
-        label.setStyleName("default");
-        column.add(label);
-
-        // define the copyright label
-        label = new Label("Apache 2.0 License");
-        label.setStyleName("default");
-        column.add(label);
-
-        // add the column to the split pane
-        splitPane.add(column);
-
+    // define version label if possible
+    Package p = Package.getPackage( "org.apache.kalumet.console" );
+    if ( p != null && p.getImplementationVersion() != null )
+    {
+      label = new Label( "Version: " + p.getImplementationVersion() );
     }
+    else
+    {
+      label = new Label( "" );
+    }
+    label.setStyleName( "default" );
+    column.add( label );
+
+    // define the jvm label
+    label = new Label(
+      "JVM: " + System.getProperty( "java.vm.vendor" ) + " " + System.getProperty( "java.vm.name" ) + " "
+        + System.getProperty( "java.vm.version" ) );
+    label.setStyleName( "default" );
+    column.add( label );
+
+    // define the os label
+    label = new Label(
+      "Host: " + System.getProperty( "os.arch" ) + " " + System.getProperty( "os.name" ) + " " + System.getProperty(
+        "os.version" ) );
+    label.setStyleName( "default" );
+    column.add( label );
+
+    // define the copyright label
+    label = new Label( "Apache 2.0 License" );
+    label.setStyleName( "default" );
+    column.add( label );
+
+    // add the column to the split pane
+    splitPane.add( column );
+
+  }
 
 }

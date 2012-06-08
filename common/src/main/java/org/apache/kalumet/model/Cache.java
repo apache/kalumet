@@ -18,58 +18,68 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
+
+import java.io.Serializable;
 
 /**
  * Represents the <code>cache</code> tag in the Kalumet XML configuration
  * file.
  */
-public class Cache implements Serializable, Cloneable, Comparable {
+public class Cache
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = 1931779797709903317L;
+  private static final long serialVersionUID = 1931779797709903317L;
 
-   private String path;
+  private String path;
 
-   public Cache() { }
+  public Cache()
+  {
+  }
 
-   public String getPath() {
-      return this.path;
-   }
+  public String getPath()
+  {
+    return this.path;
+  }
 
-   public void setPath(String path) {
-      this.path = path;
-   }
+  public void setPath( String path )
+  {
+    this.path = path;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      Cache clone = new Cache();
-      clone.setPath(this.getPath());
-      return clone;
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    Cache clone = new Cache();
+    clone.setPath( this.getPath() );
+    return clone;
+  }
 
-   /**
-    * Transforms the <code>Cache</code> POJO to a DOM element.
-    * 
-    * @param document the core XML document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "cache");
-      element.setAttribute("path", this.getPath());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherCache) {
-       return this.getPath().compareTo(((Cache)anotherCache).getPath());
-   }
+  /**
+   * Transforms the <code>Cache</code> POJO to a DOM element.
+   *
+   * @param document the core XML document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "cache" );
+    element.setAttribute( "path", this.getPath() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherCache )
+  {
+    return this.getPath().compareTo( ( (Cache) anotherCache ).getPath() );
+  }
 
 }

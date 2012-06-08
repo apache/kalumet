@@ -3,22 +3,22 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-   <appender name="SYSTEMOUT_LOG" class="org.apache.log4j.ConsoleAppender">
-      <param name="Target" value="System.out"/>
+  <appender name="SYSTEMOUT_LOG" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
 
-      <layout class="org.apache.log4j.PatternLayout">
-         <param name="ConversionPattern" value="%d [%t] %p - %m%n"/>
-      </layout>
-   </appender>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%t] %p - %m%n"/>
+    </layout>
+  </appender>
 
-   <category name="org.apache.kalumet">
-      <priority value="DEBUG"/>
-      <appender-ref ref="SYSTEMOUT_LOG"/>
-   </category>
+  <category name="org.apache.kalumet">
+    <priority value="DEBUG"/>
+    <appender-ref ref="SYSTEMOUT_LOG"/>
+  </category>
 
-   <root>
-      <priority value="INFO"/>
-      <appender-ref ref="SYSTEMOUT_LOG"/>
-   </root>
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="SYSTEMOUT_LOG"/>
+  </root>
 
 </log4j:configuration>

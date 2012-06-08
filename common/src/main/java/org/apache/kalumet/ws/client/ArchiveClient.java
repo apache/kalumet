@@ -21,55 +21,74 @@ package org.apache.kalumet.ws.client;
 /**
  * Archive WS client.
  */
-public class ArchiveClient extends AbstractClient {
+public class ArchiveClient
+  extends AbstractClient
+{
 
-    /**
-     * Default constructor.
-     *
-     * @param host the hostname or IP address of the Kalumet agent WS server.
-     * @param port the port number of the Kalumet agent WS server.
-     * @throws ClientException in case of communication failure.
-     */
-    public ArchiveClient(String host, int port) throws ClientException {
-        super("http://" + host + ":" + port + "/axis/services/J2EEApplicationArchiveService");
-    }
+  /**
+   * Default constructor.
+   *
+   * @param host the hostname or IP address of the Kalumet agent WS server.
+   * @param port the port number of the Kalumet agent WS server.
+   * @throws ClientException in case of communication failure.
+   */
+  public ArchiveClient( String host, int port )
+    throws ClientException
+  {
+    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationArchiveService" );
+  }
 
-    /**
-     * Wrapper method to call archive update.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param archiveName the target archive name.
-     * @param delegation true if this call is a delegation from another agent, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public void update(String environmentName, String applicationServerName, String applicationName, String archiveName, boolean delegation) throws ClientException {
-        try {
-            call.invoke("update", new Object[]{ environmentName, applicationServerName, applicationName, archiveName, new Boolean(delegation) });
-        } catch (Exception e) {
-            throw new ClientException("J2EE archive " + archiveName + " update failed", e);
-        }
+  /**
+   * Wrapper method to call archive update.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param archiveName           the target archive name.
+   * @param delegation            true if this call is a delegation from another agent, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public void update( String environmentName, String applicationServerName, String applicationName, String archiveName,
+                      boolean delegation )
+    throws ClientException
+  {
+    try
+    {
+      call.invoke( "update", new Object[]{ environmentName, applicationServerName, applicationName, archiveName,
+        new Boolean( delegation ) } );
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "J2EE archive " + archiveName + " update failed", e );
+    }
+  }
 
-    /**
-     * Wrapper method to call archive check.
-     *
-     * @param environmentName the target environment name.
-     * @param applicationServerName the target J2EE application server name.
-     * @param applicationName the target J2EE application name.
-     * @param archiveName the target archive name.
-     * @return true if the J2EE application archive is up to date, false else.
-     * @throws ClientException in case of communication failure.
-     */
-    public boolean check(String environmentName, String applicationServerName, String applicationName, String archiveName) throws ClientException {
-        boolean upToDate = false;
-        try {
-            upToDate = ((Boolean) call.invoke("check", new Object[]{ environmentName, applicationServerName, applicationName, archiveName })).booleanValue();
-        } catch (Exception e) {
-            throw new ClientException("J2EE archive " + archiveName + " check status failed", e);
-        }
-        return upToDate;
+  /**
+   * Wrapper method to call archive check.
+   *
+   * @param environmentName       the target environment name.
+   * @param applicationServerName the target J2EE application server name.
+   * @param applicationName       the target J2EE application name.
+   * @param archiveName           the target archive name.
+   * @return true if the J2EE application archive is up to date, false else.
+   * @throws ClientException in case of communication failure.
+   */
+  public boolean check( String environmentName, String applicationServerName, String applicationName,
+                        String archiveName )
+    throws ClientException
+  {
+    boolean upToDate = false;
+    try
+    {
+      upToDate = ( (Boolean) call.invoke( "check",
+                                          new Object[]{ environmentName, applicationServerName, applicationName,
+                                            archiveName } ) ).booleanValue();
     }
+    catch ( Exception e )
+    {
+      throw new ClientException( "J2EE archive " + archiveName + " check status failed", e );
+    }
+    return upToDate;
+  }
 
 }

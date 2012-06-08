@@ -18,57 +18,67 @@
  */
 package org.apache.kalumet.model;
 
-import java.io.Serializable;
-
 import org.apache.xerces.dom.CoreDocumentImpl;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Represent the <code>jmstopic</code> tag in the Kalumet configuration DOM.
  */
-public class JMSTopic implements Serializable, Cloneable, Comparable {
+public class JMSTopic
+  implements Serializable, Cloneable, Comparable
+{
 
-   private static final long serialVersionUID = -1602613331569475624L;
+  private static final long serialVersionUID = -1602613331569475624L;
 
-   private String name;
+  private String name;
 
-   public JMSTopic() { }
+  public JMSTopic()
+  {
+  }
 
-   public String getName() {
-      return this.name;
-   }
+  public String getName()
+  {
+    return this.name;
+  }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+  public void setName( String name )
+  {
+    this.name = name;
+  }
 
-   /**
-    * @see java.lang.Object#clone()
-    */
-   public Object clone() throws CloneNotSupportedException {
-      JMSTopic clone = new JMSTopic();
-      clone.setName(this.getName());
-      return clone;
-   }
+  /**
+   * @see java.lang.Object#clone()
+   */
+  public Object clone()
+    throws CloneNotSupportedException
+  {
+    JMSTopic clone = new JMSTopic();
+    clone.setName( this.getName() );
+    return clone;
+  }
 
-   /**
-    * Transform the <code>JMSTopic</code> POJO to a DOM element.
-    * 
-    * @param document the DOM document.
-    * @return the DOM element.
-    */
-   protected Element toDOMElement(CoreDocumentImpl document) {
-      ElementImpl element = new ElementImpl(document, "jmstopic");
-      element.setAttribute("name", this.getName());
-      return element;
-   }
-   
-   /**
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    */
-   public int compareTo(Object anotherJMSTopic) {
-       return this.getName().compareTo(((JMSTopic)anotherJMSTopic).getName());
-   }
+  /**
+   * Transform the <code>JMSTopic</code> POJO to a DOM element.
+   *
+   * @param document the DOM document.
+   * @return the DOM element.
+   */
+  protected Element toDOMElement( CoreDocumentImpl document )
+  {
+    ElementImpl element = new ElementImpl( document, "jmstopic" );
+    element.setAttribute( "name", this.getName() );
+    return element;
+  }
+
+  /**
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  public int compareTo( Object anotherJMSTopic )
+  {
+    return this.getName().compareTo( ( (JMSTopic) anotherJMSTopic ).getName() );
+  }
 
 }
