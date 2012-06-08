@@ -36,6 +36,13 @@ import nextapp.echo2.extras.app.TabPane;
 import nextapp.echo2.extras.app.layout.TabPaneLayoutData;
 import org.apache.kalumet.FileManipulator;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
+import org.apache.kalumet.model.Agent;
+import org.apache.kalumet.model.Command;
+import org.apache.kalumet.model.ConfigurationFile;
+import org.apache.kalumet.model.Database;
+import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.model.Location;
+import org.apache.kalumet.model.Software;
 import org.apache.kalumet.ws.client.SoftwareClient;
 
 import java.util.Iterator;

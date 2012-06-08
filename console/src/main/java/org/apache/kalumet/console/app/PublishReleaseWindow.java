@@ -32,6 +32,13 @@ import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import org.apache.commons.vfs.FileObject;
 import org.apache.kalumet.FileManipulator;
+import org.apache.kalumet.model.Archive;
+import org.apache.kalumet.model.ConfigurationFile;
+import org.apache.kalumet.model.Database;
+import org.apache.kalumet.model.J2EEApplication;
+import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.Software;
+import org.apache.kalumet.model.SqlScript;
 import org.apache.kalumet.utils.VariableUtils;
 
 import java.util.Iterator;

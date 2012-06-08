@@ -34,6 +34,11 @@ import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.extras.app.TabPane;
 import nextapp.echo2.extras.app.layout.TabPaneLayoutData;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
+import org.apache.kalumet.model.Agent;
+import org.apache.kalumet.model.FreeField;
+import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.model.LogFile;
+import org.apache.kalumet.model.Variable;
 import org.apache.kalumet.ws.client.AgentClient;
 
 import java.util.Iterator;

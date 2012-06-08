@@ -28,6 +28,28 @@ import nextapp.echo2.app.Label;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
+import org.apache.kalumet.model.Agent;
+import org.apache.kalumet.model.Archive;
+import org.apache.kalumet.model.ConfigurationFile;
+import org.apache.kalumet.model.J2EEApplication;
+import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JDBCConnectionPool;
+import org.apache.kalumet.model.JDBCDataSource;
+import org.apache.kalumet.model.JMSConnectionFactory;
+import org.apache.kalumet.model.JMSServer;
+import org.apache.kalumet.model.JNDIBinding;
+import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.model.SharedLibrary;
+import org.apache.kalumet.ws.client.AgentClient;
+import org.apache.kalumet.ws.client.ArchiveClient;
+import org.apache.kalumet.ws.client.ConfigurationFileClient;
+import org.apache.kalumet.ws.client.J2EEApplicationServerClient;
+import org.apache.kalumet.ws.client.JDBCConnectionPoolClient;
+import org.apache.kalumet.ws.client.JDBCDataSourceClient;
+import org.apache.kalumet.ws.client.JMSConnectionFactoryClient;
+import org.apache.kalumet.ws.client.JMSServerClient;
+import org.apache.kalumet.ws.client.JNDIBindingClient;
+import org.apache.kalumet.ws.client.SharedLibraryClient;
 
 import java.util.Iterator;
 

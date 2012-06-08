@@ -32,6 +32,12 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.app.list.ListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
+import org.apache.kalumet.model.Agent;
+import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JMSQueue;
+import org.apache.kalumet.model.JMSServer;
+import org.apache.kalumet.model.JMSTopic;
+import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.ws.client.JMSServerClient;
 
 import java.util.Iterator;

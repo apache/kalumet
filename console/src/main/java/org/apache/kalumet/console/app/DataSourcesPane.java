@@ -33,6 +33,11 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.app.list.ListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
+import org.apache.kalumet.model.Agent;
+import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JDBCConnectionPool;
+import org.apache.kalumet.model.JDBCDataSource;
+import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.ws.client.JDBCDataSourceClient;
 
 import java.util.Iterator;
