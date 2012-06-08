@@ -174,15 +174,14 @@ public class ConfigurationManager
       throw new IllegalArgumentException(
         "The property JournalsLocation is not found in the Apache Kalumet Console configuration. This property is required to store the environment journals and must contain the directory path for the journal files." );
     }
-    File journalDir = new File( kalumetConsoleProperty.getValue() );
-    journalDir.mkdirs();
-    if ( System.getProperty( "kalumet.home" ) != null )
-    {
-      return System.getProperty( "kalumet.home" ) + "/" + kalumetConsoleProperty.getValue() + "/" + environment
-        + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
-    }
-    return kalumetConsoleProperty.getValue() + "/" + environment
-      + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+    String journalPath;
+    if (System.getProperty( "kalumet.home" ) != null)
+      journalPath = System.getProperty( "kalumet.home" ) + "/" + kalumetConsoleProperty.getValue() + "/" + environment + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+    else journalPath = kalumetConsoleProperty.getValue() + "/" + environment + ConfigurationManager.ENVIRONMENT_JOURNAL_FILE_EXTENSION;
+
+    File journalDir = new File( journalPath );
+    journalDir.getParentFile().mkdirs();
+    return journalPath;
   }
 
   /**
