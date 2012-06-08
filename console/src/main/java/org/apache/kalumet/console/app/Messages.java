@@ -34,7 +34,7 @@ import nextapp.echo2.app.ApplicationInstance;
  */
 public class Messages {
 
-    private static final String BUNDLE_NAME = "org.apache.kalumet.console.app.resources.locales.Messages";
+    private static final String BUNDLE_NAME = "org.apache.kalumet.console.app.locales.Messages";
 
     // a map which contains DateFormat objects for various locales.
     private static final Map DATE_FORMAT_MEDIUM_MAP = new HashMap();

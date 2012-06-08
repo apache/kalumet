@@ -87,7 +87,7 @@ public class KalumetConsole {
          digester.setValidating(false);
          digester.addObjectCreate("kalumet-console", "org.apache.kalumet.console.configuration.model.KalumetConsole");
 
-         digester.addObjectCreate("kalumet-console/property", "org.apahce.kalumet.console.configuration.model.Property");
+         digester.addObjectCreate("kalumet-console/property", "org.apache.kalumet.console.configuration.model.Property");
          digester.addSetProperties("kalumet-console/property");
 
          digester.addSetNext("kalumet-console/property", "addProperty", "org.apache.kalumet.console.configuration.model.Property");

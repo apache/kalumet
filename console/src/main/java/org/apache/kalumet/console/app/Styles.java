@@ -29,8 +29,8 @@ import nextapp.echo2.app.componentxml.StyleSheetLoader;
  */
 public class Styles {
 
-    public static final String ICONS_PATH = "/org/apache/kalumet/console/app/resources/icons/";
-    public static final String STYLE_PATH = "/org/apache/kalumet/console/app/resources/style/";
+    public static final String ICONS_PATH = "/org/apache/kalumet/console/app/icons/";
+    public static final String STYLE_PATH = "/org/apache/kalumet/console/app/style/";
 
     // default style sheet.
     public static final StyleSheet DEFAULT_STYLE_SHEET;
