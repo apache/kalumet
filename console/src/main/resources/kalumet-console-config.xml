@@ -2,7 +2,7 @@
 
 <kalumet-console>
 
-  <property name="ConfigurationLocation" value="/var/lib/apache-kalumet/db/kalumet.xml"/>
-  <property name="JournalsLocation" value="/var/lib/apache-kalumet/journals"/>
+  <property name="ConfigurationLocation" value="kalumet.xml"/>
+  <property name="JournalsLocation" value="journals"/>
 
 </kalumet-console>
