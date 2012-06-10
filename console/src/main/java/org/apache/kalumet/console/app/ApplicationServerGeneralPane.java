@@ -246,21 +246,26 @@ public class ApplicationServerGeneralPane
       blockerField.setSelectedIndex( 1 );
     }
     // update the J2EE application server type field
-    if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME ) )
+    if ( parent.getApplicationServer().getClassname() != null )
     {
-      typeField.setSelectedIndex( 0 );
-    }
-    if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.JBOSS6_CONTROLLER_CLASSNAME ) )
-    {
-      typeField.setSelectedIndex( 1 );
-    }
-    if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.WEBLOGIC_CONTROLLER_CLASSNAME ) )
-    {
-      typeField.setSelectedIndex( 2 );
-    }
-    if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.WEBSPHERE_CONTROLLER_CLASSNAME ) )
-    {
-      typeField.setSelectedIndex( 3 );
+      if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME ) )
+      {
+        typeField.setSelectedIndex( 0 );
+      }
+      if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.JBOSS6_CONTROLLER_CLASSNAME ) )
+      {
+        typeField.setSelectedIndex( 1 );
+      }
+      if ( parent.getApplicationServer().getClassname().equals(
+        ApplicationServerWindow.WEBLOGIC_CONTROLLER_CLASSNAME ) )
+      {
+        typeField.setSelectedIndex( 2 );
+      }
+      if ( parent.getApplicationServer().getClassname().equals(
+        ApplicationServerWindow.WEBSPHERE_CONTROLLER_CLASSNAME ) )
+      {
+        typeField.setSelectedIndex( 3 );
+      }
     }
     // update the jee application server jmx field
     jmxField.setText( parent.getApplicationServer().getJmxurl() );
