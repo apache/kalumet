@@ -44,6 +44,11 @@ Installing Apache Kalumet agent
       Select the file compression format compatible with your system (zip or tar.gz). Download the archive and expand the binary to your hard driver in a new directory ; for example /opt/apache-kalumet.
       Please remember the restrictions concerning illegal characters in Java paths, e.g. !, % etc.
 
+    ** Kalumet console
+
+      Even if it's not a requirement, we heavily invite you to firstly install the Kalumet console. The Kalumet console allows you to easily configure the agents.
+      Take a look on the Kalumet console admin guide to install the console.
+
   * Start Kalumet Agent
 
     Open a command line and go in the Kalumet agent installation directory. To start the agent, run the following command in Windows:
@@ -53,3 +58,5 @@ Installing Apache Kalumet agent
     respectively in Linux/Unix:
 
     bin/agent -config <path to Kalumet console> -id <agent id>
+
+    The agent ID should have been firstly define in the Kalumet console.

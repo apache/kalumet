@@ -76,17 +76,10 @@ from now on this directory will be referenced as <kalumet_console_home>. Please 
 illegal characters in Java paths, e.g. !, % etc.
 
     Apache Kalumet Console Configuration
-By default, Apache Kalumet console uses the following configuration:
-- it reads/writes the Kalumet configuration file located in /var/lib/apache-kalumet/db/kalumet.xml.
-Create the directory /var/lib/apache-kalumet/db
-  (with the permission given to the application server user) and copy the initial Kalumet configuration provided in
-  <kalumet_console_home>/conf/sample/apache-kalumet-store.xml.
-- it reads/writes the Kalumet events journal log files in /var/lib/apache-kalumet/journals. Create this directory
-with the permission given to the application server user.
+Apache Kalumet Console creates a default configuration which allows you to directly use the console.
 
-If this default configuration is not compliant with your environment, you can override this setup using a
-apache-kalumet-console-config.xml file.
-
+If needed, you can override the default console configuration (location of the configuration file and journals) by
+pushing a apache-kalumet-console-config.xml file in the class loader.
 You can find this file in the Apache Kalumet console configuration in
 <kalumet_console_home>/conf/apache-kalumet-console-config.xml.
 You need to copy this file into the JSP/Servlet engine classpath. For example, using Apache Tomcat, you can
@@ -100,7 +93,8 @@ deploy directory. For example, to deploy on Apache Tomcat, simply copy the war a
 directory.
 
     Using Apache Kalumet Console
-You should now be able to access to Apache Kalumet console, for example using http://localhost:8080/kalumet/console.
+You should now be able to access to Apache Kalumet console, for example using
+http://localhost:8080/apache-kalumet-console.
 The default admin user password is admin.
 
 

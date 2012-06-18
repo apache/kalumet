@@ -1,0 +1,68 @@
+ -----
+ Installing Apache Kalumet Console
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+Installing Apache Kalumet console
+
+  The Kalumet console manages the configuration and interacts with the Kalumet agents.
+
+  It allows you to easily manage all environments, all agents, all update plans with a central, web based
+  tool.
+
+  * Prerequisites
+
+    ** JSP/Servlet Engine
+
+      Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a J2EE application
+      server (like RedHat JBoss, Oracle Weblogic, IBM WebSphere).
+
+    ** Download binaries
+
+      Select the file compression format compatible with your system (zip, tar.gz) by clicking directly on the link,
+      download it and expand the binary to your hard drive in a new directory ; for example /tmp/kalumet_console -
+      from now on this directory will be referenced as <kalumet_console_home>. Please remember the restrictions concerning
+      illegal characters in Java paths, e.g. !, % etc.
+
+  * Apache Kalumet Console Configuration (optional)
+
+    Apache Kalumet Console creates a default configuration which allows you to directly use the console.
+
+    If needed, you can override the default console configuration (location of the configuration file and journals) by
+    pushing a apache-kalumet-console-config.xml file in the class loader.
+    You can find this file in the Apache Kalumet console configuration in
+    <kalumet_console_home>/conf/apache-kalumet-console-config.xml.
+    You need to copy this file into the JSP/Servlet engine classpath. For example, using Apache Tomcat, you can
+    copy the apache-kalumet-console-config.xml into the <tomcat_home>/lib directory.
+
+    Configure the apache-kalumet-console-config.xml to match your environment settings.
+
+  * Deploy Apache Kalumet Console
+
+    Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or J2EE application server
+    deploy directory. For example, to deploy on Apache Tomcat, simply copy the war archive into the <tomcat_home>/webapps
+    directory.
+
+  * Using Apache Kalumet Console
+
+    You should now be able to access to Apache Kalumet console, for example using
+    http://localhost:8080/apache-kalumet-console.
+    The default admin user password is admin.

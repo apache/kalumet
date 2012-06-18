@@ -33,8 +33,23 @@
       <item name="Installation">
         <item name="Agent installation" href="/adminguide/agent.html"/>
         <item name="Console installation" href="/adminguide/console.html"/>
-        <item name="Upgrade to a New Version" href="/adminguide/upgrade.html"/>
       </item>
+    </menu>
+
+    <menu name="User Guide">
+      <item name="Console layout" href="/userguide/console_layout.html"/>
+      <item name="Core configuration" href="/userguide/core_configuration.html"/>
+      <item name="Agents" href="/userguide/agents.html"/>
+      <item name="Users and Groups" href="/userguide/users_groups.html"/>
+      <item name="Statistics" href="/userguide/statistics.html"/>
+      <menu name="Environment">
+        <menu name="General">
+          <item name="Information" href="/userguide/environment/information.html"/>
+          <item name="Free fields" href="/userguide/environment/free_fields.html"/>
+          <item name="Variables" href="/userguide/environment/variables.html"/>
+          <item name="Log Files" href="/userguide/environment/log_files.html"/>
+        </menu>
+      </menu>
     </menu>
   </body>
 
