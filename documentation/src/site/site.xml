@@ -42,14 +42,24 @@
       <item name="Agents" href="/userguide/agents.html"/>
       <item name="Users and Groups" href="/userguide/users_groups.html"/>
       <item name="Statistics" href="/userguide/statistics.html"/>
-      <menu name="Environment">
-        <menu name="General">
+      <item name="Environment">
+        <item name="General">
           <item name="Information" href="/userguide/environment/information.html"/>
           <item name="Free fields" href="/userguide/environment/free_fields.html"/>
           <item name="Variables" href="/userguide/environment/variables.html"/>
           <item name="Log Files" href="/userguide/environment/log_files.html"/>
-        </menu>
-      </menu>
+        </item>
+        <item name="Security Access Lists" href="/userguide/environment/security_acl.html"/>
+        <item name="J2EE Application Servers">
+          <item name="Topology" href="/userguide/environment/j2ee_topology.html"/>
+          <item name="General" href="/userguide/environment/j2ee_general.html"/>
+          <item name="Caches" href="/userguide/environment/caches.html"/>
+        </item>
+        <item name="J2EE Resources">
+          <item name="JDBC Connection Pools" href="/userguide/environment/j2ee_connection_pools.html"/>
+          <item name="JDBC Data Sources" href="/userguide/environment/j2ee_data_sources.html"/>
+        </item>
+      </item>
     </menu>
   </body>
 

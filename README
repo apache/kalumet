@@ -78,8 +78,10 @@ illegal characters in Java paths, e.g. !, % etc.
     Apache Kalumet Console Configuration
 Apache Kalumet Console creates a default configuration which allows you to directly use the console.
 
-If needed, you can override the default console configuration (location of the configuration file and journals) by
-pushing a apache-kalumet-console-config.xml file in the class loader.
+You can update the base directory used by Kalumet console by adding the -Dkalumet.home system property.
+
+More over, for advanced users, you can override the default console configuration (location of the configuration file
+and journals) by pushing a apache-kalumet-console-config.xml file in the class loader.
 You can find this file in the Apache Kalumet console configuration in
 <kalumet_console_home>/conf/apache-kalumet-console-config.xml.
 You need to copy this file into the JSP/Servlet engine classpath. For example, using Apache Tomcat, you can
