@@ -58,6 +58,37 @@
         <item name="J2EE Resources">
           <item name="JDBC Connection Pools" href="/userguide/environment/j2ee_connection_pools.html"/>
           <item name="JDBC Data Sources" href="/userguide/environment/j2ee_data_sources.html"/>
+          <item name="JMS Connection Factories" href="/userguide/environment/jms_connection_factories.html"/>
+          <item name="JMS Servers" href="/userguide/environment/jms_servers.html"/>
+          <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
+          <item name="Shared Libraries" href="/userguide/environment/shared_libraries.html"/>
+        </item>
+        <item name="J2EE Applications">
+          <item name="General" href="/userguide/environment/applications/general.html"/>
+          <item name="Archives" href="/userguide/environment/applications/archives.html"/>
+          <item name="Configuration Files" href="/userguide/environment/applications/configuration_files.html"/>
+          <item name="Databases" href="/userguide/environment/applications/databases.html"/>
+          <item name="Content Managers" href="/userguide/environment/applications/content_managers.html"/>
+        </item>
+        <item name="Generic Softwares">
+          <item name="General" href="/userguide/environment/softwares/general.html"/>
+          <item name="Update Plan">
+            <item name="Introduction" href="/userguide/environment/softwares/update_plan.html"/>
+            <item name="Location" href="/userguide/environment/softwares/location.html"/>
+            <item name="Command" href="/userguide/environment/softwares/command.html"/>
+            <item name="Configuration File" href="/userguide/environment/softwares/configuration_file.html"/>
+            <item name="Database" href="/userguide/environment/softwares/database.html"/>
+          </item>
+        </item>
+        <item name="Journal" href="/userguide/environment/journal.html"/>
+        <item name="Notifier and Publisher" href="/userguide/environment/notifier_publisher.html"/>
+        <item name="Dashboard">
+          <item name="Update Actions" href="/userguide/environment/update_actions.html"/>
+          <item name="Checker" href="/userguide/environment/checker.html"/>
+          <item name="Remote Shell" href="/userguide/environment/remote_shell.html"/>
+          <item name="File Browser" href="/userguide/environment/file_browser.html"/>
+          <item name="Logs Viewer" href="/userguide/environment/logs_viewer.html"/>
+          <item name="Statistics" href="/userguide/environment/statistics.html"/>
         </item>
       </item>
     </menu>
