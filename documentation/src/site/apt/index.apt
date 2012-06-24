@@ -35,7 +35,9 @@
  files), applications, etc.
 
  Apache Kalumet is composed by:
- - an agent installed locally to the target system
- - a console to manage the configuration (environments, etc) and
+
+ * an agent installed locally to the target system
+
+ * a console to manage the configuration (environments, etc) and
  interacts with agents
 

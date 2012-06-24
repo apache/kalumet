@@ -1,0 +1,53 @@
+ -----
+ Kalumet Core Configuration
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+Apache Kalumet Console Core Configuration
+
+  By clicking on the "Configuration" button in the top menu, you will have a new "Configuration" window.
+
+[/images/core_configuration.png]
+
+  In this window, you can define the Kalumet Console core configuration.
+
+  The "Journal Appender Location" is the URL of a servlet exposed by Apache Kalumet Console. This URL allows the agents (or other custom clients) to post events that are hosted by the console.
+  The servlet URI is "/JournalEventAppender". It means that the "Journal Appender Location" property looks like "http://console_host:console_port/apache-kalumet-console/JournalEventAppender".
+
+  By default, the Apache Kalumet Console stores users and passwords in its configuration. As you can see in the {{{/users_groups.html}Users And Groups}} section, as admin, you can create new users.
+  It's also possible to use an external LDAP directory which store the users and passwords.
+  To do so, set "Use LDAP users authentication" property to "yes".
+  The other LDAP properties define the access to the LDAP directory:
+
+  * "LDAP server hostname" is the hostname or IP address of the LDAP server (for instance, "192.168.134.1:389")
+
+  * "LDAP base DN" is the DN where to look for users (for instance, "ou=people,dc=domain,dc=com")
+
+  * "LDAP user id attribute" is the LDAP attribute name which contains the user id name (for instance, "uid")
+
+  * "LDAP e-mail attribute" is the LDAP attribute name which contains the user e-mail (for instance, "email")
+
+  * "LDAP user name attribute" is the LDAP attribute name which contains the user common name (for instance, "cn")
+
+  When LDAP authentication is enable, the first time that an user will log on Kalumet Console, the console will automatically create the user record. It means that you will be able to see the identified user as explained in the {{{/users_groups.html}Users and Groups}} section.
+  The console will always performs the LDAP authentication first, and will only continue to the console if the LDAP authentication worked.
+
+  With LDAP authentication disabled, the Kalumet Console will log on users with the internal data (see "Users and Groups" section). 
