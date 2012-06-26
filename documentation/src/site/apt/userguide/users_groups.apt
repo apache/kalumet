@@ -27,9 +27,9 @@ Apache Kalumet Console Users and Groups Configuration
 
 [/images/users_list.png]
 
- You can delete an user directly in the list.
+ You can delete an user directly in this window.
 
- To add a new agent, click on "Add User" button, or you can edit an existing user by clicking on the user ID.
+ You can also add a new user by clicking on the "Add User" button. You can also edit an existing user by clicking directly on the user ID.
 
  NB: if you use LDAP for user authentication, the valid (identified) users are automatically created.
 
@@ -44,3 +44,27 @@ Apache Kalumet Console Users and Groups Configuration
  * an user e-mail
 
  * a password with its confirmed form
+ 
+ The "admin" user is a special admin that you can't remove. However, we advice to change the "admin" password.
+
+ The users are grouped by "groups". A group is the element that define the permission on the environment (see the "Environments Security" section).
+
+ By default, there is one group: "admin". It's a special group that you can't remove. However, you can assign new users in this group.
+
+ By clicking on the "Groups" button in the top menu, you will have a new "Groups" window.
+
+[/images/groups_list.png]
+
+ You can delete a grou directly in this window.
+
+ You can also add a new group by clicking on the "Add Group" button. You can also edit an existing group by clicking directly on the group ID.
+
+[/images/group.png]
+
+ For a group, you define:
+
+ * a group ID
+
+ * a group name
+
+ * a set of user in this group (members) using the "two-sides" panel and the "join/leave" buttons
