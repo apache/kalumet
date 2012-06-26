@@ -26,6 +26,78 @@ Apache Kalumet Console Agents Configuration
  By clicking on the "Agents" button in the top menu, you will have a new "Agents" window.
 
 [/images/agents_list.png]
+ 
+ The agent configuration are stored in the console. When an agent starts, it connects to the console with an ID to get its configuration.
+ It's what you define in the console.
 
- TODO complete
-   
+ You have to create the configuration for each agent.
+
+ In this agents list, you can:
+
+ * copy an agent configuration to create a new one using this information
+
+ * delete an agent
+
+ * test (ping) the status of the agent
+
+ NB: when you modify an agent, don't forget to click on "Save" button to flush and store the configuration.
+
+ To add a new agent, click on "Add Agent" button.
+
+[/images/agent_general.png]
+
+ On the agent window, using the bottom icons, you can:
+
+ * reload the agent configuration from the store
+
+ * delete the agent configuration
+
+ * paste a configuration previously copied
+
+ * check the current status of the agent
+
+ * apply the configuration changes
+
+ * close the agent window
+
+ The "General" tab allows you to define the general information about an agent:
+
+ * the ID is the agent ID that you will use at agent startup script. The agent will get the configuration corresponding to this ID.
+
+ * the hostname is the IP address or the hostname where the agent runs. It's used by the console to interact with the agent.
+
+ * the port is the network port number used by the agent on the machine where it runs. It's used by the console to interact with the agent.
+
+[/images/agent_scheduler.png] 
+
+ The "Scheduler" tab allows you to configure the scheduler embedded in the agent. The agent scheduler fires actions (like updates) on the agent.
+ The scheduler configuration is compliant with the Unix cron syntax.
+ 
+ For instance, you can use:
+
+-------------------------------------------
+0 0 12 * * ?  	Fire at 12pm (noon) every day
+0 15 10 ? * * 	Fire at 10:15am every day
+0 15 10 * * ? 	Fire at 10:15am every day
+0 15 10 * * ? * 	Fire at 10:15am every day
+0 15 10 * * ? 2005 	Fire at 10:15am every day during the year 2005
+0 * 14 * * ? 	Fire every minute starting at 2pm and ending at 2:59pm, every day
+0 0/5 14 * * ? 	Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day
+0 0/5 14,18 * * ? 	Fire every 5 minutes starting at 2pm and ending at 2:55pm, AND fire every 5 minutes starting at 6pm and ending at 6:55pm, every day
+0 0-5 14 * * ? 	Fire every minute starting at 2pm and ending at 2:05pm, every day
+0 10,44 14 ? 3 WED 	Fire at 2:10pm and at 2:44pm every Wednesday in the month of March
+0 15 10 ? * MON-FRI 	Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday
+0 15 10 15 * ? 	Fire at 10:15am on the 15th day of every month
+0 15 10 L * ? 	Fire at 10:15am on the last day of every month
+0 15 10 ? * 6L 	Fire at 10:15am on the last Friday of every month
+0 15 10 ? * 6L 	Fire at 10:15am on the last Friday of every month
+0 15 10 ? * 6L 2002-2005 	Fire at 10:15am on every last friday of every month during the years 2002, 2003, 2004 and 2005
+0 15 10 ? * 6#3 	Fire at 10:15am on the third Friday of every month
+0 0 12 1/5 * ? 	Fire at 12pm (noon) every 5 days every month, starting on the first day of the month.
+0 11 11 11 11 ? 	Fire every November 11th at 11:11am.
+-------------------------------------------
+
+[/images/agent_capacity.png]
+
+ The "Capacity" tab configure the maximum numbers of environments and J2EE application servers that the agent is able to manage. It allows you to manage the server machine resources usage.
+ For instance, you can setup 5 environments on a box, but "limit" the number of running environments running in the same time using the agent capacity.
