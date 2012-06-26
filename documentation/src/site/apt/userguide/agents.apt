@@ -42,7 +42,7 @@ Apache Kalumet Console Agents Configuration
 
  NB: when you modify an agent, don't forget to click on "Save" button to flush and store the configuration.
 
- To add a new agent, click on "Add Agent" button.
+ To add a new agent, click on "Add Agent" button, or you can edit an existing agent by clicking on the agent ID.
 
 [/images/agent_general.png]
 
