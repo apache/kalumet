@@ -187,9 +187,9 @@
 
   <repositories>
     <repository>
-      <id>kalumet.m2</id>
-      <name>Kalumet M2 repo</name>
-      <url>https://svn.apache.org/repos/asf/incubator/kalumet/m2-repo</url>
+      <id>apache.extras.kalumet.m2</id>
+      <name>Apache Extras Kalumet M2 repo</name>
+      <url>http://svn.codespot.com/a/apache-extras.org/kalumet-extras/m2-repo/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
