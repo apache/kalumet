@@ -21,6 +21,9 @@
 ~~ specific language governing permissions and limitations
 ~~ under the License.
 
+~~ NOTE: For help with the syntax of this file, see:
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
 Installing Apache Kalumet console
 
   The Kalumet console manages the configuration and interacts with the Kalumet agents.
