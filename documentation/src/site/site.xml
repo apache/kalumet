@@ -43,12 +43,7 @@
       <item name="Users and Groups" href="/userguide/users_groups.html"/>
       <item name="Statistics" href="/userguide/statistics.html"/>
       <item name="Environment">
-        <item name="General">
-          <item name="Information" href="/userguide/environment/information.html"/>
-          <item name="Free fields" href="/userguide/environment/free_fields.html"/>
-          <item name="Variables" href="/userguide/environment/variables.html"/>
-          <item name="Log Files" href="/userguide/environment/log_files.html"/>
-        </item>
+        <item name="General" href="/userguide/environment/general.html"/>
         <item name="Security Access Lists" href="/userguide/environment/security_acl.html"/>
         <item name="J2EE Application Servers">
           <item name="Topology" href="/userguide/environment/j2ee_topology.html"/>

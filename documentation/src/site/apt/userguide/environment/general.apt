@@ -1,0 +1,79 @@
+ -----
+ Kalumet Console Environment General
+ -----
+ -----
+ -----
+
+Apache Kalumet Console Environment General
+
+  To add a new environment, you can click on "Add Environment" button in the top menu.
+
+  You can also edit an existing environment by clicking directly on the environment name in the left panel.
+
+  Both actions open an environment window.
+
+Information
+
+[/images/env_general_info.png]
+	
+  The general tab allows you to provide basic information for the environment:
+
+  * the environment "name" is mandatory and is an unique identification
+
+  * the "group" is optional. It's used to sort and group environments in the left panel. You can use it to group the environment by type (testing, development, etc), by customers, or whatever
+
+  * the "tag" allows you to type an environment, depending of its role and criticity (production, staging, testing, etc). It's not really used internally to Kalumet, it's informative for you
+
+  * the "agent" defines the "master" agent which manages the environment. As you will see later, you will be able to define agent locally to a resource (for a software or an application server for instance). When not define, Kalumet will use this agent by default.
+
+  * the "automatically updated" flag defines if the agent scheduler will automatically the environment when fired, or not
+
+  * the "notes" are informative for you and others users. You can leave some information about the environment for the other users. The notes are used by Kalumet when you generate a "HTML page" about the environment (see "Dashboard section"). HTML code is supported here.
+
+  * the "web notes" are quite the same as "notes" but the purpose is to leave some links about the environment (home page, documentation, test URL, etc). As for "notes", Kalumet will use it when you generate a "HTML page" about the environment (see "Dashboard" section). HTML code is supported here.
+
+Free Fields
+
+[/images/env_general_freefields.png]
+
+  The free fields are custom fields that you can define on an environment. It's not used internally in Kalumet. The purpose is to be used by "external" tools to get some information about the environment.
+
+  A free field is composed by a "name" and a "content".
+
+  The number of free fields is not limited. You can create a new one by clicking on the "+" icon (or paste a copy with the "paste" icon).
+
+  On each free field, you can:
+
+  * copy the free field to create a new one with the same information
+
+  * move the free field up or down if you want to change the order
+
+  * validate a change on the free field "name" or "content"
+
+  * delete a free field
+
+Variables
+
+[/images/env_general_variables.png]
+
+  Instead of copy/paste a lot of information between a lot of resource in the environment, you can use variables.
+
+  A variable is composed by a "name" and a "value".
+
+  The number of variables is not limited. You can create a new one by clicking on the "+" icon (or paste a copy with the "paste" icon).
+
+  NB: it's not currently possible to use a variable in the value of another variable.
+
+  On each variable, you can:
+
+  * copy the variable to create a new one with the same information
+
+  * move the variable up or down if you want to change the order
+
+  * validate a change on the variable "name" and "value"
+
+  * delete a variable
+
+  You can use any variable in any fields of Kalumet Console with the $\{VARIABLE\} notation.
+
+  For instance, you can define a variable ENVIRONMENT_HOME with a filesystem location (file:/opt/environment/name) and use it in any field with $\{ENVIRONMENT_HOME\}, e.g. $\{ENVIRONMENT_HOME\}/logs.
