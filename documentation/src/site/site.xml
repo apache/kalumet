@@ -61,7 +61,7 @@
       <item name="Statistics" href="/userguide/statistics.html"/>
       <item name="Environment">
         <item name="General" href="/userguide/environment/general.html"/>
-        <item name="Security Access Lists" href="/userguide/environment/security_acl.html"/>
+        <item name="Security Access Lists" href="/userguide/environment/security.html"/>
         <item name="J2EE Application Servers">
           <item name="Topology" href="/userguide/environment/j2ee_topology.html"/>
           <item name="General" href="/userguide/environment/j2ee_general.html"/>

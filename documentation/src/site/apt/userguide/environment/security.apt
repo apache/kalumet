@@ -1,0 +1,49 @@
+ -----
+ Kalumet Console Environment Security
+ -----
+ -----
+ -----
+
+Apache Kalumet Console Environment Security
+
+  By clicking on the environment "Security" tab, you can control the permissions given to the users groups.
+
+[/images/env_security.png]
+
+  You can add a users group to the environment security.
+
+  As soon as an user group appears in the environment security access lists, all users in this group can access to the environment (at least in read only mode).
+
+  You can grant more permissions for each group by clicking on the "role icons". In the table displayed, each icon represents a role ("red" icon means that the permission is not allowed, "green" icon mean that the permission is allowed).
+
+  The following roles are available:
+
+  * A (admin): the users in the group have all permissions on the environment, they can do what they want (change, update, etc)
+
+  * U (updates): the users in the group can launch updates (on both J2EE resources or softwares)
+
+  * JS (J2EE application servers change): the users in the group can change the J2EE application servers configuration
+
+  * JSU (J2EE application servers update): the users in the group can launch an update on the J2EE application servers
+
+  * JSC (J2EE application servers control): the users in the group can start/stop/restart the J2EE application servers
+
+  * JR (J2EE resources change): the users in the group can change the J2EE resources (data sources, connection pools, etc) configuration
+
+  * JRU (J2EE resources update): the users in the group can launch updates on the J2EE resources (data sources, connection pools, etc)
+
+  * JA (J2EE applications change): the users in the group can change the J2EE applications (ear, war, etc) configuration
+
+  * JAU (J2EE applications update): the users in the group can launch updates on the J2EE applications (ear, war, etc)
+
+  * S (softwares change): the users in the group can change the softwares configuration (in the software tab)
+
+  * SU (softwares update): the users in the group can launch updates on the softwares (in the software tab)
+
+  * Re (release publication): the users in the group are allowed to package applications and softwares, publish the artifact as an environment release
+
+  * Sh (remote shell): the users in the group are allowed to use the remote shell (executing system commands) on the environment server
+
+  * Br (remote browser): the uers in the group are allowed to use the remote browser (browsing and viewing files) on the environment server
+
+  * Ho (homepage generation): the users in the group are allowed to create a HTML page with an environment summary and publish it
