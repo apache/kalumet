@@ -28,7 +28,25 @@ Apache Kalumet Console Environment JEE Application Servers
 
   Kalumet provides a specific configuration for JEE application servers.
 
-[/images/j2ee_topology.png]
+[/images/env_app_servers.png]
+
+  On each JEE application server, you can:
+
+  * copy the JEE application server to paste into another application server
+
+  * enable (light on) or disable (light off) the JEE application server
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece)
+
+  * check the current status of the JEE application server
+
+  * stop the JEE application server
+
+  * start the JEE application server
+
+  * launch the JEE application server update
+
+  * delete the JEE application server
 
   To add a new JEE application server, you have to choose the topology and click on "Add JEE Application Server".
 
