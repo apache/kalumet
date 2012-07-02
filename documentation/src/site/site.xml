@@ -62,11 +62,7 @@
       <item name="Environment">
         <item name="General" href="/userguide/environment/general.html"/>
         <item name="Security Access Lists" href="/userguide/environment/security.html"/>
-        <item name="J2EE Application Servers">
-          <item name="Topology" href="/userguide/environment/j2ee_topology.html"/>
-          <item name="General" href="/userguide/environment/j2ee_general.html"/>
-          <item name="Caches" href="/userguide/environment/caches.html"/>
-        </item>
+        <item name="J2EE Application Servers" href="/userguide/environment/jee_application_server.html"/>
         <item name="J2EE Resources">
           <item name="JDBC Connection Pools" href="/userguide/environment/j2ee_connection_pools.html"/>
           <item name="JDBC Data Sources" href="/userguide/environment/j2ee_data_sources.html"/>
