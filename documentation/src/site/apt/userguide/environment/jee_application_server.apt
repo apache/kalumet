@@ -32,9 +32,9 @@ Apache Kalumet Console Environment JEE Application Servers
 
   On each JEE application server, you can:
 
-  * copy the JEE application server to paste into another application server
+  * copy the JEE application server to be pasted into another application server
 
-  * enable (light on) or disable (light off) the JEE application server
+  * enable (light on) or disable (light off) the JEE application server. If disabled, the JEE application server won't be part of the update process.
 
   * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece)
 
@@ -48,9 +48,9 @@ Apache Kalumet Console Environment JEE Application Servers
 
   * delete the JEE application server
 
-  To add a new JEE application server, you have to choose the topology and click on "Add JEE Application Server".
+  To add a new JEE application server, you have to choose the topology and click on "Add JEE Application Server". In the same way, you can edit a JEE application server by clicking on the application server name.
 
-  It will use the topology that you defined in the top combobox:
+  If you create a new JEE application server, it will use the topology that you defined in the top combobox:
 
   * standalone: it's a standalone application server, not part of a cluster.
 
@@ -64,7 +64,7 @@ Apache Kalumet Console Environment JEE Application Servers
 
   * Name: it's the name of the JEE application server. NB: for some application servers like IBM WebSphere, the name should match the internal application server name (like server1 for instance).
 
-  * Active: this flag defines if the JEE application server is part of a update or not.
+  * Active: this flag defines if the JEE application server is part of an update or not.
 
   * Update blocker: if true, if the update of this JEE application server fails, the whole update process will failed and stopped, else, the whole update process will just log a warning and the process will continue.
 

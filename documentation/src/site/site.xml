@@ -64,8 +64,8 @@
         <item name="Security Access Lists" href="/userguide/environment/security.html"/>
         <item name="J2EE Application Servers" href="/userguide/environment/jee_application_server.html"/>
         <item name="J2EE Resources">
-          <item name="JDBC Connection Pools" href="/userguide/environment/j2ee_connection_pools.html"/>
-          <item name="JDBC Data Sources" href="/userguide/environment/j2ee_data_sources.html"/>
+          <item name="JDBC Connection Pools" href="/userguide/environment/jdbc_connection_pools.html"/>
+          <item name="JDBC Data Sources" href="/userguide/environment/jdbc_data_sources.html"/>
           <item name="JMS Connection Factories" href="/userguide/environment/jms_connection_factories.html"/>
           <item name="JMS Servers" href="/userguide/environment/jms_servers.html"/>
           <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
