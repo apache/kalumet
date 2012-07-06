@@ -66,7 +66,7 @@
         <item name="J2EE Resources">
           <item name="JDBC Connection Pools" href="/userguide/environment/jdbc_connection_pools.html"/>
           <item name="JDBC Data Sources" href="/userguide/environment/jdbc_datasources.html"/>
-          <item name="JMS Connection Factories" href="/userguide/environment/jms_connection_factories.html"/>
+          <item name="JMS Connection Factories" href="/userguide/environment/jms_connectionfactories.html"/>
           <item name="JMS Servers" href="/userguide/environment/jms_servers.html"/>
           <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
           <item name="Shared Libraries" href="/userguide/environment/shared_libraries.html"/>
