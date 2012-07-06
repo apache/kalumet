@@ -32,7 +32,7 @@ Apache Kalumet Console Environment JDBC Connection Pools
 
 [/images/env_jdbc_connection_pools.png]
 
-  On each JDBC connection pools, you can:
+  On each JDBC connection pool, you can:
 
   * copy the JDBC connection pool to be pasted into another connection pool 
 
@@ -40,7 +40,7 @@ Apache Kalumet Console Environment JDBC Connection Pools
 
   * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece)
 
-  * check the current status of the JDBC connection pool
+  * check the current status of the JDBC connection pool (if deployed and up to date in the JEE application server)
 
   * launch the JDBC connection pool update
 
