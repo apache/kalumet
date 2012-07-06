@@ -28,7 +28,7 @@ Apache Kalumet Console Environment JMS Connection Factories
 
   In the environment JEE resources tab, you have a "JMS Connection Factories" tab.
 
-  This tab allows you to configure the JMS connection factories that will be deployed into the JEE application server given inthe "scope" checkbox.
+  This tab allows you to configure the JMS connection factories that will be deployed into the JEE application server given in the "scope" checkbox.
 
 [/images/env_connectionfactories.png]
 
