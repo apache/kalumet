@@ -1,5 +1,5 @@
  -----
- Kalumet Console Environment JNDI Bindings
+ Kalumet Console Environment Shared Libraries
  -----
  -----
  -----
@@ -24,36 +24,32 @@
 ~~ NOTE: For help with the syntax of this file, see:
 ~~ http://maven.apache.org/doxia/references/apt-format.html
 
-Apache Kalumet Console Environment JNDI Bindings
+Apache Kalumet Console Environment Shared Libraries
 
-  In the environment JEE resources tab, you have a "NameSpace Bindings" tab.
+  In the environment JEE resources tab, you have a "Shared Libraries" tab.
 
-  This tab allows you to configure the JNDI aliases that will be deployed in the JEE application server given in the "scope" checkbox.
+  This tab allows you to configure the shared libraries that will extend the class path of the JEE application server given in the "scope" checkbox.
 
-[/images/env_bindings.png]
+[/images/env_sharedlibraries.png]
 
   On each binding, you can:
 
-  * copy the JNDI binding to be pasted into another binding
+  * copy the shared library to be pasted into another shared library
 
-  * enable (light on) or disable (light off) the JNDI binding. If disabled, the JNDI binding won't be part of the update process.
+  * enable (light on) or disable (light off) the shared library. If disabled, the shared library won't be part of the update process.
 
   * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece)
 
-  * check the current status of the JNDI binding (if deployed and up to date in the JEE application server)
+  * check the current status of the shared library (if deployed and up to date in the JEE application server)
 
-  * launch the JNDI binding update
+  * launch the shared library update
 
-  * validate a change on the JNDI binding configuration
+  * validate a change on the shared library configuration
 
-  * delete the JNDI binding
+  * delete a shared library
 
-  To add a new JNDI binding, you have to provide:
+  To add a new shared library, you have to provide:
 
-  * a name, which is just an identifier for the JNDI binding
+  * a name, which is just an identifier for the shared library
 
-  * the "original" JNDI name
-
-  * the JNDI alias name
-
-  * a provider URL (if required), it allows you to bind two different JNDI providers (on different JEE application servers for instance)
+  * a path to a directory or jar file that will be used to extend the JEE application server classpath
