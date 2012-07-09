@@ -33,6 +33,11 @@
   <packaging>jar</packaging>
   <name>Apache Kalumet :: Common Library</name>
 
+  <properties>
+    <tomcat7Version>7.0.29</tomcat7Version>
+  </properties>
+
+
   <dependencies>
     <dependency>
       <groupId>axis</groupId>
@@ -85,6 +90,17 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-core</artifactId>
+      <version>${tomcat7Version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-logging-juli</artifactId>
+      <version>${tomcat7Version}</version>
     </dependency>
   </dependencies>
 
