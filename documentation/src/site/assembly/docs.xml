@@ -17,5 +17,15 @@
     limitations under the License.
 -->
 <assembly>
-
+  <id>docs</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>target/site</directory>
+      <outputDirectory>/docs/</outputDirectory>
+    </fileSet>
+  </fileSets>
 </assembly>

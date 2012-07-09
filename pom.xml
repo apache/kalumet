@@ -561,46 +561,4 @@
     </plugins>
   </build>
 
-  <reporting>
-    <plugins>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>${project-info-reports-plugin.version}</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${javadoc-plugin.version}</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.sonar-plugins</groupId>
-        <artifactId>maven-report</artifactId>
-        <version>0.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version>
-        <inherited>false</inherited>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle-aggregate</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-
-    </plugins>
-  </reporting>
-
 </project>
