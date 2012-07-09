@@ -132,6 +132,7 @@
           <path>/apache-kalumet-console</path>
           <systemProperties>
             <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+            <kalumet.home>${project.build.directory}</kalumet.home>
           </systemProperties>
         </configuration>
         <dependencies>
