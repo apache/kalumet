@@ -26,7 +26,7 @@
 
 Apache Kalumet Console JEE Applications
 
-  The J2EE applications tab allows you to manage the applications deployed in the JEE application server given by the "scope" checkbox.
+  The JEE applications tab allows you to manage the applications deployed in the JEE application server given by the "scope" checkbox.
 
 [/images/env_apps.png]
 

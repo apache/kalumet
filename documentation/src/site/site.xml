@@ -71,13 +71,7 @@
           <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
           <item name="Shared Libraries" href="/userguide/environment/shared_libraries.html"/>
         </item>
-        <item name="J2EE Applications">
-          <item name="General" href="/userguide/environment/applications/general.html"/>
-          <item name="Archives" href="/userguide/environment/applications/archives.html"/>
-          <item name="Configuration Files" href="/userguide/environment/applications/configuration_files.html"/>
-          <item name="Databases" href="/userguide/environment/applications/databases.html"/>
-          <item name="Content Managers" href="/userguide/environment/applications/content_managers.html"/>
-        </item>
+        <item name="J2EE Applications" href="/userguide/environment/jee_applications.html"/>
         <item name="Generic Softwares">
           <item name="General" href="/userguide/environment/softwares/general.html"/>
           <item name="Update Plan">
