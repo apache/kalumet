@@ -24,32 +24,21 @@
 
   <parent>
     <groupId>org.apache.kalumet</groupId>
-    <artifactId>kalumet</artifactId>
+    <artifactId>kalumet-modules</artifactId>
     <version>0.6-incubating-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>org.apache.kalumet.utils</artifactId>
-  <packaging>jar</packaging>
-  <name>Apache Kalumet :: Utils</name>
+  <groupId>org.apache.kalumet.controller</groupId>
+  <artifactId>controller</artifactId>
+  <packaging>pom</packaging>
+  <name>Apache Kalumet :: Controller</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-email</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.kalumet</groupId>
-      <artifactId>org.apache.kalumet.common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>core</module>
+    <module>jboss</module>
+    <module>weblogic</module>
+    <module>websphere</module>
+  </modules>
 
 </project>

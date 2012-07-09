@@ -36,11 +36,7 @@
   <inceptionYear>2011</inceptionYear>
 
   <modules>
-    <module>common</module>
-    <module>utils</module>
-    <module>controller</module>
-    <module>agent</module>
-    <module>console</module>
+    <module>kalumet-modules</module>
     <module>documentation</module>
     <module>assembly</module>
   </modules>
