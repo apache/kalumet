@@ -35,70 +35,76 @@ import java.util.ResourceBundle;
 public class Messages
 {
 
-  private static final String BUNDLE_NAME = "org.apache.kalumet.console.app.locales.Messages";
+    private static final String BUNDLE_NAME = "org.apache.kalumet.console.app.locales.Messages";
 
-  // a map which contains DateFormat objects for various locales.
-  private static final Map DATE_FORMAT_MEDIUM_MAP = new HashMap();
+    // a map which contains DateFormat objects for various locales.
+    private static final Map DATE_FORMAT_MEDIUM_MAP = new HashMap();
 
-  /**
-   * Formats a date with the specified locale.
-   *
-   * @param date the date to be formatted.
-   * @return a localized String representation of the date.
-   */
-  public static final String formatDateTimeMedium( Date date )
-  {
-    Locale locale = ApplicationInstance.getActive().getLocale();
-    DateFormat df = (DateFormat) DATE_FORMAT_MEDIUM_MAP.get( locale );
-    if ( df == null )
+    /**
+     * Formats a date with the specified locale.
+     *
+     * @param date the date to be formatted.
+     * @return a localized String representation of the date.
+     */
+    public static final String formatDateTimeMedium( Date date )
     {
-      df = DateFormat.getDateTimeInstance( DateFormat.MEDIUM, DateFormat.MEDIUM, locale );
-      DATE_FORMAT_MEDIUM_MAP.put( locale, df );
+        Locale locale = getLocale();
+        DateFormat df = (DateFormat) DATE_FORMAT_MEDIUM_MAP.get( locale );
+        if ( df == null )
+        {
+            df = DateFormat.getDateTimeInstance( DateFormat.MEDIUM, DateFormat.MEDIUM, locale );
+            DATE_FORMAT_MEDIUM_MAP.put( locale, df );
+        }
+        return date == null ? null : df.format( date );
     }
-    return date == null ? null : df.format( date );
-  }
 
-  /**
-   * Returns a localized formatted message. This method conveniently wraps a
-   * call to a MessageFormat object.
-   *
-   * @param key       the key of the message to be returned.
-   * @param arguments an array of arguments to be inserted into the message.
-   */
-  public static String getFormattedString( String key, Object[] arguments )
-  {
-    Locale locale = ApplicationInstance.getActive().getLocale();
-    String template = getString( key );
-    MessageFormat messageFormat = new MessageFormat( template );
-    messageFormat.setLocale( locale );
-    return messageFormat.format( arguments, new StringBuffer(), null ).toString();
-  }
-
-  /**
-   * Returns localized text.
-   *
-   * @param key the key of the text to be returned.
-   * @return the appropriate localized text (if the key is not defined, the string "!key!" is returned).
-   */
-  public static String getString( String key )
-  {
-    try
+    /**
+     * Returns a localized formatted message. This method conveniently wraps a
+     * call to a MessageFormat object.
+     *
+     * @param key       the key of the message to be returned.
+     * @param arguments an array of arguments to be inserted into the message.
+     */
+    public static String getFormattedString( String key, Object[] arguments )
     {
-      Locale locale = ApplicationInstance.getActive().getLocale();
-      ResourceBundle resource = ResourceBundle.getBundle( BUNDLE_NAME, locale );
-      return resource.getString( key );
+        Locale locale = getLocale();
+        String template = getString( key );
+        MessageFormat messageFormat = new MessageFormat( template );
+        messageFormat.setLocale( locale );
+        return messageFormat.format( arguments, new StringBuffer(), null ).toString();
     }
-    catch ( MissingResourceException e )
-    {
-      return '!' + key + '!';
-    }
-  }
 
-  /**
-   * Non-instantiable class.
-   */
-  private Messages()
-  {
-  }
+    /**
+     * Returns localized text.
+     *
+     * @param key the key of the text to be returned.
+     * @return the appropriate localized text (if the key is not defined, the string "!key!" is returned).
+     */
+    public static String getString( String key )
+    {
+        try
+        {
+            Locale locale = getLocale();
+
+            ResourceBundle resource = ResourceBundle.getBundle( BUNDLE_NAME, locale );
+            return resource.getString( key );
+        }
+        catch ( MissingResourceException e )
+        {
+            return '!' + key + '!';
+        }
+    }
+
+    private static Locale getLocale()
+    {
+        return ApplicationInstance.getActive() == null ? Locale.ENGLISH : ApplicationInstance.getActive().getLocale();
+    }
+
+    /**
+     * Non-instantiable class.
+     */
+    private Messages()
+    {
+    }
 
 }
