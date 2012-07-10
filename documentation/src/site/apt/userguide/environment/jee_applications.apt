@@ -63,3 +63,28 @@ Apache Kalumet Console JEE Applications
   * URI: it's an optional URI. It's a base URI. All relative URIs inside JEE application (like in archive, configuration file, etc) will be based on this master one.
 
   * Agent: if empty, the agent used will be the environment one. However, you can delegate the JEE application update to a specific agent.
+
+[/images/env_app_archives.png]
+
+  A JEE application hosts a set of archive. An archive is a jar, an ear, a war, or any kind of archive supported by the application server.
+
+  On each application, you can:
+
+  * copy an archive to be pasted into another archive
+
+  * enable (light on) or disable (light off) the archive. If disabled, the archive won't be part of the update process.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece).
+
+  * change the archive order (using up arrow and dow arrow icons).
+
+  * check the current status of the archive.
+
+  * launch the archive update.
+
+  * delete the archive.
+
+  By clicking on the archive name or "Add Archive" icon, you will have a new Archive window.
+
+[/images/env_app_archive_general.png]
+
