@@ -17,7 +17,7 @@
 -->
 <assembly>
 
-  <id>console-bin</id>
+  <id>console</id>
 
   <formats>
     <format>tar.gz</format>

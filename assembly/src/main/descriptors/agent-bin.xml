@@ -17,7 +17,7 @@
 -->
 <assembly>
 
-  <id>agent-bin</id>
+  <id>agent</id>
 
   <formats>
     <format>tar.gz</format>
