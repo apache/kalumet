@@ -88,3 +88,28 @@ Apache Kalumet Console JEE Applications
 
 [/images/env_app_archive_general.png]
 
+  The "General" tab allows you to define global information about an archive:
+
+  * Name: it's the name of the archive. It's an identifier.
+
+  * Active: if "true", the archive will be in the whole update process. If "false", the archive won't be in the update process.
+
+  * Update blocker: if "true", the archive is update blocker. It means that if the archive update fails, the whole update process will fail and stop. If "false", the archive is not update blocker. It means that if the archive update fails, the whole update process will log a warning but the update will continue.
+
+  * URI: it's the URI where to find the archive. This URI could be absolute (for instance http://, file://, etc) or relative to the application URI. It's also possible to use "composed" URI, for instance tgz:http://path/to/app.tar.gz!/path/inside/tgz/to/archive.war.
+
+  * Path: it's the path, locally to the agent, where the archive will be copied.
+
+  * Agent: by default, the archive will use the application agent. But it's also possible to dedicated the archive update to a specific agent.
+
+[/images/env_app_archive_deploy.png] 
+
+  The "Deploy" tab allows you to define deployment information required by some application server:
+
+  * Classloader Order: this property is used by WebSphere and WebLogic application servers. You can choose the classloader order to the archive relative to the parent one (Parent Last or Parent First).
+
+  * Classloader Policy: this property is used by WebSphere and WebLogic application servers. You can choose if one classloader will be created global to the archive (single) or if you will have multiple classloader (multiple) in the archive (especially when the archive is an EAR).
+
+  * Context Root: this property allow you to define the context root of the archive (when the archive is a war or an ear). It's optional, but it allows you to specify one.
+
+  * Virtual Host: this property is optional and specific to WebSphere application server. It allows you to specify the target virtual host where to deploy the archive.
