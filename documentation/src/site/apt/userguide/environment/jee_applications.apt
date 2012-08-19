@@ -161,3 +161,19 @@ Configuration Files
 [/images/env_app_config_mappings.png]
 
   Using the "Mappings" tab, you can also search and replace text in the configuration file. The "key" will be searched in the configuration file, and it will be replaced by the "value".
+
+Databases
+
+[/images/env_app_databases.png]
+
+  You can also define a set of database used by the JEE application. Kalumet can update a database by executing SQL scripts on it.
+
+  On each database, you can:
+
+  * copy the database (and all SQL scripts definition) to be pasted into another database.
+
+  * enable (light on) or disable (light off) the database. If disabled, the database won't be updated.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece).
+
+  * 
