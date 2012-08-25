@@ -127,7 +127,7 @@ public class J2EEApplication
   {
     if ( this.getArchive( archive.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Archive name already exists in the JZEE application." );
+      throw new ModelObjectAlreadyExistsException( "Archive name already exists in the JEE application." );
     }
     this.archives.add( archive );
   }
@@ -183,7 +183,7 @@ public class J2EEApplication
   {
     if ( this.getContentManager( contentManager.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Content manager name already exists in the JZEE application." );
+      throw new ModelObjectAlreadyExistsException( "Content manager name already exists in the JEE application." );
     }
     this.contentManagers.add( contentManager );
   }
@@ -239,7 +239,7 @@ public class J2EEApplication
   {
     if ( this.getConfigurationFile( configurationFile.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Configuration file name already exists in the JZEE application." );
+      throw new ModelObjectAlreadyExistsException( "Configuration file name already exists in the JEE application." );
     }
     this.configurationFiles.add( configurationFile );
   }

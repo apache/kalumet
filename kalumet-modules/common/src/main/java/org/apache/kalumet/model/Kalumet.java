@@ -571,10 +571,10 @@ public class Kalumet
 
       // application tag rules
       digester.addObjectCreate(
-        "kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/application",
+        "kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication",
         "org.apache.kalumet.model.J2EEApplication" );
       digester.addSetProperties(
-        "kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/application" );
+        "kalumet/environments/environment/j2eeapplicationservers/j2eeapplicationserver/j2eeapplications/j2eeapplication" );
 
       // archive tag rules
       digester.addObjectCreate(
