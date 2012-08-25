@@ -62,8 +62,8 @@
       <item name="Environment">
         <item name="General" href="/userguide/environment/general.html"/>
         <item name="Security Access Lists" href="/userguide/environment/security.html"/>
-        <item name="J2EE Application Servers" href="/userguide/environment/jee_application_server.html"/>
-        <item name="J2EE Resources">
+        <item name="JEE Application Servers" href="/userguide/environment/jee_application_server.html"/>
+        <item name="JEE Resources">
           <item name="JDBC Connection Pools" href="/userguide/environment/jdbc_connection_pools.html"/>
           <item name="JDBC Data Sources" href="/userguide/environment/jdbc_datasources.html"/>
           <item name="JMS Connection Factories" href="/userguide/environment/jms_connectionfactories.html"/>
@@ -71,7 +71,7 @@
           <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
           <item name="Shared Libraries" href="/userguide/environment/shared_libraries.html"/>
         </item>
-        <item name="J2EE Applications" href="/userguide/environment/jee_applications.html"/>
+        <item name="JEE Applications" href="/userguide/environment/jee_applications.html"/>
         <item name="Generic Softwares">
           <item name="General" href="/userguide/environment/softwares/general.html"/>
           <item name="Update Plan">
