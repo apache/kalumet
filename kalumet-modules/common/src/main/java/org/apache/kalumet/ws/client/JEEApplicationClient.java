@@ -20,9 +20,9 @@ package org.apache.kalumet.ws.client;
 
 
 /**
- * J2EEApplication WS client.
+ * JEEApplication WS client.
  */
-public class J2EEApplicationClient
+public class JEEApplicationClient
   extends AbstractClient
 {
 
@@ -33,17 +33,17 @@ public class J2EEApplicationClient
    * @param port port number of the Kalumet agent WS server.
    * @throws ClientException in case of communication failure.
    */
-  public J2EEApplicationClient( String host, int port )
+  public JEEApplicationClient(String host, int port)
     throws ClientException
   {
-    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationService" );
+    super( "http://" + host + ":" + port + "/axis/services/JEEApplicationService" );
   }
 
   /**
-   * Wrapper method to update a J2EE application.
+   * Wrapper method to update a JEE application.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param applicationName
    * @param delegation
    * @throws ClientException
@@ -58,7 +58,7 @@ public class J2EEApplicationClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application " + applicationName + " update failed", e );
+      throw new ClientException( "JEE application " + applicationName + " update failed", e );
     }
   }
 

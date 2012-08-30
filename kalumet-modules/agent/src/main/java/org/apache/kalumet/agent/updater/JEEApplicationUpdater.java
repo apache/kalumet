@@ -29,8 +29,8 @@ import org.apache.kalumet.model.ConfigurationFile;
 import org.apache.kalumet.model.ContentManager;
 import org.apache.kalumet.model.Database;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplication;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
@@ -38,50 +38,50 @@ import org.apache.kalumet.utils.NotifierUtils;
 import org.apache.kalumet.utils.PublisherUtils;
 import org.apache.kalumet.utils.VariableUtils;
 import org.apache.kalumet.ws.client.ClientException;
-import org.apache.kalumet.ws.client.J2EEApplicationClient;
+import org.apache.kalumet.ws.client.JEEApplicationClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
 /**
- * J2EE application updater.
+ * JEE application updater.
  */
-public class J2EEApplicationUpdater
+public class JEEApplicationUpdater
 {
 
-  private static final transient Logger LOGGER = LoggerFactory.getLogger( J2EEApplicationUpdater.class );
+  private static final transient Logger LOGGER = LoggerFactory.getLogger( JEEApplicationUpdater.class );
 
   /**
-   * Update a J2EE application.
+   * Update a JEE application.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
-   * @param application the target <code>J2EEApplication</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
+   * @param application the target <code>JEEApplication</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    * @throws UpdateException if the update failed.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void update( Environment environment, JEEApplicationServer server, JEEApplication application,
                              UpdateLog updateLog )
     throws UpdateException
   {
-    LOGGER.info( "Updating J2EE application {}", application.getName() );
+    LOGGER.info( "Updating JEE application {}", application.getName() );
 
     String applicationUri = VariableUtils.replace( application.getUri(), environment.getVariables() );
 
-    updateLog.addUpdateMessage( new UpdateMessage( "info", "Updating J2EE application " + application.getName() ) );
+    updateLog.addUpdateMessage( new UpdateMessage( "info", "Updating JEE application " + application.getName() ) );
     updateLog.addUpdateMessage(
-      new UpdateMessage( "summary", "J2EE application " + application.getName() + " located " + applicationUri ) );
-    EventUtils.post( environment, "UPDATE", "Updating J2EE application " + application.getName() );
+      new UpdateMessage( "summary", "JEE application " + application.getName() + " located " + applicationUri ) );
+    EventUtils.post( environment, "UPDATE", "Updating JEE application " + application.getName() );
 
     if ( !application.isActive() )
     {
       // the application is inactive, not updated
-      LOGGER.info( "J2EE application {} is inactive, so not updated", application.getName() );
+      LOGGER.info( "JEE application {} is inactive, so not updated", application.getName() );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application " + application.getName() + " is inactive, not updated" ) );
+        new UpdateMessage( "info", "JEE application " + application.getName() + " is inactive, not updated" ) );
       EventUtils.post( environment, "UPDATE",
-                       "J2EE application " + application.getName() + " is inactive, not updated" );
+                       "JEE application " + application.getName() + " is inactive, not updated" );
       return;
     }
 
@@ -89,12 +89,12 @@ public class J2EEApplicationUpdater
       Configuration.AGENT_ID ) )
     {
       // delegates the application update to another agent
-      LOGGER.info( "Delegating J2EE application {} update to agent {}", application.getName(), application.getAgent() );
+      LOGGER.info( "Delegating JEE application {} update to agent {}", application.getName(), application.getAgent() );
       Agent delegationAgent = Configuration.CONFIG_CACHE.getAgent( application.getAgent() );
       EventUtils.post( environment, "UPDATE",
-                       "Delegating J2EE application " + application.getName() + " update to agent "
+                       "Delegating JEE application " + application.getName() + " update to agent "
                          + application.getAgent() );
-      updateLog.addUpdateMessage( new UpdateMessage( "info", "Delegating J2EE application " + application.getName()
+      updateLog.addUpdateMessage( new UpdateMessage( "info", "Delegating JEE application " + application.getName()
         + " update to agent " + application.getAgent() ) );
       if ( delegationAgent == null )
       {
@@ -103,15 +103,15 @@ public class J2EEApplicationUpdater
       }
       try
       {
-        LOGGER.debug( "Call J2EE application WS" );
-        J2EEApplicationClient webServiceClient =
-          new J2EEApplicationClient( delegationAgent.getHostname(), delegationAgent.getPort() );
+        LOGGER.debug( "Call JEE application WS" );
+        JEEApplicationClient webServiceClient =
+          new JEEApplicationClient( delegationAgent.getHostname(), delegationAgent.getPort() );
         webServiceClient.update( environment.getName(), server.getName(), application.getName(), true );
       }
       catch ( ClientException clientException )
       {
-        LOGGER.error( "J2EE application {} update failed", application.getName(), clientException );
-        throw new UpdateException( "J2EE application " + application.getName() + " update failed", clientException );
+        LOGGER.error( "JEE application {} update failed", application.getName(), clientException );
+        throw new UpdateException( "JEE application " + application.getName() + " update failed", clientException );
       }
       return;
     }
@@ -120,17 +120,17 @@ public class J2EEApplicationUpdater
     {
       // create the application directory in the environment working directory
       // (if needed)
-      LOGGER.debug( "Creating the J2EE application directory" );
-      String applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+      LOGGER.debug( "Creating the JEE application directory" );
+      String applicationCacheDir = FileManipulator.createJEEApplicationCacheDir( environment, application );
     }
     catch ( FileManipulatorException e )
     {
-      LOGGER.error( "Can't create J2EE application cache directory", e );
-      throw new UpdateException( "Can't create J2EE application cache directory", e );
+      LOGGER.error( "Can't create JEE application cache directory", e );
+      throw new UpdateException( "Can't create JEE application cache directory", e );
     }
 
     // update configuration files
-    LOGGER.info( "Updating J2EE application configuration files" );
+    LOGGER.info( "Updating JEE application configuration files" );
     for ( Iterator configurationFileIterator = application.getConfigurationFiles().iterator();
           configurationFileIterator.hasNext(); )
     {
@@ -171,7 +171,7 @@ public class J2EEApplicationUpdater
     }
 
     // update database
-    LOGGER.info( "Updating J2EE application databases" );
+    LOGGER.info( "Updating JEE application databases" );
     for ( Iterator databaseIterator = application.getDatabases().iterator(); databaseIterator.hasNext(); )
     {
       Database database = (Database) databaseIterator.next();
@@ -209,7 +209,7 @@ public class J2EEApplicationUpdater
     }
 
     // update content managers
-    LOGGER.info( "Updating J2EE application content managers" );
+    LOGGER.info( "Updating JEE application content managers" );
     for ( Iterator contentManagerIterator = application.getContentManagers().iterator();
           contentManagerIterator.hasNext(); )
     {
@@ -249,7 +249,7 @@ public class J2EEApplicationUpdater
     }
 
     // update archives
-    LOGGER.info( "Updating J2EE application archives" );
+    LOGGER.info( "Updating JEE application archives" );
     for ( Iterator archiveIterator = application.getArchives().iterator(); archiveIterator.hasNext(); )
     {
       Archive archive = (Archive) archiveIterator.next();
@@ -286,25 +286,25 @@ public class J2EEApplicationUpdater
       }
     }
 
-    // J2EE application update is completed
-    LOGGER.info( "J2EE application {} updated", application.getName() );
-    updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application " + application.getName() + " updated" ) );
-    EventUtils.post( environment, "UPDATE", "J2EE application " + application.getName() + " updated" );
+    // JEE application update is completed
+    LOGGER.info( "JEE application {} updated", application.getName() );
+    updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application " + application.getName() + " updated" ) );
+    EventUtils.post( environment, "UPDATE", "JEE application " + application.getName() + " updated" );
   }
 
   /**
-   * Wrapper method to update a J2EE application (via WS).
+   * Wrapper method to update a JEE application (via WS).
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
-   * @param applicationName the target J2EE application name.
+   * @param serverName      the target JEE application server name.
+   * @param applicationName the target JEE application name.
    * @param delegation      flag indicating if the update is a delegation from another agent (true), or a client call (false).
    * @throws KalumetException in case of update error.
    */
   public static void update( String environmentName, String serverName, String applicationName, boolean delegation )
     throws KalumetException
   {
-    LOGGER.info( "J2EE application {} update requested by WS", applicationName );
+    LOGGER.info( "JEE application {} update requested by WS", applicationName );
 
     LOGGER.debug( "Loading the configuration" );
     Kalumet kalumet = Kalumet.digeste( Configuration.CONFIG_LOCATION );
@@ -314,30 +314,30 @@ public class J2EEApplicationUpdater
       LOGGER.error( "The environment {} is not found in the the configuration", environmentName );
       throw new KalumetException( "The environment " + environmentName + " is not found in the the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "The J2EE application server {} is not found in the environment {}", serverName, environmentName );
+      LOGGER.error( "The JEE application server {} is not found in the environment {}", serverName, environmentName );
       throw new KalumetException(
-        "The J2EE application server " + serverName + " is not found in the environment " + environmentName );
+        "The JEE application server " + serverName + " is not found in the environment " + environmentName );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "The J2EE application {} is not found in the J2EE application server {}", applicationName,
+      LOGGER.error( "The JEE application {} is not found in the JEE application server {}", applicationName,
                     serverName );
       throw new KalumetException(
-        "The J2EE application " + applicationName + " is not found in the J2EE application server " + serverName );
+        "The JEE application " + applicationName + " is not found in the JEE application server " + serverName );
     }
 
     // update the agent cache
     LOGGER.debug( "Updating configuration cache" );
     Configuration.CONFIG_CACHE = kalumet;
 
-    EventUtils.post( environment, "UPDATE", "J2EE application {} update requested by WS", applicationName );
+    EventUtils.post( environment, "UPDATE", "JEE application {} update requested by WS", applicationName );
     UpdateLog updateLog =
-      new UpdateLog( "J2EE application " + applicationName + " update in progress ...", environment.getName(),
+      new UpdateLog( "JEE application " + applicationName + " update in progress ...", environment.getName(),
                      environment );
 
     if ( !delegation )
@@ -349,39 +349,39 @@ public class J2EEApplicationUpdater
     }
     try
     {
-      LOGGER.debug( "Call J2EE application updater" );
-      J2EEApplicationUpdater.update( environment, applicationServer, application, updateLog );
+      LOGGER.debug( "Call JEE application updater" );
+      JEEApplicationUpdater.update(environment, applicationServer, application, updateLog);
     }
     catch ( Exception e )
     {
-      LOGGER.error( "J2EE application {} update failed", applicationName, e );
+      LOGGER.error( "JEE application {} update failed", applicationName, e );
       EventUtils.post( environment, "ERROR",
-                       "J2EE application " + applicationName + " udpate failed: " + e.getMessage() );
+                       "JEE application " + applicationName + " udpate failed: " + e.getMessage() );
       if ( !delegation )
       {
-        updateLog.setStatus( "J2EE application " + applicationName + " update failed" );
+        updateLog.setStatus( "JEE application " + applicationName + " update failed" );
         updateLog.addUpdateMessage(
-          new UpdateMessage( "error", "J2EE application " + applicationName + " update failed: " + e.getMessage() ) );
+          new UpdateMessage( "error", "JEE application " + applicationName + " update failed: " + e.getMessage() ) );
         PublisherUtils.publish( environment );
       }
-      throw new UpdateException( "J2EE application " + applicationName + " update failed", e );
+      throw new UpdateException( "JEE application " + applicationName + " update failed", e );
     }
 
     // update completed
-    LOGGER.info( "J2EE application {} updated", application.getName() );
-    EventUtils.post( environment, "UPDATE", "J2EE application " + application.getName() + " updated" );
+    LOGGER.info( "JEE application {} updated", application.getName() );
+    EventUtils.post( environment, "UPDATE", "JEE application " + application.getName() + " updated" );
     if ( !delegation )
     {
       if ( updateLog.isUpdated() )
       {
-        updateLog.setStatus( "J2EE application " + application.getName() + " updated" );
+        updateLog.setStatus( "JEE application " + application.getName() + " updated" );
       }
       else
       {
-        updateLog.setStatus( "J2EE application " + application.getName() + " already up to date" );
+        updateLog.setStatus( "JEE application " + application.getName() + " already up to date" );
       }
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application " + application.getName() + " updated" ) );
+        new UpdateMessage( "info", "JEE application " + application.getName() + " updated" ) );
       LOGGER.info( "Publishing update report" );
       PublisherUtils.publish( environment );
     }

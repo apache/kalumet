@@ -21,13 +21,8 @@ package org.apache.kalumet.agent.updater;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.Database;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.SqlScript;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -51,12 +46,12 @@ public class DatabaseUpdater
    * Updates a database.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
-   * @param application the target <code>J2EEApplication</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
+   * @param application the target <code>JEEApplication</code>.
    * @param database    the target <code>Database</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void update( Environment environment, JEEApplicationServer server, JEEApplication application,
                              Database database, UpdateLog updateLog )
     throws UpdateException
   {
@@ -156,8 +151,8 @@ public class DatabaseUpdater
    * Wrapper method to update a database via WS.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
-   * @param applicationName the target J2EE application name.
+   * @param serverName      the target JEE application server name.
+   * @param applicationName the target JEE application name.
    * @param databaseName    the target database name.
    * @param delegation      true if the call is made by another agent, false if the call is made by a client.
    * @throws KalumetException in case of update failure.
@@ -177,26 +172,26 @@ public class DatabaseUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName, serverName );
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName, serverName );
       throw new KalumetException(
-        "J2EE application " + applicationName + " is not found in J2EE application server " + serverName );
+        "JEE application " + applicationName + " is not found in JEE application server " + serverName );
     }
     Database database = application.getDatabase( databaseName );
     if ( database == null )
     {
-      LOGGER.error( "Database {} is not found in J2EE application {}", databaseName, applicationName );
-      throw new KalumetException( "Database " + databaseName + " is not found in J2EE application " + applicationName );
+      LOGGER.error( "Database {} is not found in JEE application {}", databaseName, applicationName );
+      throw new KalumetException( "Database " + databaseName + " is not found in JEE application " + applicationName );
     }
 
     // update configuration cache.

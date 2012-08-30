@@ -21,10 +21,10 @@ package org.apache.kalumet.agent.updater;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JDBCConnectionPool;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.update.UpdateLog;
@@ -47,11 +47,11 @@ public class JDBCConnectionPoolUpdater
    * Update a JDBC connection pool.
    *
    * @param environment    the target <code>Environment</code>.
-   * @param server         the target <code>J2EEApplicationServer</code>.
+   * @param server         the target <code>JEEApplicationServer</code>.
    * @param connectionPool the target <code>JDBCConnectionPool</code>.
    * @param updateLog      the target <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, JDBCConnectionPool connectionPool,
+  public static void update( Environment environment, JEEApplicationServer server, JDBCConnectionPool connectionPool,
                              UpdateLog updateLog )
     throws UpdateException
   {
@@ -80,9 +80,9 @@ public class JDBCConnectionPoolUpdater
 
     try
     {
-      // connect to J2EE application server controller
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, server );
+      // connect to JEE application server controller
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, server);
       // test if the JDBC connection pool is already present in the JEE server
       if ( controller.isJDBCConnectionPoolDeployed( connectionPool.getName() ) )
       {
@@ -132,7 +132,7 @@ public class JDBCConnectionPoolUpdater
    * Wrapper method to update a JDBC connection pool via WS.
    *
    * @param environmentName    the target environment name.
-   * @param serverName         the target J2EE application server name.
+   * @param serverName         the target JEE application server name.
    * @param connectionPoolName the target JDBC connection pool name.
    * @throws KalumetException in case of update failure.
    */
@@ -153,21 +153,21 @@ public class JDBCConnectionPoolUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     JDBCConnectionPool connectionPool = applicationServer.getJDBCConnectionPool( connectionPoolName );
     if ( connectionPool == null )
     {
-      LOGGER.error( "JDBC connection pool {} is not found in J2EE application server {}", connectionPoolName,
+      LOGGER.error( "JDBC connection pool {} is not found in JEE application server {}", connectionPoolName,
                     applicationServer.getName() );
       throw new KalumetException(
-        "JDBC connection pool " + connectionPoolName + " is not found in J2EE application server "
+        "JDBC connection pool " + connectionPoolName + " is not found in JEE application server "
           + applicationServer.getName() );
     }
 
@@ -222,7 +222,7 @@ public class JDBCConnectionPoolUpdater
    * Wrapper method to check if a JDBC connection pool is up to date via WS.
    *
    * @param environmentName    the target environment name.
-   * @param serverName         the target J2EE application server name.
+   * @param serverName         the target JEE application server name.
    * @param connectionPoolName the target JDBC connection pool name.
    * @return true if the JDBC connection pool is up to date, false else.
    * @throws KalumetException in case of check failure.
@@ -244,21 +244,21 @@ public class JDBCConnectionPoolUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     JDBCConnectionPool connectionPool = applicationServer.getJDBCConnectionPool( connectionPoolName );
     if ( connectionPool == null )
     {
-      LOGGER.error( "JDBC connection pool {} is not found in J2EE server {}", connectionPoolName,
+      LOGGER.error( "JDBC connection pool {} is not found in JEE server {}", connectionPoolName,
                     applicationServer.getName() );
       throw new KalumetException(
-        "JDBC connection pool " + connectionPoolName + " is not found in J2EE application server "
+        "JDBC connection pool " + connectionPoolName + " is not found in JEE application server "
           + applicationServer.getName() );
     }
 
@@ -269,9 +269,9 @@ public class JDBCConnectionPoolUpdater
     try
     {
       // get the JEE server JMX controller.
-      LOGGER.debug( "Getting the J2EE application server controller" );
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, applicationServer );
+      LOGGER.debug( "Getting the JEE application server controller" );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, applicationServer);
       // replace values with environment variables
       LOGGER.debug( "Replacing variables in connection pool data" );
       String jdbcDriver = VariableUtils.replace( connectionPool.getDriver(), environment.getVariables() );

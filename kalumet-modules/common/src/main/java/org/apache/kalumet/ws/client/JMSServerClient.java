@@ -42,7 +42,7 @@ public class JMSServerClient
    * Wrapper method to update a JMS server.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jmsServerName         the target JMS server name.
    * @throws ClientException in case of update failure.
    */
@@ -63,7 +63,7 @@ public class JMSServerClient
    * Wrapper method to check if a JMS server is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jmsServerName         the target JMS server name.
    * @return true if the JMS server is up to date, false else.
    * @throws ClientException in case of status check failure.

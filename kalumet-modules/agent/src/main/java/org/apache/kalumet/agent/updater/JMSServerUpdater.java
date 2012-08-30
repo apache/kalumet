@@ -22,14 +22,10 @@ import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
 import org.apache.kalumet.controller.core.ControllerException;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JMSQueue;
-import org.apache.kalumet.model.JMSServer;
-import org.apache.kalumet.model.JMSTopic;
-import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -53,12 +49,12 @@ public class JMSServerUpdater
    * Update a JMS server.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
    * @param jmsServer   the target <code>JMSServer</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    * @thorws UpdateException in case of update failure.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, JMSServer jmsServer,
+  public static void update( Environment environment, JEEApplicationServer server, JMSServer jmsServer,
                              UpdateLog updateLog )
     throws UpdateException
   {
@@ -89,17 +85,17 @@ public class JMSServerUpdater
       JMSTopic jmsTopic = (JMSTopic) topicIterator.next();
       topics.add( VariableUtils.replace( jmsTopic.getName(), environment.getVariables() ) );
     }
-    J2EEApplicationServerController controller = null;
+    JEEApplicationServerController controller = null;
     try
     {
       // connect JMX controller to JEE application server
-      LOGGER.debug( "Connecting to J2EE application server {} controller", server.getName() );
-      controller = J2EEApplicationServerControllerFactory.getController( environment, server );
+      LOGGER.debug( "Connecting to JEE application server {} controller", server.getName() );
+      controller = JEEApplicationServerControllerFactory.getController(environment, server);
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "Can't connect to J2EE application server {} controller", server.getName(), e );
-      throw new UpdateException( "Can't connect to J2EE application server " + server.getName() + " controller", e );
+      LOGGER.error( "Can't connect to JEE application server {} controller", server.getName(), e );
+      throw new UpdateException( "Can't connect to JEE application server " + server.getName() + " controller", e );
     }
     try
     {
@@ -138,7 +134,7 @@ public class JMSServerUpdater
    * Wrapper method to update a JMS server via WS.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jmsServerName         the target JMS server name.
    * @throws KalumetException if case of update failure.
    */
@@ -159,22 +155,22 @@ public class JMSServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( applicationServerName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(applicationServerName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", applicationServerName,
+      LOGGER.error( "JEE application server {} is not found in environment {}", applicationServerName,
                     environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + applicationServerName + " is not found in environment " + environment.getName() );
+        "JEE application server " + applicationServerName + " is not found in environment " + environment.getName() );
     }
     JMSServer jmsServer = applicationServer.getJMSServer( jmsServerName );
     if ( jmsServer == null )
     {
-      LOGGER.error( "JMS server {} is not found in J2EE application server {}", jmsServerName,
+      LOGGER.error( "JMS server {} is not found in JEE application server {}", jmsServerName,
                     applicationServer.getName() );
       throw new KalumetException(
-        "JMS server " + jmsServerName + " is not found in J2EE application server " + applicationServer.getName() );
+        "JMS server " + jmsServerName + " is not found in JEE application server " + applicationServer.getName() );
     }
 
     // post an event and create update log.
@@ -227,7 +223,7 @@ public class JMSServerUpdater
    * Check a JMS server via WS.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jmsServerName         the target JMS server name.
    * @return true if the JMS server is up to date, false else.
    * @throws KalumetException in case of check failure.
@@ -249,22 +245,22 @@ public class JMSServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( applicationServerName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(applicationServerName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", applicationServerName,
+      LOGGER.error( "JEE application server {} is not found in environment {}", applicationServerName,
                     environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + applicationServerName + " is not found in environment " + environment.getName() );
+        "JEE application server " + applicationServerName + " is not found in environment " + environment.getName() );
     }
     JMSServer jmsServer = applicationServer.getJMSServer( jmsServerName );
     if ( jmsServer == null )
     {
-      LOGGER.error( "JMS server {} is not found in J2EE application server {}", jmsServerName,
+      LOGGER.error( "JMS server {} is not found in JEE application server {}", jmsServerName,
                     applicationServer.getName() );
       throw new KalumetException(
-        "JMS server " + jmsServerName + " is not found in J2EE application server " + applicationServer.getName() );
+        "JMS server " + jmsServerName + " is not found in JEE application server " + applicationServer.getName() );
     }
 
     // post an event.
@@ -272,10 +268,10 @@ public class JMSServerUpdater
 
     try
     {
-      // get J2EE application server controller.
-      LOGGER.debug( "Getting J2EE application server controller" );
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, applicationServer );
+      // get JEE application server controller.
+      LOGGER.debug( "Getting JEE application server controller" );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, applicationServer);
       // construct the queue list.
       LOGGER.debug( "Constructing the queue list" );
       LinkedList queues = new LinkedList();

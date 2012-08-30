@@ -24,14 +24,8 @@ import org.apache.kalumet.FileManipulatorException;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.model.Database;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JDBCConnectionPool;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.Mapping;
-import org.apache.kalumet.model.SqlScript;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -55,14 +49,14 @@ public class SqlScriptUpdater
    * Executes SQL script.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
-   * @param application the target <code>J2EEApplication</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
+   * @param application the target <code>JEEApplication</code>.
    * @param database    the target <code>Database</code>.
    * @param sqlScript   the target <code>SqlScript</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    * @throws UpdateException in case of update failure.
    */
-  public static void execute( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void execute( Environment environment, JEEApplicationServer server, JEEApplication application,
                               Database database, SqlScript sqlScript, UpdateLog updateLog )
     throws UpdateException
   {
@@ -85,8 +79,8 @@ public class SqlScriptUpdater
     if ( !FileManipulator.protocolExists( sqlScriptUri ) )
     {
       // the SQL script URI is relative , construct the SQL Script URI using
-      // the J2EE Application URI
-      LOGGER.debug( "SQL Script URI is relative to J2EE application URI" );
+      // the JEE Application URI
+      LOGGER.debug( "SQL Script URI is relative to JEE application URI" );
       sqlScriptUri =
         FileManipulator.format( VariableUtils.replace( application.getUri(), environment.getVariables() ) ) + "!/"
           + sqlScriptUri;
@@ -95,12 +89,12 @@ public class SqlScriptUpdater
     String applicationCacheDir = null;
     try
     {
-      applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+      applicationCacheDir = FileManipulator.createJEEApplicationCacheDir( environment, application );
     }
     catch ( FileManipulatorException fileManipulatorException )
     {
-      LOGGER.error( "Can't initialize J2EE application cache directory", fileManipulatorException );
-      throw new UpdateException( "Can't initialize J2EE application cache directory", fileManipulatorException );
+      LOGGER.error( "Can't initialize JEE application cache directory", fileManipulatorException );
+      throw new UpdateException( "Can't initialize JEE application cache directory", fileManipulatorException );
     }
 
     // get file manipulator instance
@@ -185,10 +179,10 @@ public class SqlScriptUpdater
                 JDBCConnectionPool connectionPool = server.getJDBCConnectionPool( connectionPoolName );
                 if ( connectionPool == null )
                 {
-                  LOGGER.error( "JDBC connection pool {} is not found in J2EE application server {}",
+                  LOGGER.error( "JDBC connection pool {} is not found in JEE application server {}",
                                 database.getConnectionPool(), server.getName() );
                   throw new UpdateException(
-                    "JDBC connection pool " + database.getConnectionPool() + " is not found in J2EE application server "
+                    "JDBC connection pool " + database.getConnectionPool() + " is not found in JEE application server "
                       + server.getName() );
                 }
                 user = VariableUtils.replace( connectionPool.getUser(), environment.getVariables() );
@@ -280,10 +274,10 @@ public class SqlScriptUpdater
               JDBCConnectionPool connectionPool = server.getJDBCConnectionPool( connectionPoolName );
               if ( connectionPool == null )
               {
-                LOGGER.error( "JDBC connection pool {} is not found in J2EE application server {}",
+                LOGGER.error( "JDBC connection pool {} is not found in JEE application server {}",
                               database.getConnectionPool(), server.getName() );
                 throw new UpdateException(
-                  "JDBC connection pool " + database.getConnectionPool() + " is not found in J2EE application server "
+                  "JDBC connection pool " + database.getConnectionPool() + " is not found in JEE application server "
                     + server.getName() );
               }
               user = VariableUtils.replace( connectionPool.getUser(), environment.getVariables() );
@@ -341,8 +335,8 @@ public class SqlScriptUpdater
    * Wrapper method to execute a SQL script via WS.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
-   * @param applicationName the target J2EE application name.
+   * @param serverName      the target JEE application server name.
+   * @param applicationName the target JEE application name.
    * @param databaseName    the target database name.
    * @param sqlScriptName   the target SQL script name.
    * @throws KalumetException in case of execution failure.
@@ -365,28 +359,28 @@ public class SqlScriptUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName,
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName,
                     applicationServer.getName() );
-      throw new KalumetException( "J2EE application " + applicationName + " is not found in J2EE application server "
+      throw new KalumetException( "JEE application " + applicationName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
     Database database = application.getDatabase( databaseName );
     if ( database == null )
     {
-      LOGGER.error( "Database {} is not found in J2EE application {}", databaseName, application.getName() );
+      LOGGER.error( "Database {} is not found in JEE application {}", databaseName, application.getName() );
       throw new KalumetException(
-        "Database " + databaseName + " is not found in J2EE application " + application.getName() );
+        "Database " + databaseName + " is not found in JEE application " + application.getName() );
     }
     SqlScript sqlScript = database.getSqlScript( sqlScriptName );
     if ( sqlScript == null )

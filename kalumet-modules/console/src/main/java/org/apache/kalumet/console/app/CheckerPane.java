@@ -28,28 +28,10 @@ import nextapp.echo2.app.Label;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.Archive;
-import org.apache.kalumet.model.ConfigurationFile;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JDBCConnectionPool;
-import org.apache.kalumet.model.JDBCDataSource;
-import org.apache.kalumet.model.JMSConnectionFactory;
-import org.apache.kalumet.model.JMSServer;
-import org.apache.kalumet.model.JNDIBinding;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.SharedLibrary;
-import org.apache.kalumet.ws.client.AgentClient;
-import org.apache.kalumet.ws.client.ArchiveClient;
-import org.apache.kalumet.ws.client.ConfigurationFileClient;
-import org.apache.kalumet.ws.client.J2EEApplicationServerClient;
-import org.apache.kalumet.ws.client.JDBCConnectionPoolClient;
-import org.apache.kalumet.ws.client.JDBCDataSourceClient;
-import org.apache.kalumet.ws.client.JMSConnectionFactoryClient;
-import org.apache.kalumet.ws.client.JMSServerClient;
-import org.apache.kalumet.ws.client.JNDIBindingClient;
-import org.apache.kalumet.ws.client.SharedLibraryClient;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
+import org.apache.kalumet.ws.client.*;
+import org.apache.kalumet.ws.client.JEEApplicationServerClient;
 
 import java.util.Iterator;
 
@@ -170,7 +152,7 @@ class ApplicationServerStatusThread
     try
     {
       // call the webservice
-      J2EEApplicationServerClient webServiceClient = new J2EEApplicationServerClient( hostname, port );
+      JEEApplicationServerClient webServiceClient = new JEEApplicationServerClient( hostname, port );
       status = webServiceClient.status( environmentName, applicationServerName );
       completed = true;
     }
@@ -616,8 +598,8 @@ class SharedLibraryCheckThread
 
 }
 
-// J2EEApplicationArchiveCheckThread
-class J2EEApplicationArchiveCheckThread
+// JEEApplicationArchiveCheckThread
+class JEEApplicationArchiveCheckThread
   extends Thread
 {
 
@@ -641,8 +623,8 @@ class J2EEApplicationArchiveCheckThread
 
   private boolean uptodate;
 
-  public J2EEApplicationArchiveCheckThread( String hostname, int port, String environmentName,
-                                            String applicationServerName, String applicationName, String archiveName )
+  public JEEApplicationArchiveCheckThread(String hostname, int port, String environmentName,
+                                          String applicationServerName, String applicationName, String archiveName)
   {
     this.hostname = hostname;
     this.port = port;
@@ -690,8 +672,8 @@ class J2EEApplicationArchiveCheckThread
   }
 }
 
-// J2EEApplicationConfigurationFileCheckThread
-class J2EEApplicationConfigurationFileCheckThread
+// JEEApplicationConfigurationFileCheckThread
+class JEEApplicationConfigurationFileCheckThread
   extends Thread
 {
 
@@ -715,9 +697,9 @@ class J2EEApplicationConfigurationFileCheckThread
 
   private boolean uptodate;
 
-  public J2EEApplicationConfigurationFileCheckThread( String hostname, int port, String environmentName,
-                                                      String applicationServerName, String applicationName,
-                                                      String configurationFileName )
+  public JEEApplicationConfigurationFileCheckThread(String hostname, int port, String environmentName,
+                                                    String applicationServerName, String applicationName,
+                                                    String configurationFileName)
   {
     this.hostname = hostname;
     this.port = port;
@@ -856,10 +838,10 @@ public class CheckerPane
                                                               } );
       // application servers check
       for ( Iterator applicationServerIterator =
-              parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+              parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
             applicationServerIterator.hasNext(); )
       {
-        J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+        JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
         Label applicationServerLabel = new Label( "JEE server " + applicationServer.getName() + " check" );
         applicationServerLabel.setStyleName( "default" );
         grid.add( applicationServerLabel );
@@ -885,7 +867,7 @@ public class CheckerPane
               if ( applicationServerStatusThread.getFailure() )
               {
                 applicationServerStatusLabel.setText(
-                  "J2EE application server error: " + applicationServerStatusThread.getErrorMessage() );
+                  "JEE application server error: " + applicationServerStatusThread.getErrorMessage() );
                 applicationServerStatusButton.setIcon( Styles.EXCLAMATION );
               }
               else
@@ -1225,23 +1207,23 @@ public class CheckerPane
             }
           } );
         }
-        // check J2EE applications
-        for ( Iterator applicationIterator = applicationServer.getJ2EEApplications().iterator();
+        // check JEE applications
+        for ( Iterator applicationIterator = applicationServer.getJEEApplications().iterator();
               applicationIterator.hasNext(); )
         {
-          J2EEApplication application = (J2EEApplication) applicationIterator.next();
-          Label applicationLabel = new Label( " J2EE application " + application.getName() + " check" );
+          JEEApplication application = (JEEApplication) applicationIterator.next();
+          Label applicationLabel = new Label( " JEE application " + application.getName() + " check" );
           applicationLabel.setStyleName( "Default" );
           grid.add( applicationLabel );
           Label blankLabel = new Label( " " );
           grid.add( blankLabel );
           blankLabel = new Label( " " );
           grid.add( blankLabel );
-          // check J2EE application archives
+          // check JEE application archives
           for ( Iterator archiveIterator = application.getArchives().iterator(); archiveIterator.hasNext(); )
           {
             Archive archive = (Archive) archiveIterator.next();
-            Label archiveLabel = new Label( " J2EE application archive " + archive.getName() + " check" );
+            Label archiveLabel = new Label( " JEE application archive " + archive.getName() + " check" );
             archiveLabel.setStyleName( "Default" );
             grid.add( archiveLabel );
             final Label archiveStatusLabel = new Label();
@@ -1250,35 +1232,35 @@ public class CheckerPane
             final Label archiveButton = new Label();
             grid.add( archiveButton );
             // launch the application archive check thread
-            final J2EEApplicationArchiveCheckThread j2EEApplicationArchiveCheckThread =
-              new J2EEApplicationArchiveCheckThread( agent.getHostname(), agent.getPort(), parent.getEnvironmentName(),
+            final JEEApplicationArchiveCheckThread jeeApplicationArchiveCheckThread =
+              new JEEApplicationArchiveCheckThread( agent.getHostname(), agent.getPort(), parent.getEnvironmentName(),
                                                      applicationServer.getName(), application.getName(),
                                                      archive.getName() );
-            j2EEApplicationArchiveCheckThread.start();
+            jeeApplicationArchiveCheckThread.start();
             // launch the synchronisation thread
             KalumetConsoleApplication.getApplication().enqueueTask(
               KalumetConsoleApplication.getApplication().getTaskQueue(), new Runnable()
             {
               public void run()
               {
-                if ( j2EEApplicationArchiveCheckThread.getCompleted() )
+                if ( jeeApplicationArchiveCheckThread.getCompleted() )
                 {
-                  if ( j2EEApplicationArchiveCheckThread.getFailure() )
+                  if ( jeeApplicationArchiveCheckThread.getFailure() )
                   {
                     archiveStatusLabel.setText(
-                      "J2EE application archive check error: " + j2EEApplicationArchiveCheckThread.getErrorMessage() );
+                      "JEE application archive check error: " + jeeApplicationArchiveCheckThread.getErrorMessage() );
                     archiveButton.setIcon( Styles.EXCLAMATION );
                   }
                   else
                   {
-                    if ( j2EEApplicationArchiveCheckThread.getUptodate() )
+                    if ( jeeApplicationArchiveCheckThread.getUptodate() )
                     {
                       archiveStatusLabel.setText( "OK" );
                       archiveButton.setIcon( Styles.ACCEPT );
                     }
                     else
                     {
-                      archiveStatusLabel.setText( "J2EE application archive is not deployed or not up to date" );
+                      archiveStatusLabel.setText( "JEE application archive is not deployed or not up to date" );
                       archiveButton.setIcon( Styles.EXCLAMATION );
                     }
                   }
@@ -1291,13 +1273,13 @@ public class CheckerPane
               }
             } );
           }
-          // check J2EE application configuration files
+          // check JEE application configuration files
           for ( Iterator configurationFileIterator = application.getConfigurationFiles().iterator();
                 configurationFileIterator.hasNext(); )
           {
             ConfigurationFile configurationFile = (ConfigurationFile) configurationFileIterator.next();
             Label configurationFileLabel =
-              new Label( " J2EE application configuration file " + configurationFile.getName() + " check" );
+              new Label( " JEE application configuration file " + configurationFile.getName() + " check" );
             configurationFileLabel.setStyleName( "Default" );
             grid.add( configurationFileLabel );
             final Label configurationFileStatusLabel = new Label();
@@ -1306,35 +1288,35 @@ public class CheckerPane
             final Label configurationFileButton = new Label();
             grid.add( configurationFileButton );
             // launch the application configuration file check thread
-            final J2EEApplicationConfigurationFileCheckThread j2EEApplicationConfigurationFileCheckThread =
-              new J2EEApplicationConfigurationFileCheckThread( agent.getHostname(), agent.getPort(),
+            final JEEApplicationConfigurationFileCheckThread jeeApplicationConfigurationFileCheckThread =
+              new JEEApplicationConfigurationFileCheckThread( agent.getHostname(), agent.getPort(),
                                                                parent.getEnvironmentName(), applicationServer.getName(),
                                                                application.getName(), configurationFile.getName() );
-            j2EEApplicationConfigurationFileCheckThread.start();
+            jeeApplicationConfigurationFileCheckThread.start();
             // launch the synchronisation thread
             KalumetConsoleApplication.getApplication().enqueueTask(
               KalumetConsoleApplication.getApplication().getTaskQueue(), new Runnable()
             {
               public void run()
               {
-                if ( j2EEApplicationConfigurationFileCheckThread.getCompleted() )
+                if ( jeeApplicationConfigurationFileCheckThread.getCompleted() )
                 {
-                  if ( j2EEApplicationConfigurationFileCheckThread.getFailure() )
+                  if ( jeeApplicationConfigurationFileCheckThread.getFailure() )
                   {
-                    configurationFileStatusLabel.setText( "J2EE application configuration file check error: "
-                                                            + j2EEApplicationConfigurationFileCheckThread.getErrorMessage() );
+                    configurationFileStatusLabel.setText( "JEE application configuration file check error: "
+                                                            + jeeApplicationConfigurationFileCheckThread.getErrorMessage() );
                     configurationFileButton.setIcon( Styles.EXCLAMATION );
                   }
                   else
                   {
-                    if ( j2EEApplicationConfigurationFileCheckThread.getUptodate() )
+                    if ( jeeApplicationConfigurationFileCheckThread.getUptodate() )
                     {
                       configurationFileStatusLabel.setText( "OK" );
                       configurationFileButton.setIcon( Styles.ACCEPT );
                     }
                     else
                     {
-                      configurationFileStatusLabel.setText( "J2EE application configuration file is not up to date" );
+                      configurationFileStatusLabel.setText( "JEE application configuration file is not up to date" );
                       configurationFileButton.setIcon( Styles.EXCLAMATION );
                     }
                   }

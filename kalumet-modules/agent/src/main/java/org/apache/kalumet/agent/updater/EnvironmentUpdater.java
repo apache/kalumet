@@ -22,7 +22,7 @@ import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.Software;
 import org.apache.kalumet.model.update.UpdateLog;
@@ -140,14 +140,14 @@ public class EnvironmentUpdater
 
     try
     {
-      // update softwares flagged "before J2EE"
-      LOGGER.info( "Updating softwares flagged before J2EE" );
+      // update softwares flagged "before JEE"
+      LOGGER.info( "Updating softwares flagged before JEE" );
       for ( Iterator softwareIterator = environment.getSoftwares().iterator(); softwareIterator.hasNext(); )
       {
         Software software = (Software) softwareIterator.next();
         try
         {
-          if ( software.isBeforej2ee() )
+          if ( software.isBeforejee() )
           {
             SoftwareUpdater.update( environment, software, updateLog );
           }
@@ -180,46 +180,46 @@ public class EnvironmentUpdater
         }
       }
 
-      // update J2EE application servers
-      LOGGER.info( "Updating J2EE application servers" );
-      for ( Iterator j2eeApplicationServersIterator =
-              environment.getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
-            j2eeApplicationServersIterator.hasNext(); )
+      // update JEE application servers
+      LOGGER.info( "Updating JEE application servers" );
+      for ( Iterator jeeApplicationServersIterator =
+              environment.getJEEApplicationServers().getJEEApplicationServers().iterator();
+            jeeApplicationServersIterator.hasNext(); )
       {
-        J2EEApplicationServer j2eeApplicationServer = (J2EEApplicationServer) j2eeApplicationServersIterator.next();
+        JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) jeeApplicationServersIterator.next();
         try
         {
-          J2EEApplicationServerUpdater.update( kalumet, environment, j2eeApplicationServer, updateLog );
+          JEEApplicationServerUpdater.update(kalumet, environment, jeeApplicationServer, updateLog);
         }
         catch ( Exception e )
         {
-          if ( j2eeApplicationServer.isBlocker() )
+          if ( jeeApplicationServer.isBlocker() )
           {
-            LOGGER.error( "J2EE application server {} update failed", e );
+            LOGGER.error( "JEE application server {} update failed", e );
             EventUtils.post( environment, "ERROR",
-                             "J2EE application server " + j2eeApplicationServer.getName() + " update failed: "
+                             "JEE application server " + jeeApplicationServer.getName() + " update failed: "
                                + e.getMessage() );
             updateLog.addUpdateMessage( new UpdateMessage( "error",
-                                                           "J2EE application server " + j2eeApplicationServer.getName()
+                                                           "JEE application server " + jeeApplicationServer.getName()
                                                              + " update failed: " + e.getMessage() ) );
             updateLog.setStatus( "Environment " + environment.getName() + " update failed" );
             PublisherUtils.publish( environment );
-            throw new UpdateException( "J2EE application server " + j2eeApplicationServer.getName() + " update failed",
+            throw new UpdateException( "JEE application server " + jeeApplicationServer.getName() + " update failed",
                                        e );
           }
           else
           {
-            LOGGER.warn( "J2EE application server {} update failed", e );
+            LOGGER.warn( "JEE application server {} update failed", e );
             updateLog.addUpdateMessage( new UpdateMessage( "warn",
-                                                           "J2EE application server " + j2eeApplicationServer.getName()
+                                                           "JEE application server " + jeeApplicationServer.getName()
                                                              + " update failed: " + e.getMessage() ) );
             updateLog.addUpdateMessage( new UpdateMessage( "info",
-                                                           "J2EE application server " + j2eeApplicationServer.getName()
+                                                           "JEE application server " + jeeApplicationServer.getName()
                                                              + " is not an update blocker, update continues" ) );
             EventUtils.post( environment, "WARN",
-                             "J2EE application server " + j2eeApplicationServer.getName() + " update failed: "
+                             "JEE application server " + jeeApplicationServer.getName() + " update failed: "
                                + e.getMessage() );
-            EventUtils.post( environment, "INFO", "J2EE application server " + j2eeApplicationServer.getName()
+            EventUtils.post( environment, "INFO", "JEE application server " + jeeApplicationServer.getName()
               + " is not an update blocker, update continues" );
           }
         }
@@ -232,7 +232,7 @@ public class EnvironmentUpdater
         Software software = (Software) softwaresIterator.next();
         try
         {
-          if ( !software.isBeforej2ee() )
+          if ( !software.isBeforejee() )
           {
             SoftwareUpdater.update( environment, software, updateLog );
           }

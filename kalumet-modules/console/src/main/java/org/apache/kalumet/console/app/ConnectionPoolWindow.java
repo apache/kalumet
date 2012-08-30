@@ -160,7 +160,7 @@ public class ConnectionPoolWindow
     {
       // looking for original JDBC connection pool object
       connectionPool =
-        parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           applicationServerName ).getJDBCConnectionPool( connectionPoolName );
       if ( connectionPool == null )
       {
@@ -198,7 +198,7 @@ public class ConnectionPoolWindow
           public void actionPerformed( ActionEvent event )
           {
             // remove the connection pool
-            parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               applicationServerName ).getJDBCConnectionPools().remove( connectionPool );
             // add a change event
             parent.getEnvironmentWindow().getChangeEvents().add(
@@ -291,7 +291,7 @@ public class ConnectionPoolWindow
       if ( connectionPoolName == null || ( connectionPoolName != null && !connectionPoolName.equals(
         nameFieldValue ) ) )
       {
-        if ( parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           applicationServerName ).getJDBCConnectionPool( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -367,7 +367,7 @@ public class ConnectionPoolWindow
       {
         try
         {
-          parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+          parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
             applicationServerName ).addJDBCConnectionPool( connectionPool );
           parent.getEnvironmentWindow().getChangeEvents().add( "Add JDBC connection pool " + connectionPool.getName() );
         }
@@ -565,7 +565,7 @@ public class ConnectionPoolWindow
    * Create a new <code>ConnectionPoolWindow</code>.
    *
    * @param parent                the <code>ConnectionPoolsPane</code>.
-   * @param applicationServerName the original J2EE application server name.
+   * @param applicationServerName the original JEE application server name.
    * @param connectionPoolName    the original JDBC connection pool name.
    */
   public ConnectionPoolWindow( ConnectionPoolsPane parent, String applicationServerName, String connectionPoolName )
@@ -581,7 +581,7 @@ public class ConnectionPoolWindow
 
     // update the connection pool object from the parent environment
     this.connectionPool =
-      parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         this.applicationServerName ).getJDBCConnectionPool( connectionPoolName );
     if ( this.connectionPool == null )
     {

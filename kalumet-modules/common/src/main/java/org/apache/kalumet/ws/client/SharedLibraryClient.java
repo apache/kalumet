@@ -42,7 +42,7 @@ public class SharedLibraryClient
    * Wrapper method to update a shared library.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param sharedLibraryName     the target shared library name.
    * @throws ClientException in case of update failure.
    */
@@ -63,7 +63,7 @@ public class SharedLibraryClient
    * Wrapper method to check if a shared library is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param sharedLibraryName     the target shared library name.
    * @return true if the shared library is up to date, false else.
    * @throws ClientException in case of status check failure.

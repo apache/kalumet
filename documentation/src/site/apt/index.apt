@@ -25,9 +25,9 @@
 ~~ http://maven.apache.org/doxia/references/apt-format.html
 
  Apache Kalumet is an open source software deployment platform.
- It covers J2EE platforms (application servers, war, ear, data
+ It covers JEE platforms (application servers, war, ear, data
  sources, JMS resources, etc), OSGi platforms, and wide scope
- softwares using update plans.
+ software using update plans.
 
  Using a set of plugins (JMX, custom, etc), Apache Kalumet
  currently supports IBM WebSphere, Oracle WebLogic, JBoss,

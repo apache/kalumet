@@ -34,7 +34,7 @@ import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.app.list.ListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JDBCConnectionPool;
 import org.apache.kalumet.model.JDBCDataSource;
 import org.apache.kalumet.model.Kalumet;
@@ -216,7 +216,7 @@ public class DataSourcesPane
       // name is not already in use
       if ( !dataSourceName.equals( nameFieldValue ) )
       {
-        if ( getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "datasource.exists" ),
@@ -225,7 +225,7 @@ public class DataSourcesPane
         }
       }
       // looking for the data source object
-      JDBCDataSource dataSource = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCDataSource dataSource = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( dataSourceName );
       if ( dataSource == null )
       {
@@ -293,7 +293,7 @@ public class DataSourcesPane
       // add the data source
       try
       {
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeSelectField.getSelectedItem() ).addJDBCDataSource( dataSource );
       }
       catch ( Exception e )
@@ -334,7 +334,7 @@ public class DataSourcesPane
         return;
       }
       // looking for the data source
-      final JDBCDataSource dataSource = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      final JDBCDataSource dataSource = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( event.getActionCommand() );
       if ( dataSource == null )
       {
@@ -349,7 +349,7 @@ public class DataSourcesPane
           public void actionPerformed( ActionEvent event )
           {
             // remove the data source
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeSelectField.getSelectedItem() ).getJDBCDataSources().remove( dataSource );
             // add a change event
             parent.getChangeEvents().add( "Delete JDBC data source " + dataSource.getName() );
@@ -517,7 +517,7 @@ public class DataSourcesPane
         return;
       }
       // looking for the data source object
-      JDBCDataSource dataSource = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCDataSource dataSource = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( event.getActionCommand() );
       if ( dataSource == null )
       {
@@ -566,7 +566,7 @@ public class DataSourcesPane
         return;
       }
       // looking for the data source object
-      JDBCDataSource dataSource = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCDataSource dataSource = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( event.getActionCommand() );
       if ( dataSource == null )
       {
@@ -638,7 +638,7 @@ public class DataSourcesPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for the connection pool object
-      JDBCDataSource dataSource = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCDataSource dataSource = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeSelectField.getSelectedItem() ).getJDBCDataSource( event.getActionCommand() );
       if ( dataSource == null )
       {
@@ -716,10 +716,10 @@ public class DataSourcesPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -755,10 +755,10 @@ public class DataSourcesPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -798,7 +798,7 @@ public class DataSourcesPane
     grid.add( dataSourcePoolHeader );
     // add the jdbc data sources
     for ( Iterator jdbcDataSourceIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               applicationServerName ).getJDBCDataSources().iterator(); jdbcDataSourceIterator.hasNext(); )
     {
       JDBCDataSource dataSource = (JDBCDataSource) jdbcDataSourceIterator.next();
@@ -895,7 +895,7 @@ public class DataSourcesPane
         "dspool_" + parent.getEnvironmentName() + "_" + applicationServerName + "_" + dataSource.getName() );
       DefaultListModel listModel = (DefaultListModel) dataSourcePool.getModel();
       listModel.removeAll();
-      for ( Iterator poolIterator = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      for ( Iterator poolIterator = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         applicationServerName ).getJDBCConnectionPools().iterator(); poolIterator.hasNext(); )
       {
         JDBCConnectionPool pool = (JDBCConnectionPool) poolIterator.next();
@@ -962,7 +962,7 @@ public class DataSourcesPane
       newConnectionPoolField.setWidth( new Extent( 100, Extent.PERCENT ) );
       DefaultListModel listModel = (DefaultListModel) newConnectionPoolField.getModel();
       listModel.removeAll();
-      for ( Iterator poolIterator = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      for ( Iterator poolIterator = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         applicationServerName ).getJDBCConnectionPools().iterator(); poolIterator.hasNext(); )
       {
         JDBCConnectionPool pool = (JDBCConnectionPool) poolIterator.next();

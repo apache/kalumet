@@ -21,13 +21,8 @@ package org.apache.kalumet.agent.updater;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.ContentManager;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.Property;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -53,13 +48,13 @@ public class ContentManagerUpdater
    * Update a content manager.
    *
    * @param environment    the target <code>Environment</code>.
-   * @param server         the target <code>J2EEApplicationServer</code>.
-   * @param application    the target <code>J2EEApplication</code>.
+   * @param server         the target <code>JEEApplicationServer</code>.
+   * @param application    the target <code>JEEApplication</code>.
    * @param contentManager the target <code>ContentManager</code>.
    * @param updateLog      the <code>UpdateLog</code> to use.
    * @throws UpdateException in case of update failure.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void update( Environment environment, JEEApplicationServer server, JEEApplication application,
                              ContentManager contentManager, UpdateLog updateLog )
     throws UpdateException
   {
@@ -149,8 +144,8 @@ public class ContentManagerUpdater
    * Wrapper method to update a content manager via WS.
    *
    * @param environmentName    the target environment name.
-   * @param serverName         the target J2EE application server name.
-   * @param applicationName    the target J2E application name.
+   * @param serverName         the target JEE application server name.
+   * @param applicationName    the target JEE application name.
    * @param contentManagerName the target content manager name.
    * @param delegation         flag indicating if the update is called by another agent (true) or by a client (false).
    * @throws KalumetException in case of update failure.
@@ -172,29 +167,29 @@ public class ContentManagerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName,
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName,
                     applicationServer.getName() );
-      throw new KalumetException( "J2EE application " + applicationName + " is not found in J2EE application server "
+      throw new KalumetException( "JEE application " + applicationName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
     ContentManager contentManager = application.getContentManager( contentManagerName );
     if ( contentManager == null )
     {
-      LOGGER.error( "Content manager {} is not found in J2EE application {}", contentManagerName,
+      LOGGER.error( "Content manager {} is not found in JEE application {}", contentManagerName,
                     application.getName() );
       throw new KalumetException(
-        "Content manager " + contentManagerName + " is not found in J2EE application " + application.getName() );
+        "Content manager " + contentManagerName + " is not found in JEE application " + application.getName() );
     }
 
     // update configuration cache.

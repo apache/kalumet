@@ -35,7 +35,7 @@ import org.apache.kalumet.model.Kalumet;
 import java.util.Iterator;
 
 /**
- * J2EE application server general pane.
+ * JEE application server general pane.
  */
 public class ApplicationServerGeneralPane
   extends ContentPane
@@ -245,7 +245,7 @@ public class ApplicationServerGeneralPane
     {
       blockerField.setSelectedIndex( 1 );
     }
-    // update the J2EE application server type field
+    // update the JEE application server type field
     if ( parent.getApplicationServer().getClassname() != null )
     {
       if ( parent.getApplicationServer().getClassname().equals( ApplicationServerWindow.JBOSS4_CONTROLLER_CLASSNAME ) )

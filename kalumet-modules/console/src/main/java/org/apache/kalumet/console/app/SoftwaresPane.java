@@ -213,15 +213,15 @@ public class SoftwaresPane
         return;
       }
       // change the external software order
-      if ( software.isBeforej2ee() )
+      if ( software.isBeforejee() )
       {
-        software.setBeforej2ee( false );
-        parent.getChangeEvents().add( "Flag software " + software.getName() + " to be updated after J2EE resources." );
+        software.setBeforejee(false);
+        parent.getChangeEvents().add( "Flag software " + software.getName() + " to be updated after JEE resources." );
       }
       else
       {
-        software.setBeforej2ee( true );
-        parent.getChangeEvents().add( "Flag software " + software.getName() + " to be updated before J2EE resources." );
+        software.setBeforejee(true);
+        parent.getChangeEvents().add( "Flag software " + software.getName() + " to be updated before JEE resources." );
       }
       // change the updated flag
       parent.setUpdated( true );
@@ -655,7 +655,7 @@ public class SoftwaresPane
       grid.add( row );
       // before JEE resources
       Button orderButton;
-      if ( software.isBeforej2ee() )
+      if ( software.isBeforejee() )
       {
         orderButton = new Button( Styles.BOOK_PREVIOUS );
         orderButton.setToolTipText( Messages.getString( "switch.afterjee" ) );

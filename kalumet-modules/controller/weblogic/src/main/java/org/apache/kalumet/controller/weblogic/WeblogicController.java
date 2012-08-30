@@ -18,7 +18,7 @@
  */
 package org.apache.kalumet.controller.weblogic;
 
-import org.apache.kalumet.controller.core.AbstractJ2EEApplicationServerController;
+import org.apache.kalumet.controller.core.AbstractJEEApplicationServerController;
 import org.apache.kalumet.controller.core.ControllerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ import java.util.Properties;
  * WeblogicController is a controller  to manage a Oracle/BEA WebLogic server.
  */
 public class WeblogicController
-  extends AbstractJ2EEApplicationServerController
+  extends AbstractJEEApplicationServerController
 {
 
   private final static transient Logger LOGGER = LoggerFactory.getLogger( WeblogicController.class );
@@ -212,10 +212,10 @@ public class WeblogicController
     }
   }
 
-  public boolean isJ2EEApplicationDeployed( String path, String name )
+  public boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Checking if the J2EE application {} is deployed", name );
+    LOGGER.info( "Checking if the JEE application {} is deployed", name );
     try
     {
       home.getAdminMBean( name, "Application", home.getDomainName() );
@@ -227,11 +227,11 @@ public class WeblogicController
     return true;
   }
 
-  public void deployJ2EEApplication( String path, String name, String classloaderorder, String classloaderpolicy,
-                                     String vhost )
+  public void deployJEEApplication(String path, String name, String classloaderorder, String classloaderpolicy,
+                                   String vhost)
     throws ControllerException
   {
-    LOGGER.info( "Deploying J2EE application {} in WebLogic server/cluster {}", name, this.getServerName() );
+    LOGGER.info( "Deploying JEE application {} in WebLogic server/cluster {}", name, this.getServerName() );
     try
     {
       DeployerRuntimeMBean deployerRuntime = DeployerRuntime.getDeployerRuntime( home );
@@ -254,15 +254,15 @@ public class WeblogicController
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't deploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't deploy J2EE application " + name, e );
+      LOGGER.error( "Can't deploy JEE application {}", name, e );
+      throw new ControllerException( "Can't deploy JEE application " + name, e );
     }
   }
 
-  public void undeployJ2EEApplication( String path, String name )
+  public void undeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Undeploying J2EE application {} from WebLogic server/cluster {}", name, this.getServerName() );
+    LOGGER.info( "Undeploying JEE application {} from WebLogic server/cluster {}", name, this.getServerName() );
     try
     {
       DeployerRuntimeMBean deployerRuntime = DeployerRuntime.getDeployerRuntime( home );
@@ -285,15 +285,15 @@ public class WeblogicController
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't undeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't undeploy J2EE application " + name, e );
+      LOGGER.error( "Can't undeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't undeploy JEE application " + name, e );
     }
   }
 
-  public void redeployJ2EEApplication( String path, String name )
+  public void redeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Redeploying J2EE application {} in WebLogic server/cluster {}", name, this.getServerName() );
+    LOGGER.info( "Redeploying JEE application {} in WebLogic server/cluster {}", name, this.getServerName() );
     try
     {
       DeployerRuntimeMBean deployerRuntime = DeployerRuntime.getDeployerRuntime( home );
@@ -316,8 +316,8 @@ public class WeblogicController
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't redeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't redeploy J2EE application " + name, e );
+      LOGGER.error( "Can't redeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't redeploy JEE application " + name, e );
     }
   }
 

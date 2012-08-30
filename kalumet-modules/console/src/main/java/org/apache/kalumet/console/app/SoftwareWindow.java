@@ -412,11 +412,11 @@ public class SoftwareWindow
       }
       if ( beforeJeeFieldIndex == 0 )
       {
-        software.setBeforej2ee( true );
+        software.setBeforejee(true);
       }
       else
       {
-        software.setBeforej2ee( false );
+        software.setBeforejee(false);
       }
       software.setUri( uriFieldValue );
       // add the software object if needed
@@ -2238,7 +2238,7 @@ public class SoftwareWindow
     }
     uriField.setText( software.getUri() );
     // update the before JEE field
-    if ( software.isBeforej2ee() )
+    if ( software.isBeforejee() )
     {
       beforeJeeField.setSelectedIndex( 0 );
     }

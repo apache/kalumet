@@ -35,15 +35,15 @@ public class ContentManagerClient
   public ContentManagerClient( String host, int port )
     throws ClientException
   {
-    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationContentManagerService" );
+    super( "http://" + host + ":" + port + "/axis/services/JEEApplicationContentManagerService" );
   }
 
   /**
-   * Wrapper method to update a J2EE application content manager.
+   * Wrapper method to update a JEE application content manager.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param applicationServerName the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param contentManagerName    the target content manager name.
    * @param delegation            true if the call is a delegation from another agent, false else.
    * @throws ClientException

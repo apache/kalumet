@@ -446,11 +446,11 @@ public class EnvironmentWindow
       environment.setWeblinks( weblinksAreaValue );
       if ( applicationServersTopologyFieldIndex == 0 )
       {
-        environment.getJ2EEApplicationServers().setCluster( false );
+        environment.getJEEApplicationServers().setCluster( false );
       }
       else
       {
-        environment.getJ2EEApplicationServers().setCluster( true );
+        environment.getJEEApplicationServers().setCluster( true );
       }
       environment.getNotifiers().setCountdown( notifierCountDownInt );
       // looking for the environment
@@ -986,7 +986,7 @@ public class EnvironmentWindow
     sharedLibrariesPane.setLayoutData( tabLayoutData );
     resourcesPane.add( sharedLibrariesPane );
 
-    // add the j2ee applications tab
+    // add the JEE applications tab
     tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "applications" ) );
     applicationsPane = new ApplicationsPane( this );

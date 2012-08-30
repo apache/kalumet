@@ -22,10 +22,10 @@ import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
 import org.apache.kalumet.controller.core.ControllerException;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JMSConnectionFactory;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.update.UpdateLog;
@@ -47,11 +47,11 @@ public class JMSConnectionFactoryUpdater
    * Updates a JMS connection factory.
    *
    * @param environment          the target <code>Environment</code>.
-   * @param server               the target <code>J2EEApplicationServer</code>.
+   * @param server               the target <code>JEEApplicationServer</code>.
    * @param jmsConnectionFactory the target <code>JMSConnectionFactory</code>.
    * @param updateLog            the <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server,
+  public static void update( Environment environment, JEEApplicationServer server,
                              JMSConnectionFactory jmsConnectionFactory, UpdateLog updateLog )
     throws UpdateException
   {
@@ -69,23 +69,23 @@ public class JMSConnectionFactoryUpdater
                        "JMS Connection Factory " + jmsConnectionFactory.getName() + " is inactive, so not updated" );
       return;
     }
-    J2EEApplicationServerController controller = null;
+    JEEApplicationServerController controller = null;
     try
     {
-      // connect controller to J2EE application server
-      LOGGER.debug( "Connecting to J2EE application server controller" );
-      controller = J2EEApplicationServerControllerFactory.getController( environment, server );
+      // connect controller to JEE application server
+      LOGGER.debug( "Connecting to JEE application server controller" );
+      controller = JEEApplicationServerControllerFactory.getController(environment, server);
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "Can't connect to J2EE application server {} controller", server.getName(), e );
-      throw new UpdateException( "Can't connect to J2EE application server " + server.getName() + " controller", e );
+      LOGGER.error( "Can't connect to JEE application server {} controller", server.getName(), e );
+      throw new UpdateException( "Can't connect to JEE application server " + server.getName() + " controller", e );
     }
     try
     {
       if ( controller.isJMSConnectionFactoryDeployed( jmsConnectionFactory.getName() ) )
       {
-        // JMS connection factory already deployed in the J2EE application server
+        // JMS connection factory already deployed in the JEE application server
         LOGGER.info( "JMS connection factory {} already deployed", jmsConnectionFactory.getName() );
         updateLog.addUpdateMessage( new UpdateMessage( "info",
                                                        "JMS connection factory " + jmsConnectionFactory.getName()
@@ -117,7 +117,7 @@ public class JMSConnectionFactoryUpdater
    * Wrapper method to update a JMS connection factory via WS.
    *
    * @param environmentName          the target environment name.
-   * @param serverName               the target J2EE application server name.
+   * @param serverName               the target JEE application server name.
    * @param jmsConnectionFactoryName the target JMS connection factory name.
    * @throws KalumetException in case of update failure.
    */
@@ -137,20 +137,20 @@ public class JMSConnectionFactoryUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server = environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer server = environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     JMSConnectionFactory jmsConnectionFactory = server.getJMSConnectionFactory( jmsConnectionFactoryName );
     if ( jmsConnectionFactory == null )
     {
-      LOGGER.error( "JMS connection factory {} is not found in J2EE application server {}", jmsConnectionFactoryName,
+      LOGGER.error( "JMS connection factory {} is not found in JEE application server {}", jmsConnectionFactoryName,
                     server.getName() );
       throw new KalumetException(
-        "JMS connection factory " + jmsConnectionFactoryName + " is not found in J2EE application server "
+        "JMS connection factory " + jmsConnectionFactoryName + " is not found in JEE application server "
           + server.getName() );
     }
 
@@ -207,7 +207,7 @@ public class JMSConnectionFactoryUpdater
    * Check a JMS connection factory via WS.
    *
    * @param environmentName          the target environment name.
-   * @param applicationServerName    the target J2EE application server name.
+   * @param applicationServerName    the target JEE application server name.
    * @param jmsConnectionFactoryName the target JMS connection factory name.
    * @return true if the JMS connection factory is up to date, false else.
    * @throws KalumetException in case of check failure.
@@ -228,22 +228,22 @@ public class JMSConnectionFactoryUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( applicationServerName );
+    JEEApplicationServer server =
+      environment.getJEEApplicationServers().getJEEApplicationServer(applicationServerName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", applicationServerName,
+      LOGGER.error( "JEE application server {} is not found in environment {}", applicationServerName,
                     environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + applicationServerName + " is not found in environment " + environment.getName() );
+        "JEE application server " + applicationServerName + " is not found in environment " + environment.getName() );
     }
     JMSConnectionFactory jmsConnectionFactory = server.getJMSConnectionFactory( jmsConnectionFactoryName );
     if ( jmsConnectionFactory == null )
     {
-      LOGGER.error( "JMS connection factory {} is not found in the J2EE application server {}",
+      LOGGER.error( "JMS connection factory {} is not found in the JEE application server {}",
                     jmsConnectionFactoryName, server.getName() );
       throw new KalumetException(
-        "JMS connection factory " + jmsConnectionFactoryName + " is not found in the J2EE application server "
+        "JMS connection factory " + jmsConnectionFactoryName + " is not found in the JEE application server "
           + server.getName() );
     }
 
@@ -253,10 +253,10 @@ public class JMSConnectionFactoryUpdater
 
     try
     {
-      // get J2EE application server controller.
-      LOGGER.debug( "Getting J2EE application server controller" );
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, server );
+      // get JEE application server controller.
+      LOGGER.debug( "Getting JEE application server controller" );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, server);
       // check if the JMS connection factory is deployed
       LOGGER.debug( "Check the status of the JMS connection factory " + jmsConnectionFactory.getName() );
       return controller.isJMSConnectionFactoryDeployed( jmsConnectionFactory.getName() );

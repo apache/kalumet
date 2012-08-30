@@ -51,7 +51,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * J2EE application database window.
+ * JEE application database window.
  */
 public class ApplicationDatabaseWindow
   extends WindowPane
@@ -124,7 +124,7 @@ public class ApplicationDatabaseWindow
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
+        message = "JEE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
           + " update failed: " + e.getMessage();
       }
       finally
@@ -621,11 +621,11 @@ public class ApplicationDatabaseWindow
           {
             // add a message into the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
+              "JEE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
                 + " update in progress...",
               parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
             parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
+              "JEE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
                 + " update in progress ..." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
@@ -648,11 +648,11 @@ public class ApplicationDatabaseWindow
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
+                      "JEE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
                         + " updated.",
                       parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
                     parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
+                      "JEE application " + parent.getParentPane().getApplicationName() + " database " + databaseName
                         + " updated." );
                   }
                 }
@@ -1080,7 +1080,7 @@ public class ApplicationDatabaseWindow
     connectionPoolListModel.removeAll();
     connectionPoolListModel.add( "" );
     for ( Iterator connectionPoolIterator =
-            getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               parent.getParentPane().getServerName() ).getJDBCConnectionPools().iterator();
           connectionPoolIterator.hasNext(); )
     {

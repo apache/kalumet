@@ -37,7 +37,7 @@ import org.apache.kalumet.model.Kalumet;
 import java.util.Iterator;
 
 /**
- * J2EE application general pane.
+ * JEE application general pane.
  */
 public class ApplicationGeneralPane
   extends ContentPane

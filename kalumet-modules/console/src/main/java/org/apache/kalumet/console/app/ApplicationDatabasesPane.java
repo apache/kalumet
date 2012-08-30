@@ -37,7 +37,7 @@ import org.apache.kalumet.ws.client.DatabaseClient;
 import java.util.Iterator;
 
 /**
- * J2EE application databases pane.
+ * JEE application databases pane.
  */
 public class ApplicationDatabasesPane
   extends ContentPane
@@ -79,7 +79,7 @@ public class ApplicationDatabasesPane
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getApplicationName() + " database " + databaseName + " update failed: "
+        message = "JEE application " + parent.getApplicationName() + " database " + databaseName + " update failed: "
           + e.getMessage();
       }
       finally
@@ -325,10 +325,10 @@ public class ApplicationDatabasesPane
           {
             // add a message in the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + parent.getApplicationName() + " database " + databaseName
+              "JEE application " + parent.getApplicationName() + " database " + databaseName
                 + " update in progress...", parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
             parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + parent.getApplicationName() + " database " + databaseName + " update requested." );
+              "JEE application " + parent.getApplicationName() + " database " + databaseName + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
             updateThread.databaseName = databaseName;
@@ -350,10 +350,10 @@ public class ApplicationDatabasesPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + parent.getApplicationName() + " database " + databaseName + " updated.",
+                      "JEE application " + parent.getApplicationName() + " database " + databaseName + " updated.",
                       parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
                     parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + parent.getApplicationName() + " database " + databaseName + " updated." );
+                      "JEE application " + parent.getApplicationName() + " database " + databaseName + " updated." );
                   }
                 }
                 else

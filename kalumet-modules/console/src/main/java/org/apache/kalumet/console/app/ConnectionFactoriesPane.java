@@ -33,7 +33,7 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JMSConnectionFactory;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.ws.client.JMSConnectionFactoryClient;
@@ -200,7 +200,7 @@ public class ConnectionFactoriesPane
       // if not already in use
       if ( !name.equals( nameFieldValue ) )
       {
-        if ( parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -210,7 +210,7 @@ public class ConnectionFactoriesPane
       }
       // looking for the JMS connection factory object
       JMSConnectionFactory connectionFactory =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( name );
       if ( connectionFactory == null )
       {
@@ -267,7 +267,7 @@ public class ConnectionFactoriesPane
       // add the JMS connection factory
       try
       {
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).addJMSConnectionFactory( connectionFactory );
       }
       catch ( Exception e )
@@ -317,7 +317,7 @@ public class ConnectionFactoriesPane
           {
             // looking for the JMS connection factory object
             JMSConnectionFactory connectionFactory =
-              parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+              parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
                 (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( name );
             if ( connectionFactory == null )
             {
@@ -326,7 +326,7 @@ public class ConnectionFactoriesPane
               return;
             }
             // delete the JMS connection factory
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeField.getSelectedItem() ).getJMSConnectionFactories().remove( connectionFactory );
             // add a change event
             parent.getChangeEvents().add( "Delete JMS connection factory " + connectionFactory.getName() );
@@ -363,7 +363,7 @@ public class ConnectionFactoriesPane
       }
       // looking for the JMS connection factory object
       JMSConnectionFactory connectionFactory =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( event.getActionCommand() );
       if ( connectionFactory == null )
       {
@@ -413,7 +413,7 @@ public class ConnectionFactoriesPane
       }
       // looking for the JMS connection factory object
       JMSConnectionFactory connectionFactory =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( event.getActionCommand() );
       if ( connectionFactory == null )
       {
@@ -487,7 +487,7 @@ public class ConnectionFactoriesPane
     {
       // looking for the JMS connection factory
       JMSConnectionFactory connectionFactory =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJMSConnectionFactory( event.getActionCommand() );
       if ( connectionFactory == null )
       {
@@ -693,10 +693,10 @@ public class ConnectionFactoriesPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -731,10 +731,10 @@ public class ConnectionFactoriesPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -773,7 +773,7 @@ public class ConnectionFactoriesPane
     grid.add( connectionFactoryNameHeader );
     // add the jms connection factories
     for ( Iterator jmsConnectionFactoryIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               applicationServerName ).getJMSConnectionFactories().iterator(); jmsConnectionFactoryIterator.hasNext(); )
     {
       JMSConnectionFactory connectionFactory = (JMSConnectionFactory) jmsConnectionFactoryIterator.next();

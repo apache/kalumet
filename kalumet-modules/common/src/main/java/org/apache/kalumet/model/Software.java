@@ -45,7 +45,7 @@ public class Software
 
   private boolean blocker;
 
-  private boolean beforej2ee;
+  private boolean beforejee;
 
   private LinkedList updatePlan;
 
@@ -104,14 +104,14 @@ public class Software
     this.blocker = blocker;
   }
 
-  public boolean isBeforej2ee()
+  public boolean isBeforejee()
   {
-    return beforej2ee;
+    return beforejee;
   }
 
-  public void setBeforej2ee( boolean beforej2ee )
+  public void setBeforejee(boolean beforejee)
   {
-    this.beforej2ee = beforej2ee;
+    this.beforejee = beforejee;
   }
 
   public LinkedList getUpdatePlan()
@@ -319,7 +319,7 @@ public class Software
     clone.setUri( this.getUri() );
     clone.setActive( this.isActive() );
     clone.setBlocker( this.isBlocker() );
-    clone.setBeforej2ee( this.isBeforej2ee() );
+    clone.setBeforejee(this.isBeforejee());
     for ( Iterator updatePlanIterator = this.getUpdatePlan().iterator(); updatePlanIterator.hasNext(); )
     {
       Object item = updatePlanIterator.next();
@@ -357,7 +357,7 @@ public class Software
     element.setAttribute( "agent", this.getAgent() );
     element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
     element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
-    element.setAttribute( "beforej2ee", new Boolean( this.isBeforej2ee() ).toString() );
+    element.setAttribute( "beforejee", new Boolean( this.isBeforejee() ).toString() );
     ElementImpl updateplan = new ElementImpl( document, "updateplan" );
     element.appendChild( updateplan );
     for ( Iterator updatePlanIterator = this.getUpdatePlan().iterator(); updatePlanIterator.hasNext(); )

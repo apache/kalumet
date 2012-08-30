@@ -22,7 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.kalumet.FileManipulator;
 import org.apache.kalumet.FileManipulatorException;
-import org.apache.kalumet.controller.core.AbstractJ2EEApplicationServerController;
+import org.apache.kalumet.controller.core.AbstractJEEApplicationServerController;
 import org.apache.kalumet.controller.core.ControllerException;
 import org.jboss.jmx.adaptor.rmi.RMIAdaptor;
 import org.slf4j.Logger;
@@ -52,7 +52,7 @@ import java.util.Properties;
  * JBoss4Controller is a controller to connect and manage a JBoss server.
  */
 public class JBoss4Controller
-  extends AbstractJ2EEApplicationServerController
+  extends AbstractJEEApplicationServerController
 {
 
   private final static transient Logger LOGGER = LoggerFactory.getLogger( JBoss4Controller.class );
@@ -209,10 +209,10 @@ public class JBoss4Controller
     }
   }
 
-  public boolean isJ2EEApplicationDeployed( String path, String name )
+  public boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Checking if the J2EE application {} is deployed", name );
+    LOGGER.info( "Checking if the JEE application {} is deployed", name );
     String applicationUrl = JBoss4Controller.formatPathToUrl( path );
     boolean deployed = false;
     ObjectName mbean = null;
@@ -224,17 +224,17 @@ public class JBoss4Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't check if the J2EE application {} is deployed", name, e );
-      throw new ControllerException( "Can't check if the J2EE application " + name + " is deployed", e );
+      LOGGER.error( "Can't check if the JEE application {} is deployed", name, e );
+      throw new ControllerException( "Can't check if the JEE application " + name + " is deployed", e );
     }
     return deployed;
   }
 
-  public void deployJ2EEApplication( String path, String name, String classloaderorder, String classloaderpolicy,
-                                     String vhost )
+  public void deployJEEApplication(String path, String name, String classloaderorder, String classloaderpolicy,
+                                   String vhost)
     throws ControllerException
   {
-    LOGGER.info( "Deploying the J2EE application {} ({})", name, path );
+    LOGGER.info( "Deploying the JEE application {} ({})", name, path );
     String applicationUrl = JBoss4Controller.formatPathToUrl( path );
     ObjectName mbean = null;
     try
@@ -244,15 +244,15 @@ public class JBoss4Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't deploy the J2EE application {}", name, e );
-      throw new ControllerException( "Can't deploy the J2EE application " + name, e );
+      LOGGER.error( "Can't deploy the JEE application {}", name, e );
+      throw new ControllerException( "Can't deploy the JEE application " + name, e );
     }
   }
 
-  public void undeployJ2EEApplication( String path, String name )
+  public void undeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Undeploying the J2EE application {} ({})", name, path );
+    LOGGER.info( "Undeploying the JEE application {} ({})", name, path );
     String applicationUrl = JBoss4Controller.formatPathToUrl( path );
     ObjectName mbean = null;
     try
@@ -262,15 +262,15 @@ public class JBoss4Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't undeploy the J2EE application {}", name, e );
-      throw new ControllerException( "Can't undeploy the J2EE application " + name, e );
+      LOGGER.error( "Can't undeploy the JEE application {}", name, e );
+      throw new ControllerException( "Can't undeploy the JEE application " + name, e );
     }
   }
 
-  public void redeployJ2EEApplication( String path, String name )
+  public void redeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Redeploying the J2EE application {} ({})", name, path );
+    LOGGER.info( "Redeploying the JEE application {} ({})", name, path );
     String applicationUrl = JBoss4Controller.formatPathToUrl( path );
     ObjectName mbean = null;
     try
@@ -280,8 +280,8 @@ public class JBoss4Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't redeploy the J2EE application {}", name, e );
-      throw new ControllerException( "Can't redeploy the J2EE application " + name, e );
+      LOGGER.error( "Can't redeploy the JEE application {}", name, e );
+      throw new ControllerException( "Can't redeploy the JEE application " + name, e );
     }
   }
 

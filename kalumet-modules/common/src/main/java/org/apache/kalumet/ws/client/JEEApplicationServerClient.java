@@ -19,9 +19,9 @@
 package org.apache.kalumet.ws.client;
 
 /**
- * J2EE application server WS client.
+ * JEE application server WS client.
  */
-public class J2EEApplicationServerClient
+public class JEEApplicationServerClient
   extends AbstractClient
 {
 
@@ -32,17 +32,17 @@ public class J2EEApplicationServerClient
    * @param port the port number of the Kalumet agent WS server.
    * @throws ClientException in case of communication failure.
    */
-  public J2EEApplicationServerClient( String host, int port )
+  public JEEApplicationServerClient(String host, int port)
     throws ClientException
   {
-    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationServerService" );
+    super( "http://" + host + ":" + port + "/axis/services/JEEApplicationServerService" );
   }
 
   /**
-   * Wrapper method to stop a J2EE application server.
+   * Wrapper method to stop a JEE application server.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @throws ClientException in case of stop failure.
    */
   public void stop( String environmentName, String applicationServerName )
@@ -54,15 +54,15 @@ public class J2EEApplicationServerClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application server " + applicationServerName + " stop failed", e );
+      throw new ClientException( "JEE application server " + applicationServerName + " stop failed", e );
     }
   }
 
   /**
-   * Wrapper method to start a J2EE application server.
+   * Wrapper method to start a JEE application server.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @throws ClientException in case of stop failure.
    */
   public void start( String environmentName, String applicationServerName )
@@ -74,16 +74,16 @@ public class J2EEApplicationServerClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application server " + applicationServerName + " start failed", e );
+      throw new ClientException( "JEE application server " + applicationServerName + " start failed", e );
     }
   }
 
   /**
-   * Wrapper method to check the status of a J2EE application server.
+   * Wrapper method to check the status of a JEE application server.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @return the current status of the J2EE application server.
+   * @param applicationServerName the target JEE application server name.
+   * @return the current status of the JEE application server.
    * @throws ClientException in case of status check failure.
    */
   public String status( String environmentName, String applicationServerName )
@@ -96,16 +96,16 @@ public class J2EEApplicationServerClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application server " + applicationServerName + " status check failed", e );
+      throw new ClientException( "JEE application server " + applicationServerName + " status check failed", e );
     }
     return status;
   }
 
   /**
-   * Wrapper method to update a J2EE application server.
+   * Wrapper method to update a JEE application server.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param delegation            if true, the call is a delegation from another agent, false else.
    * @throws ClientException in case of update failure.
    */
@@ -118,7 +118,7 @@ public class J2EEApplicationServerClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application server " + applicationServerName + " update failed", e );
+      throw new ClientException( "JEE application server " + applicationServerName + " update failed", e );
     }
   }
 

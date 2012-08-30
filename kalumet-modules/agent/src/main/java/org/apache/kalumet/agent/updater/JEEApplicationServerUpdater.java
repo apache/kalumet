@@ -22,20 +22,10 @@ import org.apache.kalumet.FileManipulator;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.Cache;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JDBCConnectionPool;
-import org.apache.kalumet.model.JDBCDataSource;
-import org.apache.kalumet.model.JMSConnectionFactory;
-import org.apache.kalumet.model.JMSServer;
-import org.apache.kalumet.model.JNDIBinding;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.SharedLibrary;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.CommandUtils;
@@ -43,7 +33,7 @@ import org.apache.kalumet.utils.NotifierUtils;
 import org.apache.kalumet.utils.PublisherUtils;
 import org.apache.kalumet.utils.VariableUtils;
 import org.apache.kalumet.ws.client.ClientException;
-import org.apache.kalumet.ws.client.J2EEApplicationServerClient;
+import org.apache.kalumet.ws.client.JEEApplicationServerClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,12 +41,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Update a J2EE application server.
+ * Update a JEE application server.
  */
-public class J2EEApplicationServerUpdater
+public class JEEApplicationServerUpdater
 {
 
-  private static final transient Logger LOGGER = LoggerFactory.getLogger( J2EEApplicationServerUpdater.class );
+  private static final transient Logger LOGGER = LoggerFactory.getLogger( JEEApplicationServerUpdater.class );
 
   /**
    * Wrapper class to update a JEE application server (via WS).
@@ -69,7 +59,7 @@ public class J2EEApplicationServerUpdater
   public static void update( String environmentName, String serverName, boolean delegation )
     throws KalumetException
   {
-    LOGGER.info( "J2EE application server {} update requested by WS", serverName );
+    LOGGER.info( "JEE application server {} update requested by WS", serverName );
     // load configuration
     LOGGER.debug( "Loading configuration" );
     Kalumet kalumet = Kalumet.digeste( Configuration.CONFIG_LOCATION );
@@ -79,21 +69,21 @@ public class J2EEApplicationServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
     // update configuration cache
     LOGGER.debug( "Updating configuration cache" );
     Configuration.CONFIG_CACHE = kalumet;
 
-    EventUtils.post( environment, "UPDATE", "J2EE application server " + serverName + " update requested by WS" );
+    EventUtils.post( environment, "UPDATE", "JEE application server " + serverName + " update requested by WS" );
     UpdateLog updateLog =
-      new UpdateLog( "J2EE application server " + serverName + " update in progress ...", environment.getName(),
+      new UpdateLog( "JEE application server " + serverName + " update in progress ...", environment.getName(),
                      environment );
 
     if ( !delegation )
@@ -107,40 +97,40 @@ public class J2EEApplicationServerUpdater
     try
     {
       // launch the update
-      LOGGER.debug( "Call J2EE application server updater" );
-      J2EEApplicationServerUpdater.update( kalumet, environment, applicationServer, updateLog );
+      LOGGER.debug( "Call JEE application server updater" );
+      JEEApplicationServerUpdater.update(kalumet, environment, applicationServer, updateLog);
     }
     catch ( Exception e )
     {
       // an error occurs
-      LOGGER.error( "J2EE application server {} update failed", serverName, e );
+      LOGGER.error( "JEE application server {} update failed", serverName, e );
       EventUtils.post( environment, "ERROR",
-                       "J2EE application server " + serverName + " update failed: " + e.getMessage() );
+                       "JEE application server " + serverName + " update failed: " + e.getMessage() );
       if ( !delegation )
       {
         // it's not a delegation from another agent, publish update result
-        updateLog.setStatus( "J2EE application server " + serverName + " update failed" );
+        updateLog.setStatus( "JEE application server " + serverName + " update failed" );
         updateLog.addUpdateMessage(
-          new UpdateMessage( "error", "J2EE application server " + serverName + " update failed: " + e.getMessage() ) );
+          new UpdateMessage( "error", "JEE application server " + serverName + " update failed: " + e.getMessage() ) );
         PublisherUtils.publish( environment );
       }
-      throw new UpdateException( "J2EE application server " + serverName + " update failed", e );
+      throw new UpdateException( "JEE application server " + serverName + " update failed", e );
     }
 
     // update is completed
-    LOGGER.info( "J2EE application server {} updated", applicationServer.getName() );
-    EventUtils.post( environment, "UPDATE", "J2EE application server " + serverName + " updated" );
+    LOGGER.info( "JEE application server {} updated", applicationServer.getName() );
+    EventUtils.post( environment, "UPDATE", "JEE application server " + serverName + " updated" );
 
     if ( !delegation )
     {
       // it's not a delegation from another agent, publish update result
       if ( updateLog.isUpdated() )
       {
-        updateLog.setStatus( "J2EE application server " + serverName + " updated" );
+        updateLog.setStatus( "JEE application server " + serverName + " updated" );
       }
       else
       {
-        updateLog.setStatus( "J2EE application server " + serverName + " already up to date" );
+        updateLog.setStatus( "JEE application server " + serverName + " already up to date" );
       }
       updateLog.addUpdateMessage( new UpdateMessage( "info", "Update completed" ) );
       LOGGER.info( "Publishing update report" );
@@ -149,27 +139,27 @@ public class J2EEApplicationServerUpdater
   }
 
   /**
-   * Update a J2EE application server.
+   * Update a JEE application server.
    *
    * @param kalumet     the main configuration.
    * @param environment the target <code>Environment</code>.
    * @param server      the target <code>ApplicationServer</code> to update.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  public static void update( Kalumet kalumet, Environment environment, J2EEApplicationServer server,
+  public static void update( Kalumet kalumet, Environment environment, JEEApplicationServer server,
                              UpdateLog updateLog )
     throws UpdateException
   {
     String applicationServerJmxUrl = VariableUtils.replace( server.getJmxurl(), environment.getVariables() );
-    LOGGER.info( "Updating J2EE application server {}", server.getName() );
+    LOGGER.info( "Updating JEE application server {}", server.getName() );
 
     if ( !server.isActive() )
     {
-      LOGGER.info( "J2EE application server {} is inactive, so not updated", server.getName() );
+      LOGGER.info( "JEE application server {} is inactive, so not updated", server.getName() );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " is inactive, so not updated" ) );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " is inactive, so not updated" ) );
       EventUtils.post( environment, "UPDATE",
-                       "J2EE application server " + server.getName() + " is inactive, so not updated" );
+                       "JEE application server " + server.getName() + " is inactive, so not updated" );
       return;
     }
 
@@ -177,11 +167,11 @@ public class J2EEApplicationServerUpdater
       !server.getAgent().equals( Configuration.AGENT_ID ) )
     {
       // delegates the update to another agent
-      LOGGER.info( "Delegating J2EE application server {} update to agent {}", server.getName(), server.getAgent() );
+      LOGGER.info( "Delegating JEE application server {} update to agent {}", server.getName(), server.getAgent() );
       EventUtils.post( environment, "UPDATE",
-                       "Delegating J2EE application server " + server.getName() + " update to agent "
+                       "Delegating JEE application server " + server.getName() + " update to agent "
                          + server.getAgent() );
-      updateLog.addUpdateMessage( new UpdateMessage( "info", "Delegating J2EE application server " + server.getName()
+      updateLog.addUpdateMessage( new UpdateMessage( "info", "Delegating JEE application server " + server.getName()
         + " update to agent " + server.getAgent() ) );
       Agent delegationAgent = Configuration.CONFIG_CACHE.getAgent( server.getAgent() );
       if ( delegationAgent == null )
@@ -193,22 +183,22 @@ public class J2EEApplicationServerUpdater
       try
       {
         // request the update via WebService call
-        LOGGER.debug( "Call J2EE application server WS" );
-        J2EEApplicationServerClient client =
-          new J2EEApplicationServerClient( delegationAgent.getHostname(), delegationAgent.getPort() );
+        LOGGER.debug( "Call JEE application server WS" );
+        JEEApplicationServerClient client =
+          new JEEApplicationServerClient( delegationAgent.getHostname(), delegationAgent.getPort() );
         client.update( environment.getName(), server.getName(), true );
       }
       catch ( ClientException e )
       {
         // an error occurs during the update on the remote agent
-        LOGGER.error( "J2EE application server {} update failed", server.getName(), e );
-        throw new UpdateException( "J2EE application server " + server.getName() + " update failed", e );
+        LOGGER.error( "JEE application server {} update failed", server.getName(), e );
+        throw new UpdateException( "JEE application server " + server.getName() + " update failed", e );
       }
       return;
     }
 
-    EventUtils.post( environment, "UPDATE", "Updating J2EE application server " + server.getName() );
-    updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application server " + server.getName() + " located "
+    EventUtils.post( environment, "UPDATE", "Updating JEE application server " + server.getName() );
+    updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application server " + server.getName() + " located "
       + applicationServerJmxUrl ) );
 
     // update JDBC connection pools
@@ -454,166 +444,166 @@ public class J2EEApplicationServerUpdater
       }
     }
 
-    // update J2EE applications
-    LOGGER.info( "Updating J2EE applications" );
-    for ( Iterator applicationIterator = server.getJ2EEApplications().iterator(); applicationIterator.hasNext(); )
+    // update JEE applications
+    LOGGER.info( "Updating JEE applications" );
+    for ( Iterator applicationIterator = server.getJEEApplications().iterator(); applicationIterator.hasNext(); )
     {
-      J2EEApplication application = (J2EEApplication) applicationIterator.next();
+      JEEApplication application = (JEEApplication) applicationIterator.next();
       try
       {
-        J2EEApplicationUpdater.update( environment, server, application, updateLog );
+        JEEApplicationUpdater.update(environment, server, application, updateLog);
       }
       catch ( UpdateException updateException )
       {
-        // the J2EE application update has failed
+        // the JEE application update has failed
         if ( application.isBlocker() )
         {
-          // J2EE application is update blocker
-          LOGGER.error( "J2EE application {} update failed", application.getName(), updateException );
-          updateLog.addUpdateMessage( new UpdateMessage( "error", "J2EE application " + application.getName()
+          // JEE application is update blocker
+          LOGGER.error( "JEE application {} update failed", application.getName(), updateException );
+          updateLog.addUpdateMessage( new UpdateMessage( "error", "JEE application " + application.getName()
             + " update failed: " + updateException.getMessage() ) );
-          EventUtils.post( environment, "ERROR", "J2EE application " + application.getName() + " update failed: "
+          EventUtils.post( environment, "ERROR", "JEE application " + application.getName() + " update failed: "
             + updateException.getMessage() );
-          throw new UpdateException( "J2EE application " + application.getName() + " update failed", updateException );
+          throw new UpdateException( "JEE application " + application.getName() + " update failed", updateException );
         }
         else
         {
-          // J2EE application is not update blocker
-          LOGGER.warn( "J2EE application {} update failed", application.getName(), updateException );
-          updateLog.addUpdateMessage( new UpdateMessage( "warn", "J2EE application " + application.getName()
+          // JEE application is not update blocker
+          LOGGER.warn( "JEE application {} update failed", application.getName(), updateException );
+          updateLog.addUpdateMessage( new UpdateMessage( "warn", "JEE application " + application.getName()
             + " update failed: " + updateException.getMessage() ) );
-          updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application " + application.getName()
+          updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application " + application.getName()
             + " is not update blocker, update continues" ) );
-          EventUtils.post( environment, "WARN", "J2EE application " + application.getName() + " update failed: "
+          EventUtils.post( environment, "WARN", "JEE application " + application.getName() + " update failed: "
             + updateException.getMessage() );
           EventUtils.post( environment, "UPDATE",
-                           "J2EE application " + application.getName() + " is not update blocker, update continues" );
+                           "JEE application " + application.getName() + " is not update blocker, update continues" );
         }
       }
     }
 
-    // stop J2EE server
-    LOGGER.info( "Shutting down J2EE application server" );
+    // stop JEE server
+    LOGGER.info( "Shutting down JEE application server" );
     try
     {
-      J2EEApplicationServerUpdater.stop( environment, server, updateLog );
+      JEEApplicationServerUpdater.stop(environment, server, updateLog);
     }
     catch ( UpdateException updateException )
     {
-      // the J2EE application server stop has failed
+      // the JEE application server stop has failed
       if ( server.isBlocker() )
       {
-        // J2EE application server is update blocker
-        LOGGER.error( "J2EE application server {} shutdown failed", server.getName(), updateException );
-        updateLog.addUpdateMessage( new UpdateMessage( "error", "J2EE application server " + server.getName()
+        // JEE application server is update blocker
+        LOGGER.error( "JEE application server {} shutdown failed", server.getName(), updateException );
+        updateLog.addUpdateMessage( new UpdateMessage( "error", "JEE application server " + server.getName()
           + " shutdown failed: " + updateException.getMessage() ) );
-        EventUtils.post( environment, "ERROR", "J2EE application server " + server.getName() + " shutdown failed: "
+        EventUtils.post( environment, "ERROR", "JEE application server " + server.getName() + " shutdown failed: "
           + updateException.getMessage() );
         throw new UpdateException(
-          "J2EE application server " + server.getName() + " shutdown failed: " + updateException.getMessage(),
+          "JEE application server " + server.getName() + " shutdown failed: " + updateException.getMessage(),
           updateException );
       }
       else
       {
-        // J2EE application server is not update blocker
-        LOGGER.warn( "J2EE application server {} shutdown failed", server.getName(), updateException );
-        updateLog.addUpdateMessage( new UpdateMessage( "warn", "J2EE application server " + server.getName()
+        // JEE application server is not update blocker
+        LOGGER.warn( "JEE application server {} shutdown failed", server.getName(), updateException );
+        updateLog.addUpdateMessage( new UpdateMessage( "warn", "JEE application server " + server.getName()
           + " shutdown failed: " + updateException.getMessage() ) );
-        updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application server " + server.getName()
+        updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application server " + server.getName()
           + " is not update blocker, update continues" ) );
-        EventUtils.post( environment, "WARN", "J2EE application server " + server.getName() + " shutdown failed: "
+        EventUtils.post( environment, "WARN", "JEE application server " + server.getName() + " shutdown failed: "
           + updateException.getMessage() );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " is not update blocker, update continues" );
+                         "JEE application server " + server.getName() + " is not update blocker, update continues" );
       }
     }
 
     // clean the JEE application server cache
-    LOGGER.info( "Clean J2EE application server cache directories" );
+    LOGGER.info( "Clean JEE application server cache directories" );
     try
     {
-      J2EEApplicationServerUpdater.cleanCaches( environment, server, updateLog );
+      JEEApplicationServerUpdater.cleanCaches(environment, server, updateLog);
     }
     catch ( UpdateException updateException )
     {
-      // the J2EE application server cache directories cleaning has failed
+      // the JEE application server cache directories cleaning has failed
       if ( server.isBlocker() )
       {
-        // J2EE application server is update blocker
-        LOGGER.error( "J2EE application server {} cache directories cleanup failed", server.getName(),
+        // JEE application server is update blocker
+        LOGGER.error( "JEE application server {} cache directories cleanup failed", server.getName(),
                       updateException );
-        updateLog.addUpdateMessage( new UpdateMessage( "error", "J2EE application server " + server.getName()
+        updateLog.addUpdateMessage( new UpdateMessage( "error", "JEE application server " + server.getName()
           + " cache directories cleanup failed: " + updateException.getMessage() ) );
         EventUtils.post( environment, "ERROR",
-                         "J2EE application server " + server.getName() + " cache directories cleanup failed: "
+                         "JEE application server " + server.getName() + " cache directories cleanup failed: "
                            + updateException.getMessage() );
-        throw new UpdateException( "J2EE application server " + server.getName() + " cache directories cleanup failed",
+        throw new UpdateException( "JEE application server " + server.getName() + " cache directories cleanup failed",
                                    updateException );
       }
       else
       {
-        // J2EE application server is not update blocker
-        LOGGER.warn( "J2EE application server {} cache directories cleanup failed", server.getName(), updateException );
-        updateLog.addUpdateMessage( new UpdateMessage( "warn", "J2EE application server " + server.getName()
+        // JEE application server is not update blocker
+        LOGGER.warn( "JEE application server {} cache directories cleanup failed", server.getName(), updateException );
+        updateLog.addUpdateMessage( new UpdateMessage( "warn", "JEE application server " + server.getName()
           + " cache directories cleanup failed: " + updateException.getMessage() ) );
-        updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application server " + server.getName()
+        updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application server " + server.getName()
           + " is not update blocker, update continues" ) );
         EventUtils.post( environment, "WARN",
-                         "J2EE application server " + server.getName() + " cache directories cleanup failed: "
+                         "JEE application server " + server.getName() + " cache directories cleanup failed: "
                            + updateException.getMessage() );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " is not update blocker, update continues" );
+                         "JEE application server " + server.getName() + " is not update blocker, update continues" );
       }
     }
 
-    // start J2EE application server
-    LOGGER.info( "Starting J2EE application server" );
+    // start JEE application server
+    LOGGER.info( "Starting JEE application server" );
     try
     {
-      J2EEApplicationServerUpdater.start( kalumet, environment, server, updateLog );
+      JEEApplicationServerUpdater.start(kalumet, environment, server, updateLog);
     }
     catch ( UpdateException updateException )
     {
-      // the J2EE application server start has failed
+      // the JEE application server start has failed
       if ( server.isBlocker() )
       {
-        // J2EE application server is update blocker
-        LOGGER.error( "J2EE application server {} start failed", server.getName(), updateException );
+        // JEE application server is update blocker
+        LOGGER.error( "JEE application server {} start failed", server.getName(), updateException );
         updateLog.addUpdateMessage( new UpdateMessage( "error",
-                                                       "J2EE application server " + server.getName() + " start failed: "
+                                                       "JEE application server " + server.getName() + " start failed: "
                                                          + updateException.getMessage() ) );
-        EventUtils.post( environment, "ERROR", "J2EE application server " + server.getName() + " start failed: "
+        EventUtils.post( environment, "ERROR", "JEE application server " + server.getName() + " start failed: "
           + updateException.getMessage() );
-        throw new UpdateException( "J2EE application server " + server.getName() + " start failed", updateException );
+        throw new UpdateException( "JEE application server " + server.getName() + " start failed", updateException );
       }
       else
       {
-        // J2EE application server is not update blocker
-        LOGGER.warn( "J2EE application server " + server.getName() + " start failed", updateException );
+        // JEE application server is not update blocker
+        LOGGER.warn( "JEE application server " + server.getName() + " start failed", updateException );
         updateLog.addUpdateMessage( new UpdateMessage( "warn",
-                                                       "J2EE application server " + server.getName() + " start failed: "
+                                                       "JEE application server " + server.getName() + " start failed: "
                                                          + updateException.getMessage() ) );
-        updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application server " + server.getName()
+        updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application server " + server.getName()
           + " is not update blocker, update continues" ) );
-        EventUtils.post( environment, "WARN", "J2EE application server " + server.getName() + " start failed: "
+        EventUtils.post( environment, "WARN", "JEE application server " + server.getName() + " start failed: "
           + updateException.getMessage() );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " is not update blocker, update continues" );
+                         "JEE application server " + server.getName() + " is not update blocker, update continues" );
       }
     }
 
     // update completed
-    EventUtils.post( environment, "UPDATE", "J2EE application server updated" );
+    EventUtils.post( environment, "UPDATE", "JEE application server updated" );
   }
 
   /**
    * Shutdown a JEE server.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the <code>J2EEApplicationServer</code> to stop.
+   * @param server      the <code>JEEApplicationServer</code> to stop.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  protected static void stop( Environment environment, J2EEApplicationServer server, UpdateLog updateLog )
+  protected static void stop( Environment environment, JEEApplicationServer server, UpdateLog updateLog )
     throws UpdateException
   {
     // TODO delegate the JEE server stop to another agent is required
@@ -621,59 +611,59 @@ public class J2EEApplicationServerUpdater
     {
       if ( !server.isUpdateRequireRestart() || !updateLog.isUpdated() )
       {
-        LOGGER.info( "J2EE application server {} shutdown is not required", server.getName() );
+        LOGGER.info( "JEE application server {} shutdown is not required", server.getName() );
         updateLog.addUpdateMessage(
-          new UpdateMessage( "info", "J2EE application server " + server.getName() + " shutdown is not required" ) );
+          new UpdateMessage( "info", "JEE application server " + server.getName() + " shutdown is not required" ) );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " shutdown is not required" );
+                         "JEE application server " + server.getName() + " shutdown is not required" );
         return;
       }
       // the server restart is required
-      LOGGER.info( "J2EE application server {} shutdown is required", server.getName() );
+      LOGGER.info( "JEE application server {} shutdown is required", server.getName() );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " shutdown is required" ) );
-      EventUtils.post( environment, "UPDATE", "J2EE application server " + server.getName() + " shutdown is required" );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " shutdown is required" ) );
+      EventUtils.post( environment, "UPDATE", "JEE application server " + server.getName() + " shutdown is required" );
       if ( server.isUsejmxstop() )
       {
-        LOGGER.debug( "J2EE application server shutdown is performed using JMX controller" );
-        LOGGER.debug( "Getting J2EE application server JMX controller" );
-        J2EEApplicationServerController controller =
-          J2EEApplicationServerControllerFactory.getController( environment, server );
+        LOGGER.debug( "JEE application server shutdown is performed using JMX controller" );
+        LOGGER.debug( "Getting JEE application server JMX controller" );
+        JEEApplicationServerController controller =
+          JEEApplicationServerControllerFactory.getController(environment, server);
         controller.shutdown();
-        LOGGER.info( "J2EE application server {} shutdown completed", server.getName() );
-        EventUtils.post( environment, "UPDATE", "J2EE server " + server.getName() + " shutdown completed" );
+        LOGGER.info( "JEE application server {} shutdown completed", server.getName() );
+        EventUtils.post( environment, "UPDATE", "JEE server " + server.getName() + " shutdown completed" );
         updateLog.addUpdateMessage(
-          new UpdateMessage( "info", "J2EE server " + server.getName() + " shutdown completed" ) );
+          new UpdateMessage( "info", "JEE server " + server.getName() + " shutdown completed" ) );
         return;
       }
-      LOGGER.debug( "J2EE application server shutdown is performed using system command" );
+      LOGGER.debug( "JEE application server shutdown is performed using system command" );
       String output =
         CommandUtils.execute( VariableUtils.replace( server.getShutdowncommand(), environment.getVariables() ) );
-      LOGGER.info( "J2EE application server " + server.getName() + " shutdown completed: " + output );
+      LOGGER.info( "JEE application server " + server.getName() + " shutdown completed: " + output );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " shutdown completed: " + output ) );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " shutdown completed: " + output ) );
       EventUtils.post( environment, "UPDATE", "JEE server " + server.getName() + " shutdown completed: " + output );
     }
     catch ( Exception exception )
     {
-      LOGGER.error( "J2EE application server " + server.getName() + " shutdown failed", exception );
-      updateLog.addUpdateMessage( new UpdateMessage( "error", "J2EE server " + server.getName() + " shutdown failed: "
+      LOGGER.error( "JEE application server " + server.getName() + " shutdown failed", exception );
+      updateLog.addUpdateMessage( new UpdateMessage( "error", "JEE server " + server.getName() + " shutdown failed: "
         + exception.getMessage() ) );
       EventUtils.post( environment, "ERROR",
-                       "J2EE application server " + server.getName() + " shutdown failed: " + exception.getMessage() );
-      throw new UpdateException( "J2EE application server " + server.getName() + " shutdown failed", exception );
+                       "JEE application server " + server.getName() + " shutdown failed: " + exception.getMessage() );
+      throw new UpdateException( "JEE application server " + server.getName() + " shutdown failed", exception );
     }
   }
 
   /**
-   * Start a J2EE application server.
+   * Start a JEE application server.
    *
    * @param kalumet     the configuration.
    * @param environment the target <code>Environment</code>.
-   * @param server      the <code>J2EEApplicationServer</code> to start.
+   * @param server      the <code>JEEApplicationServer</code> to start.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  protected static void start( Kalumet kalumet, Environment environment, J2EEApplicationServer server,
+  protected static void start( Kalumet kalumet, Environment environment, JEEApplicationServer server,
                                UpdateLog updateLog )
     throws UpdateException
   {
@@ -682,24 +672,24 @@ public class J2EEApplicationServerUpdater
     {
       if ( !server.isUpdateRequireRestart() || !updateLog.isUpdated() )
       {
-        LOGGER.info( "J2EE application server {} start is not required", server.getName() );
+        LOGGER.info( "JEE application server {} start is not required", server.getName() );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " start is not required" );
+                         "JEE application server " + server.getName() + " start is not required" );
         updateLog.addUpdateMessage(
-          new UpdateMessage( "info", "J2EE application server " + server.getName() + " start is required" ) );
+          new UpdateMessage( "info", "JEE application server " + server.getName() + " start is required" ) );
         return;
       }
 
-      LOGGER.info( "J2EE application server {} start is required", server.getName() );
+      LOGGER.info( "JEE application server {} start is required", server.getName() );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " start is required" ) );
-      EventUtils.post( environment, "UPDATE", "J2EE application server " + server.getName() + " start is required" );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " start is required" ) );
+      EventUtils.post( environment, "UPDATE", "JEE application server " + server.getName() + " start is required" );
 
       // get the agent configuration
       Agent agent = kalumet.getAgent( Configuration.AGENT_ID );
 
       // check the agent max environment active
-      if ( agent.getMaxj2eeapplicationserversstarted() > 0 )
+      if ( agent.getMaxjeeapplicationserversstarted() > 0 )
       {
         // get the environments managed by the agent
         List agentEnvironments = kalumet.getEnvironmentsByAgent( Configuration.AGENT_ID );
@@ -709,22 +699,22 @@ public class J2EEApplicationServerUpdater
           Environment agentEnvironment = (Environment) agentEnvironmentsIterator.next();
           // check if the application server started into the environment
           for ( Iterator agentEnvironmentApplicationServersIterator =
-                  agentEnvironment.getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+                  agentEnvironment.getJEEApplicationServers().getJEEApplicationServers().iterator();
                 agentEnvironmentApplicationServersIterator.hasNext(); )
           {
-            J2EEApplicationServer agentEnvironmentApplicationServer =
-              (J2EEApplicationServer) agentEnvironmentApplicationServersIterator.next();
+            JEEApplicationServer agentEnvironmentApplicationServer =
+              (JEEApplicationServer) agentEnvironmentApplicationServersIterator.next();
             // get the controller
-            J2EEApplicationServerController controller =
-              J2EEApplicationServerControllerFactory.getController( environment, server );
+            JEEApplicationServerController controller =
+              JEEApplicationServerControllerFactory.getController(environment, server);
             if ( !controller.isStopped() )
             {
               applicationServersStarted++;
-              if ( applicationServersStarted >= agent.getMaxj2eeapplicationserversstarted() )
+              if ( applicationServersStarted >= agent.getMaxjeeapplicationserversstarted() )
               {
                 // the max number of application servers started is raised
                 throw new UpdateException(
-                  "The maximum number of started J2EE application servers has been raised for the agent" );
+                  "The maximum number of started JEE application servers has been raised for the agent" );
               }
             }
           }
@@ -735,51 +725,51 @@ public class J2EEApplicationServerUpdater
       String output =
         CommandUtils.execute( VariableUtils.replace( server.getStartupcommand(), environment.getVariables() ) );
       // application server start has been performed
-      LOGGER.info( "J2EE application server {} start completed: {}", server.getName(), output );
+      LOGGER.info( "JEE application server {} start completed: {}", server.getName(), output );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " start completed: " + output ) );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " start completed: " + output ) );
       EventUtils.post( environment, "UPDATE",
-                       "J2EE application server " + server.getName() + " start completed: " + output );
+                       "JEE application server " + server.getName() + " start completed: " + output );
     }
     catch ( Exception exception )
     {
-      LOGGER.error( "J2EE application server {} start failed", server.getName(), exception );
+      LOGGER.error( "JEE application server {} start failed", server.getName(), exception );
       updateLog.addUpdateMessage( new UpdateMessage( "error",
-                                                     "J2EE application server " + server.getName() + " start failed: "
+                                                     "JEE application server " + server.getName() + " start failed: "
                                                        + exception.getMessage() ) );
       EventUtils.post( environment, "ERROR",
-                       "J2EE application server " + server.getName() + " start failed: " + exception.getMessage() );
-      throw new UpdateException( "J2EE application server " + server.getName() + " start failed", exception );
+                       "JEE application server " + server.getName() + " start failed: " + exception.getMessage() );
+      throw new UpdateException( "JEE application server " + server.getName() + " start failed", exception );
     }
   }
 
   /**
-   * Cleanup J2EE application server caches.
+   * Cleanup JEE application server caches.
    *
    * @param environment the <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  protected static void cleanCaches( Environment environment, J2EEApplicationServer server, UpdateLog updateLog )
+  protected static void cleanCaches( Environment environment, JEEApplicationServer server, UpdateLog updateLog )
     throws UpdateException
   {
     try
     {
       if ( !server.isUpdateRequireCacheCleaning() || !updateLog.isUpdated() )
       {
-        LOGGER.info( "J2EE application server {} caches cleaning is not required", server.getName() );
-        updateLog.addUpdateMessage( new UpdateMessage( "info", "J2EE application server " + server.getName()
+        LOGGER.info( "JEE application server {} caches cleaning is not required", server.getName() );
+        updateLog.addUpdateMessage( new UpdateMessage( "info", "JEE application server " + server.getName()
           + " caches cleaning is not required" ) );
         EventUtils.post( environment, "UPDATE",
-                         "J2EE application server " + server.getName() + " caches cleaning is not required" );
+                         "JEE application server " + server.getName() + " caches cleaning is not required" );
         return;
       }
       // the application server caches cleaning is required
-      LOGGER.info( "J2EE application server {} caches cleaning is required", server.getName() );
+      LOGGER.info( "JEE application server {} caches cleaning is required", server.getName() );
       updateLog.addUpdateMessage(
-        new UpdateMessage( "info", "J2EE application server " + server.getName() + " caches cleaning is required" ) );
+        new UpdateMessage( "info", "JEE application server " + server.getName() + " caches cleaning is required" ) );
       EventUtils.post( environment, "UPDATE",
-                       "J2EE application server " + server.getName() + " caches cleaning is required" );
+                       "JEE application server " + server.getName() + " caches cleaning is required" );
       // initializes the file manipulator instance
       FileManipulator fileManipulator = new FileManipulator();
       for ( Iterator cacheIterator = server.getCaches().iterator(); cacheIterator.hasNext(); )
@@ -791,26 +781,26 @@ public class J2EEApplicationServerUpdater
     }
     catch ( Exception exception )
     {
-      LOGGER.error( "J2EE application server {} cache directories cleanup failed", server.getName(), exception );
-      updateLog.addUpdateMessage( new UpdateMessage( "error", "J2EE application server" + server.getName()
+      LOGGER.error( "JEE application server {} cache directories cleanup failed", server.getName(), exception );
+      updateLog.addUpdateMessage( new UpdateMessage( "error", "JEE application server" + server.getName()
         + " cache directories cleanup failed: " + exception.getMessage() ) );
       EventUtils.post( environment, "ERROR",
-                       "J2EE application server " + server.getName() + " cache directories cleanup failed: "
+                       "JEE application server " + server.getName() + " cache directories cleanup failed: "
                          + exception.getMessage() );
-      throw new UpdateException( "J2EE application server " + server.getName() + " caches cleanup failed", exception );
+      throw new UpdateException( "JEE application server " + server.getName() + " caches cleanup failed", exception );
     }
   }
 
   /**
-   * Wrapper method to start J2EE application server (via WS).
+   * Wrapper method to start JEE application server (via WS).
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
+   * @param serverName      the target JEE application server name.
    */
   public static void start( String environmentName, String serverName )
     throws KalumetException
   {
-    LOGGER.info( "J2EE application server {} start requested by WS", serverName );
+    LOGGER.info( "JEE application server {} start requested by WS", serverName );
 
     LOGGER.debug( "Loading configuration" );
     Kalumet kalumet = Kalumet.digeste( Configuration.CONFIG_LOCATION );
@@ -820,19 +810,19 @@ public class J2EEApplicationServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new UpdateException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server = environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer server = environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new UpdateException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
 
     // get the agent configuration
     Agent agent = kalumet.getAgent( Configuration.AGENT_ID );
 
     // check the agent max environment active
-    if ( agent.getMaxj2eeapplicationserversstarted() > 0 )
+    if ( agent.getMaxjeeapplicationserversstarted() > 0 )
     {
       // get the environments managed by the agent
       List agentEnvironments = kalumet.getEnvironmentsByAgent( Configuration.AGENT_ID );
@@ -842,47 +832,47 @@ public class J2EEApplicationServerUpdater
         Environment agentEnvironment = (Environment) agentEnvironmentsIterator.next();
         // check if the application server started into the environment
         for ( Iterator agentEnvironmentApplicationServersIterator =
-                agentEnvironment.getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+                agentEnvironment.getJEEApplicationServers().getJEEApplicationServers().iterator();
               agentEnvironmentApplicationServersIterator.hasNext(); )
         {
-          J2EEApplicationServer agentEnvironmentApplicationServer =
-            (J2EEApplicationServer) agentEnvironmentApplicationServersIterator.next();
+          JEEApplicationServer agentEnvironmentApplicationServer =
+            (JEEApplicationServer) agentEnvironmentApplicationServersIterator.next();
           // get the controller
-          J2EEApplicationServerController controller =
-            J2EEApplicationServerControllerFactory.getController( environment, server );
+          JEEApplicationServerController controller =
+            JEEApplicationServerControllerFactory.getController(environment, server);
           if ( !controller.isStopped() )
           {
             applicationServersStarted++;
-            if ( applicationServersStarted >= agent.getMaxj2eeapplicationserversstarted() )
+            if ( applicationServersStarted >= agent.getMaxjeeapplicationserversstarted() )
             {
               // the max number of application servers started is raised
               throw new KalumetException(
-                "The maximum number of started J2EE application servers has been raised for the agent" );
+                "The maximum number of started JEE application servers has been raised for the agent" );
             }
           }
         }
       }
     }
 
-    EventUtils.post( environment, "INFO", "J2EE application server " + serverName + " start requested by WS" );
+    EventUtils.post( environment, "INFO", "JEE application server " + serverName + " start requested by WS" );
     // the start is performed using system command
     String output =
       CommandUtils.execute( VariableUtils.replace( server.getStartupcommand(), environment.getVariables() ) );
     // application server start has been performed
-    LOGGER.info( "J2EE application server {} STARTED: {}", serverName, output );
-    EventUtils.post( environment, "INFO", "J2EE application server " + serverName + " started: " + output );
+    LOGGER.info( "JEE application server {} STARTED: {}", serverName, output );
+    EventUtils.post( environment, "INFO", "JEE application server " + serverName + " started: " + output );
   }
 
   /**
-   * Wrapper method to stop J2EE application server (via WS).
+   * Wrapper method to stop JEE application server (via WS).
    *
    * @param environmentName the environment name.
-   * @param serverName      the J2EE application server name.
+   * @param serverName      the JEE application server name.
    */
   public static void stop( String environmentName, String serverName )
     throws UpdateException
   {
-    LOGGER.info( "J2EE application server {} shutdown requested by WS", serverName );
+    LOGGER.info( "JEE application server {} shutdown requested by WS", serverName );
     Kalumet kalumet;
     try
     {
@@ -899,32 +889,32 @@ public class J2EEApplicationServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new UpdateException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server = environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer server = environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new UpdateException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    EventUtils.post( environment, "INFO", "J2EE application server " + serverName + " shutdown requested by WS" );
+    EventUtils.post( environment, "INFO", "JEE application server " + serverName + " shutdown requested by WS" );
     // check if the stop is made using JMX
     try
     {
       if ( server.isUsejmxstop() )
       {
-        J2EEApplicationServerController controller =
-          J2EEApplicationServerControllerFactory.getController( environment, server );
+        JEEApplicationServerController controller =
+          JEEApplicationServerControllerFactory.getController(environment, server);
         controller.shutdown();
-        LOGGER.info( "J2EE application server {} shutdown using the controller", serverName );
+        LOGGER.info( "JEE application server {} shutdown using the controller", serverName );
         EventUtils.post( environment, "INFO",
-                         "J2EE application server " + serverName + " shutdown using the controller" );
+                         "JEE application server " + serverName + " shutdown using the controller" );
         return;
       }
     }
     catch ( Exception e )
     {
-      LOGGER.error( "J2EE application server {} shutdown failed", serverName, e );
-      throw new UpdateException( "J2EE application server " + serverName + " shutdown failed", e );
+      LOGGER.error( "JEE application server {} shutdown failed", serverName, e );
+      throw new UpdateException( "JEE application server " + serverName + " shutdown failed", e );
     }
     // no JMX stop, use system command call
     String shutdownCommand = VariableUtils.replace( server.getShutdowncommand(), environment.getVariables() );
@@ -935,26 +925,26 @@ public class J2EEApplicationServerUpdater
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "J2EE application server {} shutdown FAILED.", serverName, e );
-      throw new UpdateException( "J2EE application server " + serverName + " shutdown failed", e );
+      LOGGER.error( "JEE application server {} shutdown FAILED.", serverName, e );
+      throw new UpdateException( "JEE application server " + serverName + " shutdown failed", e );
     }
-    LOGGER.info( "J2EE application server {} shutdown using system command: {}", serverName, output );
+    LOGGER.info( "JEE application server {} shutdown using system command: {}", serverName, output );
     EventUtils.post( environment, "INFO",
-                     "J2EE application server " + serverName + " shutdown using system command: " + output );
+                     "JEE application server " + serverName + " shutdown using system command: " + output );
   }
 
   /**
-   * Wrapper method to get J2EE application server status (via WS).
+   * Wrapper method to get JEE application server status (via WS).
    *
    * @param environmentName       the environment name.
-   * @param applicationServerName the J2EE application server name.
-   * @return the J2EE application server current status.
+   * @param applicationServerName the JEE application server name.
+   * @return the JEE application server current status.
    */
   public static String status( String environmentName, String applicationServerName )
     throws UpdateException
   {
-    // TODO delegate the JEE server status to another agnt if required
-    LOGGER.info( "J2EE application server {} status check requested by WS", applicationServerName );
+    // TODO delegate the JEE server status to another agent if required
+    LOGGER.info( "JEE application server {} status check requested by WS", applicationServerName );
 
     LOGGER.debug( "Loading configuration" );
     Kalumet kalumet;
@@ -973,29 +963,29 @@ public class J2EEApplicationServerUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new UpdateException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( applicationServerName );
+    JEEApplicationServer server =
+      environment.getJEEApplicationServers().getJEEApplicationServer(applicationServerName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", applicationServerName,
+      LOGGER.error( "JEE application server {} is not found in environment {}", applicationServerName,
                     environmentName );
       throw new UpdateException(
-        "J2EE application server " + applicationServerName + " is not found in environment " + environmentName );
+        "JEE application server " + applicationServerName + " is not found in environment " + environmentName );
     }
     EventUtils.post( environment, "INFO",
-                     "J2EE application server " + applicationServerName + " status requested by WS" );
+                     "JEE application server " + applicationServerName + " status requested by WS" );
     try
     {
       // get the controller
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, server );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, server);
       // get the application server status
       return controller.status();
     }
     catch ( Exception e )
     {
-      LOGGER.error( "J2EE application server {} status check failed", applicationServerName, e );
-      throw new UpdateException( "J2EE application server " + applicationServerName + " status check failed", e );
+      LOGGER.error( "JEE application server {} status check failed", applicationServerName, e );
+      throw new UpdateException( "JEE application server " + applicationServerName + " status check failed", e );
     }
   }
 

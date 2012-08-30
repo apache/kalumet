@@ -112,20 +112,20 @@ public class ApplicationArchiveWindow
                         archiveName );
         if ( uptodate )
         {
-          message = "J2EE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
+          message = "JEE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
             + " is up to date.";
         }
         else
         {
           failure = true;
-          message = "J2EE appliction " + parent.getParentPane().getApplicationName() + " archive " + archiveName
+          message = "JEE appliction " + parent.getParentPane().getApplicationName() + " archive " + archiveName
             + " is not up to date.";
         }
       }
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
+        message = "JEE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
           + " status check failed: " + e.getMessage();
       }
       finally
@@ -168,7 +168,7 @@ public class ApplicationArchiveWindow
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
+        message = "JEE application " + parent.getParentPane().getApplicationName() + " archive " + archiveName
           + " update failed: " + e.getMessage();
       }
       finally
@@ -302,7 +302,7 @@ public class ApplicationArchiveWindow
       // add a change event
       if ( archiveName != null )
       {
-        String change = "Modify J2EE application archive " + nameFieldValue;
+        String change = "Modify JEE application archive " + nameFieldValue;
         if ( !archive.getUri().equals( uriFieldValue ) )
         {
           change += " URI from " + archive.getUri() + " to " + uriFieldValue;
@@ -359,7 +359,7 @@ public class ApplicationArchiveWindow
         {
           parent.getParentPane().getApplication().addArchive( archive );
           parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-            "Add J2EE application archive " + archive.getName() );
+            "Add JEE application archive " + archive.getName() );
         }
         catch ( Exception e )
         {

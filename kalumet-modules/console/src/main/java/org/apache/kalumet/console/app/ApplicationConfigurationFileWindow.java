@@ -46,7 +46,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * J2EE application configuration file window.
+ * JEE application configuration file window.
  */
 public class ApplicationConfigurationFileWindow
   extends WindowPane
@@ -108,20 +108,20 @@ public class ApplicationConfigurationFileWindow
                         configurationFileName );
         if ( uptodate )
         {
-          message = "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+          message = "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
             + configurationFileName + " is up to date.";
         }
         else
         {
           failure = true;
-          message = "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+          message = "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
             + configurationFileName + " is not up to date.";
         }
       }
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+        message = "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
           + configurationFileName + " status check failed: " + e.getMessage();
       }
       finally
@@ -164,7 +164,7 @@ public class ApplicationConfigurationFileWindow
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+        message = "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
           + configurationFileName + " update failed: " + e.getMessage();
       }
       finally
@@ -231,7 +231,7 @@ public class ApplicationConfigurationFileWindow
             parent.getParentPane().getApplication().getConfigurationFiles().remove( configurationFile );
             // add a change event
             parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "Delete J2EE application configuration file " + configurationFile.getName() );
+              "Delete JEE application configuration file " + configurationFile.getName() );
             // change the updated flag
             parent.getParentPane().getParentPane().getEnvironmentWindow().setUpdated( true );
             // update the journal log tab pane
@@ -289,7 +289,7 @@ public class ApplicationConfigurationFileWindow
       if ( configurationFileName != null )
       {
         parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Change J2EE application configuration file " + configurationFile.getName() );
+          "Change JEE application configuration file " + configurationFile.getName() );
       }
       // update the configuration file object
       configurationFile.setName( nameFieldValue );
@@ -319,7 +319,7 @@ public class ApplicationConfigurationFileWindow
         {
           parent.getParentPane().getApplication().addConfigurationFile( configurationFile );
           parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-            "Add J2EE application configuration file " + configurationFile.getName() );
+            "Add JEE application configuration file " + configurationFile.getName() );
         }
         catch ( Exception e )
         {
@@ -361,11 +361,11 @@ public class ApplicationConfigurationFileWindow
       }
       // add a message into the log pane and the journal
       KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-        "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+        "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
           + configurationFileName + " status check in progress...",
         parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
       parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-        "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+        "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
           + configurationFileName + " status check requested." );
       // start the status thread
       final StatusThread statusThread = new StatusThread();
@@ -439,11 +439,11 @@ public class ApplicationConfigurationFileWindow
           {
             // add a message into the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+              "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
                 + configurationFileName + " update in progress...",
               parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
             parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+              "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
                 + configurationFileName + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
@@ -466,11 +466,11 @@ public class ApplicationConfigurationFileWindow
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+                      "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
                         + configurationFileName + " updated.",
                       parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
                     parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + parent.getParentPane().getApplicationName() + " configuration file "
+                      "JEE application " + parent.getParentPane().getApplicationName() + " configuration file "
                         + configurationFileName + " updated." );
                   }
                 }
@@ -519,7 +519,7 @@ public class ApplicationConfigurationFileWindow
       configurationFile.getMappings().remove( mapping );
       // add a change event
       parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-        "Delete J2EE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
+        "Delete JEE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
       // change the updated flag
       parent.getParentPane().getParentPane().getEnvironmentWindow().setUpdated( true );
       // update the journal log tab pane
@@ -592,7 +592,7 @@ public class ApplicationConfigurationFileWindow
       }
       // add a change event
       parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-        "Change J2EE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
+        "Change JEE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
       // update the mapping
       mapping.setKey( keyFieldValue );
       mapping.setValue( valueFieldValue );
@@ -652,7 +652,7 @@ public class ApplicationConfigurationFileWindow
       }
       // add a change event
       parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-        "Add J2EE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
+        "Add JEE application configuration file " + configurationFile.getName() + " mapping " + mapping.getKey() );
       // change the updated flag
       parent.getParentPane().getParentPane().getEnvironmentWindow().setUpdated( true );
       // update the journal log tab pane

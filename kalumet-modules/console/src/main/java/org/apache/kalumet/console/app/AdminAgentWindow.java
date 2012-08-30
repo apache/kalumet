@@ -176,7 +176,7 @@ public class AdminAgentWindow
       }
       agent.setCron( newCron );
       agent.setMaxmanagedenvironments( new Integer( newMaxEnvironments ).intValue() );
-      agent.setMaxj2eeapplicationserversstarted( new Integer( newMaxEnvironmentsActive ).intValue() );
+      agent.setMaxjeeapplicationserversstarted(new Integer(newMaxEnvironmentsActive).intValue());
       if ( agentId == null || agentId.trim().length() < 1 )
       {
         // it's a new agent
@@ -206,7 +206,7 @@ public class AdminAgentWindow
       portField.setText( new Integer( clone.getPort() ).toString() );
       cronField.setText( clone.getCron() );
       maxEnvironmentsField.setText( new Integer( clone.getMaxmanagedenvironments() ).toString() );
-      maxActiveApplicationServersField.setText( new Integer( clone.getMaxj2eeapplicationserversstarted() ).toString() );
+      maxActiveApplicationServersField.setText( new Integer( clone.getMaxjeeapplicationserversstarted() ).toString() );
     }
   };
 
@@ -504,7 +504,7 @@ public class AdminAgentWindow
     portField.setText( new Integer( agent.getPort() ).toString() );
     cronField.setText( agent.getCron() );
     maxEnvironmentsField.setText( new Integer( agent.getMaxmanagedenvironments() ).toString() );
-    maxActiveApplicationServersField.setText( new Integer( agent.getMaxj2eeapplicationserversstarted() ).toString() );
+    maxActiveApplicationServersField.setText( new Integer( agent.getMaxjeeapplicationserversstarted() ).toString() );
   }
 
 }

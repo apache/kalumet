@@ -37,7 +37,7 @@ import org.apache.kalumet.ws.client.ContentManagerClient;
 import java.util.Iterator;
 
 /**
- * J2EE application content managers pane.
+ * JEE application content managers pane.
  */
 public class ApplicationContentManagersPane
   extends ContentPane
@@ -79,7 +79,7 @@ public class ApplicationContentManagersPane
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getApplicationName() + " content manager " + contentManagerName
+        message = "JEE application " + parent.getApplicationName() + " content manager " + contentManagerName
           + " update failed: " + e.getMessage();
       }
       finally
@@ -124,13 +124,13 @@ public class ApplicationContentManagersPane
       {
         contentManager.setActive( false );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Disable J2EE application " + parent.getApplicationName() + " content manager " + contentManager.getName() );
+          "Disable JEE application " + parent.getApplicationName() + " content manager " + contentManager.getName() );
       }
       else
       {
         contentManager.setActive( true );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Enable J2EE application " + parent.getApplicationName() + " content manager " + contentManager.getName() );
+          "Enable JEE application " + parent.getApplicationName() + " content manager " + contentManager.getName() );
       }
       // change the updated flag
       parent.getParentPane().getEnvironmentWindow().setUpdated( true );
@@ -176,14 +176,14 @@ public class ApplicationContentManagersPane
       {
         contentManager.setBlocker( false );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Set not blocker for J2EE application " + parent.getApplicationName() + " content manager "
+          "Set not blocker for JEE application " + parent.getApplicationName() + " content manager "
             + contentManager.getName() );
       }
       else
       {
         contentManager.setBlocker( true );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Set blocker for J2EE application " + parent.getApplicationName() + " content manager "
+          "Set blocker for JEE application " + parent.getApplicationName() + " content manager "
             + contentManager.getName() );
       }
       // change the updated flag
@@ -235,7 +235,7 @@ public class ApplicationContentManagersPane
             parent.getApplication().getContentManagers().remove( contentManager );
             // add a change event
             parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "Delete J2EE application " + parent.getApplicationName() + " content manager "
+              "Delete JEE application " + parent.getApplicationName() + " content manager "
                 + contentManager.getName() );
             // change the updated flag
             parent.getParentPane().getEnvironmentWindow().setUpdated( true );
@@ -287,10 +287,10 @@ public class ApplicationContentManagersPane
           {
             // add a message into the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + parent.getApplicationName() + " content manager " + contentManagerName
+              "JEE application " + parent.getApplicationName() + " content manager " + contentManagerName
                 + " update in progress...", parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
             parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + parent.getApplicationName() + " content manager " + contentManagerName
+              "JEE application " + parent.getApplicationName() + " content manager " + contentManagerName
                 + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
@@ -313,10 +313,10 @@ public class ApplicationContentManagersPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + parent.getApplicationName() + " content manager " + contentManagerName
+                      "JEE application " + parent.getApplicationName() + " content manager " + contentManagerName
                         + " updated.", parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
                     parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + parent.getApplicationName() + " content manager " + contentManagerName
+                      "JEE application " + parent.getApplicationName() + " content manager " + contentManagerName
                         + " updated." );
                   }
                 }

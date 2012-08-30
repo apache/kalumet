@@ -33,7 +33,7 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JNDIBinding;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.ws.client.JNDIBindingClient;
@@ -190,7 +190,7 @@ public class NameSpaceBindingsPane
         return;
       }
       // looking for the name space binding object
-      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJNDIBinding( event.getActionCommand() );
       if ( nameSpaceBinding == null )
       {
@@ -240,7 +240,7 @@ public class NameSpaceBindingsPane
         return;
       }
       // looking for the name space binding object
-      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJNDIBinding( event.getActionCommand() );
       if ( nameSpaceBinding == null )
       {
@@ -355,7 +355,7 @@ public class NameSpaceBindingsPane
       // space binding name is not already in use
       if ( !name.equals( nameFieldValue ) )
       {
-        if ( parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJNDIBinding( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -364,7 +364,7 @@ public class NameSpaceBindingsPane
         }
       }
       // looking for the name space binding object
-      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JNDIBinding nameSpaceBinding = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJNDIBinding( name );
       if ( nameSpaceBinding == null )
       {
@@ -409,7 +409,7 @@ public class NameSpaceBindingsPane
         return;
       }
       // looking for the name space binding
-      final JNDIBinding nameSpaceBinding = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      final JNDIBinding nameSpaceBinding = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJNDIBinding( event.getActionCommand() );
       if ( nameSpaceBinding == null )
       {
@@ -424,7 +424,7 @@ public class NameSpaceBindingsPane
           public void actionPerformed( ActionEvent event )
           {
             // remove the name space binding
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeField.getSelectedItem() ).getJNDIBindings().remove( nameSpaceBinding );
             // add a change event
             parent.getChangeEvents().add( "Delete JNDI binding " + nameSpaceBinding.getName() );
@@ -484,7 +484,7 @@ public class NameSpaceBindingsPane
       // add the name space binding
       try
       {
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).addJNDIBinding( nameSpaceBinding );
       }
       catch ( Exception e )
@@ -510,7 +510,7 @@ public class NameSpaceBindingsPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for name space binding object
-      JNDIBinding jndiBinding = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JNDIBinding jndiBinding = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJNDIBinding( event.getActionCommand() );
       if ( jndiBinding == null )
       {
@@ -558,7 +558,7 @@ public class NameSpaceBindingsPane
           Messages.getString( "environment.notsaved" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // get the J2EE application server and JNDI name space binding name
+      // get the JEE application server and JNDI name space binding name
       final String serverName = (String) scopeField.getSelectedItem();
       final String nameSpaceBindingName = event.getActionCommand();
       // add a message in the log pane and the journal
@@ -717,10 +717,10 @@ public class NameSpaceBindingsPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -758,10 +758,10 @@ public class NameSpaceBindingsPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -809,7 +809,7 @@ public class NameSpaceBindingsPane
     grid.add( providerUrlHeader );
     // add the jndi name space bindings
     for ( Iterator jndiNameSpaceBindingIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               applicationServerName ).getJNDIBindings().iterator(); jndiNameSpaceBindingIterator.hasNext(); )
     {
       JNDIBinding nameSpaceBinding = (JNDIBinding) jndiNameSpaceBindingIterator.next();

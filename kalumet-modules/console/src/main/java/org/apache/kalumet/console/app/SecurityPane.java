@@ -305,7 +305,7 @@ public class SecurityPane
     }
   };
 
-  // switch J2EE application servers
+  // switch JEE application servers
   private ActionListener switchJeeServers = new ActionListener()
   {
     public void actionPerformed( ActionEvent event )
@@ -469,7 +469,7 @@ public class SecurityPane
     }
   };
 
-  // switch J2EE resources update
+  // switch JEE resources update
   private ActionListener switchJeeResourcesUpdate = new ActionListener()
   {
     public void actionPerformed( ActionEvent event )
@@ -510,7 +510,7 @@ public class SecurityPane
     }
   };
 
-  // switch J2EE applications
+  // switch JEE applications
   private ActionListener switchJeeApplications = new ActionListener()
   {
     public void actionPerformed( ActionEvent event )
@@ -551,7 +551,7 @@ public class SecurityPane
     }
   };
 
-  // switch J2EE applications update
+  // switch JEE applications update
   private ActionListener switchJeeApplicationsUpdate = new ActionListener()
   {
     public void actionPerformed( ActionEvent event )

@@ -28,9 +28,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Represents the <code>j2eeapplication</code> tag in the Kalumet DOM.
+ * Represents the <code>jeeapplication</code> tag in the Kalumet DOM.
  */
-public class J2EEApplication
+public class JEEApplication
   implements Serializable, Cloneable, Comparable
 {
 
@@ -55,9 +55,9 @@ public class J2EEApplication
   private LinkedList databases;
 
   /**
-   * Default constructor to create a <code>J2EEApplication</code>
+   * Default constructor to create a <code>JEEApplication</code>
    */
-  public J2EEApplication()
+  public JEEApplication()
   {
     this.archives = new LinkedList();
     this.contentManagers = new LinkedList();
@@ -116,7 +116,7 @@ public class J2EEApplication
   }
 
   /**
-   * Add a new <code>Archive</code> in the <code>J2EEApplication</code> archives container.
+   * Add a new <code>Archive</code> in the <code>JEEApplication</code> archives container.
    *
    * @param archive the <code>Archive</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -133,7 +133,7 @@ public class J2EEApplication
   }
 
   /**
-   * Get the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
+   * Get the <code>Archive</code> list in the <code>JEEApplication</code> archives container.
    *
    * @return the <code>Archive</code> list
    */
@@ -143,7 +143,7 @@ public class J2EEApplication
   }
 
   /**
-   * Overwrite the <code>Archive</code> list in the <code>J2EEApplication</code> archives container.
+   * Overwrite the <code>Archive</code> list in the <code>JEEApplication</code> archives container.
    *
    * @param archives the new <code>Archive</code> list.
    */
@@ -153,7 +153,7 @@ public class J2EEApplication
   }
 
   /**
-   * Get the <code>Archive</code> identified by a given name in the <code>J2EEApplication</code> archives container.
+   * Get the <code>Archive</code> identified by a given name in the <code>JEEApplication</code> archives container.
    *
    * @param name the <code>Archive</code> name.
    * @return the <code>Archive</code> found or null if not found.
@@ -172,7 +172,7 @@ public class J2EEApplication
   }
 
   /**
-   * Add a new <code>ContentManager</code> in the <code>J2EEApplication</code> content managers container.
+   * Add a new <code>ContentManager</code> in the <code>JEEApplication</code> content managers container.
    *
    * @param contentManager the <code>ContentManager</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -189,7 +189,7 @@ public class J2EEApplication
   }
 
   /**
-   * Get the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
+   * Get the <code>ContentManager</code> list in the <code>JEEApplication</code> content managers container.
    *
    * @return the <code>ContentManager</code> list.
    */
@@ -199,7 +199,7 @@ public class J2EEApplication
   }
 
   /**
-   * Overwrite the <code>ContentManager</code> list in the <code>J2EEApplication</code> content managers container.
+   * Overwrite the <code>ContentManager</code> list in the <code>JEEApplication</code> content managers container.
    *
    * @param contentManagers the new <code>ContentManagers</code> list.
    */
@@ -209,7 +209,7 @@ public class J2EEApplication
   }
 
   /**
-   * Return the <code>ContentManager</code> identified by a given name in the <code>J2EEApplication</code> content managers container.
+   * Return the <code>ContentManager</code> identified by a given name in the <code>JEEApplication</code> content managers container.
    *
    * @return the <code>ContentManager</code> found or null if not found.
    */
@@ -227,7 +227,7 @@ public class J2EEApplication
   }
 
   /**
-   * Add a new <code>ConfigurationFile</code> in the <code>J2EEApplication</code>
+   * Add a new <code>ConfigurationFile</code> in the <code>JEEApplication</code>
    * configuration files container.
    *
    * @param configurationFile the <code>ConfigurationFile</code> to add.
@@ -246,7 +246,7 @@ public class J2EEApplication
 
   /**
    * Get the <code>ConfigurationFile</code> list in the
-   * <code>J2EEApplication</code> configuration files container.
+   * <code>JEEApplication</code> configuration files container.
    *
    * @return the <code>ConfigurationFile</code> list.
    */
@@ -257,7 +257,7 @@ public class J2EEApplication
 
   /**
    * Overwrite the <code>ConfigurationFile</code> list in the
-   * <code>J2EEApplication</code> configuration files container.
+   * <code>JEEApplication</code> configuration files container.
    *
    * @param configurationFiles the new <code>ConfigurationFile</code> list.
    */
@@ -268,7 +268,7 @@ public class J2EEApplication
 
   /**
    * Get the <code>ConfigurationFile</code> identified by a given name in the
-   * <code>J2EEApplication</code> configuration files container.
+   * <code>JEEApplication</code> configuration files container.
    *
    * @param name the <code>ConfigurationFile</code> name.
    * @return the <code>ConfigurationFile</code> found or null if not found.
@@ -288,7 +288,7 @@ public class J2EEApplication
   }
 
   /**
-   * Add a new <code>Database</code> in the <code>J2EEApplication</code>
+   * Add a new <code>Database</code> in the <code>JEEApplication</code>
    * databases container.
    *
    * @param database the <code>Database</code> to add.
@@ -300,13 +300,13 @@ public class J2EEApplication
   {
     if ( this.getDatabase( database.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Database name already exists in the J2EE application." );
+      throw new ModelObjectAlreadyExistsException( "Database name already exists in the JEE application." );
     }
     this.databases.add( database );
   }
 
   /**
-   * Get the <code>Database</code> list in the <code>J2EEApplication</code>
+   * Get the <code>Database</code> list in the <code>JEEApplication</code>
    * databases container.
    *
    * @return the <code>Database</code> list.
@@ -317,7 +317,7 @@ public class J2EEApplication
   }
 
   /**
-   * Overwrite the <code>Database</code> list in the <code>J2EEApplication</code>
+   * Overwrite the <code>Database</code> list in the <code>JEEApplication</code>
    * databases container.
    *
    * @param databases the new <code>Database</code> list.
@@ -329,7 +329,7 @@ public class J2EEApplication
 
   /**
    * Get the <code>Database</code> identified by a given name in the
-   * <code>J2EEApplication</code> databases container.
+   * <code>JEEApplication</code> databases container.
    *
    * @param name the <code>Database</code> name.
    * @return the <code>Database</code> found or null if not found.
@@ -353,7 +353,7 @@ public class J2EEApplication
   public Object clone()
     throws CloneNotSupportedException
   {
-    J2EEApplication clone = new J2EEApplication();
+    JEEApplication clone = new JEEApplication();
     clone.setName( this.getName() );
     clone.setUri( this.getUri() );
     clone.setActive( this.isActive() );
@@ -384,14 +384,14 @@ public class J2EEApplication
   }
 
   /**
-   * Transforms the <code>J2EEApplication</code> POJO to a DOM element.
+   * Transforms the <code>JEEApplication</code> POJO to a DOM element.
    *
    * @param document the core DOM document.
    * @return the DOM element.
    */
   protected Element toDOMElement( CoreDocumentImpl document )
   {
-    ElementImpl element = new ElementImpl( document, "j2eeapplication" );
+    ElementImpl element = new ElementImpl( document, "jeeapplication" );
     element.setAttribute( "name", this.getName() );
     element.setAttribute( "uri", this.getUri() );
     element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
@@ -438,7 +438,7 @@ public class J2EEApplication
    */
   public int compareTo( Object anotherApplication )
   {
-    return this.getName().compareTo( ( (J2EEApplication) anotherApplication ).getName() );
+    return this.getName().compareTo( ( (JEEApplication) anotherApplication ).getName() );
   }
 
 }

@@ -21,13 +21,10 @@ package org.apache.kalumet.agent.updater;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JDBCConnectionPool;
-import org.apache.kalumet.model.JDBCDataSource;
-import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -48,11 +45,11 @@ public class JDBCDataSourceUpdater
    * Update a JDBC dataSource.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
    * @param dataSource  the target <code>JDBCDataSource</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, JDBCDataSource dataSource,
+  public static void update( Environment environment, JEEApplicationServer server, JDBCDataSource dataSource,
                              UpdateLog updateLog )
     throws UpdateException
   {
@@ -79,16 +76,16 @@ public class JDBCDataSourceUpdater
       throw new UpdateException(
         "JDBC connection pool " + dataSource.getPool() + " is not found in the configuration" );
     }
-    J2EEApplicationServerController controller = null;
+    JEEApplicationServerController controller = null;
     try
     {
-      LOGGER.debug( "Connecting to J2EE application server controller" );
-      controller = J2EEApplicationServerControllerFactory.getController( environment, server );
+      LOGGER.debug( "Connecting to JEE application server controller" );
+      controller = JEEApplicationServerControllerFactory.getController(environment, server);
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "Can't connect to J2EE application server {} controller", server.getName(), e );
-      throw new UpdateException( "Can't connect to J2EE application server " + server.getName() + " controller", e );
+      LOGGER.error( "Can't connect to JEE application server {} controller", server.getName(), e );
+      throw new UpdateException( "Can't connect to JEE application server " + server.getName() + " controller", e );
     }
     // replace variables in the JDBC URL and helper class name
     LOGGER.debug( "Replacing variables in JDBC URL and helper class" );
@@ -135,7 +132,7 @@ public class JDBCDataSourceUpdater
    * Wrapper method to update a JDBC data source via WS.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
+   * @param serverName      the target JEE application server name.
    * @param dataSourceName  the target JDBC data source name.
    * @throws KalumetException in case of update failure.
    */
@@ -155,20 +152,20 @@ public class JDBCDataSourceUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     JDBCDataSource dataSource = applicationServer.getJDBCDataSource( dataSourceName );
     if ( dataSource == null )
     {
-      LOGGER.error( "JDBC data source {} is not found in J2EE application server {}", dataSourceName,
+      LOGGER.error( "JDBC data source {} is not found in JEE application server {}", dataSourceName,
                     applicationServer.getName() );
-      throw new KalumetException( "JDBC data source " + dataSourceName + " is not found in J2EE application server "
+      throw new KalumetException( "JDBC data source " + dataSourceName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
 
@@ -221,7 +218,7 @@ public class JDBCDataSourceUpdater
    * Wrapper method to check JDBC data source via WS.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
+   * @param serverName      the target JEE application server name.
    * @param dataSourceName  the target JDBC data source name.
    * @return true if the JDBC data source is up to date, false else.
    * @throws KalumetException in case of check failure.
@@ -242,20 +239,20 @@ public class JDBCDataSourceUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     JDBCDataSource dataSource = applicationServer.getJDBCDataSource( dataSourceName );
     if ( dataSource == null )
     {
-      LOGGER.error( "JDBC data source {} is not found in J2EE application server {}", dataSourceName,
+      LOGGER.error( "JDBC data source {} is not found in JEE application server {}", dataSourceName,
                     applicationServer.getName() );
-      throw new KalumetException( "JDBC data source " + dataSourceName + " is not found in J2EE application server "
+      throw new KalumetException( "JDBC data source " + dataSourceName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
 
@@ -268,19 +265,19 @@ public class JDBCDataSourceUpdater
     JDBCConnectionPool connectionPool = applicationServer.getJDBCConnectionPool( dataSource.getPool() );
     if ( connectionPool == null )
     {
-      LOGGER.error( "JDBC connection pool {} is not found in J2EE application server {}", dataSource.getPool(),
+      LOGGER.error( "JDBC connection pool {} is not found in JEE application server {}", dataSource.getPool(),
                     applicationServer.getName() );
       throw new KalumetException(
-        "JDBC connection pool " + dataSource.getPool() + " is not found in J2EE application server "
+        "JDBC connection pool " + dataSource.getPool() + " is not found in JEE application server "
           + applicationServer.getName() );
     }
 
     try
     {
-      // connecting to J2EE application server controller
-      LOGGER.debug( "Connecting to J2EE application server controller" );
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, applicationServer );
+      // connecting to JEE application server controller
+      LOGGER.debug( "Connecting to JEE application server controller" );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, applicationServer);
       // replace variables in the JDBC URL and helper class name
       LOGGER.debug( "Replacing variables in JDBC URL and helper class" );
       String jdbcUrl = VariableUtils.replace( connectionPool.getUrl(), environment.getVariables() );

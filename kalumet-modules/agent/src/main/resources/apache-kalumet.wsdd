@@ -51,17 +51,17 @@
     <parameter name="className" value="org.apache.kalumet.agent.updater.EnvironmentUpdater"/>
   </service>
 
-  <service name="J2EEApplicationServerService" provider="java:RPC">
+  <service name="JEEApplicationServerService" provider="java:RPC">
     <parameter name="allowedMethods" value="start
             stop
             status
             update"/>
-    <parameter name="className" value="org.apache.kalumet.agent.updater.J2EEApplicationServerUpdater"/>
+    <parameter name="className" value="org.apache.kalumet.agent.updater.JEEApplicationServerUpdater"/>
   </service>
 
-  <service name="J2EEApplicationService" provider="java:RPC">
+  <service name="JEEApplicationService" provider="java:RPC">
     <parameter name="allowedMethods" value="update"/>
-    <parameter name="className" value="org.apache.kalumet.agent.updater.J2EEApplicationUpdater"/>
+    <parameter name="className" value="org.apache.kalumet.agent.updater.JEEApplicationUpdater"/>
   </service>
 
   <service name="ArchiveService" provider="java:RPC">

@@ -102,5 +102,5 @@ Apache Kalumet Console Agents Configuration
 
 [/images/agent_capacity.png]
 
- The "Capacity" tab configure the maximum numbers of environments and J2EE application servers that the agent is able to manage. It allows you to manage the server machine resources usage.
+ The "Capacity" tab configure the maximum numbers of environments and JEE application servers that the agent is able to manage. It allows you to manage the server machine resources usage.
  For instance, you can setup 5 environments on a box, but "limit" the number of running environments running in the same time using the agent capacity.

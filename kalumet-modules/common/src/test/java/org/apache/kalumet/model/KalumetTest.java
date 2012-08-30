@@ -78,7 +78,7 @@ public class KalumetTest
     assertEquals( 5000, agent.getPort() );
     assertEquals( "0 * * * * *", agent.getCron() );
     assertEquals( 5, agent.getMaxmanagedenvironments() );
-    assertEquals( 3, agent.getMaxj2eeapplicationserversstarted() );
+    assertEquals( 3, agent.getMaxjeeapplicationserversstarted() );
   }
 
   @Test
@@ -120,13 +120,13 @@ public class KalumetTest
     Access access = kalumetModel.getEnvironment( "test_auto" ).getAccess( "test" );
     assertEquals( "false", access.getProperty( "admin" ).getValue() );
     assertEquals( "true", access.getProperty( "update" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_application_servers_change" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_application_servers_update" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_application_servers_control" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_resources_change" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_resources_update" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_applications_change" ).getValue() );
-    assertEquals( "true", access.getProperty( "j2ee_applications_update" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_application_servers_change" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_application_servers_update" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_application_servers_control" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_resources_change" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_resources_update" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_applications_change" ).getValue() );
+    assertEquals( "true", access.getProperty( "jee_applications_update" ).getValue() );
     assertEquals( "true", access.getProperty( "softwares_change" ).getValue() );
     assertEquals( "true", access.getProperty( "softwares_update" ).getValue() );
     assertEquals( "true", access.getProperty( "release" ).getValue() );
@@ -146,19 +146,19 @@ public class KalumetTest
   }
 
   @Test
-  public void testJ2EEApplicationServersUnmarshalling()
+  public void testJEEApplicationServersUnmarshalling()
   {
-    LOGGER.info( "Get Kalumet test_auto environment J2EE application servers" );
-    J2EEApplicationServers applicationServers = kalumetModel.getEnvironment( "test_auto" ).getJ2EEApplicationServers();
+    LOGGER.info( "Get Kalumet test_auto environment JEE application servers" );
+    JEEApplicationServers applicationServers = kalumetModel.getEnvironment( "test_auto" ).getJEEApplicationServers();
     assertEquals( false, applicationServers.isCluster() );
   }
 
   @Test
-  public void testJ2EEApplicationServerUnmarshalling()
+  public void testJEEApplicationServerUnmarshalling()
   {
-    LOGGER.info( "Get Kalumet test_auto environment as_test J2EE application server" );
-    J2EEApplicationServer applicationServer =
-      kalumetModel.getEnvironment( "test_auto" ).getJ2EEApplicationServers().getJ2EEApplicationServer( "as_test" );
+    LOGGER.info( "Get Kalumet test_auto environment as_test JEE application server" );
+    JEEApplicationServer applicationServer =
+      kalumetModel.getEnvironment( "test_auto" ).getJEEApplicationServers().getJEEApplicationServer("as_test");
     assertEquals( "org.apache.kalumet.jmx.plugins.DummyPlugin", applicationServer.getClassname() );
     assertEquals( "dummy://localhost:1099", applicationServer.getJmxurl() );
     assertEquals( "admin_user", applicationServer.getAdminuser() );
@@ -175,20 +175,20 @@ public class KalumetTest
   @Test
   public void testJDBCConnectionPoolUnmarshalling()
   {
-    LOGGER.info( "Get Kalumet test_auto environment, as_test J2EE application server, JDBC connection pool test" );
+    LOGGER.info( "Get Kalumet test_auto environment, as_test JEE application server, JDBC connection pool test" );
     JDBCConnectionPool connectionPool =
-      kalumetModel.getEnvironment( "test_auto" ).getJ2EEApplicationServers().getJ2EEApplicationServer(
-        "as_test" ).getJDBCConnectionPool( "test" );
+      kalumetModel.getEnvironment( "test_auto" ).getJEEApplicationServers().getJEEApplicationServer(
+              "as_test").getJDBCConnectionPool( "test" );
     assertEquals( "test", connectionPool.getName() );
   }
 
   @Test
   public void testJDBCDataSourceUnmarshalling()
   {
-    LOGGER.info( "Get Kalumet test_auto environment, as_test J2EE application server, JDBC data source test" );
+    LOGGER.info( "Get Kalumet test_auto environment, as_test JEE application server, JDBC data source test" );
     JDBCDataSource dataSource =
-      kalumetModel.getEnvironment( "test_auto" ).getJ2EEApplicationServers().getJ2EEApplicationServer(
-        "as_test" ).getJDBCDataSource( "test" );
+      kalumetModel.getEnvironment( "test_auto" ).getJEEApplicationServers().getJEEApplicationServer(
+              "as_test").getJDBCDataSource( "test" );
     assertEquals( "test", dataSource.getName() );
   }
 
@@ -202,7 +202,7 @@ public class KalumetTest
     assertEquals( "test", software.getAgent() );
     assertEquals( true, software.isActive() );
     assertEquals( false, software.isBlocker() );
-    assertEquals( false, software.isBeforej2ee() );
+    assertEquals( false, software.isBeforejee() );
   }
 
   @Test

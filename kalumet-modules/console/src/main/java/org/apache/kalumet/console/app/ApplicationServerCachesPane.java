@@ -33,7 +33,7 @@ import org.apache.kalumet.model.Cache;
 import java.util.Iterator;
 
 /**
- * J2EE application server caches pane.
+ * JEE application server caches pane.
  */
 public class ApplicationServerCachesPane
   extends ContentPane

@@ -21,10 +21,10 @@ package org.apache.kalumet.controller.core;
 import java.util.List;
 
 /**
- * Abstract J2EE application server controller.
+ * Abstract JEE application server controller.
  */
-public abstract class AbstractJ2EEApplicationServerController
-  implements J2EEApplicationServerController
+public abstract class AbstractJEEApplicationServerController
+  implements JEEApplicationServerController
 {
 
   private String url;
@@ -40,15 +40,15 @@ public abstract class AbstractJ2EEApplicationServerController
   /**
    * Default constructor.
    *
-   * @param url        JMX URL of the J2EE application server.
+   * @param url        JMX URL of the JEE application server.
    * @param username   the administrative user.
    * @param password   the administrative password.
-   * @param serverName the J2EE application server name.
+   * @param serverName the JEE application server name.
    * @param cluster    true means that the server is a cluster, or single.
    * @throws ControllerException in case of connection failure.
    */
-  public AbstractJ2EEApplicationServerController( String url, String username, String password, String serverName,
-                                                  Boolean cluster )
+  public AbstractJEEApplicationServerController(String url, String username, String password, String serverName,
+                                                Boolean cluster)
     throws ControllerException
   {
     this.url = url;
@@ -60,7 +60,7 @@ public abstract class AbstractJ2EEApplicationServerController
   }
 
   /**
-   * Abstract method to initialize a specific J2EE application server.
+   * Abstract method to initialize a specific JEE application server.
    *
    * @throws ControllerException in case of initialization error.
    */
@@ -126,17 +126,17 @@ public abstract class AbstractJ2EEApplicationServerController
   public abstract boolean isStopped()
     throws ControllerException;
 
-  public abstract boolean isJ2EEApplicationDeployed( String path, String name )
+  public abstract boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException;
 
-  public abstract void deployJ2EEApplication( String path, String name, String classLoaderOrder,
-                                              String classLoaderPolicy, String virtualHost )
+  public abstract void deployJEEApplication(String path, String name, String classLoaderOrder,
+                                            String classLoaderPolicy, String virtualHost)
     throws ControllerException;
 
-  public abstract void undeployJ2EEApplication( String path, String name )
+  public abstract void undeployJEEApplication(String path, String name)
     throws ControllerException;
 
-  public abstract void redeployJ2EEApplication( String path, String name )
+  public abstract void redeployJEEApplication(String path, String name)
     throws ControllerException;
 
   public abstract boolean isJDBCConnectionPoolDeployed( String name )

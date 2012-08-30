@@ -23,13 +23,8 @@ import org.apache.kalumet.FileManipulatorException;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.ConfigurationFile;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.Mapping;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -43,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Iterator;
 
 /**
- * J2EE application configuration file updater.
+ * JEE application configuration file updater.
  */
 public class ConfigurationFileUpdater
 {
@@ -54,12 +49,12 @@ public class ConfigurationFileUpdater
    * Updates a <code>ConfigurationFile</code>.
    *
    * @param environment       the target <code>Environment</code>.
-   * @param server            the target <code>J2EEApplicationServer</code>.
-   * @param application       the target <code>J2EEApplication</code>.
+   * @param server            the target <code>JEEApplicationServer</code>.
+   * @param application       the target <code>JEEApplication</code>.
    * @param configurationFile the target <code>ConfigurationFile</code>.
    * @param updateLog         the <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void update( Environment environment, JEEApplicationServer server, JEEApplication application,
                              ConfigurationFile configurationFile, UpdateLog updateLog )
     throws UpdateException
   {
@@ -118,8 +113,8 @@ public class ConfigurationFileUpdater
     String configurationFileUri = VariableUtils.replace( configurationFile.getUri(), environment.getVariables() );
     if ( !FileManipulator.protocolExists( configurationFileUri ) )
     {
-      // the configuration file URI is relative, construct the URI using the J2EE application URI
-      LOGGER.debug( "The configuration file URI is relative to the J2EE application URI" );
+      // the configuration file URI is relative, construct the URI using the JEE application URI
+      LOGGER.debug( "The configuration file URI is relative to the JEE application URI" );
       configurationFileUri =
         FileManipulator.format( VariableUtils.replace( application.getUri(), environment.getVariables() ) ) + "!/"
           + configurationFileUri;
@@ -143,13 +138,13 @@ public class ConfigurationFileUpdater
     try
     {
       LOGGER.debug( "Initializing application cache directory" );
-      applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+      applicationCacheDir = FileManipulator.createJEEApplicationCacheDir( environment, application );
     }
     catch ( FileManipulatorException fileManipulatorException )
     {
-      LOGGER.error( "Can't create J2EE application {} cache directory", application.getName(),
+      LOGGER.error( "Can't create JEE application {} cache directory", application.getName(),
                     fileManipulatorException );
-      throw new UpdateException( "Can't create J2EE application " + application.getName() + " cache directory",
+      throw new UpdateException( "Can't create JEE application " + application.getName() + " cache directory",
                                  fileManipulatorException );
     }
 
@@ -217,8 +212,8 @@ public class ConfigurationFileUpdater
    * Wrapper method to update a configuration file via WS.
    *
    * @param environmentName       the target environment name.
-   * @param serverName            the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param serverName            the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param configurationFileName the target configuration file name.
    * @param delegation            flag indicating if the call is made by another agent (true), or by a client (false).
    * @throws KalumetException in case of update error.
@@ -238,28 +233,28 @@ public class ConfigurationFileUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName, serverName );
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName, serverName );
       throw new KalumetException(
-        "J2EE application " + applicationName + " is not found in J2EE application server " + serverName );
+        "JEE application " + applicationName + " is not found in JEE application server " + serverName );
     }
     ConfigurationFile configurationFile = application.getConfigurationFile( configurationFileName );
     if ( configurationFile == null )
     {
-      LOGGER.error( "Configuration file {} is not found in J2EE application {}", configurationFileName,
+      LOGGER.error( "Configuration file {} is not found in JEE application {}", configurationFileName,
                     applicationName );
       throw new KalumetException(
-        "Configuration file " + configurationFileName + " is not found in J2EE application " + applicationName );
+        "Configuration file " + configurationFileName + " is not found in JEE application " + applicationName );
     }
 
     // update cache
@@ -328,8 +323,8 @@ public class ConfigurationFileUpdater
    * Wrapper method to check if a configuration file is update to date or not via WS.
    *
    * @param environmentName       the target environment name.
-   * @param serverName            the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param serverName            the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param configurationFileName the target configuration file name.
    * @return true if the configuration file is up to date, false else.
    * @throws KalumetException in case of error during configuration file check.
@@ -350,28 +345,28 @@ public class ConfigurationFileUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer( serverName );
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication( applicationName );
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName, serverName );
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName, serverName );
       throw new KalumetException(
-        "J2EE application " + applicationName + " is not found in J2EE application server " + serverName );
+        "JEE application " + applicationName + " is not found in JEE application server " + serverName );
     }
     ConfigurationFile configurationFile = application.getConfigurationFile( configurationFileName );
     if ( configurationFile == null )
     {
-      LOGGER.error( "Configuration file {} is not found in J2EE application {}", configurationFileName,
+      LOGGER.error( "Configuration file {} is not found in JEE application {}", configurationFileName,
                     applicationName );
       throw new KalumetException(
-        "Configuration file " + configurationFileName + " is not found in J2EE application " + applicationName );
+        "Configuration file " + configurationFileName + " is not found in JEE application " + applicationName );
     }
 
     if ( configurationFile.getAgent() != null && configurationFile.getAgent().trim().length() > 0
@@ -402,7 +397,7 @@ public class ConfigurationFileUpdater
     {
       // the configuration file URI doesn't contain protocol prefix,
       // constructs the configuration file URI using the application URI
-      LOGGER.debug( "Configuration file {} URI is relative to the J2EE application one", configurationFile.getName() );
+      LOGGER.debug( "Configuration file {} URI is relative to the JEE application one", configurationFile.getName() );
       configurationFileUri =
         FileManipulator.format( VariableUtils.replace( application.getUri(), environment.getVariables() ) ) + "!/"
           + configurationFileUri;
@@ -410,7 +405,7 @@ public class ConfigurationFileUpdater
 
     // get the application cache directory.
     LOGGER.debug( "Creating the application cache directory" );
-    String applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+    String applicationCacheDir = FileManipulator.createJEEApplicationCacheDir( environment, application );
 
     // get the configuration file cache.
     LOGGER.debug( "Creating the configuration file cache location" );

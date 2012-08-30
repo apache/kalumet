@@ -42,7 +42,7 @@ public class JMSConnectionFactoryClient
    * Wrapper method to update a JMS connection factory.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param connectionFactoryName the target JMS connection factory.
    * @throws ClientException in case of update failure.
    */
@@ -63,7 +63,7 @@ public class JMSConnectionFactoryClient
    * Wrapper method to check if a JMS connection factory is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param connectionFactoryName the target JMS connection factory name.
    * @return true if the JMS connection factory is up to date, false else.
    * @throws ClientException in case of status check failure.

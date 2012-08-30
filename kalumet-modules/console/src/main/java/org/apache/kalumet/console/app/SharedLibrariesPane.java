@@ -33,7 +33,7 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.SharedLibrary;
 import org.apache.kalumet.ws.client.SharedLibraryClient;
@@ -186,7 +186,7 @@ public class SharedLibrariesPane
         return;
       }
       // looking for the shared library object
-      SharedLibrary sharedLibrary = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      SharedLibrary sharedLibrary = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getSharedLibrary( event.getActionCommand() );
       if ( sharedLibrary == null )
       {
@@ -236,7 +236,7 @@ public class SharedLibrariesPane
         return;
       }
       // looking for the shared library object
-      SharedLibrary sharedLibrary = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      SharedLibrary sharedLibrary = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getSharedLibrary( event.getActionCommand() );
       if ( sharedLibrary == null )
       {
@@ -323,7 +323,7 @@ public class SharedLibrariesPane
         return;
       }
       // looking for the shared library
-      final SharedLibrary sharedLibrary = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      final SharedLibrary sharedLibrary = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getSharedLibrary( event.getActionCommand() );
       if ( sharedLibrary == null )
       {
@@ -338,7 +338,7 @@ public class SharedLibrariesPane
           public void actionPerformed( ActionEvent event )
           {
             // remove the shared library
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeField.getSelectedItem() ).getSharedLibraries().remove( sharedLibrary );
             // add a change event
             parent.getChangeEvents().add( "Delete shared library " + sharedLibrary.getName() );
@@ -395,7 +395,7 @@ public class SharedLibrariesPane
       // library name is not already in use
       if ( !name.equals( nameFieldValue ) )
       {
-        if ( parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getSharedLibrary( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -404,7 +404,7 @@ public class SharedLibrariesPane
         }
       }
       // looking for the shared library object
-      SharedLibrary sharedLibrary = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      SharedLibrary sharedLibrary = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getSharedLibrary( name );
       if ( sharedLibrary == null )
       {
@@ -466,7 +466,7 @@ public class SharedLibrariesPane
       // add the shared library
       try
       {
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).addSharedLibrary( sharedLibrary );
       }
       catch ( Exception e )
@@ -493,7 +493,7 @@ public class SharedLibrariesPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for the shared library object
-      SharedLibrary sharedLibrary = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      SharedLibrary sharedLibrary = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getSharedLibrary( event.getActionCommand() );
       if ( sharedLibrary == null )
       {
@@ -698,10 +698,10 @@ public class SharedLibrariesPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -737,10 +737,10 @@ public class SharedLibrariesPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -781,7 +781,7 @@ public class SharedLibrariesPane
     classpathHeader.setStyleName( "grid.header" );
     grid.add( classpathHeader );
     // add the shared libraries
-    for ( Iterator sharedLibraryIterator = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+    for ( Iterator sharedLibraryIterator = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
       applicationServerName ).getSharedLibraries().iterator(); sharedLibraryIterator.hasNext(); )
     {
       SharedLibrary sharedLibrary = (SharedLibrary) sharedLibraryIterator.next();

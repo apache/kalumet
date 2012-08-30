@@ -22,10 +22,10 @@ import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
 import org.apache.kalumet.controller.core.ControllerException;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.model.SharedLibrary;
 import org.apache.kalumet.model.update.UpdateLog;
@@ -48,12 +48,12 @@ public class SharedLibraryUpdater
    * Updates a shared library.
    *
    * @param environment   the target <code>Environment</code>.
-   * @param server        the target <code>J2EEApplicationServer</code>.
+   * @param server        the target <code>JEEApplicationServer</code>.
    * @param sharedLibrary the target <code>SharedLibrary</code>.
    * @param updateLog     the <code>UpdateLog</code> to use.
    * @throws UpdateException in case of update failure.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, SharedLibrary sharedLibrary,
+  public static void update( Environment environment, JEEApplicationServer server, SharedLibrary sharedLibrary,
                              UpdateLog updateLog )
     throws UpdateException
   {
@@ -71,17 +71,17 @@ public class SharedLibraryUpdater
                        "Shared library " + sharedLibrary.getName() + " is inactive, so not updated" );
       return;
     }
-    J2EEApplicationServerController controller = null;
+    JEEApplicationServerController controller = null;
     try
     {
-      // connect JMX controller to J2EE application server
-      LOGGER.debug( "Connecting to J2EE application server {} controller", server.getName() );
-      controller = J2EEApplicationServerControllerFactory.getController( environment, server );
+      // connect JMX controller to JEE application server
+      LOGGER.debug( "Connecting to JEE application server {} controller", server.getName() );
+      controller = JEEApplicationServerControllerFactory.getController(environment, server);
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "Can't connect to J2EE application server {} controller", server.getName(), e );
-      throw new UpdateException( "Can't connect to J2EE application server " + server.getName() + " controller", e );
+      LOGGER.error( "Can't connect to JEE application server {} controller", server.getName(), e );
+      throw new UpdateException( "Can't connect to JEE application server " + server.getName() + " controller", e );
     }
     // replaces variables in shared library class path.
     LOGGER.debug( "Replacing variables into the shared library classpath" );
@@ -126,7 +126,7 @@ public class SharedLibraryUpdater
    * Wrapper method to update shared library via WS.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param sharedLibraryName     the target shared library name.
    * @throws KalumetException in case of update failure.
    */
@@ -147,21 +147,21 @@ public class SharedLibraryUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( applicationServerName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(applicationServerName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", applicationServerName,
+      LOGGER.error( "JEE application server {} is not found in environment {}", applicationServerName,
                     environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + applicationServerName + " is not found in environment " + environment.getName() );
+        "JEE application server " + applicationServerName + " is not found in environment " + environment.getName() );
     }
     SharedLibrary sharedLibrary = applicationServer.getSharedLibrary( sharedLibraryName );
     if ( sharedLibrary == null )
     {
-      LOGGER.error( "Shared library {} is not found in J2EE application server {}", sharedLibraryName,
+      LOGGER.error( "Shared library {} is not found in JEE application server {}", sharedLibraryName,
                     applicationServer.getName() );
-      throw new KalumetException( "Shared library " + sharedLibraryName + " is not found in J2EE application server "
+      throw new KalumetException( "Shared library " + sharedLibraryName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
 
@@ -214,7 +214,7 @@ public class SharedLibraryUpdater
    * Check if a shared library is up to date or not via WS.
    *
    * @param environmentName   the target environment name.
-   * @param serverName        the target J2EE application server name.
+   * @param serverName        the target JEE application server name.
    * @param sharedLibraryName the target shared library name.
    * @return true if the shared library is up to date, false else.
    * @throws KalumetException in case of check failure.
@@ -236,29 +236,29 @@ public class SharedLibraryUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environment.getName() );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environment.getName() );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environment.getName() );
+        "JEE application server " + serverName + " is not found in environment " + environment.getName() );
     }
     SharedLibrary sharedLibrary = applicationServer.getSharedLibrary( sharedLibraryName );
     if ( sharedLibrary == null )
     {
-      LOGGER.error( "Shared library {} is not found in J2EE application server {}", sharedLibraryName,
+      LOGGER.error( "Shared library {} is not found in JEE application server {}", sharedLibraryName,
                     applicationServer.getName() );
-      throw new KalumetException( "Shared library " + sharedLibraryName + " is not found in J2EE application server "
+      throw new KalumetException( "Shared library " + sharedLibraryName + " is not found in JEE application server "
                                     + applicationServer.getName() );
     }
 
     try
     {
-      // get J2EE application server controller
-      LOGGER.debug( "Getting J2EE application server controller" );
-      J2EEApplicationServerController controller =
-        J2EEApplicationServerControllerFactory.getController( environment, applicationServer );
+      // get JEE application server controller
+      LOGGER.debug( "Getting JEE application server controller" );
+      JEEApplicationServerController controller =
+        JEEApplicationServerControllerFactory.getController(environment, applicationServer);
       // replaces variables in shared library class path.
       LOGGER.debug( "Replacing variables into the shared library classpath" );
       String classpath = VariableUtils.replace( sharedLibrary.getClasspath(), environment.getVariables() );

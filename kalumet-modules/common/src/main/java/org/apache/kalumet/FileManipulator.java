@@ -30,7 +30,7 @@ import org.apache.commons.vfs.Selectors;
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.impl.StandardFileSystemManager;
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.Software;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -600,18 +600,18 @@ public class FileManipulator
   }
 
   /**
-   * Creates an environment j2EEApplication cache directory.
+   * Creates an environment jeeApplication cache directory.
    *
    * @param environment     the <code>Environment</code>.
-   * @param j2EEApplication the <code>J2EEApplication</code>.
-   * @return the environment j2EEApplication cache directory path.
+   * @param jeeApplication the <code>JEEApplication</code>.
+   * @return the environment jeeApplication cache directory path.
    * @throws FileManipulatorException in case of creation failure.
    */
-  public static String createJ2EEApplicationCacheDir( Environment environment, J2EEApplication j2EEApplication )
+  public static String createJEEApplicationCacheDir( Environment environment, JEEApplication jeeApplication )
     throws FileManipulatorException
   {
     String directory = FileManipulator.createEnvironmentCacheDir( environment );
-    directory = directory + "/applications/" + j2EEApplication.getName();
+    directory = directory + "/applications/" + jeeApplication.getName();
     FileManipulator fileManipulator = new FileManipulator();
     fileManipulator.createDirectory( directory );
     fileManipulator.close();

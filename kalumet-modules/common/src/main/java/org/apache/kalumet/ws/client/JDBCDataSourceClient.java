@@ -42,7 +42,7 @@ public class JDBCDataSourceClient
    * Wrapper method to update a JDBC data source.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param dataSourceName        the target data source name.
    * @throws ClientException in case of update failure.
    */
@@ -63,7 +63,7 @@ public class JDBCDataSourceClient
    * Wrapper method to check if a JDBC data source is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param dataSourceName        the target data source name.
    * @return true if the data source is up to date, false else.
    * @throws ClientException in case of check failure.

@@ -31,9 +31,9 @@ import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.ws.client.J2EEApplicationServerClient;
+import org.apache.kalumet.ws.client.JEEApplicationServerClient;
 
 import java.util.Iterator;
 
@@ -76,12 +76,12 @@ public class ApplicationServersPane
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the WebService
-        J2EEApplicationServerClient client = new J2EEApplicationServerClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationServerClient client = new JEEApplicationServerClient( agent.getHostname(), agent.getPort() );
         client.update( parent.getEnvironmentName(), serverName, false );
       }
       catch ( Exception e )
       {
-        message = "J2EE application server " + serverName + " update failed: " + e.getMessage();
+        message = "JEE application server " + serverName + " update failed: " + e.getMessage();
         failure = true;
       }
       finally
@@ -118,12 +118,12 @@ public class ApplicationServersPane
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the WebService
-        J2EEApplicationServerClient client = new J2EEApplicationServerClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationServerClient client = new JEEApplicationServerClient( agent.getHostname(), agent.getPort() );
         client.stop( parent.getEnvironmentName(), serverName );
       }
       catch ( Exception e )
       {
-        message = "J2EE application server " + serverName + " stop failed: " + e.getMessage();
+        message = "JEE application server " + serverName + " stop failed: " + e.getMessage();
         failure = true;
       }
       finally
@@ -160,12 +160,12 @@ public class ApplicationServersPane
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the WebService
-        J2EEApplicationServerClient client = new J2EEApplicationServerClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationServerClient client = new JEEApplicationServerClient( agent.getHostname(), agent.getPort() );
         client.start( parent.getEnvironmentName(), serverName );
       }
       catch ( Exception e )
       {
-        message = "J2EE application server " + serverName + " start failed: " + e.getMessage();
+        message = "JEE application server " + serverName + " start failed: " + e.getMessage();
         failure = true;
       }
       finally
@@ -202,12 +202,12 @@ public class ApplicationServersPane
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the WebService
-        J2EEApplicationServerClient client = new J2EEApplicationServerClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationServerClient client = new JEEApplicationServerClient( agent.getHostname(), agent.getPort() );
         message = client.status( parent.getEnvironmentName(), serverName );
       }
       catch ( Exception e )
       {
-        message = "J2EE application server " + serverName + " status failed: " + e.getMessage();
+        message = "JEE application server " + serverName + " status failed: " + e.getMessage();
         failure = true;
       }
       finally
@@ -253,8 +253,8 @@ public class ApplicationServersPane
           {
             // put message in the log pane and in the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application server " + serverName + " update in progress...", parent.getEnvironmentName() );
-            parent.getChangeEvents().add( "J2EE application server " + serverName + " update requested." );
+              "JEE application server " + serverName + " update in progress...", parent.getEnvironmentName() );
+            parent.getChangeEvents().add( "JEE application server " + serverName + " update requested." );
             // launch async task
             final UpdateThread updateThread = new UpdateThread();
             updateThread.serverName = serverName;
@@ -276,8 +276,8 @@ public class ApplicationServersPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application server " + serverName + " updated.", parent.getEnvironmentName() );
-                    parent.getChangeEvents().add( "J2EE application server " + serverName + " updated." );
+                      "JEE application server " + serverName + " updated.", parent.getEnvironmentName() );
+                    parent.getChangeEvents().add( "JEE application server " + serverName + " updated." );
                   }
                 }
                 else
@@ -328,8 +328,8 @@ public class ApplicationServersPane
           {
             // put message in the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application server " + serverName + " start in progress...", parent.getEnvironmentName() );
-            parent.getChangeEvents().add( "J2EE application server " + serverName + " start requested." );
+              "JEE application server " + serverName + " start in progress...", parent.getEnvironmentName() );
+            parent.getChangeEvents().add( "JEE application server " + serverName + " start requested." );
             // launch async task
             final StartThread startThread = new StartThread();
             startThread.serverName = serverName;
@@ -351,8 +351,8 @@ public class ApplicationServersPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application server " + serverName + " started.", parent.getEnvironmentName() );
-                    parent.getChangeEvents().add( "J2EE application server " + serverName + " started." );
+                      "JEE application server " + serverName + " started.", parent.getEnvironmentName() );
+                    parent.getChangeEvents().add( "JEE application server " + serverName + " started." );
                   }
                 }
                 else
@@ -403,8 +403,8 @@ public class ApplicationServersPane
           {
             // put a message in the log pane and in the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application server " + serverName + " stop in progress...", parent.getEnvironmentName() );
-            parent.getChangeEvents().add( "J2EE application server " + serverName + " stop requested." );
+              "JEE application server " + serverName + " stop in progress...", parent.getEnvironmentName() );
+            parent.getChangeEvents().add( "JEE application server " + serverName + " stop requested." );
             // launch async task
             final StopThread stopThread = new StopThread();
             stopThread.serverName = serverName;
@@ -426,8 +426,8 @@ public class ApplicationServersPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application server " + serverName + " stopped.", parent.getEnvironmentName() );
-                    parent.getChangeEvents().add( "J2EE application server " + serverName + " stopped." );
+                      "JEE application server " + serverName + " stopped.", parent.getEnvironmentName() );
+                    parent.getChangeEvents().add( "JEE application server " + serverName + " stopped." );
                   }
                 }
                 else
@@ -458,8 +458,8 @@ public class ApplicationServersPane
       final String serverName = event.getActionCommand();
       // put a message in the log pane and in the journal
       KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-        "J2EE application server " + serverName + " status check in progress...", parent.getEnvironmentName() );
-      parent.getChangeEvents().add( "J2EE application server " + serverName + " status check." );
+        "JEE application server " + serverName + " status check in progress...", parent.getEnvironmentName() );
+      parent.getChangeEvents().add( "JEE application server " + serverName + " status check." );
       // launch async task
       final StatusThread statusThread = new StatusThread();
       statusThread.serverName = serverName;
@@ -522,8 +522,8 @@ public class ApplicationServersPane
         return;
       }
       // looking for the application server object
-      final J2EEApplicationServer applicationServer =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer( event.getActionCommand() );
+      final JEEApplicationServer applicationServer =
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer( event.getActionCommand() );
       if ( applicationServer == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -537,9 +537,9 @@ public class ApplicationServersPane
           public void actionPerformed( ActionEvent event )
           {
             // delete the application server
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().remove( applicationServer );
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().remove( applicationServer );
             // add change event
-            parent.getChangeEvents().add( "Delete J2EE application server " + applicationServer.getName() );
+            parent.getChangeEvents().add( "Delete JEE application server " + applicationServer.getName() );
             // change the updated flag
             parent.setUpdated( true );
             // update the whole window
@@ -579,8 +579,8 @@ public class ApplicationServersPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for the application server object
-      J2EEApplicationServer applicationServer =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer( event.getActionCommand() );
+      JEEApplicationServer applicationServer =
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer( event.getActionCommand() );
       if ( applicationServer == null )
       {
         return;
@@ -617,8 +617,8 @@ public class ApplicationServersPane
         return;
       }
       // looking for the application server object
-      J2EEApplicationServer server =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer( event.getActionCommand() );
+      JEEApplicationServer server =
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer( event.getActionCommand() );
       if ( server == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -629,12 +629,12 @@ public class ApplicationServersPane
       if ( server.isActive() )
       {
         server.setActive( false );
-        parent.getChangeEvents().add( "Disable J2EE application server " + server.getName() );
+        parent.getChangeEvents().add( "Disable JEE application server " + server.getName() );
       }
       else
       {
         server.setActive( true );
-        parent.getChangeEvents().add( "Enable J2EE application server " + server.getName() );
+        parent.getChangeEvents().add( "Enable JEE application server " + server.getName() );
       }
       // change the update flag
       parent.setUpdated( true );
@@ -665,8 +665,8 @@ public class ApplicationServersPane
         return;
       }
       // looking for the application server object
-      J2EEApplicationServer server =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer( event.getActionCommand() );
+      JEEApplicationServer server =
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer( event.getActionCommand() );
       if ( server == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -732,7 +732,7 @@ public class ApplicationServersPane
       content.add( createButton );
     }
 
-    // add the J2EE application servers grid
+    // add the JEE application servers grid
     serversGrid = new Grid( 5 );
     serversGrid.setStyleName( "border.grid" );
     serversGrid.setColumnWidth( 0, new Extent( 50, Extent.PX ) );
@@ -752,7 +752,7 @@ public class ApplicationServersPane
   public void update()
   {
     // update the topology select field
-    if ( parent.getEnvironment().getJ2EEApplicationServers().isCluster() )
+    if ( parent.getEnvironment().getJEEApplicationServers().isCluster() )
     {
       topologyField.setSelectedIndex( 1 );
     }
@@ -760,7 +760,7 @@ public class ApplicationServersPane
     {
       topologyField.setSelectedIndex( 0 );
     }
-    // update the J2EE application servers grid
+    // update the JEE application servers grid
     // remove all grid children
     serversGrid.removeAll();
     // add header
@@ -781,10 +781,10 @@ public class ApplicationServersPane
     serversGrid.add( serverAgentHeader );
     // add application servers
     for ( Iterator serverIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           serverIterator.hasNext(); )
     {
-      J2EEApplicationServer server = (J2EEApplicationServer) serverIterator.next();
+      JEEApplicationServer server = (JEEApplicationServer) serverIterator.next();
       // application server name and actions
       Row row = new Row();
       row.setInsets( new Insets( 2 ) );

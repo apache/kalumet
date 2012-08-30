@@ -43,7 +43,7 @@ public class Agent
 
   private int maxmanagedenvironments;
 
-  private int maxj2eeapplicationserversstarted;
+  private int maxjeeapplicationserversstarted;
 
   public Agent()
   {
@@ -99,14 +99,14 @@ public class Agent
     this.maxmanagedenvironments = maxmanagedenvironments;
   }
 
-  public int getMaxj2eeapplicationserversstarted()
+  public int getMaxjeeapplicationserversstarted()
   {
-    return this.maxj2eeapplicationserversstarted;
+    return this.maxjeeapplicationserversstarted;
   }
 
-  public void setMaxj2eeapplicationserversstarted( int maxenvironmentsactive )
+  public void setMaxjeeapplicationserversstarted(int maxenvironmentsactive)
   {
-    this.maxj2eeapplicationserversstarted = maxenvironmentsactive;
+    this.maxjeeapplicationserversstarted = maxenvironmentsactive;
   }
 
   /**
@@ -121,7 +121,7 @@ public class Agent
     clone.setPort( this.getPort() );
     clone.setCron( this.getCron() );
     clone.setMaxmanagedenvironments( this.getMaxmanagedenvironments() );
-    clone.setMaxj2eeapplicationserversstarted( this.getMaxj2eeapplicationserversstarted() );
+    clone.setMaxjeeapplicationserversstarted(this.getMaxjeeapplicationserversstarted());
     return clone;
   }
 
@@ -139,8 +139,8 @@ public class Agent
     element.setAttribute( "port", new Integer( this.getPort() ).toString() );
     element.setAttribute( "cron", this.getCron() );
     element.setAttribute( "maxmanagedenvironments", new Integer( this.getMaxmanagedenvironments() ).toString() );
-    element.setAttribute( "maxj2eeapplicationserversstarted",
-                          new Integer( this.getMaxj2eeapplicationserversstarted() ).toString() );
+    element.setAttribute( "maxjeeapplicationserversstarted",
+                          new Integer( this.getMaxjeeapplicationserversstarted() ).toString() );
     return element;
   }
 

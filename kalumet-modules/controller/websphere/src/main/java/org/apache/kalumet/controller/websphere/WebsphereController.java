@@ -29,7 +29,7 @@ import com.ibm.websphere.management.application.AppManagementProxy;
 import com.ibm.websphere.management.configservice.ConfigServiceHelper;
 import com.ibm.websphere.management.configservice.ConfigServiceProxy;
 import com.ibm.websphere.management.configservice.SystemAttributes;
-import org.apache.kalumet.controller.core.AbstractJ2EEApplicationServerController;
+import org.apache.kalumet.controller.core.AbstractJEEApplicationServerController;
 import org.apache.kalumet.controller.core.ControllerException;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
@@ -58,7 +58,7 @@ import java.util.Set;
  * WebsphereController is the controller for IBM WebSphere Server 5.x and 6.x.
  */
 public class WebsphereController
-  extends AbstractJ2EEApplicationServerController
+  extends AbstractJEEApplicationServerController
 {
 
   private final static transient Logger LOGGER = LoggerFactory.getLogger( WebsphereController.class );
@@ -332,10 +332,10 @@ public class WebsphereController
     return stopped;
   }
 
-  public boolean isJ2EEApplicationDeployed( String path, String name )
+  public boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Checking if J2EE application {} is deployed", name );
+    LOGGER.info( "Checking if JEE application {} is deployed", name );
     boolean deployed = false;
     AdminClient admin = this.getConfigServiceProxy().getAdminClient();
     try
@@ -345,17 +345,17 @@ public class WebsphereController
     }
     catch ( Exception e )
     {
-      LOGGER.warn( "Can't check if J2EE application {} is deployed", name, e );
+      LOGGER.warn( "Can't check if JEE application {} is deployed", name, e );
       return false;
     }
     return deployed;
   }
 
-  public void deployJ2EEApplication( String path, String name, String classloaderorder, String classloaderpolicy,
-                                     String vhost )
+  public void deployJEEApplication(String path, String name, String classloaderorder, String classloaderpolicy,
+                                   String vhost)
     throws ControllerException
   {
-    LOGGER.info( "Deploying J2EE application {}", name );
+    LOGGER.info( "Deploying JEE application {}", name );
     AdminClient admin = this.getConfigServiceProxy().getAdminClient();
     ObjectName server = null;
     try
@@ -375,17 +375,17 @@ public class WebsphereController
       }
       if ( servers.isEmpty() )
       {
-        LOGGER.error( "IBM WebSphere server {} not found, can't deploy J2EE application {}", this.getServerName(),
+        LOGGER.error( "IBM WebSphere server {} not found, can't deploy JEE application {}", this.getServerName(),
                       name );
         throw new ControllerException(
-          "IBM WebSphere server " + this.getServerName() + " not found, can't deploy J2EE application " + name );
+          "IBM WebSphere server " + this.getServerName() + " not found, can't deploy JEE application " + name );
       }
       server = (ObjectName) servers.iterator().next();
       LOGGER.debug( "IBM WebSphere server {} MBean found", this.getServerName() );
       AppManagement appManagement = AppManagementProxy.getJMXProxyForClient( admin );
       // first, create the deployment controler and populate the archive file
       // with appropriate options
-      LOGGER.debug( "Defining J2EE application preferences" );
+      LOGGER.debug( "Defining JEE application preferences" );
       Hashtable preferences = new Hashtable();
       preferences.put( AppConstants.APPDEPL_LOCALE, Locale.getDefault() );
       preferences.put( AppConstants.APPDEPL_APPNAME, name );
@@ -416,11 +416,11 @@ public class WebsphereController
         vhost = "default_host";
       }
 
-      LOGGER.debug( "Creating J2EE application default bindings" );
+      LOGGER.debug( "Creating JEE application default bindings" );
       Properties defaultBinding = new Properties();
       defaultBinding.put( AppConstants.APPDEPL_DFLTBNDG_VHOST, vhost );
       preferences.put( AppConstants.APPDEPL_DFLTBNDG, defaultBinding );
-      LOGGER.debug( "Creating J2EE application options" );
+      LOGGER.debug( "Creating JEE application options" );
       Hashtable options = new Hashtable();
       options.put( AppConstants.APPDEPL_APPNAME, name );
       options.put( AppConstants.APPDEPL_LOCALE, Locale.getDefault() );
@@ -434,7 +434,7 @@ public class WebsphereController
       options.put( AppConstants.APPDEPL_CLASSLOADERPOLICY, AppConstants.APPDEPL_CLASSLOADERPOLICY_SINGLE );
       options.put( AppConstants.APPDEPL_DFLTBNDG, defaultBinding );
 
-      LOGGER.debug( "Defining J2EE application targets" );
+      LOGGER.debug( "Defining JEE application targets" );
       Hashtable module2server = new Hashtable();
       if ( this.isCluster() )
       {
@@ -448,7 +448,7 @@ public class WebsphereController
       }
       options.put( AppConstants.APPDEPL_MODULE_TO_SERVER, module2server );
       // install the JEE application
-      LOGGER.debug( "Installing J2EE application {}", name );
+      LOGGER.debug( "Installing JEE application {}", name );
       appManagement.installApplication( path, name, options, null );
       ConfigServiceProxy configService = this.getConfigServiceProxy();
       Thread.sleep( 5000 );
@@ -459,27 +459,27 @@ public class WebsphereController
       }
       // waiting for deployment
       int i = 0;
-      while ( !this.isJ2EEApplicationDeployed( path, name ) && i < 100 )
+      while ( !this.isJEEApplicationDeployed(path, name) && i < 100 )
       {
         Thread.sleep( 10000 );
         i++;
       }
       Thread.sleep( 60000 );
-      // start the J2EE application
-      LOGGER.debug( "Starting J2EE application {}", name );
+      // start the JEE application
+      LOGGER.debug( "Starting JEE application {}", name );
       appManagement.startApplication( name, preferences, null );
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't deploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't deploy J2EE application " + name, e );
+      LOGGER.error( "Can't deploy JEE application {}", name, e );
+      throw new ControllerException( "Can't deploy JEE application " + name, e );
     }
   }
 
-  public void undeployJ2EEApplication( String path, String name )
+  public void undeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Undeploying J2EE application {}", name );
+    LOGGER.info( "Undeploying JEE application {}", name );
     AdminClient admin = this.getConfigServiceProxy().getAdminClient();
     try
     {
@@ -487,13 +487,13 @@ public class WebsphereController
       Hashtable preferences = new Hashtable();
       preferences.put( AppConstants.APPDEPL_LOCALE, Locale.getDefault() );
       preferences.put( AppConstants.APPDEPL_APPNAME, name );
-      LOGGER.debug( "Stopping J2EE application {}", name );
+      LOGGER.debug( "Stopping JEE application {}", name );
       appManagement.stopApplication( name, preferences, null );
-      LOGGER.debug( "Uninstalling J2EE application {}", name + " from IBM WebSphere server " + this.getServerName() );
+      LOGGER.debug( "Uninstalling JEE application {}", name + " from IBM WebSphere server " + this.getServerName() );
       appManagement.uninstallApplication( name, preferences, null );
       // waiting for undeployment
       int i = 0;
-      while ( this.isJ2EEApplicationDeployed( path, name ) && i < 100 )
+      while ( this.isJEEApplicationDeployed(path, name) && i < 100 )
       {
         Thread.sleep( 10000 );
         i++;
@@ -501,15 +501,15 @@ public class WebsphereController
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't undeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't undeploy J2EE application " + name, e );
+      LOGGER.error( "Can't undeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't undeploy JEE application " + name, e );
     }
   }
 
-  public void redeployJ2EEApplication( String path, String name )
+  public void redeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Redeploying J2EE application {}", name );
+    LOGGER.info( "Redeploying JEE application {}", name );
     AdminClient admin = this.getConfigServiceProxy().getAdminClient();
     try
     {
@@ -521,8 +521,8 @@ public class WebsphereController
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't redeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't redeploy J2EE application " + name, e );
+      LOGGER.error( "Can't redeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't redeploy JEE application " + name, e );
     }
   }
 

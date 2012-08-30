@@ -157,7 +157,7 @@ public class JmsServerWindow
     public void actionPerformed( ActionEvent event )
     {
       // looking for original JMS server object
-      jmsServer = parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      jmsServer = parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         serverName ).getJMSServer( jmsServerName );
       if ( jmsServer == null )
       {
@@ -195,7 +195,7 @@ public class JmsServerWindow
           public void actionPerformed( ActionEvent event )
           {
             // remove the jms server
-            parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               serverName ).getJMSServers().remove( jmsServer );
             // add a change event
             parent.getEnvironmentWindow().getChangeEvents().add( "Delete JMS server " + jmsServer.getName() );
@@ -247,7 +247,7 @@ public class JmsServerWindow
       // doesn't already exist
       if ( jmsServerName == null || ( jmsServerName != null && !jmsServerName.equals( nameFieldValue ) ) )
       {
-        if ( parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        if ( parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           serverName ).getJMSServer( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "jmsserver.exists" ),
@@ -283,10 +283,10 @@ public class JmsServerWindow
       {
         try
         {
-          parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+          parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
             serverName ).addJMSServer( jmsServer );
           parent.getEnvironmentWindow().getChangeEvents().add(
-            "Add JMS server (name [ " + nameFieldValue + " ]) in the J2EE application server " + serverName );
+            "Add JMS server (name [ " + nameFieldValue + " ]) in the JEE application server " + serverName );
         }
         catch ( Exception e )
         {
@@ -479,7 +479,7 @@ public class JmsServerWindow
    * Create a new <code>JmsServerWindow</code>.
    *
    * @param parent                the <code>JmsServersPane</code>.
-   * @param applicationServerName the original J2EE application server name.
+   * @param applicationServerName the original JEE application server name.
    * @param jmsServerName         the original JMS server name.
    */
   public JmsServerWindow( JmsServersPane parent, String applicationServerName, String jmsServerName )
@@ -495,7 +495,7 @@ public class JmsServerWindow
 
     // update the jms server object from the parent environment
     this.jmsServer =
-      parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         serverName ).getJMSServer( jmsServerName );
     if ( this.jmsServer == null )
     {

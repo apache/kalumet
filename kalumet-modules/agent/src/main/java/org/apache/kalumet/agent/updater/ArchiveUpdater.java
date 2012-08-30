@@ -23,14 +23,10 @@ import org.apache.kalumet.FileManipulatorException;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.controller.core.J2EEApplicationServerController;
-import org.apache.kalumet.controller.core.J2EEApplicationServerControllerFactory;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.Archive;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.controller.core.JEEApplicationServerController;
+import org.apache.kalumet.controller.core.JEEApplicationServerControllerFactory;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.NotifierUtils;
@@ -42,7 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * J2EE application archive updater.
+ * JEE application archive updater.
  */
 public class ArchiveUpdater
 {
@@ -50,11 +46,11 @@ public class ArchiveUpdater
   private static final transient Logger LOGGER = LoggerFactory.getLogger( ArchiveUpdater.class );
 
   /**
-   * Wrapper method to update J2EE application archive.
+   * Wrapper method to update JEE application archive.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
-   * @param applicationName the target J2EE application name.
+   * @param serverName      the target JEE application server name.
+   * @param applicationName the target JEE application name.
    * @param archiveName     the target archive name.
    * @param delegation      flag indicating if the update is a delegation from another agent (true), or a client call (false).
    * @throws UpdateException in case of update failure.
@@ -74,25 +70,25 @@ public class ArchiveUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer server = environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer server = environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( server == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    J2EEApplication application = server.getJ2EEApplication( applicationName );
+    JEEApplication application = server.getJEEApplication(applicationName);
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName, serverName );
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName, serverName );
       throw new KalumetException(
-        "J2EE application " + applicationName + " is not found in J2EE application server " + serverName );
+        "JEE application " + applicationName + " is not found in JEE application server " + serverName );
     }
     Archive archive = application.getArchive( archiveName );
     if ( archive == null )
     {
-      LOGGER.error( "Archive {} is not found in J2EE application {}", archiveName, applicationName );
-      throw new KalumetException( "Archive " + archiveName + " is not found in J2EE application " + applicationName );
+      LOGGER.error( "Archive {} is not found in JEE application {}", archiveName, applicationName );
+      throw new KalumetException( "Archive " + archiveName + " is not found in JEE application " + applicationName );
     }
 
     // update configuration cache
@@ -157,12 +153,12 @@ public class ArchiveUpdater
    * Updates a archive.
    *
    * @param environment the target <code>Environment</code>.
-   * @param server      the target <code>J2EEApplicationServer</code>.
+   * @param server      the target <code>JEEApplicationServer</code>.
    * @param application the target JZEE <code>Application</code>.
    * @param archive     the target <code>Archive</code>.
    * @param updateLog   the <code>UpdateLog</code> to use.
    */
-  public static void update( Environment environment, J2EEApplicationServer server, J2EEApplication application,
+  public static void update( Environment environment, JEEApplicationServer server, JEEApplication application,
                              Archive archive, UpdateLog updateLog )
     throws UpdateException
   {
@@ -215,7 +211,7 @@ public class ArchiveUpdater
     {
       // the archive URI is relative (no prefix protocol), use the
       // application URI to construct the VFS URI
-      LOGGER.debug( "Archive URI is relative (no protocol prefix) to J2EE application URI" );
+      LOGGER.debug( "Archive URI is relative (no protocol prefix) to JEE application URI" );
       archiveUri =
         FileManipulator.format( VariableUtils.replace( application.getUri(), environment.getVariables() ) ) + "!/"
           + archiveUri;
@@ -226,13 +222,13 @@ public class ArchiveUpdater
     FileManipulator fileManipulator = null;
     try
     {
-      applicationCacheDir = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+      applicationCacheDir = FileManipulator.createJEEApplicationCacheDir(environment, application);
       fileManipulator = new FileManipulator();
     }
     catch ( FileManipulatorException e )
     {
-      LOGGER.error( "Can't create J2EE application {} cache directory", application.getName(), e );
-      throw new UpdateException( "Can't create J2EE application " + application.getName() + " cache directory", e );
+      LOGGER.error( "Can't create JEE application {} cache directory", application.getName(), e );
+      throw new UpdateException( "Can't create JEE application " + application.getName() + " cache directory", e );
     }
     finally
     {
@@ -252,22 +248,22 @@ public class ArchiveUpdater
     }
     // the archive path is defined, use it
     archiveInstallation = VariableUtils.replace( archive.getPath(), environment.getVariables() );
-    // get the J2EE application server controller
-    LOGGER.debug( "Getting the J2EE application server controller" );
-    J2EEApplicationServerController controller = null;
+    // get the JEE application server controller
+    LOGGER.debug( "Getting the JEE application server controller" );
+    JEEApplicationServerController controller = null;
     try
     {
-      controller = J2EEApplicationServerControllerFactory.getController( environment, server );
+      controller = JEEApplicationServerControllerFactory.getController(environment, server);
     }
     catch ( KalumetException e )
     {
-      LOGGER.error( "Can't get the J2EE application server {} controller", server.getName(), e );
-      throw new UpdateException( "Can't get the J2EE application server " + server.getName() + " controller", e );
+      LOGGER.error( "Can't get the JEE application server {} controller", server.getName(), e );
+      throw new UpdateException( "Can't get the JEE application server " + server.getName() + " controller", e );
     }
     // check if the archive is already deployed
     try
     {
-      if ( controller.isJ2EEApplicationDeployed( archiveInstallation, archive.getName() ) )
+      if ( controller.isJEEApplicationDeployed(archiveInstallation, archive.getName()) )
       {
         // the archive is already deployed, check for update
         LOGGER.info( "Archive {} is already deployed, check for update", archive.getName() );
@@ -297,14 +293,14 @@ public class ArchiveUpdater
           LOGGER.info( "Undeploying archive {}", archive.getName() );
           updateLog.addUpdateMessage( new UpdateMessage( "info", "Undeploying archive " + archive.getName() ) );
           EventUtils.post( environment, "UPDATE", "Undeploying archive " + archive.getName() );
-          controller.undeployJ2EEApplication( archiveInstallation, archive.getName() );
+          controller.undeployJEEApplication(archiveInstallation, archive.getName());
           // deploy the archive
           LOGGER.info( "Deploying archive {}", archive.getName() );
           updateLog.addUpdateMessage( new UpdateMessage( "info", "Deploying archive " + archive.getName() ) );
           EventUtils.post( environment, "UPDATE", "Deploying archive " + archive.getName() );
-          controller.deployJ2EEApplication( archiveInstallation, archive.getName(), archive.getClassloaderorder(),
-                                            archive.getClassloaderpolicy(),
-                                            VariableUtils.replace( archive.getVhost(), environment.getVariables() ) );
+          controller.deployJEEApplication(archiveInstallation, archive.getName(), archive.getClassloaderorder(),
+                  archive.getClassloaderpolicy(),
+                  VariableUtils.replace(archive.getVhost(), environment.getVariables()));
           LOGGER.info( "Archive {} updated", archive.getName() );
           updateLog.addUpdateMessage( new UpdateMessage( "info", "Archive " + archive.getName() + " updated" ) );
           EventUtils.post( environment, "UPDATE", "Archive " + archive.getName() + " updated" );
@@ -326,22 +322,22 @@ public class ArchiveUpdater
         LOGGER.info( "Deploying archive {}", archive.getName() );
         updateLog.addUpdateMessage( new UpdateMessage( "info", "Deploying archive " + archive.getName() ) );
         EventUtils.post( environment, "UPDATE", "Deploying archive " + archive.getName() );
-        controller.deployJ2EEApplication( archiveInstallation, archive.getName(), archive.getClassloaderorder(),
-                                          archive.getClassloaderpolicy(),
-                                          VariableUtils.replace( archive.getVhost(), environment.getVariables() ) );
+        controller.deployJEEApplication(archiveInstallation, archive.getName(), archive.getClassloaderorder(),
+                archive.getClassloaderpolicy(),
+                VariableUtils.replace(archive.getVhost(), environment.getVariables()));
         updateLog.setUpdated( true );
       }
-      // as some J2EE application server (like IBM WebSphere) change the archive file during deployment, update
+      // as some JEE application server (like IBM WebSphere) change the archive file during deployment, update
       // the local archive with a original copy (for next update)
       LOGGER.debug( "Restoring the original archive (before deployment) from {}", archiveUri );
       fileManipulator.copy( archiveUri, archiveCache );
-      // check if the J2EE application is deployed (it should be)
-      if ( !controller.isJ2EEApplicationDeployed( archiveInstallation, archive.getName() ) )
+      // check if the JEE application is deployed (it should be)
+      if ( !controller.isJEEApplicationDeployed(archiveInstallation, archive.getName()) )
       {
-        LOGGER.error( "Archive {} is not deployed whereas it should be. Please check the J2EE application server logs",
+        LOGGER.error( "Archive {} is not deployed whereas it should be. Please check the JEE application server logs",
                       archive.getName() );
         throw new UpdateException( "Archive " + archive.getName()
-                                     + " is not deployed whereas it should be. Please check the J2EE application server logs" );
+                                     + " is not deployed whereas it should be. Please check the JEE application server logs" );
       }
     }
     catch ( Exception e )
@@ -364,8 +360,8 @@ public class ArchiveUpdater
    * Wrapper method to check if a archive is up to date or not via WS.
    *
    * @param environmentName the target environment name.
-   * @param serverName      the target J2EE application server name.
-   * @param applicationName the target J2EE application name.
+   * @param serverName      the target JEE application server name.
+   * @param applicationName the target JEE application name.
    * @param archiveName     the target archive name.
    * @return true if the archive is up to date, false else.
    * @throws KalumetException in case of status check failure
@@ -383,26 +379,26 @@ public class ArchiveUpdater
       LOGGER.error( "Environment {} is not found in the configuration", environmentName );
       throw new KalumetException( "Environment " + environmentName + " is not found in the configuration" );
     }
-    J2EEApplicationServer applicationServer =
-      environment.getJ2EEApplicationServers().getJ2EEApplicationServer( serverName );
+    JEEApplicationServer applicationServer =
+      environment.getJEEApplicationServers().getJEEApplicationServer(serverName);
     if ( applicationServer == null )
     {
-      LOGGER.error( "J2EE application server {} is not found in environment {}", serverName, environmentName );
+      LOGGER.error( "JEE application server {} is not found in environment {}", serverName, environmentName );
       throw new KalumetException(
-        "J2EE application server " + serverName + " is not found in environment " + environmentName );
+        "JEE application server " + serverName + " is not found in environment " + environmentName );
     }
-    J2EEApplication application = applicationServer.getJ2EEApplication( applicationName );
+    JEEApplication application = applicationServer.getJEEApplication(applicationName);
     if ( application == null )
     {
-      LOGGER.error( "J2EE application {} is not found in J2EE application server {}", applicationName, serverName );
+      LOGGER.error( "JEE application {} is not found in JEE application server {}", applicationName, serverName );
       throw new KalumetException(
-        "J2EE application " + applicationName + " is not found in J2EE application server " + serverName );
+        "JEE application " + applicationName + " is not found in JEE application server " + serverName );
     }
     Archive archive = application.getArchive( archiveName );
     if ( archive == null )
     {
-      LOGGER.error( "Archive {} is not found in J2EE application {}", archiveName, applicationName );
-      throw new KalumetException( "Archive " + archiveName + " is not found in J2EE application " + applicationName );
+      LOGGER.error( "Archive {} is not found in JEE application {}", archiveName, applicationName );
+      throw new KalumetException( "Archive " + archiveName + " is not found in JEE application " + applicationName );
     }
 
     // check if the check should be delegated to another agent
@@ -422,10 +418,10 @@ public class ArchiveUpdater
       return client.check( environmentName, serverName, applicationName, archiveName );
     }
 
-    // get J2EE application server controller
-    LOGGER.debug( "Getting J2EE application server controller" );
-    J2EEApplicationServerController controller =
-      J2EEApplicationServerControllerFactory.getController( environment, applicationServer );
+    // get JEE application server controller
+    LOGGER.debug( "Getting JEE application server controller" );
+    JEEApplicationServerController controller =
+      JEEApplicationServerControllerFactory.getController(environment, applicationServer);
 
     FileManipulator fileManipulator = null;
     try
@@ -434,7 +430,7 @@ public class ArchiveUpdater
 
       // get application cache directory
       LOGGER.debug( "Getting application cache directory" );
-      String applicationCacheDirectory = FileManipulator.createJ2EEApplicationCacheDir( environment, application );
+      String applicationCacheDirectory = FileManipulator.createJEEApplicationCacheDir(environment, application);
 
       // construct the archive URI
       String archiveUri = VariableUtils.replace( archive.getUri(), environment.getVariables() );
@@ -455,7 +451,7 @@ public class ArchiveUpdater
       }
       String archiveInstallation = VariableUtils.replace( archive.getPath(), environment.getVariables() );
 
-      if ( controller.isJ2EEApplicationDeployed( archiveInstallation, archive.getName() ) )
+      if ( controller.isJEEApplicationDeployed(archiveInstallation, archive.getName()) )
       {
         // check if the archive is deployed or not
         if ( fileManipulator.checksumEquals( archiveUri, archiveCache ) )

@@ -38,7 +38,7 @@
 
   <agents>
     <agent id="test" hostname="localhost" port="5000" cron="0 * * * * *" maxmanagedenvironments="5"
-           maxj2eeapplicationserversstarted="3"/>
+           maxjeeapplicationserversstarted="3"/>
   </agents>
 
   <environments>
@@ -69,13 +69,13 @@ field
           <properties>
             <property name="admin" value="false"/>
             <property name="update" value="true"/>
-            <property name="j2ee_application_servers_change" value="true"/>
-            <property name="j2ee_application_servers_update" value="true"/>
-            <property name="j2ee_application_servers_control" value="true"/>
-            <property name="j2ee_resources_change" value="true"/>
-            <property name="j2ee_resources_update" value="true"/>
-            <property name="j2ee_applications_change" value="true"/>
-            <property name="j2ee_applications_update" value="true"/>
+            <property name="jee_application_servers_change" value="true"/>
+            <property name="jee_application_servers_update" value="true"/>
+            <property name="jee_application_servers_control" value="true"/>
+            <property name="jee_resources_change" value="true"/>
+            <property name="jee_resources_update" value="true"/>
+            <property name="jee_applications_change" value="true"/>
+            <property name="jee_applications_update" value="true"/>
             <property name="softwares_change" value="true"/>
             <property name="softwares_update" value="true"/>
             <property name="release" value="true"/>
@@ -88,8 +88,8 @@ field
       <logfiles>
         <logfile name="test" path="/tmp" agent="test"/>
       </logfiles>
-      <j2eeapplicationservers cluster="false">
-        <j2eeapplicationserver name="as_test" classname="org.apache.kalumet.jmx.plugins.DummyPlugin"
+      <jeeapplicationservers cluster="false">
+        <jeeapplicationserver name="as_test" classname="org.apache.kalumet.jmx.plugins.DummyPlugin"
                                jmxurl="dummy://localhost:1099" adminuser="admin_user" adminpassword="admin_password"
                                updateRequireRestart="true" updateRequireCacheCleaning="true" usejmxstop="false"
                                deletecomponents="false" agent="test">
@@ -109,11 +109,11 @@ echo "Shutdown"
           <jdbcdatasources>
             <jdbcdatasource name="test"/>
           </jdbcdatasources>
-        </j2eeapplicationserver>
-      </j2eeapplicationservers>
+        </jeeapplicationserver>
+      </jeeapplicationservers>
       <softwares>
         <software name="test" uri="http://www.example.com/software" agent="test" active="true" blocker="false"
-                  beforej2ee="false">
+                  beforejee="false">
           <updateplan>
             <command name="command_test" agent="test" active="true" blocker="false">
               <![CDATA[

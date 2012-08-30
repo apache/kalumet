@@ -19,7 +19,7 @@
 package org.apache.kalumet.ws.client;
 
 /**
- * J2EE application server JDBC connection pool WS client.
+ * JEE application server JDBC connection pool WS client.
  */
 public class JDBCConnectionPoolClient
   extends AbstractClient
@@ -42,7 +42,7 @@ public class JDBCConnectionPoolClient
    * Wrapper method to update a JDBC connection pool.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param connectionPoolName    the target connection pool name.
    * @throws ClientException in case of communication failure.
    */
@@ -63,7 +63,7 @@ public class JDBCConnectionPoolClient
    * Wrapper method to check if a JDBC connection pool is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param connectionPoolName    the target connection pool name.
    * @return true if the connection pool is up to date, false else.
    * @throws ClientException in case of communication failure.

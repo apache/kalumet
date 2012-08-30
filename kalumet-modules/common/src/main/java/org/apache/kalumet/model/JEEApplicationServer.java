@@ -29,9 +29,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Represents the <code>j2eeapplicationserver</code> tag in the Kalumet DOM.
+ * Represents the <code>jeeapplicationserver</code> tag in the Kalumet DOM.
  */
-public class J2EEApplicationServer
+public class JEEApplicationServer
   implements Serializable, Cloneable, Comparable
 {
 
@@ -77,16 +77,16 @@ public class J2EEApplicationServer
 
   private LinkedList sharedLibraries;
 
-  private LinkedList j2eeApplications;
+  private LinkedList jeeApplications;
 
   private LinkedList caches;
 
   private LinkedList logAccesses;
 
   /**
-   * Default constructor to create a new <code>J2EEApplicationServer</code>.
+   * Default constructor to create a new <code>JEEApplicationServer</code>.
    */
-  public J2EEApplicationServer()
+  public JEEApplicationServer()
   {
     this.jdbcConnectionPools = new LinkedList();
     this.jdbcDataSources = new LinkedList();
@@ -94,7 +94,7 @@ public class J2EEApplicationServer
     this.jmsServers = new LinkedList();
     this.jndiBindings = new LinkedList();
     this.sharedLibraries = new LinkedList();
-    this.j2eeApplications = new LinkedList();
+    this.jeeApplications = new LinkedList();
     this.caches = new LinkedList();
     this.logAccesses = new LinkedList();
   }
@@ -241,7 +241,7 @@ public class J2EEApplicationServer
 
   /**
    * Add a new <code>JDBCConnectionPool</code> in the
-   * <code>J2EEApplicationServer</code> connection pools container.
+   * <code>JEEApplicationServer</code> connection pools container.
    *
    * @param JDBCConnectionPool the <code>JDBCConnectionPool</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -252,14 +252,14 @@ public class J2EEApplicationServer
   {
     if ( this.getJDBCConnectionPool( JDBCConnectionPool.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "JDBC connection pool name already exists in the JZEE server." );
+      throw new ModelObjectAlreadyExistsException( "JDBC connection pool name already exists in the JEE server." );
     }
     this.jdbcConnectionPools.add( JDBCConnectionPool );
   }
 
   /**
    * Get the <code>JDBCConnectionPool</code> list in the
-   * <code>J2EEApplicationServer</code> connection pools container.
+   * <code>JEEApplicationServer</code> connection pools container.
    *
    * @return the <code>JDBCConnectionPool</code> list.
    */
@@ -270,7 +270,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrite the <code>JDBCConnectionPool</code> list in the
-   * <code>J2EEApplicationServer</code> connection pools container.
+   * <code>JEEApplicationServer</code> connection pools container.
    *
    * @param jdbcConnectionPools the new <code>JDBCConnectionPool</code> list.
    */
@@ -281,7 +281,7 @@ public class J2EEApplicationServer
 
   /**
    * Get the <code>JDBCConnectionPool</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> connection pools container.
+   * <code>JEEApplicationServer</code> connection pools container.
    *
    * @param name the <code>JDBCConnectionPool</code> name.
    * @return the <code>JDBCConnectionPool</code> found or null if not found.
@@ -301,7 +301,7 @@ public class J2EEApplicationServer
   }
 
   /**
-   * Add a new <code>JDBCDataSource</code> in the <code>J2EEApplicationServer</code>
+   * Add a new <code>JDBCDataSource</code> in the <code>JEEApplicationServer</code>
    * data sources container.
    *
    * @param JDBCDataSource the <code>JDBCDataSource</code> to add.
@@ -313,14 +313,14 @@ public class J2EEApplicationServer
   {
     if ( this.getJDBCDataSource( JDBCDataSource.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "JDBC data source name already exists in the JZEE server." );
+      throw new ModelObjectAlreadyExistsException( "JDBC data source name already exists in the JEE server." );
     }
     this.jdbcDataSources.add( JDBCDataSource );
   }
 
   /**
    * Get the <code>JDBCDataSource</code> list in the
-   * <code>J2EEApplicationServer</code> data sources container.
+   * <code>JEEApplicationServer</code> data sources container.
    *
    * @return the <code>JDBCDataSource</code> list.
    */
@@ -331,7 +331,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrite the <code>JDBCDataSource</code> list in the
-   * <code>J2EEApplicationServer</code> data sources container.
+   * <code>JEEApplicationServer</code> data sources container.
    *
    * @param dataSources the new <code>JDBCDataSource</code> list.
    */
@@ -342,7 +342,7 @@ public class J2EEApplicationServer
 
   /**
    * Get the <code>JDBCDataSource</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> data sources container.
+   * <code>JEEApplicationServer</code> data sources container.
    *
    * @param name the <code>JDBCDataSource</code> name.
    * @return the <code>JDBCDataSource</code> found or null if not found.
@@ -362,7 +362,7 @@ public class J2EEApplicationServer
 
   /**
    * Add a new <code>JMSConnectionFactory</code> in the
-   * <code>J2EEApplicationServer</code> JMS connection factories container.
+   * <code>JEEApplicationServer</code> JMS connection factories container.
    *
    * @param jmsConnectionFactory the <code>JMSConnectionFactory</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -373,14 +373,14 @@ public class J2EEApplicationServer
   {
     if ( this.getJMSConnectionFactory( jmsConnectionFactory.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "JMS connection factory name already exists in the JZEE server." );
+      throw new ModelObjectAlreadyExistsException( "JMS connection factory name already exists in the JEE server." );
     }
     this.jmsConnectionFactories.add( jmsConnectionFactory );
   }
 
   /**
    * Get the <code>JMSConnectionFactory</code> list in the
-   * <code>J2EEApplicationServer</code> JMS connection factories container.
+   * <code>JEEApplicationServer</code> JMS connection factories container.
    *
    * @return the <code>JMSConnectionFactory</code> list.
    */
@@ -391,7 +391,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrites the <code>JMSConnectionFactory</code> list in the
-   * <code>J2EEApplicationServer</code> JMS connection factories container.
+   * <code>JEEApplicationServer</code> JMS connection factories container.
    *
    * @param jmsConnectionFactories the new <code>JMSConnectionFactory</code> list.
    */
@@ -402,7 +402,7 @@ public class J2EEApplicationServer
 
   /**
    * Gets the <code>JMSConnectionFactory</code> identified by a given name in
-   * the <code>J2EEApplicationServer</code> JMS connection factories container.
+   * the <code>JEEApplicationServer</code> JMS connection factories container.
    *
    * @param name the <code>JMSConnectionFactory</code> name.
    * @return the <code>JMSConnectionFactory</code> found or null if not found.
@@ -422,7 +422,7 @@ public class J2EEApplicationServer
   }
 
   /**
-   * Adds a new <code>JMSServer</code> in the <code>J2EEApplicationServer</code>
+   * Adds a new <code>JMSServer</code> in the <code>JEEApplicationServer</code>
    * JMS servers container.
    *
    * @param jmsServer the <code>JMSServer</code> to add.
@@ -434,13 +434,13 @@ public class J2EEApplicationServer
   {
     if ( this.getJMSServer( jmsServer.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "JMS server name already exists in the JZEE application server." );
+      throw new ModelObjectAlreadyExistsException( "JMS server name already exists in the JEE application server." );
     }
     this.jmsServers.add( jmsServer );
   }
 
   /**
-   * Gets the <code>JMSServer</code> list in the <code>J2EEApplicationServer</code>
+   * Gets the <code>JMSServer</code> list in the <code>JEEApplicationServer</code>
    * JMS servers container.
    *
    * @return the <code>JMSServer</code> list.
@@ -452,7 +452,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrites the <code>JMSServer</code> list in the
-   * <code>J2EEApplicationServer</code> JMS servers container.
+   * <code>JEEApplicationServer</code> JMS servers container.
    *
    * @param jmsServers the new <code>JMSServer</code> list.
    */
@@ -463,7 +463,7 @@ public class J2EEApplicationServer
 
   /**
    * Gets the <code>JMSServer</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> JMS servers container.
+   * <code>JEEApplicationServer</code> JMS servers container.
    *
    * @param name the <code>JMSServer</code> name.
    * @return the <code>JMSServer</code> found or null if not found.
@@ -483,7 +483,7 @@ public class J2EEApplicationServer
 
   /**
    * Adds a new <code>JNDIBinding</code> in the
-   * <code>J2EEApplicationServer</code> name space bindings container.
+   * <code>JEEApplicationServer</code> name space bindings container.
    *
    * @param JNDIBinding the <code>JNDIBinding</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -494,14 +494,14 @@ public class J2EEApplicationServer
   {
     if ( this.getJNDIBinding( JNDIBinding.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Name space binding name already exists in the JZEE server." );
+      throw new ModelObjectAlreadyExistsException( "Name space binding name already exists in the JEE server." );
     }
     this.jndiBindings.add( JNDIBinding );
   }
 
   /**
    * Gets the <code>JNDIBinding</code> list in the
-   * <code>J2EEApplicationServer</code> name space bindings container.
+   * <code>JEEApplicationServer</code> name space bindings container.
    *
    * @return the <code>JNDIBinding</code> list.
    */
@@ -512,7 +512,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrites the <code>JNDIBinding</code> list in the
-   * <code>J2EEApplicationServer</code> name space bindings container.
+   * <code>JEEApplicationServer</code> name space bindings container.
    *
    * @param jndiBindings the new <code>JNDIBinding</code> list.
    */
@@ -523,7 +523,7 @@ public class J2EEApplicationServer
 
   /**
    * Gets the <code>JNDIBinding</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> name space bindings container.
+   * <code>JEEApplicationServer</code> name space bindings container.
    *
    * @param name the <code>JNDIBinding</code> name.
    * @return the <code>JNDIBinding</code> found or null if not found.
@@ -543,7 +543,7 @@ public class J2EEApplicationServer
 
   /**
    * Adds a new <code>SharedLibrary</code> in the
-   * <code>J2EEApplicationServer</code> shared libraries container.
+   * <code>JEEApplicationServer</code> shared libraries container.
    *
    * @param sharedLibrary the <code>SharedLibrary</code> to add.
    * @throws ModelObjectAlreadyExistsException
@@ -554,14 +554,14 @@ public class J2EEApplicationServer
   {
     if ( this.getSharedLibrary( sharedLibrary.getName() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Shared library name already exists in the JZEE server." );
+      throw new ModelObjectAlreadyExistsException( "Shared library name already exists in the JEE server." );
     }
     this.sharedLibraries.add( sharedLibrary );
   }
 
   /**
    * Gets the <code>SharedLibrary</code> list in the
-   * <code>J2EEApplicationServer</code> shared libraries container.
+   * <code>JEEApplicationServer</code> shared libraries container.
    *
    * @return the <code>SharedLibrary</code> list.
    */
@@ -572,7 +572,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrites the <code>SharedLibrary</code> list in the
-   * <code>J2EEApplicationServer</code> shared libraries container.
+   * <code>JEEApplicationServer</code> shared libraries container.
    *
    * @param sharedLibraries the new <code>SharedLibrary</code> list.
    */
@@ -583,7 +583,7 @@ public class J2EEApplicationServer
 
   /**
    * Gets the <code>SharedLibrary</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> shared libraries container.
+   * <code>JEEApplicationServer</code> shared libraries container.
    *
    * @param name the <code>SharedLibrary</code> name.
    * @return the <code>SharedLibrary</code> found or null if not found.
@@ -602,68 +602,68 @@ public class J2EEApplicationServer
   }
 
   /**
-   * Adds a new <code>J2EEApplication</code> in the <code>J2EEApplicationServer</code>
-   * j2eeApplications container.
+   * Adds a new <code>JEEApplication</code> in the <code>JEEApplicationServer</code>
+   * jeeApplications container.
    *
-   * @param j2eeApplication the <code>J2EEApplication</code> to add.
+   * @param jeeApplication the <code>JEEApplication</code> to add.
    * @throws ModelObjectAlreadyExistsException
-   *          if the <code>J2EEApplication</code> name already exists in the j2EEApplication server.
+   *          if the <code>JEEApplication</code> name already exists in the jeeApplication server.
    */
-  public void addJ2EEApplication( J2EEApplication j2eeApplication )
+  public void addJEEApplication( JEEApplication jeeApplication )
     throws ModelObjectAlreadyExistsException
   {
-    if ( this.getJ2EEApplication( j2eeApplication.getName() ) != null )
+    if ( this.getJEEApplication(jeeApplication.getName()) != null )
     {
       throw new ModelObjectAlreadyExistsException(
-        "J2EE application name already exists in the J2EE application server." );
+        "JEE application name already exists in the JEE application server." );
     }
-    this.j2eeApplications.add( j2eeApplication );
+    this.jeeApplications.add(jeeApplication);
   }
 
   /**
-   * Gets the <code>J2EEApplication</code> list in the
-   * <code>J2EEApplicationServer</code> j2eeApplications container.
+   * Gets the <code>JEEApplication</code> list in the
+   * <code>JEEApplicationServer</code> jeeApplications container.
    *
-   * @return the <code>J2EEApplication</code> list.
+   * @return the <code>JEEApplication</code> list.
    */
-  public List getJ2EEApplications()
+  public List getJEEApplications()
   {
-    return this.j2eeApplications;
+    return this.jeeApplications;
   }
 
   /**
-   * Overwrites the <code>J2EEApplication</code> list in the
-   * <code>J2EEApplicationServer</code> j2eeApplications container.
+   * Overwrites the <code>JEEApplication</code> list in the
+   * <code>JEEApplicationServer</code> jeeApplications container.
    *
-   * @param j2eeApplications the new <code>J2EEApplication</code> list.
+   * @param jeeApplications the new <code>JEEApplication</code> list.
    */
-  public void setJ2EEApplications( LinkedList j2eeApplications )
+  public void setJEEApplications( LinkedList jeeApplications )
   {
-    this.j2eeApplications = j2eeApplications;
+    this.jeeApplications = jeeApplications;
   }
 
   /**
-   * Gets the <code>J2EEApplication</code> identified by a given name in the
-   * <code>J2EEApplicationServer</code> j2eeApplications container.
+   * Gets the <code>JEEApplication</code> identified by a given name in the
+   * <code>JEEApplicationServer</code> jeeApplications container.
    *
-   * @param name the <code>J2EEApplication</code> name.
-   * @return the <code>J2EEApplication</code> found or null if not found.
+   * @param name the <code>JEEApplication</code> name.
+   * @return the <code>JEEApplication</code> found or null if not found.
    */
-  public J2EEApplication getJ2EEApplication( String name )
+  public JEEApplication getJEEApplication( String name )
   {
-    for ( Iterator applicationIterator = this.getJ2EEApplications().iterator(); applicationIterator.hasNext(); )
+    for ( Iterator applicationIterator = this.getJEEApplications().iterator(); applicationIterator.hasNext(); )
     {
-      J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
-      if ( j2EEApplication.getName().equals( name ) )
+      JEEApplication jeeApplication = (JEEApplication) applicationIterator.next();
+      if ( jeeApplication.getName().equals( name ) )
       {
-        return j2EEApplication;
+        return jeeApplication;
       }
     }
     return null;
   }
 
   /**
-   * Adds a new <code>Cache</code> in the <code>J2EEApplicationServer</code> caches
+   * Adds a new <code>Cache</code> in the <code>JEEApplicationServer</code> caches
    * container.
    *
    * @param cache the <code>Cache</code> to add.
@@ -675,13 +675,13 @@ public class J2EEApplicationServer
   {
     if ( this.getCache( cache.getPath() ) != null )
     {
-      throw new ModelObjectAlreadyExistsException( "Cache path already exists in the J2EE application server." );
+      throw new ModelObjectAlreadyExistsException( "Cache path already exists in the JEE application server." );
     }
     this.caches.add( cache );
   }
 
   /**
-   * Gets the <code>Cache</code> list in the <code>J2EEApplicationServer</code>
+   * Gets the <code>Cache</code> list in the <code>JEEApplicationServer</code>
    * caches container.
    *
    * @return the <code>Cache</code> list.
@@ -693,7 +693,7 @@ public class J2EEApplicationServer
 
   /**
    * Overwrites the <code>Cache</code> list in the
-   * <code>J2EEApplicationServer</code> caches container.
+   * <code>JEEApplicationServer</code> caches container.
    *
    * @param caches the new <code>Cache</code> list.
    */
@@ -704,7 +704,7 @@ public class J2EEApplicationServer
 
   /**
    * Gets the <code>Cache</code> identified by a given path in the
-   * <code>J2EEApplicationServer</code> caches container.
+   * <code>JEEApplicationServer</code> caches container.
    *
    * @param path the <code>Cache</code> path.
    * @return the <code>Cache</code> found or null if not found.
@@ -728,7 +728,7 @@ public class J2EEApplicationServer
   public Object clone()
     throws CloneNotSupportedException
   {
-    J2EEApplicationServer clone = new J2EEApplicationServer();
+    JEEApplicationServer clone = new JEEApplicationServer();
     clone.setName( this.getName() );
     clone.setActive( this.isActive() );
     clone.setBlocker( this.isBlocker() );
@@ -775,10 +775,10 @@ public class J2EEApplicationServer
       SharedLibrary sharedLibrary = (SharedLibrary) sharedLibraryIterator.next();
       clone.sharedLibraries.add( (SharedLibrary) sharedLibrary.clone() );
     }
-    for ( Iterator applicationIterator = this.j2eeApplications.iterator(); applicationIterator.hasNext(); )
+    for ( Iterator applicationIterator = this.jeeApplications.iterator(); applicationIterator.hasNext(); )
     {
-      J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
-      clone.j2eeApplications.add( (J2EEApplication) j2EEApplication.clone() );
+      JEEApplication jeeApplication = (JEEApplication) applicationIterator.next();
+      clone.jeeApplications.add( (JEEApplication) jeeApplication.clone() );
     }
     for ( Iterator cacheIterator = this.caches.iterator(); cacheIterator.hasNext(); )
     {
@@ -789,14 +789,14 @@ public class J2EEApplicationServer
   }
 
   /**
-   * Transforms the <code>J2EEApplicationServer</code> POJO to a DOM element.
+   * Transforms the <code>JEEApplicationServer</code> POJO to a DOM element.
    *
    * @param document the core XML document.
    * @return the DOM element.
    */
   protected Element toDOMElement( CoreDocumentImpl document )
   {
-    ElementImpl element = new ElementImpl( document, "j2eeapplicationserver" );
+    ElementImpl element = new ElementImpl( document, "jeeapplicationserver" );
     element.setAttribute( "name", this.getName() );
     element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
     element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
@@ -869,12 +869,12 @@ public class J2EEApplicationServer
       sharedlibraries.appendChild( sharedLibrary.toDOMElement( document ) );
     }
     element.appendChild( sharedlibraries );
-    // j2eeApplications
-    ElementImpl applications = new ElementImpl( document, "j2eeApplications" );
-    for ( Iterator applicationIterator = this.getJ2EEApplications().iterator(); applicationIterator.hasNext(); )
+    // jeeApplications
+    ElementImpl applications = new ElementImpl( document, "jeeApplications" );
+    for ( Iterator applicationIterator = this.getJEEApplications().iterator(); applicationIterator.hasNext(); )
     {
-      J2EEApplication j2EEApplication = (J2EEApplication) applicationIterator.next();
-      applications.appendChild( j2EEApplication.toDOMElement( document ) );
+      JEEApplication jeeApplication = (JEEApplication) applicationIterator.next();
+      applications.appendChild(jeeApplication.toDOMElement(document));
     }
     element.appendChild( applications );
     // caches
@@ -893,7 +893,7 @@ public class J2EEApplicationServer
    */
   public int compareTo( Object anotherApplicationServer )
   {
-    return this.getName().compareTo( ( (J2EEApplicationServer) anotherApplicationServer ).getName() );
+    return this.getName().compareTo( ( (JEEApplicationServer) anotherApplicationServer ).getName() );
   }
 
 }

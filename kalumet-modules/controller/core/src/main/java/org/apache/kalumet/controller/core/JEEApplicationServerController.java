@@ -21,13 +21,13 @@ package org.apache.kalumet.controller.core;
 import java.util.List;
 
 /**
- * J2EE application server controller interface.
+ * JEE application server controller interface.
  */
-public interface J2EEApplicationServerController
+public interface JEEApplicationServerController
 {
 
   /**
-   * Shutdown a J2EE application server.
+   * Shutdown a JEE application server.
    *
    * @throws ControllerException in case of shutdown failure.
    */
@@ -35,7 +35,7 @@ public interface J2EEApplicationServerController
     throws ControllerException;
 
   /**
-   * Get the current status of a J2EE application server.
+   * Get the current status of a JEE application server.
    *
    * @return the current human readable status.
    * @throws ControllerException in case of status check failure.
@@ -44,57 +44,57 @@ public interface J2EEApplicationServerController
     throws ControllerException;
 
   /**
-   * Check if an J2EE application server is stopped or not.
+   * Check if an JEE application server is stopped or not.
    *
-   * @return true if the J2EE application server is stopped, false if it's running.
+   * @return true if the JEE application server is stopped, false if it's running.
    * @throws ControllerException in case of status check failure.
    */
   public boolean isStopped()
     throws ControllerException;
 
   /**
-   * Check if a J2EE application is deployed.
+   * Check if a JEE application is deployed.
    *
    * @param path the application local path.
    * @param name the application name.
-   * @return true if the J2EE application is deployed, false else.
+   * @return true if the JEE application is deployed, false else.
    * @throws ControllerException in case of status check failure.
    */
-  public boolean isJ2EEApplicationDeployed( String path, String name )
+  public boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException;
 
   /**
-   * Deploy a J2EE application.
+   * Deploy a JEE application.
    *
-   * @param path              the J2EE application local path.
-   * @param name              the J2EE application name.
-   * @param classLoaderOrder  the J2EE application class loader order (PARENT_FIRST/PARENT_LAST).
-   * @param classLoaderPolicy the J2EE application class loader policy (single/multiple).
-   * @param virtualHost       the J2EE application virtual host (if applicable).
+   * @param path              the JEE application local path.
+   * @param name              the JEE application name.
+   * @param classLoaderOrder  the JEE application class loader order (PARENT_FIRST/PARENT_LAST).
+   * @param classLoaderPolicy the JEE application class loader policy (single/multiple).
+   * @param virtualHost       the JEE application virtual host (if applicable).
    * @throws ControllerException in case of deployment failure.
    */
-  public void deployJ2EEApplication( String path, String name, String classLoaderOrder, String classLoaderPolicy,
-                                     String virtualHost )
+  public void deployJEEApplication(String path, String name, String classLoaderOrder, String classLoaderPolicy,
+                                   String virtualHost)
     throws ControllerException;
 
   /**
-   * Undeploy a J2EE application.
+   * Undeploy a JEE application.
    *
-   * @param path the J2EE application local path.
-   * @param name the J2EE application name.
+   * @param path the JEE application local path.
+   * @param name the JEE application name.
    * @throws ControllerException in case of undeployment failure.
    */
-  public void undeployJ2EEApplication( String path, String name )
+  public void undeployJEEApplication(String path, String name)
     throws ControllerException;
 
   /**
-   * Redeploy a J2EE application.
+   * Redeploy a JEE application.
    *
-   * @param path the J2EE application local path.
-   * @param name the J2EE application name.
+   * @param path the JEE application local path.
+   * @param name the JEE application name.
    * @throws ControllerException in case of redeployment failure.
    */
-  public void redeployJ2EEApplication( String path, String name )
+  public void redeployJEEApplication(String path, String name)
     throws ControllerException;
 
   /**

@@ -29,12 +29,12 @@ import nextapp.echo2.extras.app.TabPane;
 import nextapp.echo2.extras.app.layout.TabPaneLayoutData;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplication;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.ws.client.J2EEApplicationClient;
+import org.apache.kalumet.ws.client.JEEApplicationClient;
 
 /**
- * J2EE application window.
+ * JEE application window.
  */
 public class ApplicationWindow
   extends WindowPane
@@ -44,7 +44,7 @@ public class ApplicationWindow
 
   private String serverName;
 
-  private J2EEApplication application = null;
+  private JEEApplication application = null;
 
   private ApplicationsPane parent;
 
@@ -82,13 +82,13 @@ public class ApplicationWindow
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the webservice
-        J2EEApplicationClient client = new J2EEApplicationClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationClient client = new JEEApplicationClient( agent.getHostname(), agent.getPort() );
         client.update( parent.getEnvironmentWindow().getEnvironmentName(), serverName, applicationName, false );
       }
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + applicationName + " update failed: " + e.getMessage();
+        message = "JEE application " + applicationName + " update failed: " + e.getMessage();
       }
       finally
       {
@@ -102,13 +102,13 @@ public class ApplicationWindow
   {
     public void actionPerformed( ActionEvent event )
     {
-      // looking for the J2EE application object
+      // looking for the JEE application object
       ApplicationWindow.this.application =
-        parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-          serverName ).getJ2EEApplication( applicationName );
+        parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+          serverName ).getJEEApplication( applicationName );
       if ( ApplicationWindow.this.application == null )
       {
-        ApplicationWindow.this.application = new J2EEApplication();
+        ApplicationWindow.this.application = new JEEApplication();
       }
       // update the window
       update();
@@ -151,10 +151,10 @@ public class ApplicationWindow
           public void actionPerformed( ActionEvent event )
           {
             // delete the application
-            parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              serverName ).getJ2EEApplications().remove( application );
+            parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              serverName ).getJEEApplications().remove( application );
             // add a change event
-            parent.getEnvironmentWindow().getChangeEvents().add( "Delete J2EE application " + application.getName() );
+            parent.getEnvironmentWindow().getChangeEvents().add( "Delete JEE application " + application.getName() );
             // change the updated flag
             parent.getEnvironmentWindow().setUpdated( true );
             // update the journal log tab pane
@@ -201,12 +201,12 @@ public class ApplicationWindow
           Messages.getString( "application.mandatory" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // if the user change the J2EE application name, check if the name
+      // if the user change the JEE application name, check if the name
       // doesn't already exist
       if ( applicationName == null || ( applicationName != null && !applicationName.equals( nameFieldValue ) ) )
       {
-        if ( parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-          serverName ).getJ2EEApplication( nameFieldValue ) != null )
+        if ( parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+          serverName ).getJEEApplication( nameFieldValue ) != null )
         {
           KalumetConsoleApplication.getApplication().getLogPane().addWarning(
             Messages.getString( "application.exists" ), getEnvironmentWindow().getEnvironmentName() );
@@ -216,7 +216,7 @@ public class ApplicationWindow
       // add a change event
       if ( applicationName != null )
       {
-        parent.getEnvironmentWindow().getChangeEvents().add( "Change J2EE application " + application.getName() );
+        parent.getEnvironmentWindow().getChangeEvents().add( "Change JEE application " + application.getName() );
       }
       // update the application object
       application.setName( nameFieldValue );
@@ -243,9 +243,9 @@ public class ApplicationWindow
       {
         try
         {
-          parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-            serverName ).addJ2EEApplication( application );
-          parent.getEnvironmentWindow().getChangeEvents().add( "Add J2EE application " + application.getName() );
+          parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+            serverName ).addJEEApplication( application );
+          parent.getEnvironmentWindow().getChangeEvents().add( "Add JEE application " + application.getName() );
         }
         catch ( Exception e )
         {
@@ -293,11 +293,11 @@ public class ApplicationWindow
     {
       Object copy = KalumetConsoleApplication.getApplication().getCopyComponent();
       // check if the copy is correct
-      if ( copy == null || !( copy instanceof J2EEApplication ) )
+      if ( copy == null || !( copy instanceof JEEApplication) )
       {
         return;
       }
-      application = (J2EEApplication) copy;
+      application = (JEEApplication) copy;
       applicationName = null;
       // update the parent pane
       parent.update();
@@ -341,10 +341,10 @@ public class ApplicationWindow
           {
             // add a message into the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + applicationName + " update in progress...",
+              "JEE application " + applicationName + " update in progress...",
               parent.getEnvironmentWindow().getEnvironmentName() );
             parent.getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + applicationName + " update requested." );
+              "JEE application " + applicationName + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
             updateThread.start();
@@ -365,10 +365,10 @@ public class ApplicationWindow
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + applicationName + " updated.",
+                      "JEE application " + applicationName + " updated.",
                       parent.getEnvironmentWindow().getEnvironmentName() );
                     parent.getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + applicationName + " updated." );
+                      "JEE application " + applicationName + " updated." );
                   }
                 }
                 else
@@ -387,8 +387,8 @@ public class ApplicationWindow
    * Create a new <code>ApplicationWindow</code>.
    *
    * @param parent                the parent <code>ApplicationsPane</code>.
-   * @param applicationServerName the original J2EE application server name.
-   * @param applicationName       the original J2EE application name.
+   * @param applicationServerName the original JEE application server name.
+   * @param applicationName       the original JEE application name.
    */
   public ApplicationWindow( ApplicationsPane parent, String applicationServerName, String applicationName )
   {
@@ -397,17 +397,17 @@ public class ApplicationWindow
     // update the parent tab pane
     this.parent = parent;
 
-    // update the j2ee application server name and j2ee application name
+    // update the JEE application server name and JEE application name
     this.serverName = applicationServerName;
     this.applicationName = applicationName;
 
     // update the application object from the parent environment
     this.application =
-      parent.getEnvironmentWindow().getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        serverName ).getJ2EEApplication( this.applicationName );
+      parent.getEnvironmentWindow().getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        serverName ).getJEEApplication( this.applicationName );
     if ( this.application == null )
     {
-      this.application = new J2EEApplication();
+      this.application = new JEEApplication();
     }
 
     if ( this.applicationName == null )
@@ -484,35 +484,35 @@ public class ApplicationWindow
     tabPane.setStyleName( "default" );
     splitPane.add( tabPane );
 
-    // add the j2ee application general tab
+    // add the JEE application general tab
     TabPaneLayoutData tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "general" ) );
     generalPane = new ApplicationGeneralPane( this );
     generalPane.setLayoutData( tabLayoutData );
     tabPane.add( generalPane );
 
-    // add the j2ee application archives tab
+    // add the JEE application archives tab
     tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "archives" ) );
     archivesPane = new ApplicationArchivesPane( this );
     archivesPane.setLayoutData( tabLayoutData );
     tabPane.add( archivesPane );
 
-    // add the j2ee application configuration files tab
+    // add the JEE application configuration files tab
     tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "configurationfiles" ) );
     configurationFilesPane = new ApplicationConfigurationFilesPane( this );
     configurationFilesPane.setLayoutData( tabLayoutData );
     tabPane.add( configurationFilesPane );
 
-    // add the j2ee application databases tab
+    // add the JEE application databases tab
     tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "databases" ) );
     databasesPane = new ApplicationDatabasesPane( this );
     databasesPane.setLayoutData( tabLayoutData );
     tabPane.add( databasesPane );
 
-    // add the j2ee application content managers tab
+    // add the JEE application content managers tab
     tabLayoutData = new TabPaneLayoutData();
     tabLayoutData.setTitle( Messages.getString( "contentmanagers" ) );
     contentManagersPane = new ApplicationContentManagersPane( this );
@@ -520,7 +520,7 @@ public class ApplicationWindow
     tabPane.add( contentManagersPane );
   }
 
-  public J2EEApplication getApplication()
+  public JEEApplication getApplication()
   {
     return this.application;
   }

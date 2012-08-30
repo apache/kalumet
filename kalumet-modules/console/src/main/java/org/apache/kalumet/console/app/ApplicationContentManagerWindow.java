@@ -44,7 +44,7 @@ import org.apache.kalumet.ws.client.ContentManagerClient;
 import java.util.Iterator;
 
 /**
- * J2EE application content manager window.
+ * JEE application content manager window.
  */
 public class ApplicationContentManagerWindow
   extends WindowPane
@@ -105,7 +105,7 @@ public class ApplicationContentManagerWindow
       {
         failure = true;
         message =
-          "J2EE application " + parent.getParentPane().getApplicationName() + " content manager " + contentManagerName
+          "JEE application " + parent.getParentPane().getApplicationName() + " content manager " + contentManagerName
             + " update failed: " + e.getMessage();
       }
       finally
@@ -172,7 +172,7 @@ public class ApplicationContentManagerWindow
             parent.getParentPane().getApplication().getContentManagers().remove( contentManager );
             // add a change event
             parent.getParentPane().getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "Delete J2EE application " + parent.getParentPane().getApplicationName() + " content manager "
+              "Delete JEE application " + parent.getParentPane().getApplicationName() + " content manager "
                 + contentManager.getName() );
             // change the updated flag
             parent.getParentPane().getParentPane().getEnvironmentWindow().setUpdated( true );

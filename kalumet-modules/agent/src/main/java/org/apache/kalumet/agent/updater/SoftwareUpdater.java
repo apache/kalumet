@@ -24,18 +24,8 @@ import org.apache.kalumet.FileManipulatorException;
 import org.apache.kalumet.KalumetException;
 import org.apache.kalumet.agent.Configuration;
 import org.apache.kalumet.agent.utils.EventUtils;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.Command;
-import org.apache.kalumet.model.ConfigurationFile;
-import org.apache.kalumet.model.Database;
-import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JDBCConnectionPool;
-import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.model.Location;
-import org.apache.kalumet.model.Mapping;
-import org.apache.kalumet.model.Software;
-import org.apache.kalumet.model.SqlScript;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.update.UpdateLog;
 import org.apache.kalumet.model.update.UpdateMessage;
 import org.apache.kalumet.utils.CommandUtils;
@@ -1247,10 +1237,10 @@ public class SoftwareUpdater
                   VariableUtils.replace( database.getConnectionPool(), environment.getVariables() );
                 JDBCConnectionPool connectionPool = null;
                 for ( Iterator applicationServerIterator =
-                        environment.getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+                        environment.getJEEApplicationServers().getJEEApplicationServers().iterator();
                       applicationServerIterator.hasNext(); )
                 {
-                  J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+                  JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
                   connectionPool = applicationServer.getJDBCConnectionPool( connectionPoolName );
                   if ( connectionPool != null )
                   {
@@ -1259,10 +1249,10 @@ public class SoftwareUpdater
                 }
                 if ( connectionPool == null )
                 {
-                  LOGGER.error( "JDBC connection pool {} is not found in any J2EE application servers",
+                  LOGGER.error( "JDBC connection pool {} is not found in any JEE application servers",
                                 connectionPoolName );
                   throw new UpdateException(
-                    "JDBC connection pool " + connectionPoolName + " is not found in any J2EE application servers" );
+                    "JDBC connection pool " + connectionPoolName + " is not found in any JEE application servers" );
                 }
                 user = VariableUtils.replace( connectionPool.getUser(), environment.getVariables() );
                 password = VariableUtils.replace( connectionPool.getPassword(), environment.getVariables() );
@@ -1355,10 +1345,10 @@ public class SoftwareUpdater
                 VariableUtils.replace( database.getConnectionPool(), environment.getVariables() );
               JDBCConnectionPool connectionPool = null;
               for ( Iterator applicationServerIterator =
-                      environment.getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+                      environment.getJEEApplicationServers().getJEEApplicationServers().iterator();
                     applicationServerIterator.hasNext(); )
               {
-                J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+                JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
                 connectionPool = applicationServer.getJDBCConnectionPool( connectionPoolName );
                 if ( connectionPool != null )
                 {
@@ -1367,10 +1357,10 @@ public class SoftwareUpdater
               }
               if ( connectionPool == null )
               {
-                LOGGER.error( "JDBC connection pool {} is not found in any J2EE application servers",
+                LOGGER.error( "JDBC connection pool {} is not found in any JEE application servers",
                               connectionPoolName );
                 throw new UpdateException(
-                  "JDBC connection pool " + connectionPoolName + " is not found in any J2EE application servers" );
+                  "JDBC connection pool " + connectionPoolName + " is not found in any JEE application servers" );
               }
               user = VariableUtils.replace( connectionPool.getUser(), environment.getVariables() );
               password = VariableUtils.replace( connectionPool.getPassword(), environment.getVariables() );

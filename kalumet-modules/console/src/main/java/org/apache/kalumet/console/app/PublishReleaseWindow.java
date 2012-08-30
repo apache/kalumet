@@ -32,13 +32,8 @@ import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import org.apache.commons.vfs.FileObject;
 import org.apache.kalumet.FileManipulator;
-import org.apache.kalumet.model.Archive;
-import org.apache.kalumet.model.ConfigurationFile;
-import org.apache.kalumet.model.Database;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.Software;
-import org.apache.kalumet.model.SqlScript;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplication;
 import org.apache.kalumet.utils.VariableUtils;
 
 import java.util.Iterator;
@@ -296,8 +291,8 @@ public class PublishReleaseWindow
           ApplicationCheckBox checkBox = (ApplicationCheckBox) applicationCheckBoxIterator.next();
           if ( checkBox.isSelected() )
           {
-            J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              checkBox.getServerName() ).getJ2EEApplication( checkBox.getApplicationName() );
+            JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              checkBox.getServerName() ).getJEEApplication( checkBox.getApplicationName() );
             String applicationUri =
               VariableUtils.replace( application.getUri(), parent.getEnvironment().getVariables() );
             FileObject file = fileManipulator.resolveFile( applicationUri );
@@ -311,8 +306,8 @@ public class PublishReleaseWindow
           ArchiveCheckBox checkBox = (ArchiveCheckBox) archiveCheckBoxIterator.next();
           if ( checkBox.isSelected() )
           {
-            J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              checkBox.getServerName() ).getJ2EEApplication( checkBox.getApplicationName() );
+            JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              checkBox.getServerName() ).getJEEApplication( checkBox.getApplicationName() );
             Archive archive = application.getArchive( checkBox.getArchiveName() );
             String archiveUri;
             if ( FileManipulator.protocolExists( archive.getUri() ) )
@@ -337,8 +332,8 @@ public class PublishReleaseWindow
           ConfigurationFileCheckBox checkBox = (ConfigurationFileCheckBox) configurationFileCheckBoxIterator.next();
           if ( checkBox.isSelected() )
           {
-            J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              checkBox.getServerName() ).getJ2EEApplication( checkBox.getApplicationName() );
+            JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              checkBox.getServerName() ).getJEEApplication( checkBox.getApplicationName() );
             ConfigurationFile configurationFile =
               application.getConfigurationFile( checkBox.getConfigurationFileName() );
             String configurationFileUri;
@@ -364,8 +359,8 @@ public class PublishReleaseWindow
           SqlScriptCheckBox checkBox = (SqlScriptCheckBox) sqlScriptCheckBoxIterator.next();
           if ( checkBox.isSelected() )
           {
-            J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              checkBox.getServerName() ).getJ2EEApplication( checkBox.getApplicationName() );
+            JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              checkBox.getServerName() ).getJEEApplication( checkBox.getApplicationName() );
             Database database = application.getDatabase( checkBox.getDatabaseName() );
             SqlScript sqlScript = database.getSqlScript( checkBox.getSqlScriptName() );
             String sqlScriptUri;
@@ -479,14 +474,14 @@ public class PublishReleaseWindow
     column.add( applicationLocationField );
     // add applications checkbox
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
-      for ( Iterator applicationIterator = applicationServer.getJ2EEApplications().iterator();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
+      for ( Iterator applicationIterator = applicationServer.getJEEApplications().iterator();
             applicationIterator.hasNext(); )
       {
-        J2EEApplication application = (J2EEApplication) applicationIterator.next();
+        JEEApplication application = (JEEApplication) applicationIterator.next();
         ApplicationCheckBox checkBox = new ApplicationCheckBox( applicationServer.getName(), application.getName() );
         checkBox.setStyleName( "default" );
         applicationCheckBoxes.add( checkBox );
@@ -505,14 +500,14 @@ public class PublishReleaseWindow
     column.add( archiveLocationField );
     // add archives checkbox
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
-      for ( Iterator applicationIterator = applicationServer.getJ2EEApplications().iterator();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
+      for ( Iterator applicationIterator = applicationServer.getJEEApplications().iterator();
             applicationIterator.hasNext(); )
       {
-        J2EEApplication application = (J2EEApplication) applicationIterator.next();
+        JEEApplication application = (JEEApplication) applicationIterator.next();
         for ( Iterator archiveIterator = application.getArchives().iterator(); archiveIterator.hasNext(); )
         {
           Archive archive = (Archive) archiveIterator.next();
@@ -536,14 +531,14 @@ public class PublishReleaseWindow
     column.add( configurationFileLocationField );
     // add configuration files checkbox
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
-      for ( Iterator applicationIterator = applicationServer.getJ2EEApplications().iterator();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
+      for ( Iterator applicationIterator = applicationServer.getJEEApplications().iterator();
             applicationIterator.hasNext(); )
       {
-        J2EEApplication application = (J2EEApplication) applicationIterator.next();
+        JEEApplication application = (JEEApplication) applicationIterator.next();
         for ( Iterator configurationFileIterator = application.getConfigurationFiles().iterator();
               configurationFileIterator.hasNext(); )
         {
@@ -569,14 +564,14 @@ public class PublishReleaseWindow
     column.add( sqlScriptLocationField );
     // add SQL scripts checkbox
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
-      for ( Iterator applicationIterator = applicationServer.getJ2EEApplications().iterator();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
+      for ( Iterator applicationIterator = applicationServer.getJEEApplications().iterator();
             applicationIterator.hasNext(); )
       {
-        J2EEApplication application = (J2EEApplication) applicationIterator.next();
+        JEEApplication application = (JEEApplication) applicationIterator.next();
         for ( Iterator databaseIterator = application.getDatabases().iterator(); databaseIterator.hasNext(); )
         {
           Database database = (Database) databaseIterator.next();

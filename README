@@ -17,7 +17,7 @@
 
 Welcome to Apache Kalumet
 =========================
-Apache Kalumet is a complete deployment platform. It's able to manage all kind of environments (J2EE, OSGi,
+Apache Kalumet is a complete deployment platform. It's able to manage all kind of environments (JEE, OSGi,
 custom, etc).
 It's the perfect tool for softwares, middlewares, and data center administrators.
 It's also a good complement to continuous integration (managed by Maven, Continuum, or Jenkins for instance) by adding
@@ -66,7 +66,7 @@ The agent launcher expects some arguments:
     Apache Kalumet Console
     -----------------------
     JSP/Servlet Engine
-Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a J2EE application
+Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a JEE application
 server (like RedHat JBoss, Oracle Weblogic, IBM WebSphere).
 
     Download binaries
@@ -90,7 +90,7 @@ copy the apache-kalumet-console-config.xml into the <tomcat_home>/lib directory.
 Configure the apache-kalumet-console-config.xml to match your environment settings.
 
     Deploy Apache Kalumet Console
-Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or J2EE application server
+Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or JEE application server
 deploy directory. For example, to deploy on Apache Tomcat, simply copy the war archive into the <tomcat_home>/webapps
 directory.
 

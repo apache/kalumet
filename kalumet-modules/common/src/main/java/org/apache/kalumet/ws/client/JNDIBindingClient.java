@@ -42,7 +42,7 @@ public class JNDIBindingClient
    * Wrapper method to update a JNDI binding.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jndiBindingName       the target JNDI binding name.
    * @throws ClientException in case of update failure.
    */
@@ -63,7 +63,7 @@ public class JNDIBindingClient
    * Wrapper method to check if a JNDI binding is up to date or not.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
+   * @param applicationServerName the target JEE application server name.
    * @param jndiBindingName       the target JNDI binding name.
    * @return true of the JNDI binding is up to date, false else.
    * @throws ClientException in case of status check failure.

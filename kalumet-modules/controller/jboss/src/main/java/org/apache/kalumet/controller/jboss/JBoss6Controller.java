@@ -21,7 +21,7 @@ package org.apache.kalumet.controller.jboss;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.kalumet.FileManipulator;
-import org.apache.kalumet.controller.core.AbstractJ2EEApplicationServerController;
+import org.apache.kalumet.controller.core.AbstractJEEApplicationServerController;
 import org.apache.kalumet.controller.core.ControllerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ import java.util.List;
  * JBoss 6 controller.
  */
 public class JBoss6Controller
-  extends AbstractJ2EEApplicationServerController
+  extends AbstractJEEApplicationServerController
 {
 
   private final static transient Logger LOGGER = LoggerFactory.getLogger( JBoss6Controller.class );
@@ -241,7 +241,7 @@ public class JBoss6Controller
   /**
    * Format an application path in a JBoss compliant URL.
    *
-   * @param path the J2EE application path.
+   * @param path the JEE application path.
    * @return the JBoss application URL.
    */
   private static String formatPathToUrl( String path )
@@ -259,10 +259,10 @@ public class JBoss6Controller
     }
   }
 
-  public boolean isJ2EEApplicationDeployed( String path, String name )
+  public boolean isJEEApplicationDeployed(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Checking if J2EE application {} is deployed in the JBoss application server", name );
+    LOGGER.info( "Checking if JEE application {} is deployed in the JBoss application server", name );
     String applicationUrl = JBoss6Controller.formatPathToUrl( path );
     boolean deployed = false;
     JMXConnector connector = null;
@@ -276,8 +276,8 @@ public class JBoss6Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't check if J2EE application {} is deployed", name, e );
-      throw new ControllerException( "Can't check if J2EE application " + name + " is deployed", e );
+      LOGGER.error( "Can't check if JEE application {} is deployed", name, e );
+      throw new ControllerException( "Can't check if JEE application " + name + " is deployed", e );
     }
     finally
     {
@@ -296,11 +296,11 @@ public class JBoss6Controller
     return deployed;
   }
 
-  public void deployJ2EEApplication( String path, String name, String classloaderorder, String classloaderpolicy,
-                                     String vhost )
+  public void deployJEEApplication(String path, String name, String classloaderorder, String classloaderpolicy,
+                                   String vhost)
     throws ControllerException
   {
-    LOGGER.info( "Deploying J2EE application {} located {}", name, path );
+    LOGGER.info( "Deploying JEE application {} located {}", name, path );
     String applicationUrl = JBoss6Controller.formatPathToUrl( path );
     JMXConnector connector = null;
     try
@@ -312,8 +312,8 @@ public class JBoss6Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't deploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't deploy J2EE application " + name, e );
+      LOGGER.error( "Can't deploy JEE application {}", name, e );
+      throw new ControllerException( "Can't deploy JEE application " + name, e );
     }
     finally
     {
@@ -331,10 +331,10 @@ public class JBoss6Controller
     }
   }
 
-  public void undeployJ2EEApplication( String path, String name )
+  public void undeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Undeploying J2EE application {} located {}", name, path );
+    LOGGER.info( "Undeploying JEE application {} located {}", name, path );
     String applicationUrl = JBoss6Controller.formatPathToUrl( path );
     JMXConnector connector = null;
     try
@@ -347,8 +347,8 @@ public class JBoss6Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't undeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't undeploy J2EE application " + name, e );
+      LOGGER.error( "Can't undeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't undeploy JEE application " + name, e );
     }
     finally
     {
@@ -366,10 +366,10 @@ public class JBoss6Controller
     }
   }
 
-  public void redeployJ2EEApplication( String path, String name )
+  public void redeployJEEApplication(String path, String name)
     throws ControllerException
   {
-    LOGGER.info( "Redeploying J2EE application {} located {}", name, path );
+    LOGGER.info( "Redeploying JEE application {} located {}", name, path );
     String applicationUrl = JBoss6Controller.formatPathToUrl( path );
     JMXConnector connector = null;
     try
@@ -382,8 +382,8 @@ public class JBoss6Controller
     }
     catch ( Exception e )
     {
-      LOGGER.error( "Can't redeploy J2EE application {}", name, e );
-      throw new ControllerException( "Can't redeploy J2EE application " + name, e );
+      LOGGER.error( "Can't redeploy JEE application {}", name, e );
+      throw new ControllerException( "Can't redeploy JEE application " + name, e );
     }
     finally
     {

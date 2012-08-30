@@ -37,7 +37,7 @@ import org.apache.kalumet.ws.client.ArchiveClient;
 import java.util.Iterator;
 
 /**
- * J2EE application archives pane.
+ * JEE application archives pane.
  */
 public class ApplicationArchivesPane
   extends ContentPane
@@ -79,20 +79,20 @@ public class ApplicationArchivesPane
                         parent.getApplicationName(), archiveName );
         if ( uptodate )
         {
-          message = "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " is up to date.";
+          message = "JEE application " + parent.getApplicationName() + " archive " + archiveName + " is up to date.";
         }
         else
         {
           failure = true;
           message =
-            "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " is not up to date.";
+            "JEE application " + parent.getApplicationName() + " archive " + archiveName + " is not up to date.";
         }
       }
       catch ( Exception e )
       {
         failure = true;
         message =
-          "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " status check failed: "
+          "JEE application " + parent.getApplicationName() + " archive " + archiveName + " status check failed: "
             + e.getMessage();
       }
       finally
@@ -136,7 +136,7 @@ public class ApplicationArchivesPane
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " update failed: "
+        message = "JEE application " + parent.getApplicationName() + " archive " + archiveName + " update failed: "
           + e.getMessage();
       }
       finally
@@ -180,13 +180,13 @@ public class ApplicationArchivesPane
       {
         archive.setActive( false );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Disable J2EE application archive " + archive.getName() );
+          "Disable JEE application archive " + archive.getName() );
       }
       else
       {
         archive.setActive( true );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Enable J2EE application archive " + archive.getName() );
+          "Enable JEE application archive " + archive.getName() );
       }
       // change the updated flag
       parent.getParentPane().getEnvironmentWindow().setUpdated( true );
@@ -231,13 +231,13 @@ public class ApplicationArchivesPane
       {
         archive.setBlocker( false );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Set not blocker for J2EE application archive " + archive.getName() );
+          "Set not blocker for JEE application archive " + archive.getName() );
       }
       else
       {
         archive.setBlocker( true );
         parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-          "Set blocker for J2EE application archive " + archive.getName() );
+          "Set blocker for JEE application archive " + archive.getName() );
       }
       // change the updated flag
       parent.getParentPane().getEnvironmentWindow().setUpdated( true );
@@ -289,7 +289,7 @@ public class ApplicationArchivesPane
             parent.getApplication().getArchives().remove( archive );
             // add a change event
             parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "Delete J2EE application archive " + archive.getName() );
+              "Delete JEE application archive " + archive.getName() );
             // change the updated flag
             parent.getParentPane().getEnvironmentWindow().setUpdated( true );
             // update the journal log tab pane
@@ -317,10 +317,10 @@ public class ApplicationArchivesPane
       String archiveName = event.getActionCommand();
       // add a message into the log pane and in the journal
       KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-        "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " status check in progress...",
+        "JEE application " + parent.getApplicationName() + " archive " + archiveName + " status check in progress...",
         parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
       parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-        "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " check requested." );
+        "JEE application " + parent.getApplicationName() + " archive " + archiveName + " check requested." );
       // start the status thread
       final StatusThread statusThread = new StatusThread();
       statusThread.archiveName = archiveName;
@@ -398,10 +398,10 @@ public class ApplicationArchivesPane
           {
             // add a message in the log pane and in the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " update in progress...",
+              "JEE application " + parent.getApplicationName() + " archive " + archiveName + " update in progress...",
               parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
             parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-              "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " update requested." );
+              "JEE application " + parent.getApplicationName() + " archive " + archiveName + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
             updateThread.archiveName = archiveName;
@@ -423,10 +423,10 @@ public class ApplicationArchivesPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " updated.",
+                      "JEE application " + parent.getApplicationName() + " archive " + archiveName + " updated.",
                       parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
                     parent.getParentPane().getEnvironmentWindow().getChangeEvents().add(
-                      "J2EE application " + parent.getApplicationName() + " archive " + archiveName + " updated" );
+                      "JEE application " + parent.getApplicationName() + " archive " + archiveName + " updated" );
                   }
                 }
                 else

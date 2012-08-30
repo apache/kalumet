@@ -35,15 +35,15 @@ public class ConfigurationFileClient
   public ConfigurationFileClient( String host, int port )
     throws ClientException
   {
-    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationConfigurationFileService" );
+    super( "http://" + host + ":" + port + "/axis/services/JEEApplicationConfigurationFileService" );
   }
 
   /**
-   * Wrapper method to update a J2EE application configuration file.
+   * Wrapper method to update a JEE application configuration file.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param applicationServerName the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param configurationFileName the target configuration file name.
    * @param delegation            true if the call is a delegation from another agent, false else.
    * @throws ClientException in case of communication failure.
@@ -60,16 +60,16 @@ public class ConfigurationFileClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE application configuration file " + configurationFileName + " update failed", e );
+      throw new ClientException( "JEE application configuration file " + configurationFileName + " update failed", e );
     }
   }
 
   /**
-   * Wrapper method to check if the J2EE application configuration file is up to date.
+   * Wrapper method to check if the JEE application configuration file is up to date.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param applicationServerName the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param configurationFileName the target configuration file name.
    * @return true if the configuration file is up to date, false else.
    * @throws ClientException in case of communication failure.
@@ -88,7 +88,7 @@ public class ConfigurationFileClient
     catch ( Exception e )
     {
       throw new ClientException(
-        "J2EE application configuration file " + configurationFileName + " status check failed", e );
+        "JEE application configuration file " + configurationFileName + " status check failed", e );
     }
     return upToDate;
   }

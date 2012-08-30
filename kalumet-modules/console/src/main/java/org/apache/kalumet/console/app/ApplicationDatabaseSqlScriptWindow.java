@@ -39,7 +39,7 @@ import org.apache.kalumet.model.SqlScript;
 import java.util.Iterator;
 
 /**
- * J2EE application database sql script window.
+ * JEE application database sql script window.
  */
 public class ApplicationDatabaseSqlScriptWindow
   extends WindowPane

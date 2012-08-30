@@ -35,15 +35,15 @@ public class ArchiveClient
   public ArchiveClient( String host, int port )
     throws ClientException
   {
-    super( "http://" + host + ":" + port + "/axis/services/J2EEApplicationArchiveService" );
+    super( "http://" + host + ":" + port + "/axis/services/JEEApplicationArchiveService" );
   }
 
   /**
    * Wrapper method to call archive update.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param applicationServerName the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param archiveName           the target archive name.
    * @param delegation            true if this call is a delegation from another agent, false else.
    * @throws ClientException in case of communication failure.
@@ -59,7 +59,7 @@ public class ArchiveClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE archive " + archiveName + " update failed", e );
+      throw new ClientException( "JEE archive " + archiveName + " update failed", e );
     }
   }
 
@@ -67,10 +67,10 @@ public class ArchiveClient
    * Wrapper method to call archive check.
    *
    * @param environmentName       the target environment name.
-   * @param applicationServerName the target J2EE application server name.
-   * @param applicationName       the target J2EE application name.
+   * @param applicationServerName the target JEE application server name.
+   * @param applicationName       the target JEE application name.
    * @param archiveName           the target archive name.
-   * @return true if the J2EE application archive is up to date, false else.
+   * @return true if the JEE application archive is up to date, false else.
    * @throws ClientException in case of communication failure.
    */
   public boolean check( String environmentName, String applicationServerName, String applicationName,
@@ -86,7 +86,7 @@ public class ArchiveClient
     }
     catch ( Exception e )
     {
-      throw new ClientException( "J2EE archive " + archiveName + " check status failed", e );
+      throw new ClientException( "JEE archive " + archiveName + " check status failed", e );
     }
     return upToDate;
   }

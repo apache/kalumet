@@ -61,7 +61,7 @@ public class Environment
 
   private LinkedList accesses;
 
-  private J2EEApplicationServers j2EEApplicationServers;
+  private JEEApplicationServers jeeApplicationServers;
 
   private LinkedList softwares;
 
@@ -78,7 +78,7 @@ public class Environment
     this.variables = new LinkedList();
     this.freeFields = new LinkedList();
     this.accesses = new LinkedList();
-    this.j2EEApplicationServers = new J2EEApplicationServers();
+    this.jeeApplicationServers = new JEEApplicationServers();
     this.softwares = new LinkedList();
     this.logFiles = new LinkedList();
     this.notifiers = new Notifiers();
@@ -351,25 +351,25 @@ public class Environment
   }
 
   /**
-   * Set the <code>J2EEApplicationServers</code> container in the
+   * Set the <code>JEEApplicationServers</code> container in the
    * <code>Environment</code>.
    *
-   * @param j2EEApplicationServers the <code>J2EEApplicationServers</code> to set.
+   * @param jeeApplicationServers the <code>JEEApplicationServers</code> to set.
    */
-  public void setJ2EEApplicationServers( J2EEApplicationServers j2EEApplicationServers )
+  public void setJEEApplicationServers(JEEApplicationServers jeeApplicationServers)
   {
-    this.j2EEApplicationServers = j2EEApplicationServers;
+    this.jeeApplicationServers = jeeApplicationServers;
   }
 
   /**
-   * Get the <code>J2EEApplicationServers</code> container in the
+   * Get the <code>JEEApplicationServers</code> container in the
    * <code>Environment</code>.
    *
-   * @return the <code>J2EEApplicationServers</code> container.
+   * @return the <code>JEEApplicationServers</code> container.
    */
-  public J2EEApplicationServers getJ2EEApplicationServers()
+  public JEEApplicationServers getJEEApplicationServers()
   {
-    return this.j2EEApplicationServers;
+    return this.jeeApplicationServers;
   }
 
   /**
@@ -615,7 +615,7 @@ public class Environment
       Access access = (Access) accessIterator.next();
       clone.accesses.add( (Access) access.clone() );
     }
-    clone.setJ2EEApplicationServers( (J2EEApplicationServers) this.getJ2EEApplicationServers().clone() );
+    clone.setJEEApplicationServers((JEEApplicationServers) this.getJEEApplicationServers().clone());
     for ( Iterator softwareIterator = this.softwares.iterator(); softwareIterator.hasNext(); )
     {
       Software software = (Software) softwareIterator.next();
@@ -692,8 +692,8 @@ public class Environment
     CDATASectionImpl weblinksContent = new CDATASectionImpl( document, this.getWeblinks() );
     weblinks.appendChild( weblinksContent );
     element.appendChild( weblinks );
-    // add J2EE servers
-    element.appendChild( this.getJ2EEApplicationServers().toDOMElement( document ) );
+    // add JEE servers
+    element.appendChild( this.getJEEApplicationServers().toDOMElement( document ) );
     // softwares element
     ElementImpl softwares = new ElementImpl( document, "softwares" );
     // add software to softwares

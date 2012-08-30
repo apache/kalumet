@@ -33,7 +33,7 @@ import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.app.list.ListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.JDBCConnectionPool;
 import org.apache.kalumet.model.Kalumet;
 import org.apache.kalumet.ws.client.JDBCConnectionPoolClient;
@@ -178,7 +178,7 @@ public class ConnectionPoolsPane
       }
       // looking for the JDBC connection pool object
       final JDBCConnectionPool connectionPool =
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
           (String) scopeField.getSelectedItem() ).getJDBCConnectionPool( event.getActionCommand() );
       if ( connectionPool == null )
       {
@@ -193,7 +193,7 @@ public class ConnectionPoolsPane
           public void actionPerformed( ActionEvent event )
           {
             // delete the connection pool
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeField.getSelectedItem() ).getJDBCConnectionPools().remove( connectionPool );
             // add change event and update the log pane
             parent.getChangeEvents().add( "Delete JDBC connection pool " + connectionPool.getName() );
@@ -390,7 +390,7 @@ public class ConnectionPoolsPane
         return;
       }
       // looking for the connection pool object
-      JDBCConnectionPool connectionPool = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCConnectionPool connectionPool = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJDBCConnectionPool( event.getActionCommand() );
       if ( connectionPool == null )
       {
@@ -439,7 +439,7 @@ public class ConnectionPoolsPane
         return;
       }
       // looking for the connection pool object
-      JDBCConnectionPool connectionPool = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCConnectionPool connectionPool = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJDBCConnectionPool( event.getActionCommand() );
       if ( connectionPool == null )
       {
@@ -473,7 +473,7 @@ public class ConnectionPoolsPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for the connection pool object
-      JDBCConnectionPool connectionPool = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JDBCConnectionPool connectionPool = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJDBCConnectionPool( event.getActionCommand() );
       if ( connectionPool == null )
       {
@@ -525,10 +525,10 @@ public class ConnectionPoolsPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -571,10 +571,10 @@ public class ConnectionPoolsPane
     int index = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -619,7 +619,7 @@ public class ConnectionPoolsPane
 
     // add the jdbc connection pools
     for ( Iterator jdbcConnectionPoolIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               applicationServerName ).getJDBCConnectionPools().iterator(); jdbcConnectionPoolIterator.hasNext(); )
     {
       JDBCConnectionPool connectionPool = (JDBCConnectionPool) jdbcConnectionPoolIterator.next();

@@ -34,15 +34,15 @@ import nextapp.echo2.app.list.DefaultListModel;
 import org.apache.kalumet.FileManipulator;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
 import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplication;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplication;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.model.Kalumet;
-import org.apache.kalumet.ws.client.J2EEApplicationClient;
+import org.apache.kalumet.ws.client.JEEApplicationClient;
 
 import java.util.Iterator;
 
 /**
- * Environment J2EE applications pane.
+ * Environment JEE applications pane.
  */
 public class ApplicationsPane
   extends ContentPane
@@ -82,13 +82,13 @@ public class ApplicationsPane
           throw new IllegalArgumentException( "agent not found." );
         }
         // call the webservice
-        J2EEApplicationClient client = new J2EEApplicationClient( agent.getHostname(), agent.getPort() );
+        JEEApplicationClient client = new JEEApplicationClient( agent.getHostname(), agent.getPort() );
         client.update( parent.getEnvironmentName(), serverName, applicationName, false );
       }
       catch ( Exception e )
       {
         failure = true;
-        message = "J2EE application " + applicationName + " update failed: " + e.getMessage();
+        message = "JEE application " + applicationName + " update failed: " + e.getMessage();
       }
       finally
       {
@@ -126,25 +126,25 @@ public class ApplicationsPane
                                                                             getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // looking for the J2EE application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      // looking for the JEE application object
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
           Messages.getString( "application.notfound" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // change the J2EE application state and add a change event
+      // change the JEE application state and add a change event
       if ( application.isActive() )
       {
         application.setActive( false );
-        parent.getChangeEvents().add( "Disable J2EE application " + application.getName() );
+        parent.getChangeEvents().add( "Disable JEE application " + application.getName() );
       }
       else
       {
         application.setActive( true );
-        parent.getChangeEvents().add( "Enable J2EE application " + application.getName() );
+        parent.getChangeEvents().add( "Enable JEE application " + application.getName() );
       }
       // change the updated flag
       parent.setUpdated( true );
@@ -176,8 +176,8 @@ public class ApplicationsPane
         return;
       }
       // looking for the jee application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -188,12 +188,12 @@ public class ApplicationsPane
       if ( application.isBlocker() )
       {
         application.setBlocker( false );
-        parent.getChangeEvents().add( "Set not blocker for J2EE application " + application.getName() );
+        parent.getChangeEvents().add( "Set not blocker for JEE application " + application.getName() );
       }
       else
       {
         application.setBlocker( true );
-        parent.getChangeEvents().add( "Set blocker for J2EE application " + application.getName() );
+        parent.getChangeEvents().add( "Set blocker for JEE application " + application.getName() );
       }
       // change the updated flag
       parent.setUpdated( true );
@@ -225,8 +225,8 @@ public class ApplicationsPane
         return;
       }
       // looking for the jee application object
-      final J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      final JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -239,11 +239,11 @@ public class ApplicationsPane
         {
           public void actionPerformed( ActionEvent event )
           {
-            // delete the j2ee application object
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-              (String) scopeField.getSelectedItem() ).getJ2EEApplications().remove( application );
+            // delete the JEE application object
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+              (String) scopeField.getSelectedItem() ).getJEEApplications().remove( application );
             // add a change event
-            parent.getChangeEvents().add( "Delete J2EE application " + application.getName() );
+            parent.getChangeEvents().add( "Delete JEE application " + application.getName() );
             // change the updated flag
             parent.setUpdated( true );
             // update the journal log tab pane
@@ -301,35 +301,35 @@ public class ApplicationsPane
                                                                             getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // looking for the j2ee application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      // looking for the JEE application object
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
           Messages.getString( "application.notfound" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // get the j2ee application index
-      int index = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().indexOf( application );
-      // if the j2ee application index is the first one or the object is not
+      // get the JEE application index
+      int index = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().indexOf( application );
+      // if the JEE application index is the first one or the object is not
       // found, do nothing, the size of the list must constains at least 2
-      // j2ee applications
-      if ( index == 0 || index == -1 || parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().size() < 2 )
+      // JEE applications
+      if ( index == 0 || index == -1 || parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().size() < 2 )
       {
         return;
       }
       // get the previous application
-      J2EEApplication previous =
-        (J2EEApplication) parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-          (String) scopeField.getSelectedItem() ).getJ2EEApplications().get( index - 1 );
+      JEEApplication previous =
+        (JEEApplication) parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+          (String) scopeField.getSelectedItem() ).getJEEApplications().get( index - 1 );
       // switch the application
-      parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().set( index, previous );
-      parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().set( index - 1, application );
+      parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().set( index, previous );
+      parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().set( index - 1, application );
       // update the pane
       update();
     }
@@ -355,37 +355,37 @@ public class ApplicationsPane
                                                                             getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // looking for the j2ee application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      // looking for the JEE application object
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
           Messages.getString( "application.notfound" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // get the j2ee application index
-      int index = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().indexOf( application );
-      // if the j2ee application index is the last one or the object is not
-      // found, the size of the list must contains at least 2 j2ee
+      // get the JEE application index
+      int index = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().indexOf( application );
+      // if the JEE application index is the last one or the object is not
+      // found, the size of the list must contains at least 2 JEE
       // applications
-      if ( index == -1 || index == parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().size() - 1 ||
-        parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-          (String) scopeField.getSelectedItem() ).getJ2EEApplications().size() < 2 )
+      if ( index == -1 || index == parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().size() - 1 ||
+        parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+          (String) scopeField.getSelectedItem() ).getJEEApplications().size() < 2 )
       {
         return;
       }
       // get the next application
-      J2EEApplication next =
-        (J2EEApplication) parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-          (String) scopeField.getSelectedItem() ).getJ2EEApplications().get( index + 1 );
+      JEEApplication next =
+        (JEEApplication) parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+          (String) scopeField.getSelectedItem() ).getJEEApplications().get( index + 1 );
       // switch the application
-      parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().set( index + 1, application );
-      parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplications().set( index, next );
+      parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().set( index + 1, application );
+      parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplications().set( index, next );
       // update the pane
       update();
     }
@@ -396,9 +396,9 @@ public class ApplicationsPane
   {
     public void actionPerformed( ActionEvent event )
     {
-      // looking for the j2ee application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( event.getActionCommand() );
+      // looking for the JEE application object
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( event.getActionCommand() );
       if ( application == null )
       {
         return;
@@ -434,16 +434,16 @@ public class ApplicationsPane
                                                                             getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // get the j2ee application name
+      // get the JEE application name
       String name = event.getActionCommand();
-      // get the j2ee application uri field
+      // get the JEE application uri field
       TextField uriField = (TextField) ApplicationsPane.this.getComponent(
         "applicationuri_" + parent.getEnvironmentName() + "_" + (String) scopeField.getSelectedItem() + "_" + name );
       // get the URI field value
       String uriValue = uriField.getText();
-      // looking for the j2ee application object
-      J2EEApplication application = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-        (String) scopeField.getSelectedItem() ).getJ2EEApplication( name );
+      // looking for the JEE application object
+      JEEApplication application = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+        (String) scopeField.getSelectedItem() ).getJEEApplication( name );
       if ( application == null )
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning(
@@ -451,8 +451,8 @@ public class ApplicationsPane
         return;
       }
       // add a change event
-      parent.getChangeEvents().add( "Change J2EE application " + application.getName() + " URI to " + uriValue );
-      // change the j2ee application object
+      parent.getChangeEvents().add( "Change JEE application " + application.getName() + " URI to " + uriValue );
+      // change the JEE application object
       application.setUri( uriValue );
       // change the updated flag
       parent.setUpdated( true );
@@ -490,7 +490,7 @@ public class ApplicationsPane
           Messages.getString( "environment.notsaved" ), getEnvironmentWindow().getEnvironmentName() );
         return;
       }
-      // get the selected J2EE server and application
+      // get the selected JEE server and application
       final String serverName = (String) scopeField.getSelectedItem();
       final String applicationName = event.getActionCommand();
       // display confirm window
@@ -501,8 +501,8 @@ public class ApplicationsPane
           {
             // add a message into the log pane and the journal
             KalumetConsoleApplication.getApplication().getLogPane().addInfo(
-              "J2EE application " + applicationName + " update in progress...", parent.getEnvironmentName() );
-            parent.getChangeEvents().add( "J2EE application " + applicationName + " update requested." );
+              "JEE application " + applicationName + " update in progress...", parent.getEnvironmentName() );
+            parent.getChangeEvents().add( "JEE application " + applicationName + " update requested." );
             // start the update thread
             final UpdateThread updateThread = new UpdateThread();
             updateThread.serverName = serverName;
@@ -525,8 +525,8 @@ public class ApplicationsPane
                   else
                   {
                     KalumetConsoleApplication.getApplication().getLogPane().addConfirm(
-                      "J2EE application " + applicationName + " updated.", parent.getEnvironmentName() );
-                    parent.getChangeEvents().add( "J2EE application " + applicationName + " updated." );
+                      "JEE application " + applicationName + " updated.", parent.getEnvironmentName() );
+                    parent.getChangeEvents().add( "JEE application " + applicationName + " updated." );
                   }
                 }
                 else
@@ -616,10 +616,10 @@ public class ApplicationsPane
     scopeListModel.removeAll();
     // add application servers in the scope select field
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
     }
     if ( scopeListModel.size() > 0 )
@@ -635,7 +635,7 @@ public class ApplicationsPane
       content.add( createButton );
     }
 
-    // add J2EE applications grid
+    // add JEE applications grid
     grid = new Grid( 4 );
     grid.setStyleName( "border.grid" );
     grid.setColumnWidth( 0, new Extent( 50, Extent.PX ) );
@@ -664,10 +664,10 @@ public class ApplicationsPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -675,7 +675,7 @@ public class ApplicationsPane
       }
       scopeIndex++;
     }
-    // remove all J2EE applications grid children
+    // remove all JEE applications grid children
     grid.removeAll();
     // check if at least one application server is present
     if ( scopeListModel.size() < 1 )
@@ -709,10 +709,10 @@ public class ApplicationsPane
     agentHeader.setStyleName( "grid.header" );
     grid.add( agentHeader );
     // add the JEE applications
-    for ( Iterator applicationIterator = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
-      applicationServerName ).getJ2EEApplications().iterator(); applicationIterator.hasNext(); )
+    for ( Iterator applicationIterator = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
+      applicationServerName ).getJEEApplications().iterator(); applicationIterator.hasNext(); )
     {
-      J2EEApplication application = (J2EEApplication) applicationIterator.next();
+      JEEApplication application = (JEEApplication) applicationIterator.next();
       // row
       Row row = new Row();
       row.setInsets( new Insets( 2 ) );

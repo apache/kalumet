@@ -19,7 +19,7 @@
 package org.apache.kalumet.controller.core;
 
 import org.apache.kalumet.model.Environment;
-import org.apache.kalumet.model.J2EEApplicationServer;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.utils.VariableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,30 +27,30 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 
 /**
- * Factory to get a <code>J2EEApplicationServerController</code>.
+ * Factory to get a <code>JEEApplicationServerController</code>.
  */
-public class J2EEApplicationServerControllerFactory
+public class JEEApplicationServerControllerFactory
 {
 
   private final static transient Logger LOGGER =
-    LoggerFactory.getLogger( J2EEApplicationServerControllerFactory.class );
+    LoggerFactory.getLogger( JEEApplicationServerControllerFactory.class );
 
-  public static J2EEApplicationServerController getController( Environment environment, J2EEApplicationServer server )
+  public static JEEApplicationServerController getController( Environment environment, JEEApplicationServer server )
     throws ControllerException
   {
     LOGGER.debug( "Connecting to {}", VariableUtils.replace( server.getJmxurl(), environment.getVariables() ) );
     String jmxUrl = VariableUtils.replace( server.getJmxurl(), environment.getVariables() );
     String adminUser = VariableUtils.replace( server.getAdminuser(), environment.getVariables() );
     String adminPassword = VariableUtils.replace( server.getAdminpassword(), environment.getVariables() );
-    J2EEApplicationServerController controller = null;
+    JEEApplicationServerController controller = null;
     try
     {
       Class controllerClass = Class.forName( server.getClassname() );
       Constructor controllerConstructor = controllerClass.getConstructor(
         new Class[]{ String.class, String.class, String.class, String.class, Boolean.class } );
-      controller = (J2EEApplicationServerController) controllerConstructor.newInstance(
+      controller = (JEEApplicationServerController) controllerConstructor.newInstance(
         new Object[]{ jmxUrl, adminUser, adminPassword, server.getName(),
-          new Boolean( environment.getJ2EEApplicationServers().isCluster() ) } );
+          new Boolean( environment.getJEEApplicationServers().isCluster() ) } );
     }
     catch ( Exception e )
     {
@@ -62,7 +62,7 @@ public class J2EEApplicationServerControllerFactory
       else
       {
         throw new ControllerException(
-          "Can't initialize controller. Check if the J2EE application server libraries are present in the agent classpath and check the agent log" );
+          "Can't initialize controller. Check if the JEE application server libraries are present in the agent classpath and check the agent log" );
       }
     }
     return controller;

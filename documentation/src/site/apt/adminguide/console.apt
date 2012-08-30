@@ -35,7 +35,7 @@ Installing Apache Kalumet console
 
     ** JSP/Servlet Engine
 
-      Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a J2EE application
+      Apache Kalumet console has to be deployed into a JSP/Servlet Engine (like Apache Tomcat or Jetty) or a JEE application
       server (like RedHat JBoss, Oracle Weblogic, IBM WebSphere).
 
     ** Download binaries
@@ -62,7 +62,7 @@ Installing Apache Kalumet console
 
   * Deploy Apache Kalumet Console
 
-    Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or J2EE application server
+    Copy <kalumet_console_home>/webapp/apache-kalumet-console.war into the JSP/Servlet Engine or JEE application server
     deploy directory. For example, to deploy on Apache Tomcat, simply copy the war archive into the <tomcat_home>/webapps
     directory.
 

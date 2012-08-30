@@ -32,12 +32,8 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
 import nextapp.echo2.app.list.ListModel;
 import org.apache.kalumet.console.configuration.ConfigurationManager;
-import org.apache.kalumet.model.Agent;
-import org.apache.kalumet.model.J2EEApplicationServer;
-import org.apache.kalumet.model.JMSQueue;
-import org.apache.kalumet.model.JMSServer;
-import org.apache.kalumet.model.JMSTopic;
-import org.apache.kalumet.model.Kalumet;
+import org.apache.kalumet.model.*;
+import org.apache.kalumet.model.JEEApplicationServer;
 import org.apache.kalumet.ws.client.JMSServerClient;
 
 import java.util.Iterator;
@@ -180,7 +176,7 @@ public class JmsServersPane
         return;
       }
       // looking for the JMS server object
-      JMSServer jmsServer = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JMSServer jmsServer = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJMSServer( event.getActionCommand() );
       if ( jmsServer == null )
       {
@@ -229,7 +225,7 @@ public class JmsServersPane
         return;
       }
       // looking for the JMS server object
-      JMSServer jmsServer = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JMSServer jmsServer = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJMSServer( event.getActionCommand() );
       if ( jmsServer == null )
       {
@@ -278,7 +274,7 @@ public class JmsServersPane
         return;
       }
       // looking for the jms server object
-      final JMSServer jmsServer = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      final JMSServer jmsServer = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJMSServer( event.getActionCommand() );
       if ( jmsServer == null )
       {
@@ -293,7 +289,7 @@ public class JmsServersPane
           public void actionPerformed( ActionEvent event )
           {
             // delete the jms server object
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
               (String) scopeField.getSelectedItem() ).getJMSServers().remove( jmsServer );
             // add a change event
             parent.getChangeEvents().add( "Delete JMS server " + jmsServer.getName() );
@@ -344,7 +340,7 @@ public class JmsServersPane
     public void actionPerformed( ActionEvent event )
     {
       // looking for the jms server object
-      JMSServer jmsServer = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+      JMSServer jmsServer = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
         (String) scopeField.getSelectedItem() ).getJMSServer( event.getActionCommand() );
       if ( jmsServer == null )
       {
@@ -532,10 +528,10 @@ public class JmsServersPane
     DefaultListModel scopeModel = (DefaultListModel) scopeField.getModel();
     scopeModel.removeAll();
     for ( Iterator serversIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           serversIterator.hasNext(); )
     {
-      J2EEApplicationServer server = (J2EEApplicationServer) serversIterator.next();
+      JEEApplicationServer server = (JEEApplicationServer) serversIterator.next();
       scopeModel.add( server.getName() );
     }
     if ( scopeModel.size() > 0 )
@@ -581,10 +577,10 @@ public class JmsServersPane
     int scopeIndex = 0;
     int found = -1;
     for ( Iterator applicationServerIterator =
-            parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServers().iterator();
+            parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServers().iterator();
           applicationServerIterator.hasNext(); )
     {
-      J2EEApplicationServer applicationServer = (J2EEApplicationServer) applicationServerIterator.next();
+      JEEApplicationServer applicationServer = (JEEApplicationServer) applicationServerIterator.next();
       scopeListModel.add( applicationServer.getName() );
       if ( applicationServer.getName().equals( applicationServerName ) )
       {
@@ -628,7 +624,7 @@ public class JmsServersPane
     topicsHeader.setStyleName( "grid.header" );
     grid.add( topicsHeader );
     // add the jms servers
-    for ( Iterator jmsServerIterator = parent.getEnvironment().getJ2EEApplicationServers().getJ2EEApplicationServer(
+    for ( Iterator jmsServerIterator = parent.getEnvironment().getJEEApplicationServers().getJEEApplicationServer(
       applicationServerName ).getJMSServers().iterator(); jmsServerIterator.hasNext(); )
     {
       JMSServer jmsServer = (JMSServer) jmsServerIterator.next();
