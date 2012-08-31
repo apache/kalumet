@@ -63,23 +63,23 @@ public class EnvironmentWindow
 
   public boolean updatePermission = false;
 
-  public boolean jeeServersPermission = false;
+  public boolean jeeApplicationServersChangePermission = false;
 
-  public boolean jeeServersUpdatePermission = false;
+  public boolean jeeApplicationServersUpdatePermission = false;
 
-  public boolean jeeServersControlPermission = false;
+  public boolean jeeApplicationServersControlPermission = false;
 
-  public boolean jeeResourcesPermission = false;
+  public boolean jeeResourcesChangePermission = false;
 
   public boolean jeeResourcesUpdatePermission = false;
 
-  public boolean jeeApplicationsPermission = false;
+  public boolean jeeApplicationsChangePermission = false;
 
   public boolean jeeApplicationsUpdatePermission = false;
 
-  public boolean softwaresPermission = false;
+  public boolean softwareChangePermission = false;
 
-  public boolean softwaresUpdatePermission = false;
+  public boolean softwareUpdatePermission = false;
 
   public boolean releasePermission = false;
 
@@ -174,10 +174,10 @@ public class EnvironmentWindow
     public void actionPerformed( ActionEvent event )
     {
       // if the user is only read-only
-      if ( environmentName == null || ( !adminPermission && !updatePermission && !jeeServersPermission
-        && !jeeServersUpdatePermission && !jeeServersControlPermission && !jeeResourcesPermission
-        && !jeeResourcesUpdatePermission && !jeeApplicationsPermission && !jeeApplicationsUpdatePermission
-        && !softwaresPermission && !softwaresUpdatePermission && !releasePermission && !homepagePermission ) )
+      if ( environmentName == null || ( !adminPermission && !updatePermission && !jeeApplicationServersChangePermission
+        && !jeeApplicationServersUpdatePermission && !jeeApplicationServersControlPermission && !jeeResourcesChangePermission
+        && !jeeResourcesUpdatePermission && !jeeApplicationsChangePermission && !jeeApplicationsUpdatePermission
+        && !softwareChangePermission && !softwareUpdatePermission && !releasePermission && !homepagePermission ) )
       {
         // only close the window
         EnvironmentWindow.this.userClose();
@@ -265,10 +265,10 @@ public class EnvironmentWindow
         return;
       }
       // if the lock is free, take it if I can
-      if ( ( adminPermission || updatePermission || jeeServersPermission || jeeServersUpdatePermission
-        || jeeServersControlPermission || jeeResourcesPermission || jeeResourcesUpdatePermission
-        || jeeApplicationsPermission || jeeApplicationsUpdatePermission || softwaresPermission
-        || softwaresUpdatePermission || releasePermission || homepagePermission ) && ( current.getLock() == null
+      if ( ( adminPermission || updatePermission || jeeApplicationServersChangePermission || jeeApplicationServersUpdatePermission
+        || jeeApplicationServersControlPermission || jeeResourcesChangePermission || jeeResourcesUpdatePermission
+        || jeeApplicationsChangePermission || jeeApplicationsUpdatePermission || softwareChangePermission
+        || softwareUpdatePermission || releasePermission || homepagePermission ) && ( current.getLock() == null
         || current.getLock().trim().length() < 1 ) )
       {
         current.setLock( KalumetConsoleApplication.getApplication().getUserid() );
@@ -737,33 +737,33 @@ public class EnvironmentWindow
       updatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                            KalumetConsoleApplication.getApplication().getUserid(),
                                                                            "update" );
-      jeeServersPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+      jeeApplicationServersChangePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                KalumetConsoleApplication.getApplication().getUserid(),
-                                                                               "jee_servers" );
-      jeeServersUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+                                                                               "jee_application_servers_change" );
+      jeeApplicationServersUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                      KalumetConsoleApplication.getApplication().getUserid(),
-                                                                                     "jee_servers_update" );
-      jeeServersControlPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+                                                                                     "jee_application_servers_update" );
+      jeeApplicationServersControlPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                       KalumetConsoleApplication.getApplication().getUserid(),
-                                                                                      "jee_servers_control" );
-      jeeResourcesPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+                                                                                      "jee_application_servers_control" );
+      jeeResourcesChangePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                  KalumetConsoleApplication.getApplication().getUserid(),
-                                                                                 "jee_resources" );
+                                                                                 "jee_resources_change" );
       jeeResourcesUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                        KalumetConsoleApplication.getApplication().getUserid(),
                                                                                        "jee_resources_update" );
-      jeeApplicationsPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+      jeeApplicationsChangePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                     KalumetConsoleApplication.getApplication().getUserid(),
-                                                                                    "jee_applications" );
+                                                                                    "jee_applications_change" );
       jeeApplicationsUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                           KalumetConsoleApplication.getApplication().getUserid(),
                                                                                           "jee_applications_update" );
-      softwaresPermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+      softwareChangePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                               KalumetConsoleApplication.getApplication().getUserid(),
-                                                                              "softwares" );
-      softwaresUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
+                                                                              "software_change" );
+      softwareUpdatePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                                     KalumetConsoleApplication.getApplication().getUserid(),
-                                                                                    "softwares_update" );
+                                                                                    "software_update" );
       releasePermission = kalumet.getSecurity().checkEnvironmentUserAccess( this.environment,
                                                                             KalumetConsoleApplication.getApplication().getUserid(),
                                                                             "release" );
@@ -793,10 +793,10 @@ public class EnvironmentWindow
     }
 
     // try to take the environment lock (if the user can)
-    if ( ( adminPermission || updatePermission || jeeServersPermission || jeeServersUpdatePermission
-      || jeeServersControlPermission || jeeResourcesPermission || jeeResourcesUpdatePermission
-      || jeeApplicationsPermission || jeeApplicationsUpdatePermission || softwaresPermission
-      || softwaresUpdatePermission || releasePermission || homepagePermission ) && ( this.environment.getLock() == null
+    if ( ( adminPermission || updatePermission || jeeApplicationServersChangePermission || jeeApplicationServersUpdatePermission
+      || jeeApplicationServersControlPermission || jeeResourcesChangePermission || jeeResourcesUpdatePermission
+      || jeeApplicationsChangePermission || jeeApplicationsUpdatePermission || softwareChangePermission
+      || softwareUpdatePermission || releasePermission || homepagePermission ) && ( this.environment.getLock() == null
       || this.environment.getLock().trim().length() < 1 ) )
     {
       // lock the environment (but not yet saved)
@@ -858,8 +858,8 @@ public class EnvironmentWindow
     copyButton.setToolTipText( Messages.getString( "copy" ) );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( this.adminPermission || this.jeeServersPermission || this.jeeResourcesPermission
-      || this.jeeApplicationsPermission || this.softwaresPermission || this.releasePermission )
+    if ( this.adminPermission || this.jeeApplicationServersChangePermission || this.jeeResourcesChangePermission
+      || this.jeeApplicationsChangePermission || this.softwareChangePermission || this.releasePermission )
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -875,10 +875,10 @@ public class EnvironmentWindow
       controlRow.add( saveButton );
     }
     // add the force unlock button if the user has the lock
-    if ( this.adminPermission || this.updatePermission || this.jeeServersPermission || this.jeeServersControlPermission
-      || this.jeeServersUpdatePermission || this.jeeResourcesPermission || this.jeeResourcesUpdatePermission
-      || this.jeeApplicationsPermission || this.jeeApplicationsUpdatePermission || this.softwaresPermission
-      || this.softwaresUpdatePermission || this.releasePermission || this.homepagePermission )
+    if ( this.adminPermission || this.updatePermission || this.jeeApplicationServersChangePermission || this.jeeApplicationServersControlPermission
+      || this.jeeApplicationServersUpdatePermission || this.jeeResourcesChangePermission || this.jeeResourcesUpdatePermission
+      || this.jeeApplicationsChangePermission || this.jeeApplicationsUpdatePermission || this.softwareChangePermission
+      || this.softwareUpdatePermission || this.releasePermission || this.homepagePermission )
     {
       lockButton = new Button( Styles.LOCK );
       lockButton.addActionListener( toggleLock );

@@ -177,7 +177,7 @@ public class ConnectionFactoriesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesPermission )
+      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restrictied" ),
                                                                             getEnvironementWindow().getEnvironmentName() );
@@ -245,7 +245,7 @@ public class ConnectionFactoriesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesPermission )
+      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironementWindow().getEnvironmentName() );
@@ -301,7 +301,7 @@ public class ConnectionFactoriesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesPermission )
+      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironementWindow().getEnvironmentName() );
@@ -355,7 +355,7 @@ public class ConnectionFactoriesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesPermission )
+      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironementWindow().getEnvironmentName() );
@@ -405,7 +405,7 @@ public class ConnectionFactoriesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesPermission )
+      if ( !getEnvironementWindow().adminPermission && !getEnvironementWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironementWindow().getEnvironmentName() );
@@ -800,7 +800,7 @@ public class ConnectionFactoriesPane
         activeButton = new Button( Styles.LIGHTBULB_OFF );
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
-      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesPermission )
+      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesChangePermission)
       {
         activeButton.setActionCommand( connectionFactory.getName() );
         activeButton.addActionListener( toggleActive );
@@ -818,7 +818,7 @@ public class ConnectionFactoriesPane
         blockerButton = new Button( Styles.PLUGIN_DISABLED );
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
-      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesPermission )
+      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesChangePermission)
       {
         blockerButton.setActionCommand( connectionFactory.getName() );
         blockerButton.addActionListener( toggleBlocker );
@@ -839,7 +839,7 @@ public class ConnectionFactoriesPane
         updateButton.addActionListener( update );
         row.add( updateButton );
       }
-      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesPermission )
+      if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesChangePermission)
       {
         // edit
         Button editButton = new Button( Styles.ACCEPT );
@@ -865,7 +865,7 @@ public class ConnectionFactoriesPane
     }
 
     // add the blank row to create a new JMS connection factory
-    if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesPermission )
+    if ( getEnvironementWindow().adminPermission || getEnvironementWindow().jeeResourcesChangePermission)
     {
       // row
       Row row = new Row();

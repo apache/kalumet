@@ -59,7 +59,7 @@ public class ApplicationServerCachesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restrictied" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -110,7 +110,7 @@ public class ApplicationServerCachesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -177,7 +177,7 @@ public class ApplicationServerCachesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -308,7 +308,7 @@ public class ApplicationServerCachesPane
       copyButton.addActionListener( copy );
       row.add( copyButton );
       // delete / edit
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         // edit
         Button editButton = new Button( Styles.ACCEPT );
@@ -333,7 +333,7 @@ public class ApplicationServerCachesPane
       grid.add( cachePathField );
     }
     // add cache adding row
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersChangePermission)
     {
       // row
       Row row = new Row();

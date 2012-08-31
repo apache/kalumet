@@ -104,7 +104,7 @@ public class SoftwareDatabaseSqlScriptWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -148,7 +148,7 @@ public class SoftwareDatabaseSqlScriptWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -250,7 +250,7 @@ public class SoftwareDatabaseSqlScriptWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -292,7 +292,7 @@ public class SoftwareDatabaseSqlScriptWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -364,7 +364,7 @@ public class SoftwareDatabaseSqlScriptWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -537,7 +537,7 @@ public class SoftwareDatabaseSqlScriptWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -683,7 +683,7 @@ public class SoftwareDatabaseSqlScriptWindow
       copyButton.addActionListener( copyMapping );
       row.add( copyButton );
       // mapping delete / edit
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareChangePermission)
       {
         // mapping delete
         Button deleteButton = new Button( Styles.DELETE );
@@ -718,7 +718,7 @@ public class SoftwareDatabaseSqlScriptWindow
       mappingsGrid.add( mappingValueField );
     }
     // add a new mapping
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareChangePermission)
     {
       // row
       Row row = new Row();

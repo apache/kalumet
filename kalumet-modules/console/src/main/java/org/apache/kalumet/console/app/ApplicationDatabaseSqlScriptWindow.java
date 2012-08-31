@@ -107,7 +107,7 @@ public class ApplicationDatabaseSqlScriptWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -152,7 +152,7 @@ public class ApplicationDatabaseSqlScriptWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -267,7 +267,7 @@ public class ApplicationDatabaseSqlScriptWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -310,7 +310,7 @@ public class ApplicationDatabaseSqlScriptWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -400,7 +400,7 @@ public class ApplicationDatabaseSqlScriptWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -576,7 +576,7 @@ public class ApplicationDatabaseSqlScriptWindow
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
     if ( parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-      || parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+      || parent.getParentPane().getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -742,7 +742,7 @@ public class ApplicationDatabaseSqlScriptWindow
       copyButton.addActionListener( copyMapping );
       row.add( copyButton );
       // mapping delete / edit
-      if ( parent.getEnvironmentWindow().adminPermission || parent.getEnvironmentWindow().jeeApplicationsPermission )
+      if ( parent.getEnvironmentWindow().adminPermission || parent.getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         // mapping delete
         Button deleteButton = new Button( Styles.DELETE );
@@ -781,7 +781,7 @@ public class ApplicationDatabaseSqlScriptWindow
       mappingsGrid.add( mappingValueField );
     }
     // add a new mapping
-    if ( parent.getEnvironmentWindow().adminPermission || parent.getEnvironmentWindow().jeeApplicationsPermission )
+    if ( parent.getEnvironmentWindow().adminPermission || parent.getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // row
       Row row = new Row();

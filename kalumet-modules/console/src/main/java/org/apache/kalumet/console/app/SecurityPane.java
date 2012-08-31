@@ -91,22 +91,22 @@ public class SecurityPane
       access.getProperties().add( property );
       // JEE servers
       property = new Property();
-      property.setName( "jee_servers" );
+      property.setName( "jee_application_servers_change" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // JEE servers update
       property = new Property();
-      property.setName( "jee_servers_update" );
+      property.setName( "jee_application_servers_update" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // JEE servers control
       property = new Property();
-      property.setName( "jee_servers_control" );
+      property.setName( "jee_application_servers_control" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // JEE resources
       property = new Property();
-      property.setName( "jee_resources" );
+      property.setName( "jee_resources_change" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // JEE resources update
@@ -116,7 +116,7 @@ public class SecurityPane
       access.getProperties().add( property );
       // JEE applications
       property = new Property();
-      property.setName( "jee_applications" );
+      property.setName( "jee_applications_change" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // JEE applications update
@@ -126,12 +126,12 @@ public class SecurityPane
       access.getProperties().add( property );
       // softwares
       property = new Property();
-      property.setName( "softwares" );
+      property.setName( "software_change" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // softwares update
       property = new Property();
-      property.setName( "softwares_update" );
+      property.setName( "software_update" );
       property.setValue( "false" );
       access.getProperties().add( property );
       // release
@@ -659,13 +659,13 @@ public class SecurityPane
         return;
       }
       // switch admin ACL
-      if ( access.getProperty( "softwares_update" ).getValue().equals( "true" ) )
+      if ( access.getProperty( "software_update" ).getValue().equals( "true" ) )
       {
-        access.getProperty( "softwares_update" ).setValue( "false" );
+        access.getProperty( "software_update" ).setValue( "false" );
       }
       else
       {
-        access.getProperty( "softwares_update" ).setValue( "true" );
+        access.getProperty( "software_update" ).setValue( "true" );
       }
       // change the update flag
       parent.setUpdated( true );

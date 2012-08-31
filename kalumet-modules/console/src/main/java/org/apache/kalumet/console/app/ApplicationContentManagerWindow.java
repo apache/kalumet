@@ -156,7 +156,7 @@ public class ApplicationContentManagerWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -202,7 +202,7 @@ public class ApplicationContentManagerWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -314,7 +314,7 @@ public class ApplicationContentManagerWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -358,7 +358,7 @@ public class ApplicationContentManagerWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -436,7 +436,7 @@ public class ApplicationContentManagerWindow
       }
       // check if the user can do it
       if ( !parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -699,7 +699,7 @@ public class ApplicationContentManagerWindow
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
     if ( parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -717,7 +717,7 @@ public class ApplicationContentManagerWindow
       controlRow.add( updateButton );
     }
     if ( parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the apply button
       Button applyButton = new Button( Messages.getString( "apply" ), Styles.ACCEPT );
@@ -890,7 +890,7 @@ public class ApplicationContentManagerWindow
       row.add( copyButton );
       // property delete / edit
       if ( parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-        || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         // property edit
         Button editButton = new Button( Styles.ACCEPT );
@@ -928,7 +928,7 @@ public class ApplicationContentManagerWindow
     }
     // add the adding property row
     if ( parent.getParentPane().getParentPane().getEnvironmentWindow().adminPermission
-      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+      || parent.getParentPane().getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // row
       Row row = new Row();

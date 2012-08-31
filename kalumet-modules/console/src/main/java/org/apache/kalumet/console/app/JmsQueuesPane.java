@@ -59,7 +59,7 @@ public class JmsQueuesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -108,7 +108,7 @@ public class JmsQueuesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -173,7 +173,7 @@ public class JmsQueuesPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -259,7 +259,7 @@ public class JmsQueuesPane
       row.setCellSpacing( new Extent( 2 ) );
       row.setInsets( new Insets( 2 ) );
       grid.add( row );
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         // edit
         Button editButton = new Button( Styles.ACCEPT );
@@ -284,7 +284,7 @@ public class JmsQueuesPane
       nameField.setText( queue.getName() );
       grid.add( nameField );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
     {
       // row
       Row row = new Row();

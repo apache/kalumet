@@ -185,7 +185,7 @@ public class ConnectionPoolWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -228,7 +228,7 @@ public class ConnectionPoolWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricited" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -623,7 +623,7 @@ public class ConnectionPoolWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -649,7 +649,7 @@ public class ConnectionPoolWindow
       updateButton.addActionListener( update );
       controlRow.add( updateButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
     {
       // add the delete button
       Button deleteButton = new Button( Messages.getString( "delete" ), Styles.DELETE );

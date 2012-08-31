@@ -256,7 +256,7 @@ public class ApplicationServerWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -416,7 +416,7 @@ public class ApplicationServerWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission || !getEnvironmentWindow().jeeServersPermission )
+      if ( !getEnvironmentWindow().adminPermission || !getEnvironmentWindow().jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -555,7 +555,7 @@ public class ApplicationServerWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersUpdatePermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersUpdatePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -632,7 +632,7 @@ public class ApplicationServerWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersControlPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersControlPermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -709,7 +709,7 @@ public class ApplicationServerWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeServersControlPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationServersControlPermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -830,7 +830,7 @@ public class ApplicationServerWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -848,7 +848,7 @@ public class ApplicationServerWindow
     statusButton.setStyleName( "control" );
     statusButton.addActionListener( status );
     controlRow.add( statusButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersControlPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersControlPermission)
     {
       // add the stop button
       Button stopButton = new Button( Messages.getString( "stop" ), Styles.FLAG_RED );
@@ -861,7 +861,7 @@ public class ApplicationServerWindow
       startButton.addActionListener( start );
       controlRow.add( startButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersUpdatePermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersUpdatePermission)
     {
       // add the update button
       Button updateButton = new Button( Messages.getString( "update" ), Styles.COG );
@@ -869,7 +869,7 @@ public class ApplicationServerWindow
       updateButton.addActionListener( update );
       controlRow.add( updateButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeServersPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationServersChangePermission)
     {
       // add the delete button
       Button deleteButton = new Button( Messages.getString( "delete" ), Styles.DELETE );

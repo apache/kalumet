@@ -232,7 +232,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersUpdatePermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersUpdatePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -307,7 +307,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersControlPermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersControlPermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -382,7 +382,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersControlPermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersControlPermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -515,7 +515,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersPermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -610,7 +610,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersPermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -658,7 +658,7 @@ public class ApplicationServersPane
         return;
       }
       // check if the user can do it
-      if ( !parent.adminPermission && !parent.jeeServersPermission )
+      if ( !parent.adminPermission && !parent.jeeApplicationServersChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getEnvironmentName() );
@@ -725,7 +725,7 @@ public class ApplicationServersPane
     grid.add( topologyField );
 
     // add the create application server button
-    if ( parent.adminPermission || parent.jeeServersPermission )
+    if ( parent.adminPermission || parent.jeeApplicationServersChangePermission)
     {
       Button createButton = new Button( Messages.getString( "applicationserver.add" ), Styles.ADD );
       createButton.addActionListener( create );
@@ -808,7 +808,7 @@ public class ApplicationServersPane
         activeButton = new Button( Styles.LIGHTBULB_OFF );
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
-      if ( parent.adminPermission || parent.jeeServersPermission )
+      if ( parent.adminPermission || parent.jeeApplicationServersChangePermission)
       {
         activeButton.setActionCommand( server.getName() );
         activeButton.addActionListener( toggleActive );
@@ -826,7 +826,7 @@ public class ApplicationServersPane
         blockerButton = new Button( Styles.PLUGIN_DISABLED );
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
-      if ( parent.adminPermission || parent.jeeServersPermission )
+      if ( parent.adminPermission || parent.jeeApplicationServersChangePermission)
       {
         blockerButton.setActionCommand( server.getName() );
         blockerButton.addActionListener( toggleBlocker );
@@ -838,7 +838,7 @@ public class ApplicationServersPane
       statusButton.setActionCommand( server.getName() );
       statusButton.addActionListener( status );
       row.add( statusButton );
-      if ( parent.adminPermission || parent.jeeServersControlPermission )
+      if ( parent.adminPermission || parent.jeeApplicationServersControlPermission)
       {
         // stop button
         Button stopButton = new Button( Styles.FLAG_RED );
@@ -853,7 +853,7 @@ public class ApplicationServersPane
         startButton.addActionListener( start );
         row.add( startButton );
       }
-      if ( parent.adminPermission || parent.jeeServersUpdatePermission )
+      if ( parent.adminPermission || parent.jeeApplicationServersUpdatePermission)
       {
         // update button
         Button updateButton = new Button( Styles.COG );
@@ -863,7 +863,7 @@ public class ApplicationServersPane
         row.add( updateButton );
       }
       // delete button
-      if ( parent.adminPermission || parent.jeeServersPermission )
+      if ( parent.adminPermission || parent.jeeApplicationServersChangePermission)
       {
         Button deleteButton = new Button( Styles.DELETE );
         deleteButton.setToolTipText( Messages.getString( "delete" ) );

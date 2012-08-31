@@ -170,7 +170,7 @@ public class ConnectionPoolsPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -383,7 +383,7 @@ public class ConnectionPoolsPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricited" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -432,7 +432,7 @@ public class ConnectionPoolsPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -537,7 +537,7 @@ public class ConnectionPoolsPane
     }
 
     // add the create button
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
     {
       Button createButton = new Button( Messages.getString( "connectionpool.add" ), Styles.ADD );
       createButton.addActionListener( create );
@@ -646,7 +646,7 @@ public class ConnectionPoolsPane
         activeButton = new Button( Styles.LIGHTBULB_OFF );
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         activeButton.setActionCommand( connectionPool.getName() );
         activeButton.addActionListener( toggleActive );
@@ -664,7 +664,7 @@ public class ConnectionPoolsPane
         blockerButton = new Button( Styles.PLUGIN_DISABLED );
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         blockerButton.setActionCommand( connectionPool.getName() );
         blockerButton.addActionListener( toggleBlocker );
@@ -686,7 +686,7 @@ public class ConnectionPoolsPane
         row.add( updateButton );
       }
       // delete
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         Button deleteButton = new Button( Styles.DELETE );
         deleteButton.setToolTipText( Messages.getString( "delete" ) );

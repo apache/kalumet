@@ -869,8 +869,8 @@ public class JEEApplicationServer
       sharedlibraries.appendChild( sharedLibrary.toDOMElement( document ) );
     }
     element.appendChild( sharedlibraries );
-    // jeeApplications
-    ElementImpl applications = new ElementImpl( document, "jeeApplications" );
+    // jeeapplications
+    ElementImpl applications = new ElementImpl( document, "jeeapplications" );
     for ( Iterator applicationIterator = this.getJEEApplications().iterator(); applicationIterator.hasNext(); )
     {
       JEEApplication jeeApplication = (JEEApplication) applicationIterator.next();

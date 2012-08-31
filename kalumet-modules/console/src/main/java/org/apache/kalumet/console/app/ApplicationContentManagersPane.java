@@ -104,7 +104,7 @@ public class ApplicationContentManagersPane
       }
       // check if the user can do it
       if ( !parent.getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -156,7 +156,7 @@ public class ApplicationContentManagersPane
       }
       // check if the user can do it
       if ( !parent.getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -210,7 +210,7 @@ public class ApplicationContentManagersPane
       }
       // check if the user can do it
       if ( !parent.getParentPane().getEnvironmentWindow().adminPermission
-        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        && !parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             parent.getParentPane().getEnvironmentWindow().getEnvironmentName() );
@@ -398,7 +398,7 @@ public class ApplicationContentManagersPane
 
     // add the create button
     if ( parent.getParentPane().getEnvironmentWindow().adminPermission
-      || parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+      || parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       Button createButton = new Button( Messages.getString( "contentmanager.add" ), Styles.ADD );
       createButton.addActionListener( create );
@@ -468,7 +468,7 @@ public class ApplicationContentManagersPane
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
       if ( parent.getParentPane().getEnvironmentWindow().adminPermission
-        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         activeButton.setActionCommand( contentManager.getName() );
         activeButton.addActionListener( toggleActive );
@@ -487,7 +487,7 @@ public class ApplicationContentManagersPane
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
       if ( parent.getParentPane().getEnvironmentWindow().adminPermission
-        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         blockerButton.setActionCommand( contentManager.getName() );
         blockerButton.addActionListener( toggleBlocker );
@@ -509,7 +509,7 @@ public class ApplicationContentManagersPane
       }
       // delete
       if ( parent.getParentPane().getEnvironmentWindow().adminPermission
-        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsPermission )
+        || parent.getParentPane().getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         Button deleteButton = new Button( Styles.DELETE );
         deleteButton.setToolTipText( Messages.getString( "delete" ) );

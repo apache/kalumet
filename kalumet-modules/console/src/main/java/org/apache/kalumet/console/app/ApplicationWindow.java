@@ -138,7 +138,7 @@ public class ApplicationWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -182,7 +182,7 @@ public class ApplicationWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -444,7 +444,7 @@ public class ApplicationWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -460,7 +460,7 @@ public class ApplicationWindow
       updateButton.addActionListener( update );
       controlRow.add( updateButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the apply button
       Button applyButton = new Button( Messages.getString( "apply" ), Styles.ACCEPT );

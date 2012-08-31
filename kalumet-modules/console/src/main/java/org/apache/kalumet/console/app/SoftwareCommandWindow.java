@@ -165,7 +165,7 @@ public class SoftwareCommandWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -246,7 +246,7 @@ public class SoftwareCommandWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -294,7 +294,7 @@ public class SoftwareCommandWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwaresUpdatePermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().softwareUpdatePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -409,7 +409,7 @@ public class SoftwareCommandWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareChangePermission)
     {
       // paste
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -417,7 +417,7 @@ public class SoftwareCommandWindow
       pasteButton.addActionListener( paste );
       controlRow.add( pasteButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresUpdatePermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareUpdatePermission)
     {
       // execute
       Button executeButton = new Button( Messages.getString( "execute" ), Styles.COG );
@@ -425,7 +425,7 @@ public class SoftwareCommandWindow
       executeButton.addActionListener( execute );
       controlRow.add( executeButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwaresPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().softwareChangePermission)
     {
       // apply
       Button applyButton = new Button( Messages.getString( "apply" ), Styles.ACCEPT );

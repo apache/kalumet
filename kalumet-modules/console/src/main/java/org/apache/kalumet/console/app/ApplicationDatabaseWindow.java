@@ -173,7 +173,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -346,7 +346,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -396,7 +396,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -446,7 +446,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -496,7 +496,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -704,7 +704,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -748,7 +748,7 @@ public class ApplicationDatabaseWindow
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -836,7 +836,7 @@ public class ApplicationDatabaseWindow
     copyButton.setStyleName( "control" );
     copyButton.addActionListener( copy );
     controlRow.add( copyButton );
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the paste button
       Button pasteButton = new Button( Messages.getString( "paste" ), Styles.PAGE_PASTE );
@@ -852,7 +852,7 @@ public class ApplicationDatabaseWindow
       updateButton.addActionListener( update );
       controlRow.add( updateButton );
     }
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
     {
       // add the apply button
       Button applyButton = new Button( Messages.getString( "apply" ), Styles.ACCEPT );
@@ -1128,7 +1128,7 @@ public class ApplicationDatabaseWindow
         activeButton = new Button( Styles.LIGHTBULB_OFF );
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         activeButton.setActionCommand( sqlScript.getName() );
         activeButton.addActionListener( toggleActiveSqlScript );
@@ -1146,7 +1146,7 @@ public class ApplicationDatabaseWindow
         blockerButton = new Button( Styles.PLUGIN_DISABLED );
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         blockerButton.setActionCommand( sqlScript.getName() );
         blockerButton.addActionListener( toggleBlockerSqlScript );
@@ -1164,14 +1164,14 @@ public class ApplicationDatabaseWindow
         forceButton = new Button( Styles.DATABASE );
         forceButton.setToolTipText( Messages.getString( "switch.force" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         forceButton.setActionCommand( sqlScript.getName() );
         forceButton.addActionListener( toggleForceSqlScript );
       }
       row.add( forceButton );
       // up / down / delete
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeApplicationsChangePermission)
       {
         // up button
         Button upButton = new Button( Styles.ARROW_UP );

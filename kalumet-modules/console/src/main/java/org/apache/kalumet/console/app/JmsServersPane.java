@@ -169,7 +169,7 @@ public class JmsServersPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -218,7 +218,7 @@ public class JmsServersPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -267,7 +267,7 @@ public class JmsServersPane
         return;
       }
       // check if the user can do it
-      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesPermission )
+      if ( !getEnvironmentWindow().adminPermission && !getEnvironmentWindow().jeeResourcesChangePermission)
       {
         KalumetConsoleApplication.getApplication().getLogPane().addWarning( Messages.getString( "action.restricted" ),
                                                                             getEnvironmentWindow().getEnvironmentName() );
@@ -540,7 +540,7 @@ public class JmsServersPane
     }
 
     // add the create button
-    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+    if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
     {
       Button createButton = new Button( Messages.getString( "jmsserver.add" ), Styles.ADD );
       createButton.setStyleName( "default" );
@@ -651,7 +651,7 @@ public class JmsServersPane
         activeButton = new Button( Styles.LIGHTBULB_OFF );
         activeButton.setToolTipText( Messages.getString( "switch.enable" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         activeButton.setActionCommand( jmsServer.getName() );
         activeButton.addActionListener( toggleActive );
@@ -669,7 +669,7 @@ public class JmsServersPane
         blockerButton = new Button( Styles.PLUGIN_DISABLED );
         blockerButton.setToolTipText( Messages.getString( "switch.blocker" ) );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         blockerButton.setActionCommand( jmsServer.getName() );
         blockerButton.addActionListener( toggleBlocker );
@@ -690,7 +690,7 @@ public class JmsServersPane
         updateButton.addActionListener( update );
         row.add( updateButton );
       }
-      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesPermission )
+      if ( getEnvironmentWindow().adminPermission || getEnvironmentWindow().jeeResourcesChangePermission)
       {
         // delete
         Button deleteButton = new Button( Styles.DELETE );
