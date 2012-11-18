@@ -197,3 +197,26 @@ Databases
   You can also delegate the database update to a specific agent (most of the time the database is on a dedicated server).
 
   The "SQL scripts" tab allows you to define the SQL scripts to execute on the database.
+
+[/images/env_app_database_script_general.png]
+
+  A SQL script is identified by a file name. This file name can be absolute (directly used by Kalumet from the local
+  filesystem, or from a remote HTTP URL).
+
+  The script is copied locally on the server, on the given URI.
+
+  You can also define some mappings: it's pattern (regex) that you want to replace in the SQL script before execution.
+
+[/images/env_app_database_script_mapping.png]
+
+Content Managers/Plugins
+
+  You can also use any kind of Java classes that you want to use to perform actions during the application upgrade.
+
+  For instance, you can use this to upgrade a content manager.
+
+[/images/env_app_plugin_general.png]
+
+  You can define properties that Kalumet will use setter values of your class.
+
+[/images/env_app_plugin_properties.png]
