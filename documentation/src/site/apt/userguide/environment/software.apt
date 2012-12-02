@@ -1,5 +1,5 @@
  -----
- Kalumet Console Environment General Information
+ Kalumet Software
  -----
  -----
  -----
@@ -23,3 +23,7 @@
 
 ~~ NOTE: For help with the syntax of this file, see:
 ~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Apache Kalumet Software
+
+  Software allows you to define a generic update plan that will be used to update any kind of application.
