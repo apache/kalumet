@@ -81,9 +81,7 @@
 
     <menu name="Developer Guide">
       <item name="Build instructions" href="/devguide/build.html"/>
-      <item name="Committer guideline" href="/devguide/committer_guideline.html"/>
       <item name="Release guide" href="/devguide/release_guide.html"/>
-      <item name="Roadmap" href="/devguide/roadmap.html"/>
     </menu>
   </body>
 

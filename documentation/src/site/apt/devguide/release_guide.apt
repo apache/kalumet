@@ -1,0 +1,211 @@
+ -----
+ Release Guide
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+~~ NOTE: For help with the syntax of this file, see:
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Release Guide
+
+  * Prepare
+
+  To prepare and perform a release, you must be at least a Apache Kalumet committer.
+
+    ** each and every release must be [SIGNED|http://www.apache.org/dev/release-signing.html]
+
+    ** your public key should also be cross-signed by other Apache committers (not required, but suggested)
+
+    ** make sure you have all Apache servers defined in your [settings.xml|http://maven.apache.org/developers/committer-settings.html]
+
+    ** use Maven 3.x
+
+  Your settings.xml should look like:
+
++---
+<settings>
+  ...
+  <profiles>
+    <profile>
+      <id>release</id>
+       <properties>
+         <gpg.passphrase> <!-- YOUR KEY PASSPHRASE --> </gpg.passphrase>
+       </properties>
+    </profile>
+  </profiles>
+  ...
+  <servers>
+    <!-- To publish a snapshot of some part of Maven -->
+    <server>
+      <id>apache.snapshots.https</id>
+      <username> <!-- YOUR APACHE SVN USERNAME --> </username>
+      <password> <!-- YOUR APACHE SVN PASSWORD --> </password>
+    </server>
+    <!-- To stage a release of some part of Maven -->
+    <server>
+      <id>apache.releases.https</id>
+      <username> <!-- YOUR APACHE SVN USERNAME --> </username>
+      <password> <!-- YOUR APACHE SVN PASSWORD --> </password>
+    </server>
+    ...
+  </servers>
+</settings>
++---
+
+  * Staging the Release Candidate
+
+    ** Grab the latest source
+
++---
+ svn co https://svn.apache.org/repos/asf/incubator/kalumet/trunk
++---
+
+    ** Prepare the POM for release:
+
+      *** make sure there is not SNAPSHOTS in the dependencies or plugins definition
+
+      *** make sure everything build fine
+
+      *** validate that the release prepare works fine in dryRun: mvn release:prepare -DdryRun
+
+      *** publish a SNAPSHOT before releasing: mvn deploy
+
+    ** Prepare the release
+
++---
+ mvn release:clean
+ mvn release:prepare
++---
+
+    ** Stage the release for vote
+
++---
+ mvn release:perform
++---
+
+    ** Close the staging repository. To do that, logon on [http://repository.apache.org|http://repository.apache.org],
+    click "Stage Repositories" on the left menu. Select your stage repository and click on the "Close" button.
+
+    ** Verify the staged artifacts.
+
+      *** if you click on your repository, a tree view will appear below. You can browse the content to ensure that
+      the artifacts are as you expect. Pay attention to the existence of signature files (*.asc). If you repository is
+      not correct, you can drop it to create a new one after cancelling the release (see later).
+
+      *** note the staging repository URL (you will need it for the vote e-mail)
+
+  * Starting the vote
+
+    Propose a vote on dev mailing list, for example:
+
++---
+To: "Kalumet Developers List" <kalumet-dev@incubator.apache.org>
+Subject: [VOTE] Release Apache Kalumet xx.yy
+
+    Hi,
+
+    We solved N issues in this release:
+    http://issues.apache.org/jira/...
+
+    There are still some outstanding issues:
+    http://issues.apache.org/jira/...
+
+    Staging repository:
+    https://repository.apache.org/content/repositories/YOUR REPOSITORY ID/
+
+    Please vote to approve this release:
+
+    [ ] +1 Approve the release
+    [ ] -1 Do not approve the release (please provide specific comments)
+
+    This vote will be open for 72 hours.
++---
+
+  * Wait for the result
+
+    To be approved, a release requires at least 3 binding votes (a binding vote is a vote performed by a PMC/IPMC).
+
+    At the end of the vote period, you can close the vote by sending a result e-mail:
+
++---
+To: "Kalumet Developers List" <kalumet-dev@incubator.apache.org>
+Subject: [RESULT][VOTE] Release Apache Kalumet xx.yy
+
+    Hi,
+
+    The vote has passed with the following result :
+
+      +1 (binding): <<list of names>>
+      +1 (non binding): <<list of names>>
+
+    I will promote the artifacts on Central and update Jira versions.
++---
+
+    If the vote is unsuccessful, you have to fix the identified issues and restart the release process (see "Cancelling the release" section).
+    If the vote is successful, you can promote the staging repository and update the Jira (see "Promoting the release" section).
+
+  * Cancelling the release
+
+    If the vote fails, or you decided to redo the release:
+
+    ** remove the release tag from Subversion (svn del ...)
+
+    ** logon http://repository.apache.org and drop the staged repository.
+
+    ** rollback the version in pom.xml and commit any fixes.
+
+  * Promoting the release
+
+    If the vote passes:
+
+    ** logon http://repository.apache.org, click on "Staged Repository" on the left menu. Select your staged repository
+    and click on "Release" button.
+
+    ** update the versions in Jira by setting the release date
+
+    ** update the download section of the website
+
+    ** announce the release (on the website and on the mailing lists):
+
++---
+To: "Kalumet Developers List" <kalumet-dev@incubator.apache.org>
+Subject: [ANN] Apache Kalumet xx.yy released
+
+    The Kalumet team is pleased to announce the release of Kalumet xx.yy
+
+    <<insert short description of the release>>
+
+    This release is available from http://incubator.apache.org/kalumet/downloads and Maven:
+
+      <dependency>
+        <groupId>org.apache.kalumet</groupId>
+        <artifactId>org.apache.kalumet.XXX</artifactId>
+        <version>Y.Z</version>
+      </dependency>
+
+    Release Notes:
+
+    <<insert release notes in text format from JIRA>>
+
+    Enjoy!
+
+    -The Kalumet team
++---
