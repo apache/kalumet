@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <!--
 
@@ -25,7 +24,7 @@
   <parent>
     <groupId>org.apache.kalumet</groupId>
     <artifactId>kalumet-modules</artifactId>
-    <version>0.6-incubating-SNAPSHOT</version>
+    <version>0.6-incubating</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -159,8 +158,7 @@
                 </goals>
                 <configuration>
                   <tasks>
-                    <copy overwrite="true" file="${basedir}/src/test/tomcat/log4j.xml"
-                          todir="${project.build.outputDirectory}"/>
+                    <copy overwrite="true" file="${basedir}/src/test/tomcat/log4j.xml" todir="${project.build.outputDirectory}" />
                   </tasks>
                 </configuration>
               </execution>

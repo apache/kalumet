@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <!--
 
@@ -31,7 +30,7 @@
   <groupId>org.apache.kalumet</groupId>
   <artifactId>kalumet</artifactId>
   <packaging>pom</packaging>
-  <version>0.6-incubating-SNAPSHOT</version>
+  <version>0.6-incubating</version>
   <name>Apache Kalumet</name>
   <inceptionYear>2011</inceptionYear>
 
@@ -42,9 +41,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/kalumet/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/kalumet/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/incubator/kalumet/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/kalumet/tags/kalumet-0.6-incubating</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/kalumet/tags/kalumet-0.6-incubating</developerConnection>
+    <url>http://svn.apache.org/viewvc/incubator/kalumet/tags/kalumet-0.6-incubating</url>
   </scm>
 
   <issueManagement>
