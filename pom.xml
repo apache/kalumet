@@ -30,7 +30,7 @@
   <groupId>org.apache.kalumet</groupId>
   <artifactId>kalumet</artifactId>
   <packaging>pom</packaging>
-  <version>0.6-incubating</version>
+  <version>0.7-incubating-SNAPSHOT</version>
   <name>Apache Kalumet</name>
   <inceptionYear>2011</inceptionYear>
 
@@ -41,9 +41,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/kalumet/tags/kalumet-0.6-incubating</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/kalumet/tags/kalumet-0.6-incubating</developerConnection>
-    <url>http://svn.apache.org/viewvc/incubator/kalumet/tags/kalumet-0.6-incubating</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/kalumet/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/kalumet/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/incubator/kalumet/trunk</url>
   </scm>
 
   <issueManagement>
