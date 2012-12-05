@@ -29,3 +29,27 @@
   ---------
 
  The following list shows the bug fixes and enhancements included in this release:
+
+** Bug
+    * [KALUMET-7] - JBoss 6 controller is not able to check the ServerHomeLocation
+    * [KALUMET-39] - NullPointerException when adding a J2EE application server in a fresh environment
+    * [KALUMET-40] - NullPointerException when adding a J2EE application server in a fresh environment
+    * [KALUMET-42] - Cant create a new applicaitons server
+    * [KALUMET-47] - Software is not saved correctly
+    * [KALUMET-48] - Journal custom event layout is not correct
+
+** Improvement
+    * [KALUMET-19] - index layout inconsistent
+    * [KALUMET-22] - POM updated to Apache email for trimmer
+    * [KALUMET-38] - Console should create a default store file
+
+** New Feature
+    * [KALUMET-2] - Provide source distribution
+
+** Task
+    * [KALUMET-8] - Add started guide
+    * [KALUMET-9] - Add installation guide
+    * [KALUMET-10] - Add user guide
+    * [KALUMET-15] - Add building guide
+    * [KALUMET-17] - Add release guide
+    * [KALUMET-23] - Add a distribution for the console
