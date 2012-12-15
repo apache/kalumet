@@ -19,6 +19,8 @@
 
   <id>src</id>
 
+  <baseDirectory>apache-kalumet-${project.version}-scr</baseDirectory>
+
   <formats>
     <format>tar.gz</format>
     <format>zip</format>
