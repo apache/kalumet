@@ -19,6 +19,8 @@
 
   <id>src</id>
 
+  <baseDirectory>apache-kalumet-${project.version}-scr</baseDirectory>
+
   <formats>
     <format>tar.gz</format>
     <format>zip</format>
@@ -29,11 +31,17 @@
       <directory>${basedir}/..</directory>
       <outputDirectory>/</outputDirectory>
       <excludes>
+        <exclude>LICENSE</exclude>
+        <exclude>NOTICE</exclude>
         <exclude>**/target/**</exclude>
         <exclude>**/eclipse-classes/**</exclude>
         <exclude>**/*.i??</exclude>
         <exclude>**/.idea/**</exclude>
       </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/distribution/src</directory>
+      <outputDirectory>/</outputDirectory>
     </fileSet>
   </fileSets>
 
