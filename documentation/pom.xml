@@ -33,12 +33,20 @@
   <name>Apache Kalumet :: Documentation</name>
   <url>http://incubator.apache.org/kalumet/docs/${project.version}</url>
 
+  <properties>
+    <svnUrl>https://svn.apache.org/repos/asf/incubator/kalumet/site-content/docs/${project.version}</svnUrl>
+    <scmPubCheckoutDirectory>site-content</scmPubCheckoutDirectory>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.2</version>
+        <configuration>
+          <skipDeploy>true</skipDeploy>
+        </configuration>
         <executions>
           <execution>
             <id>site</id>
@@ -47,14 +55,37 @@
               <goal>site</goal>
             </goals>
           </execution>
+          <execution>
+            <id>stage-for-scm-publish</id>
+            <phase>post-site</phase>
+            <goals>
+              <goal>stage</goal>
+            </goals>
+            <configuration>
+              <skipDeploy>false</skipDeploy>
+            </configuration>
+          </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <version>3.0.2</version>
-          </dependency>
-        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <version>1.0-beta-2</version>
+        <configuration>
+          <checkoutDirectory>${scmPubCheckoutDirectory}</checkoutDirectory>
+          <tryUpdate>true</tryUpdate>
+          <skipDeletedFiles>false</skipDeletedFiles>
+          <checkinComment>Apache Kalumet Docs site deployment</checkinComment>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scm-publish</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>publish-scm</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -99,7 +130,7 @@
   <distributionManagement>
     <site>
       <id>apache.website</id>
-      <url>${siteBaseDeployment}/docs/${project.version}</url>
+      <url>scm:svn:${svnUrl}</url>
     </site>
   </distributionManagement>
 
@@ -118,6 +149,47 @@
                 <goals>
                   <goal>deploy</goal>
                 </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>3.0.9</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>setup-checkout</id>
+      <activation>
+        <file>
+          <missing>site-content</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+              <execution>
+                <id>prepare-checkout</id>
+                <phase>pre-site</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <exec executable="svn">
+                      <arg line="checkout ${svnUrl} ${scmPubCheckoutDirectory}" />
+                    </exec>
+
+                  </tasks>
+                </configuration>
               </execution>
             </executions>
           </plugin>
