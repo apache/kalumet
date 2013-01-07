@@ -33,6 +33,18 @@
   <publishDate format="yyyy-MM-dd" position="right"/>
   <version position="right"/>
 
+  <custom>
+    <fluidoSkin>
+      <topBarEnabled>true</topBarEnabled>
+      <sideBarEnabled>false</sideBarEnabled>
+      <googleSearch></googleSearch>
+      <ohloh>
+        <projectId>587563</projectId>
+        <widget>stats</widget>
+      </ohloh>
+    </fluidoSkin>
+  </custom>
+
   <body>
 
     <breadcrumbs>
