@@ -1,0 +1,69 @@
+ -----
+ Security, Users and Groups
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+~~ NOTE: For help with the syntax of this file, see:
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Security, Users and Groups
+
+  By clicking on the environment "Security" tab, you can control the permissions given to the users groups.
+
+[/images/env_security.png]
+
+  You can add a users group to the environment security.
+
+  As soon as an user group appears in the environment security access lists, all users in this group can access to the environment (at least in read only mode).
+
+  You can grant more permissions for each group by clicking on the "role icons". In the table displayed, each icon represents a role ("red" icon means that the permission is not allowed, "green" icon mean that the permission is allowed).
+
+  The following roles are available:
+
+  * A (admin): the users in the group have all permissions on the environment, they can do what they want (change, update, etc)
+
+  * U (updates): the users in the group can launch updates (on both JEE resources or softwares)
+
+  * JS (JEE application servers change): the users in the group can change the JEE application servers configuration
+
+  * JSU (JEE application servers update): the users in the group can launch an update on the JEE application servers
+
+  * JSC (JEE application servers control): the users in the group can start/stop/restart the JEE application servers
+
+  * JR (JEE resources change): the users in the group can change the JEE resources (data sources, connection pools, etc) configuration
+
+  * JRU (JEE resources update): the users in the group can launch updates on the JEE resources (data sources, connection pools, etc)
+
+  * JA (JEE applications change): the users in the group can change the JEE applications (ear, war, etc) configuration
+
+  * JAU (JEE applications update): the users in the group can launch updates on the JEE applications (ear, war, etc)
+
+  * S (softwares change): the users in the group can change the softwares configuration (in the software tab)
+
+  * SU (softwares update): the users in the group can launch updates on the softwares (in the software tab)
+
+  * Re (release publication): the users in the group are allowed to package applications and softwares, publish the artifact as an environment release
+
+  * Sh (remote shell): the users in the group are allowed to use the remote shell (executing system commands) on the environment server
+
+  * Br (remote browser): the uers in the group are allowed to use the remote browser (browsing and viewing files) on the environment server
+
+  * Ho (homepage generation): the users in the group are allowed to create a HTML page with an environment summary and publish it

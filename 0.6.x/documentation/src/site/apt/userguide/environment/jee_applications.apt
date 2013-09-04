@@ -1,0 +1,222 @@
+ -----
+ JavaEE Applications
+ -----
+ -----
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+~~ NOTE: For help with the syntax of this file, see:
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+JavaEE Applications
+
+  The JEE applications tab allows you to manage the applications deployed in the JEE application server given by the "scope" checkbox.
+
+[/images/env_apps.png]
+
+  On each JEE application, you can:
+
+  * copy the JEE application to be pasted into another application
+
+  * enable (light on) or disable (light off) the JEE application. If disabled, the JEE application won't be part of the update process.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece)
+
+  * change the JEE application order (using up arrow and down arrow icons)
+
+  * launch the JEE application update
+
+  * validate a change on the JEE application URI
+
+  * delete the JEE application
+
+  At the right of the URI, the "world icon" allows you to check if the URI is valid.
+
+  Clicking on the JEE application name, or on "Add JEE Application" button, you will have a JEE application window.
+
+General
+
+[/images/env_app_general.png]
+
+  The "General" tab allows you to define the general information about the JEE application:
+
+  * Name: it's the JEE application name.
+
+  * Active: if "true", the JEE application is active and will be part of the update process. If "false", the JEE application is disabled and the application won't be updated by the whole update process.
+
+  * Update blocker: if "true", the JEE application is an update blocker. It means that if the JEE application update fails, the whole update process will fail and stop. If "false", the JEE application is not an update blocker. So, if the JEE application updated fails, the whole update process will just log a warning and the process will continue.
+
+  * URI: it's an optional URI. It's a base URI. All relative URIs inside JEE application (like in archive, configuration file, etc) will be based on this master one.
+
+  * Agent: if empty, the agent used will be the environment one. However, you can delegate the JEE application update to a specific agent.
+
+Archives
+
+[/images/env_app_archives.png]
+
+  A JEE application hosts a set of archive. An archive is a jar, an ear, a war, or any kind of archive supported by the application server.
+
+  On each application, you can:
+
+  * copy an archive to be pasted into another archive
+
+  * enable (light on) or disable (light off) the archive. If disabled, the archive won't be part of the update process.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece).
+
+  * change the archive order (using up arrow and dow arrow icons).
+
+  * check the current status of the archive.
+
+  * launch the archive update.
+
+  * delete the archive.
+
+  By clicking on the archive name or "Add Archive" icon, you will have a new Archive window.
+
+[/images/env_app_archive_general.png]
+
+  The "General" tab allows you to define global information about an archive:
+
+  * Name: it's the name of the archive. It's an identifier.
+
+  * Active: if "true", the archive will be in the whole update process. If "false", the archive won't be in the update process.
+
+  * Update blocker: if "true", the archive is update blocker. It means that if the archive update fails, the whole update process will fail and stop. If "false", the archive is not update blocker. It means that if the archive update fails, the whole update process will log a warning but the update will continue.
+
+  * URI: it's the URI where to find the archive. This URI could be absolute (for instance http://, file://, etc) or relative to the application URI. It's also possible to use "composed" URI, for instance tgz:http://path/to/app.tar.gz!/path/inside/tgz/to/archive.war.
+
+  * Path: it's the path, locally to the agent, where the archive will be copied.
+
+  * Agent: by default, the archive will use the application agent. But it's also possible to dedicated the archive update to a specific agent.
+
+[/images/env_app_archive_deploy.png] 
+
+  The "Deploy" tab allows you to define deployment information required by some application server:
+
+  * Classloader Order: this property is used by WebSphere and WebLogic application servers. You can choose the classloader order to the archive relative to the parent one (Parent Last or Parent First).
+
+  * Classloader Policy: this property is used by WebSphere and WebLogic application servers. You can choose if one classloader will be created global to the archive (single) or if you will have multiple classloader (multiple) in the archive (especially when the archive is an EAR).
+
+  * Context Root: this property allow you to define the context root of the archive (when the archive is a war or an ear). It's optional, but it allows you to specify one.
+
+  * Virtual Host: this property is optional and specific to WebSphere application server. It allows you to specify the target virtual host where to deploy the archive.
+
+Configuration Files
+
+[/images/env_app_configs.png]
+
+  You can also define a set of configuration files (text, XML, properties, or whatever format) for the application.
+
+  On each configuration file, you can:
+
+  * copy a configuration file to be pasted into another configuration file.
+
+  * enable (light on) or disable (light off) the configuration file. If disabled, the configuration file won't be part of the whole update process.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece). If the configuration file is update blocker, it means that if the configuration file update fails, the whole update process will fail and stop. If the configuration file is not update blocker, it means that if the configuration file update fails, the whole update process will log a warning but the update will continue.
+
+  * define the configuration file processing order (using the up and down arrows icons).
+
+  * check the current status of the configuration file (if present and up to date).
+
+  * launch the configuration file update.
+
+  * delete the configuration file.
+
+  Clicking on the configuration file name or "Add Configuration File" icon, you will have a new "Configuration File" window.
+
+[/images/env_app_config_general.png]
+
+  The "General" tab allows you to define general information about the configuration file:
+
+  * Name: it's a configuration file identifier.
+
+  * Active: if "true", the configuration file is active. It means that the configuration file will be part of the whole update process.
+
+  * Update blocker: if "true", the configuration file is an update blocker. It means that if the configuration file update fails, the whole update process will fail and stop.
+
+  * URI: it's the URI where to find the configuration file. This URI could be absolute (for instance http://, file://, etc) or relative to the application URI. It's also possible to use "composed" URI, for instance tgz:http://path/to/app.tar.gz!/path/inside/tgz/to/configuration.properties.
+
+  * Path: it's the path, locally to the agent, where the configuration file will be copied.
+
+  * Agent: by default, the configuration file update will use the application agent. But it's also possible to dedicated the configuration file update to a specific agent.
+
+[/images/env_app_config_mappings.png]
+
+  Using the "Mappings" tab, you can also search and replace text in the configuration file. The "key" will be searched in the configuration file, and it will be replaced by the "value".
+
+Databases
+
+[/images/env_app_databases.png]
+
+  You can also define a set of database used by the JEE application. Kalumet can update a database by executing SQL scripts on it.
+
+  On each database, you can:
+
+  * copy the database (and all SQL scripts definition) to be pasted into another database.
+
+  * enable (light on) or disable (light off) the database. If disabled, the database won't be updated.
+
+  * set update blocker (green puzzle piece) or not update blocker (grey puzzle piece).
+
+  * execute the update (the wheel icon)
+
+  * delete the database
+
+  By clicking on a database name or on the "Add Database" button, you will open the database details window.
+
+[/images/env_app_database.png]
+
+  In the database window, you define the database configuration. For this, you have two ways:
+
+  * you define a system command that will be used to execute the SQL scripts (for instance, sqlplus for Oracle database,
+  or mysql for MySQL). You can use variables here, a the %s special character is the location of the SQL script file in
+  the command.
+
+  * you define a JDBC connection to access the database, and execute SQL scripts.
+
+  The system command is the preferred way, it means that if you define a system command, the JDBC parameters are ignored.
+
+  You can also delegate the database update to a specific agent (most of the time the database is on a dedicated server).
+
+  The "SQL scripts" tab allows you to define the SQL scripts to execute on the database.
+
+[/images/env_app_database_script_general.png]
+
+  A SQL script is identified by a file name. This file name can be absolute (directly used by Kalumet from the local
+  filesystem, or from a remote HTTP URL).
+
+  The script is copied locally on the server, on the given URI.
+
+  You can also define some mappings: it's pattern (regex) that you want to replace in the SQL script before execution.
+
+[/images/env_app_database_script_mapping.png]
+
+Content Managers/Plugins
+
+  You can also use any kind of Java classes that you want to use to perform actions during the application upgrade.
+
+  For instance, you can use this to upgrade a content manager.
+
+[/images/env_app_plugin_general.png]
+
+  You can define properties that Kalumet will use setter values of your class.
+
+[/images/env_app_plugin_properties.png]

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project>
+
+  <bannerLeft>
+    <name>Apache Kalumet</name>
+    <src>http://incubator.apache.org/kalumet/images/logo.png</src>
+    <href>http://incubator.apache.org/kalumet</href>
+  </bannerLeft>
+
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.3.0</version>
+  </skin>
+
+  <publishDate format="yyyy-MM-dd" position="right"/>
+  <version position="right"/>
+
+  <custom>
+    <fluidoSkin>
+      <topBarEnabled>true</topBarEnabled>
+      <sideBarEnabled>false</sideBarEnabled>
+      <googleSearch></googleSearch>
+      <ohloh>
+        <projectId>587563</projectId>
+        <widget>stats</widget>
+      </ohloh>
+    </fluidoSkin>
+  </custom>
+
+  <body>
+
+    <breadcrumbs>
+      <item name="${project.version}" href="/index.html"/>
+    </breadcrumbs>
+
+    <menu name="Introduction">
+      <item name="Quick Start" href="/quick-start.html"/>
+      <item name="Feature Tour" href="/tour/quick.html"/>
+      <item name="Release Notes" href="/release-notes.html"/>
+      <item name="Downloads" href="http://incubator.apache.org/kalumet/download.html"/>
+    </menu>
+
+    <menu name="Administrator Guide">
+      <item name="Installation" href="">
+        <item name="Agent installation" href="/adminguide/agent.html"/>
+        <item name="Console installation" href="/adminguide/console.html"/>
+      </item>
+    </menu>
+
+    <menu name="User Guide">
+      <item name="Console layout" href="/userguide/console_layout.html"/>
+      <item name="Core configuration" href="/userguide/core_configuration.html"/>
+      <item name="Agents" href="/userguide/agents.html"/>
+      <item name="Users and Groups" href="/userguide/users_groups.html"/>
+      <item name="Statistics" href="/userguide/statistics.html"/>
+      <item name="Environment" href="">
+        <item name="General" href="/userguide/environment/general.html"/>
+        <item name="Security Access Lists" href="/userguide/environment/security.html"/>
+        <item name="JEE Application Servers" href="/userguide/environment/jee_application_server.html"/>
+        <item name="JEE Resources" href="">
+          <item name="JDBC Connection Pools" href="/userguide/environment/jdbc_connection_pools.html"/>
+          <item name="JDBC Data Sources" href="/userguide/environment/jdbc_datasources.html"/>
+          <item name="JMS Connection Factories" href="/userguide/environment/jms_connectionfactories.html"/>
+          <item name="JMS Servers" href="/userguide/environment/jms_servers.html"/>
+          <item name="JNDI NameSpace Bindings" href="/userguide/environment/jndi_bindings.html"/>
+          <item name="Shared Libraries" href="/userguide/environment/shared_libraries.html"/>
+        </item>
+        <item name="JEE Applications" href="/userguide/environment/jee_applications.html"/>
+        <item name="Software" href="/userguide/environment/software.html"/>
+        <item name="Journal" href="/userguide/environment/journal.html"/>
+        <item name="Notifier and Publisher" href="/userguide/environment/notifier_publisher.html"/>
+        <item name="Dashboard" href="/userguide/environment/dashboard.html"/>
+      </item>
+    </menu>
+
+    <menu name="Developer Guide">
+      <item name="Build instructions" href="/devguide/build.html"/>
+      <item name="Release guide" href="/devguide/release_guide.html"/>
+    </menu>
+  </body>
+
+</project>

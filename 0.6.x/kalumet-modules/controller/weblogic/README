@@ -1,0 +1,54 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+Apache Kalumet WebLogic Controller
+==================================
+
+Apache Kalumet provides a controller for WebLogic application server.
+This controller works with:
+- BEA WebLogic 8.x and 9.x
+- Oracle WebLogic 10.x
+
+    Controller Installation for WebLogic 8.x/9.x
+    --------------------------------------------
+Copy the following jar file to <kalumet_agent_home>/lib/extras:
+        * <weblogic_home>/server/lib/weblogic.jar
+
+    Controller Installation for WebLogic 10.x
+    -----------------------------------------
+Copy the following jar files to <kalumet_agent_home>/lib/extras:
+        * <weblogic_home>/server/lib/weblogic.jar
+        * <weblogic_home>/modules/com.bea.core.common.security.api_1.0.0.0_5-0-2-0.jar
+        * <weblogic_home>/modules/com.bea.core.descriptor_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.logging_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.management.core_2.3.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.store_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.timers_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.transaction_2.5.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.utils.classloaders_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.utils.full_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.utils.wrapper_1.3.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.lifecycle_1.1.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.rmi.client_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.security.digest_1.0.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.security.identity_1.1.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.security.wls_1.0.0.0_5-0-2-0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.security_1.0.0.0_5-0-2-0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.socket.api_1.0.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.weblogic.workmanager_1.4.0.0.jar
+        * <weblogic_home>/modules/com.bea.core.workarea_1.4.0.0.jar
+        * <weblogic_home>/modules/javax.transaction_1.0.0.0_1-1.jar

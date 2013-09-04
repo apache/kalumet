@@ -1,0 +1,168 @@
+#!/bin/sh
+#
+#    Licensed to the Apache Software Foundation (ASF) under one or more
+#    contributor license agreements.  See the NOTICE file distributed with
+#    this work for additional information regarding copyright ownership.
+#    The ASF licenses this file to You under the Apache License, Version 2.0
+#    (the "License"); you may not use this file except in compliance with
+#    the License.  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+
+# get the Kalumet agent basedir
+DIRNAME=`dirname $0`
+PROGNAME=`basename $0`
+
+# define java heap memory configuration
+if [ "x$JAVA_MIN_MEN" = "x" ]; then
+    JAVA_MIN_MEM=64m
+    export JAVA_MIN_MEM
+fi
+
+if [ "x$JAVA_MAX_MEM" = "x" ]; then
+    JAVA_MAX_MEM=128m
+    export JAVA_MAX_MEM
+fi
+
+KALUMET_AGENT_HOME=`cd $DIRNAME/..; pwd`
+cd $KALUMET_AGENT_HOME
+
+# load rc file
+if [ -f $KALUMET_AGENT_HOME/conf/agent.rc ] ; then
+    . $KALUMET_AGENT_HOME/conf/agent.rc
+fi
+
+# detect OS
+cygwin=false;
+darwin=false;
+aix=false;
+os400=false;
+case "`uname`" in
+    CYGWIN*)
+        cygwin=true
+        ;;
+    Darwin*)
+        darwin=true
+        ;;
+    AIX*)
+        aix=true
+        ;;
+    OS400)
+        os400=true
+        ;;
+esac
+# define AIX specific environment variables
+if $aix; then
+    export LDR_CNTRL=MAXDATA=0xB0000000@DSA
+    export IBM_JAVA_HEAPDUMP_TEXT=true
+fi
+
+# define the file descriptors limit
+# use the maximum available, or set MAX_FD != -1 to use that
+if [ "x$MAX_FD" = "x" ]; then
+    MAX_FD="maximum"
+fi
+# increase the maximum file descriptors if we can
+if [ "$os400" = "false" ] && [ "$cygwin" = "false" ]; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ]; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ]; then
+            # use the system max
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ]; then
+            echo "Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else 
+        echo "Could not query system maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# support for loading native libraries
+LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$KALUMET_AGENT_HOME/lib"
+
+# for cygwin, set PATH from LD_LIBRARY_PATH
+if $cygwin; then
+    LD_LIBRARY_PATH=`cygpath --path --windows "$LD_LIBRARY_PATH"`
+    PATH="$PATH;$LD_LIBRARY_PATH"
+    export PATH
+fi
+export LD_LIBRARY_PATH
+
+# setup the Java Virtual Machine
+if $cygwin; then
+    [ -n "$JAVA" ] && JAVA=`cygpath --unix "$JAVA"`
+    [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+fi
+if [ "x$JAVA" = "x" ]; then
+    if [ "x$JAVA_HOME" != "x" ]; then
+        if [ ! -d "$JAVA_HOME" ]; then
+            echo "JAVA_HOME is not valid: $JAVA_HOME"
+            exit 1
+        fi
+        JAVA="$JAVA_HOME/bin/java"
+    else
+        echo "JAVA_HOME not set; results may vary"
+        JAVA="java"
+    fi
+fi
+
+# detect JVM
+echo "`$JAVA -version`"
+if $JAVA -version 2>&1 | grep "IBM" ; then
+    JVM_VENDOR="IBM"
+elif $os400; then
+    JVM_VENDOR="IBM"
+else
+    JVM_VENDOR="SUN"
+fi
+
+# setup default java options
+DEFAULT_JAVA_OPTS="-Xms$JAVA_MIN_MEM -Xmx$JAVA_MAX_MEM -Dcom.sun.management.jmxremote"
+
+# set JVM vendor specific JVM flags
+if [ "$JVM_VENDOR" = "SUN" ]; then
+    DEFAULT_JAVA_OPTS="-server $DEFAULT_JAVA_OPTS"
+elif [ "$JVM_VENDOR" = "IBM" ]; then
+    if $os400; then
+        DEFAULT_JAVA_OPTS="$DEFAULT_JAVA_OPTS"
+    elif $aix; then
+        DEFAULT_JAVA_OPTS="-Xverify:none -Xlp $DEFAULT_JAVA_OPTS"
+    else 
+        DEFAULT_JAVA_OPTS="-Xverify:none $DEFAULT_JAVA_OPTS"
+    fi
+fi
+
+# define classworlds
+CLASSPATH=$KALUMET_AGENT_HOME/lib/classworlds-1.1.jar
+CLASSWORLDS_CONF=$KALUMET_AGENT_HOME/conf/agent.conf
+
+# for cygwin, switch paths to Windows format before running java
+if $cygwin; then
+    KALUMET_AGENT_HOME=`cygpath --path --windows "$KALUMET_AGENT_HOME"`
+    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+    CLASSWORLDS_CONF=`cygpath --path --windows "$CLASSWORLDS_CONF"`
+    CYGHOME=`cygpath --windows "$CYGHOME"`
+fi
+
+if [ "x$JAVA_OPTS" = "x" ]; then
+    JAVA_OPTS="$DEFAULT_JAVA_OPTS"
+fi
+
+# starting the JVM
+exec $JAVA \
+    $JAVA_OPTS \
+    -classpath "$CLASSPATH" \
+    -Dclassworlds.conf="$CLASSWORLDS_CONF" \
+    -Dkalumet.agent.home="$KALUMET_AGENT_HOME" \
+    org.codehaus.classworlds.Launcher \
+    "$@"
