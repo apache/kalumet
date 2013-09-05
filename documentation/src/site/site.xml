@@ -33,6 +33,18 @@
   <publishDate format="yyyy-MM-dd" position="right"/>
   <version position="right"/>
 
+  <custom>
+    <fluidoSkin>
+      <topBarEnabled>true</topBarEnabled>
+      <sideBarEnabled>false</sideBarEnabled>
+      <googleSearch></googleSearch>
+      <ohloh>
+        <projectId>587563</projectId>
+        <widget>stats</widget>
+      </ohloh>
+    </fluidoSkin>
+  </custom>
+
   <body>
 
     <breadcrumbs>
@@ -47,7 +59,7 @@
     </menu>
 
     <menu name="Administrator Guide">
-      <item name="Installation">
+      <item name="Installation" href="">
         <item name="Agent installation" href="/adminguide/agent.html"/>
         <item name="Console installation" href="/adminguide/console.html"/>
       </item>
@@ -59,11 +71,11 @@
       <item name="Agents" href="/userguide/agents.html"/>
       <item name="Users and Groups" href="/userguide/users_groups.html"/>
       <item name="Statistics" href="/userguide/statistics.html"/>
-      <item name="Environment">
+      <item name="Environment" href="">
         <item name="General" href="/userguide/environment/general.html"/>
         <item name="Security Access Lists" href="/userguide/environment/security.html"/>
         <item name="JEE Application Servers" href="/userguide/environment/jee_application_server.html"/>
-        <item name="JEE Resources">
+        <item name="JEE Resources" href="">
           <item name="JDBC Connection Pools" href="/userguide/environment/jdbc_connection_pools.html"/>
           <item name="JDBC Data Sources" href="/userguide/environment/jdbc_datasources.html"/>
           <item name="JMS Connection Factories" href="/userguide/environment/jms_connectionfactories.html"/>
