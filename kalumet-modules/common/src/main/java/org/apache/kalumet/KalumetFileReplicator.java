@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * VFS file replicator to avoid huge space usage in the VFS cache.
@@ -43,11 +44,11 @@ public class KalumetFileReplicator
 
   private final static transient Logger LOGGER = LoggerFactory.getLogger( KalumetFileReplicator.class );
 
-  private final ArrayList<WeakFileReference> copies = new ArrayList<WeakFileReference>();
+  private final List<WeakFileReference> copies = new ArrayList<WeakFileReference>();
 
   private File tmpDir;
 
-  private ReferenceQueue queue = new ReferenceQueue();
+  private ReferenceQueue<WeakFileReference> queue = new ReferenceQueue<WeakFileReference>();
 
   private char[] TMP_RESERVED_CHARS =
     new char[]{ '?', '/', '\\', ' ', '&', '"', '\'', '*', '#', ';', ':', '<', '>', '|' };
@@ -92,7 +93,7 @@ public class KalumetFileReplicator
     // delete the temporary files
     while ( copies.size() > 0 )
     {
-      WeakFileReference fileReference = (WeakFileReference) copies.remove( 0 );
+      WeakFileReference fileReference = copies.remove( 0 );
       try
       {
         File file = new File( fileReference.getPath() );
@@ -122,7 +123,7 @@ public class KalumetFileReplicator
   public File allocateFile( final String baseName )
     throws FileSystemException
   {
-    WeakFileReference fileReference = (WeakFileReference) queue.poll();
+    WeakFileReference fileReference = queue.poll().get();
     while ( fileReference != null )
     {
       File toDelete = new File( fileReference.getPath() );
@@ -131,7 +132,7 @@ public class KalumetFileReplicator
         toDelete.delete();
       }
       copies.remove( fileReference );
-      fileReference = (WeakFileReference) queue.poll();
+      fileReference = queue.poll().get();
     }
     // create the filename
     final String baseNamePath = createFileName( baseName );
