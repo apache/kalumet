@@ -412,7 +412,7 @@ public class FileManipulator
       }
       else
       {
-        LOGGER.debug( "Source {} is a file" );
+        LOGGER.debug( "Source {} is a file", src );
         if ( destFile.exists() && destFile.getType().equals( FileType.FOLDER ) )
         {
           destFile = this.resolveFile( dest + "/" + srcFile.getName().getBaseName() );

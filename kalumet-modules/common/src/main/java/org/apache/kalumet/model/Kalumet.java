@@ -18,7 +18,6 @@
  */
 package org.apache.kalumet.model;
 
-import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
 import org.apache.commons.digester.Digester;
 import org.apache.kalumet.FileManipulator;
 import org.apache.kalumet.KalumetException;
@@ -35,6 +34,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Represents the <code>kalumet</code> root tag in the main Kalumet DOM.
@@ -45,7 +45,7 @@ public class Kalumet
 
   private static final long serialVersionUID = -3237352886418250595L;
 
-  private static WriterPreferenceReadWriteLock lock = new WriterPreferenceReadWriteLock();
+  private static ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
   private LinkedList properties;
 
@@ -358,7 +358,7 @@ public class Kalumet
     Kalumet kalumet = null;
     try
     {
-      lock.readLock().acquire();
+      lock.readLock().lock();
 
       // init the digester with no validation on the XML file (no DTD)
       Digester digester = new Digester();
@@ -831,7 +831,7 @@ public class Kalumet
     }
     finally
     {
-      lock.readLock().release();
+      lock.readLock().unlock();
     }
     return kalumet;
   }
@@ -923,7 +923,7 @@ public class Kalumet
     }
     try
     {
-      lock.writeLock().acquire();
+      lock.writeLock().lock();
       OutputFormat format = new OutputFormat();
       format.setLineWidth( 72 );
       format.setIndenting( true );
@@ -946,7 +946,7 @@ public class Kalumet
     }
     finally
     {
-      lock.writeLock().release();
+      lock.writeLock().unlock();
     }
   }
 
