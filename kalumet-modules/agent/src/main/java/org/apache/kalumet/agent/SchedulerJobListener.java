@@ -28,53 +28,53 @@ import org.slf4j.LoggerFactory;
  * A global job listener.
  */
 public class SchedulerJobListener
-  implements JobListener
+    implements JobListener
 {
 
-  private final static transient Logger LOGGER = LoggerFactory.getLogger( SchedulerJobListener.class );
+    private final static transient Logger LOGGER = LoggerFactory.getLogger( SchedulerJobListener.class );
 
-  public SchedulerJobListener()
-  {
-  }
-
-  /**
-   * Get the listener name.
-   *
-   * @return the listener name.
-   */
-  public String getName()
-  {
-    return "AgentJobListener";
-  }
-
-  /**
-   * @see org.quartz.JobListener#jobToBeExecuted(org.quartz.JobExecutionContext)
-   */
-  public void jobToBeExecuted( JobExecutionContext jobExecutionContext )
-  {
-    LOGGER.info( "Executing scheduler job ..." );
-  }
-
-  /**
-   * @see org.quartz.JobListener#jobExecutionVetoed(org.quartz.JobExecutionContext)
-   */
-  public void jobExecutionVetoed( JobExecutionContext jobExecutionContext )
-  {
-  }
-
-  /**
-   * @see org.quartz.JobListener#jobWasExecuted(org.quartz.JobExecutionContext, org.quartz.JobExecutionException)
-   */
-  public void jobWasExecuted( JobExecutionContext jobExecutionContext, JobExecutionException jobExecutionException )
-  {
-    if ( jobExecutionException != null )
+    public SchedulerJobListener()
     {
-      LOGGER.warn( "Scheduler job executed with error", jobExecutionException );
     }
-    else
+
+    /**
+     * Get the listener name.
+     *
+     * @return the listener name.
+     */
+    public String getName()
     {
-      LOGGER.info( "Scheduler job executed" );
+        return "AgentJobListener";
     }
-  }
+
+    /**
+     * @see org.quartz.JobListener#jobToBeExecuted(org.quartz.JobExecutionContext)
+     */
+    public void jobToBeExecuted( JobExecutionContext jobExecutionContext )
+    {
+        LOGGER.info( "Executing scheduler job ..." );
+    }
+
+    /**
+     * @see org.quartz.JobListener#jobExecutionVetoed(org.quartz.JobExecutionContext)
+     */
+    public void jobExecutionVetoed( JobExecutionContext jobExecutionContext )
+    {
+    }
+
+    /**
+     * @see org.quartz.JobListener#jobWasExecuted(org.quartz.JobExecutionContext, org.quartz.JobExecutionException)
+     */
+    public void jobWasExecuted( JobExecutionContext jobExecutionContext, JobExecutionException jobExecutionException )
+    {
+        if ( jobExecutionException != null )
+        {
+            LOGGER.warn( "Scheduler job executed with error", jobExecutionException );
+        }
+        else
+        {
+            LOGGER.info( "Scheduler job executed" );
+        }
+    }
 
 }

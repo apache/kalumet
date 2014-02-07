@@ -25,32 +25,32 @@ package org.apache.kalumet.console.configuration.model;
 public class Property
 {
 
-  private String name;
+    private String name;
 
-  private String value;
+    private String value;
 
-  public Property()
-  {
-  }
+    public Property()
+    {
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getValue()
-  {
-    return this.value;
-  }
+    public String getValue()
+    {
+        return this.value;
+    }
 
-  public void setValue( String value )
-  {
-    this.value = value;
-  }
+    public void setValue( String value )
+    {
+        this.value = value;
+    }
 
 }

@@ -42,114 +42,120 @@ import org.slf4j.LoggerFactory;
 public final class Main
 {
 
-  private final static transient Logger LOGGER = LoggerFactory.getLogger( Main.class );
+    private final static transient Logger LOGGER = LoggerFactory.getLogger( Main.class );
 
-  /**
-   * Main agent launcher.
-   *
-   * @param args
-   */
-  public final static void main( String[] args )
-  {
-    System.out.println( "Starting Apache Kalumet agent " + AgentUtils.getVersion() );
-    System.out.println();
-
-    Options options = new Options();
-    Option config = OptionBuilder.withArgName( "config" ).hasArg().withDescription(
-      "The location URL (local: or http:) to the Kalumet configuration (e.g. http://hostname/kalumet/ConfigurationWrapper)" ).isRequired().create(
-      "config" );
-    options.addOption( config );
-    Option agentid = OptionBuilder.withArgName( "id" ).hasArg().withDescription(
-      "The Kalumet agent identification as defined in the configuration" ).isRequired().create( "id" );
-    options.addOption( agentid );
-    CommandLineParser parser = new GnuParser();
-    CommandLine cmd = null;
-
-    try
+    /**
+     * Main agent launcher.
+     *
+     * @param args
+     */
+    public final static void main( String[] args )
     {
-      // parse the command line
-      cmd = parser.parse( options, args );
-    }
-    catch ( ParseException parseException )
-    {
-      HelpFormatter formatter = new HelpFormatter();
-      formatter.printHelp( "Apache Kalumet", options );
-      System.exit( 1 );
-    }
+        System.out.println( "Starting Apache Kalumet agent " + AgentUtils.getVersion() );
+        System.out.println();
 
-    String configLocation = cmd.getOptionValue( "config" );
-    LOGGER.info( "Loading configuration from {}", configLocation );
-    String agentId = cmd.getOptionValue( "id" );
-    LOGGER.info( "Agent ID is {}", agentId );
+        Options options = new Options();
+        Option config = OptionBuilder.withArgName( "config" ) //
+            .hasArg() //
+            .withDescription( "The location URL (local: or http:) to the Kalumet configuration (e.g. http://hostname/kalumet/ConfigurationWrapper)" ) //
+            .isRequired() //
+            .create( "config" );
+        options.addOption( config );
 
-    // parse the Kalumet configuration to get the the agent cron
-    Kalumet kalumet = null;
-    String cronString = null;
-    try
-    {
-      kalumet = Kalumet.digeste( configLocation );
-    }
-    catch ( Exception e )
-    {
-      LOGGER.error( "Can't load Apache Kalumet configuration", e );
-      System.err.println( "Can't load Apache Kalumet configuration" );
-      e.printStackTrace();
-      System.exit( 1 );
-    }
+        Option agentid = OptionBuilder.withArgName( "id" ) //
+            .hasArg() //
+            .withDescription( "The Kalumet agent identification as defined in the configuration" ) //
+            .isRequired() //
+            .create( "id" );
+        options.addOption( agentid );
+        CommandLineParser parser = new GnuParser();
+        CommandLine cmd = null;
 
-    if ( kalumet.getAgent( agentId ) == null )
-    {
-      LOGGER.error( "Agent ID {} is not found in the Kalumet configuration", agentId );
-      System.err.println( "Agent ID " + agentId + " is not found in the Kalumet configuration" );
-      System.exit( 1 );
-    }
+        try
+        {
+            // parse the command line
+            cmd = parser.parse( options, args );
+        }
+        catch ( ParseException parseException )
+        {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "Apache Kalumet", options );
+            System.exit( 1 );
+        }
 
-    // init the agent configuration store
-    Configuration.CONFIG_LOCATION = configLocation;
-    Configuration.AGENT_ID = agentId;
+        String configLocation = cmd.getOptionValue( "config" );
+        LOGGER.info( "Loading configuration from {}", configLocation );
+        String agentId = cmd.getOptionValue( "id" );
+        LOGGER.info( "Agent ID is {}", agentId );
 
-    cronString = kalumet.getAgent( agentId ).getCron();
-    LOGGER.debug( "Cron definition: " + cronString );
+        // parse the Kalumet configuration to get the the agent cron
+        Kalumet kalumet = null;
+        String cronString = null;
+        try
+        {
+            kalumet = Kalumet.digeste( configLocation );
+        }
+        catch ( Exception e )
+        {
+            LOGGER.error( "Can't load Apache Kalumet configuration", e );
+            System.err.println( "Can't load Apache Kalumet configuration" );
+            e.printStackTrace();
+            System.exit( 1 );
+        }
 
-    // start the WS server
-    try
-    {
-      int port = kalumet.getAgent( agentId ).getPort();
-      WsServer wsServer = new WsServer( port, "/apache-kalumet.wsdd" );
-      wsServer.start();
-      LOGGER.info( "WS server started on {}", port );
-    }
-    catch ( Exception e )
-    {
-      LOGGER.error( "Can't start WS server", e );
-      System.err.println( "Can't start WS server" );
-      e.printStackTrace();
-      System.exit( 2 );
-    }
+        if ( kalumet.getAgent( agentId ) == null )
+        {
+            LOGGER.error( "Agent ID {} is not found in the Kalumet configuration", agentId );
+            System.err.println( "Agent ID " + agentId + " is not found in the Kalumet configuration" );
+            System.exit( 1 );
+        }
 
-    // start the scheduler
-    try
-    {
-      SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-      Scheduler scheduler = schedulerFactory.getScheduler();
-      scheduler.addGlobalJobListener( new SchedulerJobListener() );
-      LOGGER.debug( "Scheduler job listener plugged" );
-      scheduler.start();
-      JobDetail job = new JobDetail( "Apache Kalumet agent job", Scheduler.DEFAULT_GROUP, SchedulerJob.class );
-      CronTrigger cron = new CronTrigger( "Apache Kalumet agent trigger", Scheduler.DEFAULT_GROUP, cronString );
-      LOGGER.debug( "{} cron created", cronString );
-      scheduler.scheduleJob( job, cron );
-      LOGGER.info( "Scheduler started with {} trigger", cronString );
-    }
-    catch ( Exception e )
-    {
-      LOGGER.error( "Can't start scheduler", e );
-      System.err.println( "Can't start scheduler" );
-      e.printStackTrace();
-      System.exit( 3 );
-    }
+        // init the agent configuration store
+        Configuration.CONFIG_LOCATION = configLocation;
+        Configuration.AGENT_ID = agentId;
 
-    LOGGER.info( "Apache Kalumet agent started" );
-  }
+        cronString = kalumet.getAgent( agentId ).getCron();
+        LOGGER.debug( "Cron definition: " + cronString );
+
+        // start the WS server
+        try
+        {
+            int port = kalumet.getAgent( agentId ).getPort();
+            WsServer wsServer = new WsServer( port, "/apache-kalumet.wsdd" );
+            wsServer.start();
+            LOGGER.info( "WS server started on {}", port );
+        }
+        catch ( Exception e )
+        {
+            LOGGER.error( "Can't start WS server", e );
+            System.err.println( "Can't start WS server" );
+            e.printStackTrace();
+            System.exit( 2 );
+        }
+
+        // start the scheduler
+        try
+        {
+            SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+            Scheduler scheduler = schedulerFactory.getScheduler();
+            scheduler.addGlobalJobListener( new SchedulerJobListener() );
+            LOGGER.debug( "Scheduler job listener plugged" );
+            scheduler.start();
+            JobDetail job = new JobDetail( "Apache Kalumet agent job", Scheduler.DEFAULT_GROUP, SchedulerJob.class );
+            CronTrigger cron = new CronTrigger( "Apache Kalumet agent trigger", Scheduler.DEFAULT_GROUP, cronString );
+            LOGGER.debug( "{} cron created", cronString );
+            scheduler.scheduleJob( job, cron );
+            LOGGER.info( "Scheduler started with {} trigger", cronString );
+        }
+        catch ( Exception e )
+        {
+            LOGGER.error( "Can't start scheduler", e );
+            System.err.println( "Can't start scheduler" );
+            e.printStackTrace();
+            System.exit( 3 );
+        }
+
+        LOGGER.info( "Apache Kalumet agent started" );
+    }
 
 }

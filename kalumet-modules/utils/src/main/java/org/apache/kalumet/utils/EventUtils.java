@@ -31,48 +31,48 @@ import org.slf4j.LoggerFactory;
 public class EventUtils
 {
 
-  private final static transient Logger LOGGER = LoggerFactory.getLogger( EventUtils.class );
+    private final static transient Logger LOGGER = LoggerFactory.getLogger( EventUtils.class );
 
-  /**
-   * Post an event to the Kalumet journal.
-   *
-   * @param environment the target environment..
-   * @param author      the author of the event.
-   * @param severity    the severity severity of the event.
-   * @param event       the event event.
-   * @param kalumet     the Kalumet configuration.
-   */
-  public static void post( Environment environment, String author, String severity, String event, Kalumet kalumet )
-  {
-    LOGGER.debug( "Getting LogEventAppender property in Kalumet configuration" );
-    if ( kalumet.getProperty( "LogEventAppender" ) == null )
+    /**
+     * Post an event to the Kalumet journal.
+     *
+     * @param environment the target environment..
+     * @param author      the author of the event.
+     * @param severity    the severity severity of the event.
+     * @param event       the event event.
+     * @param kalumet     the Kalumet configuration.
+     */
+    public static void post( Environment environment, String author, String severity, String event, Kalumet kalumet )
     {
-      LOGGER.warn( "Can't post event because the LogEventAppender is not define in the configuration" );
-      return;
-    }
-    String logEventAppender = kalumet.getProperty( "LogEventAppender" ).getValue();
+        LOGGER.debug( "Getting LogEventAppender property in Kalumet configuration" );
+        if ( kalumet.getProperty( "LogEventAppender" ) == null )
+        {
+            LOGGER.warn( "Can't post event because the LogEventAppender is not define in the configuration" );
+            return;
+        }
+        String logEventAppender = kalumet.getProperty( "LogEventAppender" ).getValue();
 
-    // creating the HTTP client
-    HttpClient httpClient = new HttpClient();
-    // create the post method
-    PostMethod postMethod = new PostMethod( logEventAppender );
-    // add the HTTP parameters
-    postMethod.addParameter( "environment", environment.getName() );
-    postMethod.addParameter( "author", author );
-    postMethod.addParameter( "severity", severity );
-    postMethod.addParameter( "event", event );
-    try
-    {
-      httpClient.executeMethod( postMethod );
+        // creating the HTTP client
+        HttpClient httpClient = new HttpClient();
+        // create the post method
+        PostMethod postMethod = new PostMethod( logEventAppender );
+        // add the HTTP parameters
+        postMethod.addParameter( "environment", environment.getName() );
+        postMethod.addParameter( "author", author );
+        postMethod.addParameter( "severity", severity );
+        postMethod.addParameter( "event", event );
+        try
+        {
+            httpClient.executeMethod( postMethod );
+        }
+        catch ( Exception e )
+        {
+            // ignore
+        }
+        finally
+        {
+            postMethod.releaseConnection();
+        }
     }
-    catch ( Exception e )
-    {
-      // ignore
-    }
-    finally
-    {
-      postMethod.releaseConnection();
-    }
-  }
 
 }

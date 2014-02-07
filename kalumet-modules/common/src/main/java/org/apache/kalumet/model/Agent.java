@@ -28,128 +28,128 @@ import java.io.Serializable;
  * Represents the <code>agent</code> tag in the Kalumet DOM.
  */
 public class Agent
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -2827134650188545192L;
+    private static final long serialVersionUID = -2827134650188545192L;
 
-  private String id;
+    private String id;
 
-  private String hostname;
+    private String hostname;
 
-  private int port;
+    private int port;
 
-  private String cron;
+    private String cron;
 
-  private int maxmanagedenvironments;
+    private int maxmanagedenvironments;
 
-  private int maxjeeapplicationserversstarted;
+    private int maxjeeapplicationserversstarted;
 
-  public Agent()
-  {
-  }
+    public Agent()
+    {
+    }
 
-  public String getId()
-  {
-    return this.id;
-  }
+    public String getId()
+    {
+        return this.id;
+    }
 
-  public void setId( String id )
-  {
-    this.id = id;
-  }
+    public void setId( String id )
+    {
+        this.id = id;
+    }
 
-  public String getHostname()
-  {
-    return this.hostname;
-  }
+    public String getHostname()
+    {
+        return this.hostname;
+    }
 
-  public void setHostname( String hostname )
-  {
-    this.hostname = hostname;
-  }
+    public void setHostname( String hostname )
+    {
+        this.hostname = hostname;
+    }
 
-  public int getPort()
-  {
-    return this.port;
-  }
+    public int getPort()
+    {
+        return this.port;
+    }
 
-  public void setPort( int port )
-  {
-    this.port = port;
-  }
+    public void setPort( int port )
+    {
+        this.port = port;
+    }
 
-  public String getCron()
-  {
-    return cron;
-  }
+    public String getCron()
+    {
+        return cron;
+    }
 
-  public void setCron( String cron )
-  {
-    this.cron = cron;
-  }
+    public void setCron( String cron )
+    {
+        this.cron = cron;
+    }
 
-  public int getMaxmanagedenvironments()
-  {
-    return this.maxmanagedenvironments;
-  }
+    public int getMaxmanagedenvironments()
+    {
+        return this.maxmanagedenvironments;
+    }
 
-  public void setMaxmanagedenvironments( int maxmanagedenvironments )
-  {
-    this.maxmanagedenvironments = maxmanagedenvironments;
-  }
+    public void setMaxmanagedenvironments( int maxmanagedenvironments )
+    {
+        this.maxmanagedenvironments = maxmanagedenvironments;
+    }
 
-  public int getMaxjeeapplicationserversstarted()
-  {
-    return this.maxjeeapplicationserversstarted;
-  }
+    public int getMaxjeeapplicationserversstarted()
+    {
+        return this.maxjeeapplicationserversstarted;
+    }
 
-  public void setMaxjeeapplicationserversstarted(int maxenvironmentsactive)
-  {
-    this.maxjeeapplicationserversstarted = maxenvironmentsactive;
-  }
+    public void setMaxjeeapplicationserversstarted( int maxenvironmentsactive )
+    {
+        this.maxjeeapplicationserversstarted = maxenvironmentsactive;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    Agent clone = new Agent();
-    clone.setId( this.getId() );
-    clone.setHostname( this.getHostname() );
-    clone.setPort( this.getPort() );
-    clone.setCron( this.getCron() );
-    clone.setMaxmanagedenvironments( this.getMaxmanagedenvironments() );
-    clone.setMaxjeeapplicationserversstarted(this.getMaxjeeapplicationserversstarted());
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        Agent clone = new Agent();
+        clone.setId( this.getId() );
+        clone.setHostname( this.getHostname() );
+        clone.setPort( this.getPort() );
+        clone.setCron( this.getCron() );
+        clone.setMaxmanagedenvironments( this.getMaxmanagedenvironments() );
+        clone.setMaxjeeapplicationserversstarted( this.getMaxjeeapplicationserversstarted() );
+        return clone;
+    }
 
-  /**
-   * Transforms the <code>Agent</code> POJO into a DOM element.
-   *
-   * @param document the DOM core document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "agent" );
-    element.setAttribute( "id", this.getId() );
-    element.setAttribute( "hostname", this.getHostname() );
-    element.setAttribute( "port", new Integer( this.getPort() ).toString() );
-    element.setAttribute( "cron", this.getCron() );
-    element.setAttribute( "maxmanagedenvironments", new Integer( this.getMaxmanagedenvironments() ).toString() );
-    element.setAttribute( "maxjeeapplicationserversstarted",
-                          new Integer( this.getMaxjeeapplicationserversstarted() ).toString() );
-    return element;
-  }
+    /**
+     * Transforms the <code>Agent</code> POJO into a DOM element.
+     *
+     * @param document the DOM core document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "agent" );
+        element.setAttribute( "id", this.getId() );
+        element.setAttribute( "hostname", this.getHostname() );
+        element.setAttribute( "port", new Integer( this.getPort() ).toString() );
+        element.setAttribute( "cron", this.getCron() );
+        element.setAttribute( "maxmanagedenvironments", new Integer( this.getMaxmanagedenvironments() ).toString() );
+        element.setAttribute( "maxjeeapplicationserversstarted",
+                              new Integer( this.getMaxjeeapplicationserversstarted() ).toString() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherAgent )
-  {
-    return this.getId().compareTo( ( (Agent) anotherAgent ).getId() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherAgent )
+    {
+        return this.getId().compareTo( ( (Agent) anotherAgent ).getId() );
+    }
 
 }

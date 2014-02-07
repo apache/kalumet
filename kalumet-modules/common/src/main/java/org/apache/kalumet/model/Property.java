@@ -28,71 +28,71 @@ import java.io.Serializable;
  * Represent a <code>property</code> tag in the Kalumet configuration DOM.
  */
 public class Property
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -1044229953052391950L;
+    private static final long serialVersionUID = -1044229953052391950L;
 
-  private String name;
+    private String name;
 
-  private String value;
+    private String value;
 
-  public Property()
-  {
-  }
+    public Property()
+    {
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setValue( String value )
-  {
-    this.value = value;
-  }
+    public void setValue( String value )
+    {
+        this.value = value;
+    }
 
-  public String getValue()
-  {
-    return this.value;
-  }
+    public String getValue()
+    {
+        return this.value;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    Property clone = new Property();
-    clone.setName( this.getName() );
-    clone.setValue( this.getValue() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        Property clone = new Property();
+        clone.setName( this.getName() );
+        clone.setValue( this.getValue() );
+        return clone;
+    }
 
-  /**
-   * Transform the <code>Property</code> POJO to a DOM Element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "property" );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "value", this.getValue() );
-    return element;
-  }
+    /**
+     * Transform the <code>Property</code> POJO to a DOM Element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "property" );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "value", this.getValue() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherProperty )
-  {
-    return this.getName().compareTo( ( (Property) anotherProperty ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherProperty )
+    {
+        return this.getName().compareTo( ( (Property) anotherProperty ).getName() );
+    }
 
 }

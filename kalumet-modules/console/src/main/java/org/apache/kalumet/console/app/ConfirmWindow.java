@@ -31,58 +31,58 @@ import nextapp.echo2.app.event.ActionListener;
  * Confirm window to interact with the user.
  */
 public class ConfirmWindow
-  extends WindowPane
+    extends WindowPane
 {
 
-  public ConfirmWindow( final ActionListener callback )
-  {
-    super();
-
-    this.setStyleName( "default" );
-    this.setTitle( Messages.getString( "confirm" ) );
-    this.setWidth( new Extent( 220, Extent.PX ) );
-    this.setHeight( new Extent( 120, Extent.PX ) );
-    this.setModal( true );
-
-    SplitPane content = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
-    this.add( content );
-
-    // control row
-    Row controlRow = new Row();
-    controlRow.setStyleName( "control" );
-    content.add( controlRow );
-
-    // add yes button
-    Button yesButton = new Button( Messages.getString( "yes" ), Styles.ACCEPT );
-    yesButton.setStyleName( "control" );
-    yesButton.addActionListener( new ActionListener()
+    public ConfirmWindow( final ActionListener callback )
     {
-      public void actionPerformed( ActionEvent event )
-      {
-        // call the callback
-        callback.actionPerformed( null );
-        // close the confirm window
-        ConfirmWindow.this.userClose();
-      }
-    } );
-    controlRow.add( yesButton );
+        super();
 
-    // add the no button
-    Button noButton = new Button( Messages.getString( "no" ), Styles.CROSS );
-    noButton.setStyleName( "control" );
-    noButton.addActionListener( new ActionListener()
-    {
-      public void actionPerformed( ActionEvent event )
-      {
-        ConfirmWindow.this.userClose();
-      }
-    } );
-    controlRow.add( noButton );
+        this.setStyleName( "default" );
+        this.setTitle( Messages.getString( "confirm" ) );
+        this.setWidth( new Extent( 220, Extent.PX ) );
+        this.setHeight( new Extent( 120, Extent.PX ) );
+        this.setModal( true );
 
-    // add the main label
-    Label mainLabel = new Label( Messages.getString( "sure.question" ) );
-    content.add( mainLabel );
+        SplitPane content = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+        this.add( content );
 
-  }
+        // control row
+        Row controlRow = new Row();
+        controlRow.setStyleName( "control" );
+        content.add( controlRow );
+
+        // add yes button
+        Button yesButton = new Button( Messages.getString( "yes" ), Styles.ACCEPT );
+        yesButton.setStyleName( "control" );
+        yesButton.addActionListener( new ActionListener()
+        {
+            public void actionPerformed( ActionEvent event )
+            {
+                // call the callback
+                callback.actionPerformed( null );
+                // close the confirm window
+                ConfirmWindow.this.userClose();
+            }
+        } );
+        controlRow.add( yesButton );
+
+        // add the no button
+        Button noButton = new Button( Messages.getString( "no" ), Styles.CROSS );
+        noButton.setStyleName( "control" );
+        noButton.addActionListener( new ActionListener()
+        {
+            public void actionPerformed( ActionEvent event )
+            {
+                ConfirmWindow.this.userClose();
+            }
+        } );
+        controlRow.add( noButton );
+
+        // add the main label
+        Label mainLabel = new Label( Messages.getString( "sure.question" ) );
+        content.add( mainLabel );
+
+    }
 
 }

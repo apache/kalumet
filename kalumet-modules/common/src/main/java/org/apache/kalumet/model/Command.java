@@ -29,114 +29,114 @@ import java.io.Serializable;
  * Represent a <code>command</code> tag, mainly inside <code>software</code>.
  */
 public class Command
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -3671135569540426579L;
+    private static final long serialVersionUID = -3671135569540426579L;
 
-  private String name;
+    private String name;
 
-  private boolean active;
+    private boolean active;
 
-  private boolean blocker;
+    private boolean blocker;
 
-  private String agent;
+    private String agent;
 
-  private String command;
+    private String command;
 
-  public Command()
-  {
-  }
+    public Command()
+    {
+    }
 
-  public String getName()
-  {
-    return name;
-  }
+    public String getName()
+    {
+        return name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public boolean isActive()
-  {
-    return active;
-  }
+    public boolean isActive()
+    {
+        return active;
+    }
 
-  public boolean isBlocker()
-  {
-    return blocker;
-  }
+    public boolean isBlocker()
+    {
+        return blocker;
+    }
 
-  public void setBlocker( boolean blocker )
-  {
-    this.blocker = blocker;
-  }
+    public void setBlocker( boolean blocker )
+    {
+        this.blocker = blocker;
+    }
 
-  public void setActive( boolean active )
-  {
-    this.active = active;
-  }
+    public void setActive( boolean active )
+    {
+        this.active = active;
+    }
 
-  public String getAgent()
-  {
-    return agent;
-  }
+    public String getAgent()
+    {
+        return agent;
+    }
 
-  public void setAgent( String agent )
-  {
-    this.agent = agent;
-  }
+    public void setAgent( String agent )
+    {
+        this.agent = agent;
+    }
 
-  public String getCommand()
-  {
-    return command;
-  }
+    public String getCommand()
+    {
+        return command;
+    }
 
-  public void setCommand( String command )
-  {
-    this.command = command;
-  }
+    public void setCommand( String command )
+    {
+        this.command = command;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    Command clone = new Command();
-    clone.setName( this.getName() );
-    clone.setActive( this.isActive() );
-    clone.setBlocker( this.isBlocker() );
-    clone.setAgent( this.getAgent() );
-    clone.setCommand( this.getCommand() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        Command clone = new Command();
+        clone.setName( this.getName() );
+        clone.setActive( this.isActive() );
+        clone.setBlocker( this.isBlocker() );
+        clone.setAgent( this.getAgent() );
+        clone.setCommand( this.getCommand() );
+        return clone;
+    }
 
-  /**
-   * Transforms a <code>command</code> into a XML DOM element.
-   *
-   * @param document the DOM document.
-   * @return the <code>command</code> DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "command" );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
-    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
-    element.setAttribute( "agent", this.getAgent() );
-    CDATASectionImpl content = new CDATASectionImpl( document, this.getCommand() );
-    element.appendChild( content );
-    return element;
-  }
+    /**
+     * Transforms a <code>command</code> into a XML DOM element.
+     *
+     * @param document the DOM document.
+     * @return the <code>command</code> DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "command" );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+        element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+        element.setAttribute( "agent", this.getAgent() );
+        CDATASectionImpl content = new CDATASectionImpl( document, this.getCommand() );
+        element.appendChild( content );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherCommand )
-  {
-    return this.getName().compareTo( ( (Command) anotherCommand ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherCommand )
+    {
+        return this.getName().compareTo( ( (Command) anotherCommand ).getName() );
+    }
 
 }

@@ -31,124 +31,125 @@ import java.util.List;
  * Represents the <code>jeeapplicationservers</code> tag in the Kalumet DOM.
  */
 public class JEEApplicationServers
-  implements Serializable, Cloneable
+    implements Serializable, Cloneable
 {
 
-  private static final long serialVersionUID = -4940898204749451109L;
+    private static final long serialVersionUID = -4940898204749451109L;
 
-  private boolean cluster;
+    private boolean cluster;
 
-  private LinkedList jeeApplicationServers;
+    private LinkedList jeeApplicationServers;
 
-  public JEEApplicationServers()
-  {
-    this.jeeApplicationServers = new LinkedList();
-  }
-
-  public boolean isCluster()
-  {
-    return this.cluster;
-  }
-
-  public void setCluster( boolean cluster )
-  {
-    this.cluster = cluster;
-  }
-
-  /**
-   * Adds a new <code>JEEApplicationServer</code> in the
-   * <code>JEEApplicationServers</code> container.
-   *
-   * @param jeeApplicationServer the <code>JEEApplicationServer</code> to add.
-   */
-  public void addJEEApplicationServer( JEEApplicationServer jeeApplicationServer )
-    throws ModelObjectAlreadyExistsException
-  {
-    if ( this.getJEEApplicationServer( jeeApplicationServer.getName() ) != null )
+    public JEEApplicationServers()
     {
-      throw new ModelObjectAlreadyExistsException( "JEE application server name already exists in the environment." );
+        this.jeeApplicationServers = new LinkedList();
     }
-    this.jeeApplicationServers.add(jeeApplicationServer);
-  }
 
-  /**
-   * Gets the <code>JEEApplicationServer</code> list in the
-   * <code>JEEApplicationServers</code> container.
-   *
-   * @return the <code>JEEApplicationServer</code> list.
-   */
-  public List getJEEApplicationServers()
-  {
-    return this.jeeApplicationServers;
-  }
-
-  /**
-   * Overwrites the <code>JEEApplicationServer</code> list in the
-   * <code>JEEApplicationServers</code> container.
-   *
-   * @param jeeApplicationServers the new <code>JEEApplicationServer</code> list.
-   */
-  public void setJEEApplicationServers( LinkedList jeeApplicationServers )
-  {
-    this.jeeApplicationServers = jeeApplicationServers;
-  }
-
-  /**
-   * Gets the <code>JEEApplicationServer</code> identified by a given name in the
-   * <code>JEEApplicationServers</code> container.
-   *
-   * @param name the <code>JEEApplicationServer</code> name.
-   * @return the <code>JEEApplicationServer</code> found or null if no found.
-   */
-  public JEEApplicationServer getJEEApplicationServer( String name )
-  {
-    for ( Iterator applicationServerIterator = this.getJEEApplicationServers().iterator();
-          applicationServerIterator.hasNext(); )
+    public boolean isCluster()
     {
-      JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
-      if ( jeeApplicationServer.getName().equals( name ) )
-      {
-        return jeeApplicationServer;
-      }
+        return this.cluster;
     }
-    return null;
-  }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    JEEApplicationServers clone = new JEEApplicationServers();
-    clone.setCluster( this.isCluster() );
-    for ( Iterator applicationServerIterator = this.jeeApplicationServers.iterator();
-          applicationServerIterator.hasNext(); )
+    public void setCluster( boolean cluster )
     {
-      JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
-      clone.jeeApplicationServers.add( (JEEApplicationServer) jeeApplicationServer.clone() );
+        this.cluster = cluster;
     }
-    return clone;
-  }
 
-  /**
-   * Transforms the <code>JEEApplicationServers</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "jeeapplicationservers" );
-    element.setAttribute( "cluster", new Boolean( this.isCluster() ).toString() );
-    // add JEE application server child nodes
-    for ( Iterator applicationServerIterator = this.getJEEApplicationServers().iterator();
-          applicationServerIterator.hasNext(); )
+    /**
+     * Adds a new <code>JEEApplicationServer</code> in the
+     * <code>JEEApplicationServers</code> container.
+     *
+     * @param jeeApplicationServer the <code>JEEApplicationServer</code> to add.
+     */
+    public void addJEEApplicationServer( JEEApplicationServer jeeApplicationServer )
+        throws ModelObjectAlreadyExistsException
     {
-      JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
-      element.appendChild(jeeApplicationServer.toDOMElement(document));
+        if ( this.getJEEApplicationServer( jeeApplicationServer.getName() ) != null )
+        {
+            throw new ModelObjectAlreadyExistsException(
+                "JEE application server name already exists in the environment." );
+        }
+        this.jeeApplicationServers.add( jeeApplicationServer );
     }
-    return element;
-  }
+
+    /**
+     * Gets the <code>JEEApplicationServer</code> list in the
+     * <code>JEEApplicationServers</code> container.
+     *
+     * @return the <code>JEEApplicationServer</code> list.
+     */
+    public List getJEEApplicationServers()
+    {
+        return this.jeeApplicationServers;
+    }
+
+    /**
+     * Overwrites the <code>JEEApplicationServer</code> list in the
+     * <code>JEEApplicationServers</code> container.
+     *
+     * @param jeeApplicationServers the new <code>JEEApplicationServer</code> list.
+     */
+    public void setJEEApplicationServers( LinkedList jeeApplicationServers )
+    {
+        this.jeeApplicationServers = jeeApplicationServers;
+    }
+
+    /**
+     * Gets the <code>JEEApplicationServer</code> identified by a given name in the
+     * <code>JEEApplicationServers</code> container.
+     *
+     * @param name the <code>JEEApplicationServer</code> name.
+     * @return the <code>JEEApplicationServer</code> found or null if no found.
+     */
+    public JEEApplicationServer getJEEApplicationServer( String name )
+    {
+        for ( Iterator applicationServerIterator = this.getJEEApplicationServers().iterator();
+              applicationServerIterator.hasNext(); )
+        {
+            JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
+            if ( jeeApplicationServer.getName().equals( name ) )
+            {
+                return jeeApplicationServer;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        JEEApplicationServers clone = new JEEApplicationServers();
+        clone.setCluster( this.isCluster() );
+        for ( Iterator applicationServerIterator = this.jeeApplicationServers.iterator();
+              applicationServerIterator.hasNext(); )
+        {
+            JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
+            clone.jeeApplicationServers.add( (JEEApplicationServer) jeeApplicationServer.clone() );
+        }
+        return clone;
+    }
+
+    /**
+     * Transforms the <code>JEEApplicationServers</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "jeeapplicationservers" );
+        element.setAttribute( "cluster", new Boolean( this.isCluster() ).toString() );
+        // add JEE application server child nodes
+        for ( Iterator applicationServerIterator = this.getJEEApplicationServers().iterator();
+              applicationServerIterator.hasNext(); )
+        {
+            JEEApplicationServer jeeApplicationServer = (JEEApplicationServer) applicationServerIterator.next();
+            element.appendChild( jeeApplicationServer.toDOMElement( document ) );
+        }
+        return element;
+    }
 
 }

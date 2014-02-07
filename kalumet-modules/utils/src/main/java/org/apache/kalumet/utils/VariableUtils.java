@@ -30,22 +30,22 @@ import java.util.List;
 public class VariableUtils
 {
 
-  /**
-   * Replace all given variables in a string.
-   *
-   * @param source    the source string.
-   * @param variables the variables list.
-   * @return the string with variables replaced.
-   */
-  public final static String replace( String source, List variables )
-  {
-    String replaced = source;
-    for ( Iterator variableIterator = variables.iterator(); variableIterator.hasNext(); )
+    /**
+     * Replace all given variables in a string.
+     *
+     * @param source    the source string.
+     * @param variables the variables list.
+     * @return the string with variables replaced.
+     */
+    public final static String replace( String source, List variables )
     {
-      Variable variable = (Variable) variableIterator.next();
-      replaced = StringUtils.replace( replaced, "${" + variable.getName() + "}", variable.getValue() );
+        String replaced = source;
+        for ( Iterator variableIterator = variables.iterator(); variableIterator.hasNext(); )
+        {
+            Variable variable = (Variable) variableIterator.next();
+            replaced = StringUtils.replace( replaced, "${" + variable.getName() + "}", variable.getValue() );
+        }
+        return replaced;
     }
-    return replaced;
-  }
 
 }

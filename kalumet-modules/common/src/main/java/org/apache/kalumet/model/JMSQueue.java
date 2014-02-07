@@ -28,57 +28,57 @@ import java.io.Serializable;
  * Represent the <code>jmsqueue</code> tag in the Kalumet configuration DOM.
  */
 public class JMSQueue
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -5239170363052872967L;
+    private static final long serialVersionUID = -5239170363052872967L;
 
-  private String name;
+    private String name;
 
-  public JMSQueue()
-  {
-  }
+    public JMSQueue()
+    {
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    JMSQueue clone = new JMSQueue();
-    clone.setName( this.getName() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        JMSQueue clone = new JMSQueue();
+        clone.setName( this.getName() );
+        return clone;
+    }
 
-  /**
-   * Transform the <code>JMSQueue</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "jmsqueue" );
-    element.setAttribute( "name", this.getName() );
-    return element;
-  }
+    /**
+     * Transform the <code>JMSQueue</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "jmsqueue" );
+        element.setAttribute( "name", this.getName() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherJMSQueue )
-  {
-    return this.getName().compareTo( ( (JMSQueue) anotherJMSQueue ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherJMSQueue )
+    {
+        return this.getName().compareTo( ( (JMSQueue) anotherJMSQueue ).getName() );
+    }
 
 }

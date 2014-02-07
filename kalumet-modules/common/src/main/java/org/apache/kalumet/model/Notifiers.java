@@ -31,121 +31,121 @@ import java.util.List;
  * Represent the <code>notifiers</code> tag in the Kalumet configuration DOM.
  */
 public class Notifiers
-  implements Serializable, Cloneable
+    implements Serializable, Cloneable
 {
 
-  private static final long serialVersionUID = -5087839972754579270L;
+    private static final long serialVersionUID = -5087839972754579270L;
 
-  private int countdown;
+    private int countdown;
 
-  private LinkedList notifiers;
+    private LinkedList notifiers;
 
-  public Notifiers()
-  {
-    this.notifiers = new LinkedList();
-  }
-
-  public int getCountdown()
-  {
-    return this.countdown;
-  }
-
-  public void setCountdown( int countdown )
-  {
-    this.countdown = countdown;
-  }
-
-  /**
-   * Add a new <code>Email</code> notifier in the <code>Notifiers</code>
-   * notifiers container.
-   *
-   * @param email the <code>Email</code> to add.
-   */
-  public void addNotifier( Email email )
-    throws ModelObjectAlreadyExistsException
-  {
-    if ( this.getNotifier( email.getMailhost() ) != null )
+    public Notifiers()
     {
-      throw new ModelObjectAlreadyExistsException( "Email notifier mailhost already exists in notifiers." );
+        this.notifiers = new LinkedList();
     }
-    this.notifiers.add( email );
-  }
 
-  /**
-   * Get the <code>Email</code> notifier list in the <code>Notifiers</code>
-   * notifiers container.
-   *
-   * @return the <code>Email</code> notifier list.
-   */
-  public List getNotifiers()
-  {
-    return this.notifiers;
-  }
-
-  /**
-   * Set the <code>Email</code> notifier list in the
-   * <code>Notifiers</code> notifiers container.
-   *
-   * @param notifiers the new <code>Email</code> notifier list.
-   */
-  public void setNotifiers( LinkedList notifiers )
-  {
-    this.notifiers = notifiers;
-  }
-
-  /**
-   * Get the <code>Email</code> notifier identified by a given mail host in
-   * the <code>Notifiers</code> notifiers container.
-   *
-   * @param mailhost the <code>Email</code> notifier mail host.
-   * @return the <code>Email</code> found or null if not found.
-   */
-  public Email getNotifier( String mailhost )
-  {
-    for ( Iterator notifierIterator = this.getNotifiers().iterator(); notifierIterator.hasNext(); )
+    public int getCountdown()
     {
-      Email email = (Email) notifierIterator.next();
-      if ( email.getMailhost().equals( mailhost ) )
-      {
-        return email;
-      }
+        return this.countdown;
     }
-    return null;
-  }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    Notifiers clone = new Notifiers();
-    clone.setCountdown( this.getCountdown() );
-    for ( Iterator notifierIterator = this.notifiers.iterator(); notifierIterator.hasNext(); )
+    public void setCountdown( int countdown )
     {
-      Email notifier = (Email) notifierIterator.next();
-      clone.notifiers.add( (Email) notifier.clone() );
+        this.countdown = countdown;
     }
-    return clone;
-  }
 
-  /**
-   * Transform the <code>Notifiers</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "notifiers" );
-    element.setAttribute( "countdown", new Integer( this.getCountdown() ).toString() );
-    // email notifier child nodes
-    for ( Iterator notifierIterator = this.getNotifiers().iterator(); notifierIterator.hasNext(); )
+    /**
+     * Add a new <code>Email</code> notifier in the <code>Notifiers</code>
+     * notifiers container.
+     *
+     * @param email the <code>Email</code> to add.
+     */
+    public void addNotifier( Email email )
+        throws ModelObjectAlreadyExistsException
     {
-      Email email = (Email) notifierIterator.next();
-      element.appendChild( email.toDOMElement( document ) );
+        if ( this.getNotifier( email.getMailhost() ) != null )
+        {
+            throw new ModelObjectAlreadyExistsException( "Email notifier mailhost already exists in notifiers." );
+        }
+        this.notifiers.add( email );
     }
-    return element;
-  }
+
+    /**
+     * Get the <code>Email</code> notifier list in the <code>Notifiers</code>
+     * notifiers container.
+     *
+     * @return the <code>Email</code> notifier list.
+     */
+    public List getNotifiers()
+    {
+        return this.notifiers;
+    }
+
+    /**
+     * Set the <code>Email</code> notifier list in the
+     * <code>Notifiers</code> notifiers container.
+     *
+     * @param notifiers the new <code>Email</code> notifier list.
+     */
+    public void setNotifiers( LinkedList notifiers )
+    {
+        this.notifiers = notifiers;
+    }
+
+    /**
+     * Get the <code>Email</code> notifier identified by a given mail host in
+     * the <code>Notifiers</code> notifiers container.
+     *
+     * @param mailhost the <code>Email</code> notifier mail host.
+     * @return the <code>Email</code> found or null if not found.
+     */
+    public Email getNotifier( String mailhost )
+    {
+        for ( Iterator notifierIterator = this.getNotifiers().iterator(); notifierIterator.hasNext(); )
+        {
+            Email email = (Email) notifierIterator.next();
+            if ( email.getMailhost().equals( mailhost ) )
+            {
+                return email;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        Notifiers clone = new Notifiers();
+        clone.setCountdown( this.getCountdown() );
+        for ( Iterator notifierIterator = this.notifiers.iterator(); notifierIterator.hasNext(); )
+        {
+            Email notifier = (Email) notifierIterator.next();
+            clone.notifiers.add( (Email) notifier.clone() );
+        }
+        return clone;
+    }
+
+    /**
+     * Transform the <code>Notifiers</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "notifiers" );
+        element.setAttribute( "countdown", new Integer( this.getCountdown() ).toString() );
+        // email notifier child nodes
+        for ( Iterator notifierIterator = this.getNotifiers().iterator(); notifierIterator.hasNext(); )
+        {
+            Email email = (Email) notifierIterator.next();
+            element.appendChild( email.toDOMElement( document ) );
+        }
+        return element;
+    }
 
 }

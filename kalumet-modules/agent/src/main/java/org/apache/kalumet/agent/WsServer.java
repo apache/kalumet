@@ -35,71 +35,71 @@ import java.net.ServerSocket;
 public class WsServer
 {
 
-  private final static transient Logger LOGGER = LoggerFactory.getLogger( WsServer.class );
+    private final static transient Logger LOGGER = LoggerFactory.getLogger( WsServer.class );
 
-  private final static int MAX_POOL_SIZE = 500;
+    private final static int MAX_POOL_SIZE = 500;
 
-  private final static int MAX_SESSIONS_NUMBER = 500;
+    private final static int MAX_SESSIONS_NUMBER = 500;
 
-  private SimpleAxisServer simpleAxisServer;
+    private SimpleAxisServer simpleAxisServer;
 
-  /**
-   * Create an embedded WS server.
-   *
-   * @param port     the WS server listen port.
-   * @param wsddFile the WebService Deployment Descriptor.
-   * @throws KalumetException in case of WS server creation failure.
-   */
-  public WsServer( int port, String wsddFile )
-    throws KalumetException
-  {
-    simpleAxisServer = new SimpleAxisServer( MAX_POOL_SIZE, MAX_SESSIONS_NUMBER );
-    LOGGER.debug( "Creating WS server" );
-    LOGGER.debug( " Max pool size: " + MAX_POOL_SIZE );
-    LOGGER.debug( " Max sessions number: " + MAX_SESSIONS_NUMBER );
-    try
+    /**
+     * Create an embedded WS server.
+     *
+     * @param port     the WS server listen port.
+     * @param wsddFile the WebService Deployment Descriptor.
+     * @throws KalumetException in case of WS server creation failure.
+     */
+    public WsServer( int port, String wsddFile )
+        throws KalumetException
     {
-      simpleAxisServer.setServerSocket( new ServerSocket( port ) );
-      LOGGER.debug( "WS server started on port {}", port );
+        simpleAxisServer = new SimpleAxisServer( MAX_POOL_SIZE, MAX_SESSIONS_NUMBER );
+        LOGGER.debug( "Creating WS server" );
+        LOGGER.debug( " Max pool size: " + MAX_POOL_SIZE );
+        LOGGER.debug( " Max sessions number: " + MAX_SESSIONS_NUMBER );
+        try
+        {
+            simpleAxisServer.setServerSocket( new ServerSocket( port ) );
+            LOGGER.debug( "WS server started on port {}", port );
+        }
+        catch ( IOException e )
+        {
+            LOGGER.error( "Can't create WS server on port {}", port, e );
+            throw new KalumetException( "Can't create WS server on port " + port, e );
+        }
     }
-    catch ( IOException e )
-    {
-      LOGGER.error( "Can't create WS server on port {}", port, e );
-      throw new KalumetException( "Can't create WS server on port " + port, e );
-    }
-  }
 
-  /**
-   * Start the WS server.
-   *
-   * @throws KalumetException in case of WS server startup failure.
-   */
-  public void start()
-    throws KalumetException
-  {
-    try
+    /**
+     * Start the WS server.
+     *
+     * @throws KalumetException in case of WS server startup failure.
+     */
+    public void start()
+        throws KalumetException
     {
-      LOGGER.debug( "Starting WS server in daemon mode" );
-      simpleAxisServer.start( true );
+        try
+        {
+            LOGGER.debug( "Starting WS server in daemon mode" );
+            simpleAxisServer.start( true );
+        }
+        catch ( Exception e )
+        {
+            LOGGER.error( "Can't start WS server", e );
+            throw new KalumetException( "Can't start WS server", e );
+        }
     }
-    catch ( Exception e )
-    {
-      LOGGER.error( "Can't start WS server", e );
-      throw new KalumetException( "Can't start WS server", e );
-    }
-  }
 
-  /**
-   * Define the WS server configuration.
-   *
-   * @param wsddFile the WebService Deployment Descriptor file.
-   * @return the engine configuration of the WS server.
-   * @throws KalumetException in case of configuration failure.
-   */
-  private EngineConfiguration getEngineConfiguration( String wsddFile )
-    throws KalumetException
-  {
-    return new FileProvider( getClass().getResourceAsStream( wsddFile ) );
-  }
+    /**
+     * Define the WS server configuration.
+     *
+     * @param wsddFile the WebService Deployment Descriptor file.
+     * @return the engine configuration of the WS server.
+     * @throws KalumetException in case of configuration failure.
+     */
+    private EngineConfiguration getEngineConfiguration( String wsddFile )
+        throws KalumetException
+    {
+        return new FileProvider( getClass().getResourceAsStream( wsddFile ) );
+    }
 
 }

@@ -30,159 +30,159 @@ import java.security.MessageDigest;
  * Represent the <code>user</code> tag in the Kalumet configuration DOM.
  */
 public class User
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -1628759131745053332L;
+    private static final long serialVersionUID = -1628759131745053332L;
 
-  private String id;
+    private String id;
 
-  private String name;
+    private String name;
 
-  private String email;
+    private String email;
 
-  private String password;
+    private String password;
 
-  public User()
-  {
-  }
-
-  public String getId()
-  {
-    return this.id;
-  }
-
-  public void setId( String id )
-  {
-    this.id = id;
-  }
-
-  public String getName()
-  {
-    return this.name;
-  }
-
-  public void setName( String name )
-  {
-    this.name = name;
-  }
-
-  public String getEmail()
-  {
-    return this.email;
-  }
-
-  public void setEmail( String email )
-  {
-    this.email = email;
-  }
-
-  /**
-   * <b>Warning : this method returns the encrypted password</b>
-   */
-  public String getPassword()
-  {
-    return this.password;
-  }
-
-  /**
-   * <b>Warning : this method is expecting for an encrypted password</b>
-   */
-  public void setPassword( String password )
-  {
-    this.password = password;
-  }
-
-  /**
-   * Encrypts MD5 of a given password.
-   *
-   * @param password the password to encrypt.
-   * @return the MD5 encrypted password.
-   */
-  public static String md5PasswordCrypt( String password )
-    throws KalumetException
-  {
-    try
+    public User()
     {
-      byte[] hash = MessageDigest.getInstance( "MD5" ).digest( password.getBytes() );
-      StringBuffer hashString = new StringBuffer();
-      for ( int i = 0; i < hash.length; i++ )
-      {
-        String hex = Integer.toHexString( hash[i] );
-        if ( hex.length() == 1 )
+    }
+
+    public String getId()
+    {
+        return this.id;
+    }
+
+    public void setId( String id )
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
+    }
+
+    public String getEmail()
+    {
+        return this.email;
+    }
+
+    public void setEmail( String email )
+    {
+        this.email = email;
+    }
+
+    /**
+     * <b>Warning : this method returns the encrypted password</b>
+     */
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    /**
+     * <b>Warning : this method is expecting for an encrypted password</b>
+     */
+    public void setPassword( String password )
+    {
+        this.password = password;
+    }
+
+    /**
+     * Encrypts MD5 of a given password.
+     *
+     * @param password the password to encrypt.
+     * @return the MD5 encrypted password.
+     */
+    public static String md5PasswordCrypt( String password )
+        throws KalumetException
+    {
+        try
         {
-          hashString.append( '0' );
-          hashString.append( hex.charAt( hex.length() - 1 ) );
+            byte[] hash = MessageDigest.getInstance( "MD5" ).digest( password.getBytes() );
+            StringBuffer hashString = new StringBuffer();
+            for ( int i = 0; i < hash.length; i++ )
+            {
+                String hex = Integer.toHexString( hash[i] );
+                if ( hex.length() == 1 )
+                {
+                    hashString.append( '0' );
+                    hashString.append( hex.charAt( hex.length() - 1 ) );
+                }
+                else
+                {
+                    hashString.append( hex.substring( hex.length() - 2 ) );
+                }
+            }
+            return hashString.toString();
+        }
+        catch ( Exception e )
+        {
+            throw new KalumetException( "Cant' crypt password.", e );
+        }
+    }
+
+    /**
+     * Check if a given password match the <code>User</code> password.
+     *
+     * @param password the given password.
+     * @return true of the password match the <code>User</code> password, false else.
+     */
+    public boolean checkPassword( String password )
+        throws KalumetException
+    {
+        String crypt = User.md5PasswordCrypt( password );
+        if ( this.getPassword().equals( crypt ) )
+        {
+            return true;
         }
         else
         {
-          hashString.append( hex.substring( hex.length() - 2 ) );
+            return false;
         }
-      }
-      return hashString.toString();
     }
-    catch ( Exception e )
+
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
     {
-      throw new KalumetException( "Cant' crypt password.", e );
+        User clone = new User();
+        clone.setId( this.getId() );
+        clone.setName( this.getName() );
+        clone.setEmail( this.getEmail() );
+        clone.setPassword( this.getPassword() );
+        return clone;
     }
-  }
 
-  /**
-   * Check if a given password match the <code>User</code> password.
-   *
-   * @param password the given password.
-   * @return true of the password match the <code>User</code> password, false else.
-   */
-  public boolean checkPassword( String password )
-    throws KalumetException
-  {
-    String crypt = User.md5PasswordCrypt( password );
-    if ( this.getPassword().equals( crypt ) )
+    /**
+     * Transform the <code>User</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
     {
-      return true;
+        ElementImpl element = new ElementImpl( document, "user" );
+        element.setAttribute( "id", this.getId() );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "email", this.getEmail() );
+        element.setAttribute( "password", this.getPassword() );
+        return element;
     }
-    else
+
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherUser )
     {
-      return false;
+        return this.getId().compareTo( ( (User) anotherUser ).getId() );
     }
-  }
-
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    User clone = new User();
-    clone.setId( this.getId() );
-    clone.setName( this.getName() );
-    clone.setEmail( this.getEmail() );
-    clone.setPassword( this.getPassword() );
-    return clone;
-  }
-
-  /**
-   * Transform the <code>User</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "user" );
-    element.setAttribute( "id", this.getId() );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "email", this.getEmail() );
-    element.setAttribute( "password", this.getPassword() );
-    return element;
-  }
-
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherUser )
-  {
-    return this.getId().compareTo( ( (User) anotherUser ).getId() );
-  }
 
 }

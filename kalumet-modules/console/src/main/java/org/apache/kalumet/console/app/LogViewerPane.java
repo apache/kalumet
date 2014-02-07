@@ -32,99 +32,99 @@ import java.util.Iterator;
  * Environment log viewer pane.
  */
 public class LogViewerPane
-  extends ContentPane
+    extends ContentPane
 {
 
-  private EnvironmentWindow parent;
+    private EnvironmentWindow parent;
 
-  private Grid grid;
+    private Grid grid;
 
-  // view
-  private ActionListener view = new ActionListener()
-  {
-    public void actionPerformed( ActionEvent event )
+    // view
+    private ActionListener view = new ActionListener()
     {
-      String logFileName = event.getActionCommand();
-      // looking for the log file
-      LogFile logFile = parent.getEnvironment().getLogFile( logFileName );
-      if ( logFile == null )
-      {
-        KalumetConsoleApplication.getApplication().getLogPane().addError( Messages.getString( "logfile.notfound" ),
-                                                                          parent.getEnvironmentName() );
-        return;
-      }
-      // define which agent to use
-      String agentId;
-      if ( logFile.getAgent() != null && logFile.getAgent().trim().length() > 0 )
-      {
-        agentId = logFile.getAgent();
-      }
-      else
-      {
-        agentId = parent.getEnvironment().getAgent();
-      }
-      // open a view file window
-      KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add(
-        new ViewFileWindow( logFile.getPath(), agentId ) );
-    }
-  };
+        public void actionPerformed( ActionEvent event )
+        {
+            String logFileName = event.getActionCommand();
+            // looking for the log file
+            LogFile logFile = parent.getEnvironment().getLogFile( logFileName );
+            if ( logFile == null )
+            {
+                KalumetConsoleApplication.getApplication().getLogPane().addError(
+                    Messages.getString( "logfile.notfound" ), parent.getEnvironmentName() );
+                return;
+            }
+            // define which agent to use
+            String agentId;
+            if ( logFile.getAgent() != null && logFile.getAgent().trim().length() > 0 )
+            {
+                agentId = logFile.getAgent();
+            }
+            else
+            {
+                agentId = parent.getEnvironment().getAgent();
+            }
+            // open a view file window
+            KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add(
+                new ViewFileWindow( logFile.getPath(), agentId ) );
+        }
+    };
 
-  /**
-   * Create a new <code>LogViewerPane</code>.
-   *
-   * @param parent the parent <code>EnvironmentWindow</code>.
-   */
-  public LogViewerPane( EnvironmentWindow parent )
-  {
-    super();
-    this.setStyleName( "tab.content" );
-
-    // update the parent
-    this.parent = parent;
-
-    grid = new Grid( 3 );
-    grid.setStyleName( "border.grid" );
-    add( grid );
-
-    // update the pane
-    update();
-  }
-
-  /**
-   * Update the pane.
-   */
-  public void update()
-  {
-    grid.removeAll();
-    // add grid headers
-    // name header
-    Label nameHeader = new Label( Messages.getString( "name" ) );
-    nameHeader.setStyleName( "grid.header" );
-    grid.add( nameHeader );
-    // path header
-    Label pathHeader = new Label( Messages.getString( "path" ) );
-    pathHeader.setStyleName( "grid.header" );
-    grid.add( pathHeader );
-    // agent header
-    Label agentHeader = new Label( Messages.getString( "agent" ) );
-    agentHeader.setStyleName( "grid.header" );
-    grid.add( agentHeader );
-    // iterator in the log pane
-    for ( Iterator logFileIterator = parent.getEnvironment().getLogFiles().iterator(); logFileIterator.hasNext(); )
+    /**
+     * Create a new <code>LogViewerPane</code>.
+     *
+     * @param parent the parent <code>EnvironmentWindow</code>.
+     */
+    public LogViewerPane( EnvironmentWindow parent )
     {
-      LogFile logFile = (LogFile) logFileIterator.next();
-      // name
-      Button name = new Button( logFile.getName() );
-      name.setActionCommand( logFile.getName() );
-      name.addActionListener( view );
-      grid.add( name );
-      // path
-      Label path = new Label( logFile.getPath() );
-      grid.add( path );
-      // agent
-      Label agent = new Label( logFile.getAgent() );
-      grid.add( agent );
+        super();
+        this.setStyleName( "tab.content" );
+
+        // update the parent
+        this.parent = parent;
+
+        grid = new Grid( 3 );
+        grid.setStyleName( "border.grid" );
+        add( grid );
+
+        // update the pane
+        update();
     }
-  }
+
+    /**
+     * Update the pane.
+     */
+    public void update()
+    {
+        grid.removeAll();
+        // add grid headers
+        // name header
+        Label nameHeader = new Label( Messages.getString( "name" ) );
+        nameHeader.setStyleName( "grid.header" );
+        grid.add( nameHeader );
+        // path header
+        Label pathHeader = new Label( Messages.getString( "path" ) );
+        pathHeader.setStyleName( "grid.header" );
+        grid.add( pathHeader );
+        // agent header
+        Label agentHeader = new Label( Messages.getString( "agent" ) );
+        agentHeader.setStyleName( "grid.header" );
+        grid.add( agentHeader );
+        // iterator in the log pane
+        for ( Iterator logFileIterator = parent.getEnvironment().getLogFiles().iterator(); logFileIterator.hasNext(); )
+        {
+            LogFile logFile = (LogFile) logFileIterator.next();
+            // name
+            Button name = new Button( logFile.getName() );
+            name.setActionCommand( logFile.getName() );
+            name.addActionListener( view );
+            grid.add( name );
+            // path
+            Label path = new Label( logFile.getPath() );
+            grid.add( path );
+            // agent
+            Label agent = new Label( logFile.getAgent() );
+            grid.add( agent );
+        }
+    }
 
 }

@@ -28,85 +28,85 @@ import java.io.Serializable;
  * Define the access to a log file.
  */
 public class LogFile
-  implements Cloneable, Serializable, Comparable
+    implements Cloneable, Serializable, Comparable
 {
 
-  private static final long serialVersionUID = -544824580684870083L;
+    private static final long serialVersionUID = -544824580684870083L;
 
-  private String name;
+    private String name;
 
-  private String path;
+    private String path;
 
-  private String agent;
+    private String agent;
 
-  public LogFile()
-  {
-  }
+    public LogFile()
+    {
+    }
 
-  public String getName()
-  {
-    return name;
-  }
+    public String getName()
+    {
+        return name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getPath()
-  {
-    return path;
-  }
+    public String getPath()
+    {
+        return path;
+    }
 
-  public void setPath( String path )
-  {
-    this.path = path;
-  }
+    public void setPath( String path )
+    {
+        this.path = path;
+    }
 
-  public String getAgent()
-  {
-    return agent;
-  }
+    public String getAgent()
+    {
+        return agent;
+    }
 
-  public void setAgent( String agent )
-  {
-    this.agent = agent;
-  }
+    public void setAgent( String agent )
+    {
+        this.agent = agent;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    LogFile logFile = new LogFile();
-    logFile.setAgent( this.getAgent() );
-    logFile.setName( this.getName() );
-    logFile.setPath( this.getPath() );
-    return logFile;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        LogFile logFile = new LogFile();
+        logFile.setAgent( this.getAgent() );
+        logFile.setName( this.getName() );
+        logFile.setPath( this.getPath() );
+        return logFile;
+    }
 
-  /**
-   * Transform a <code>logfile</code> into a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  public Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "logfile" );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "path", this.getPath() );
-    element.setAttribute( "agent", this.getAgent() );
-    return element;
-  }
+    /**
+     * Transform a <code>logfile</code> into a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    public Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "logfile" );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "path", this.getPath() );
+        element.setAttribute( "agent", this.getAgent() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherLogFile )
-  {
-    return this.getName().compareTo( ( (LogFile) anotherLogFile ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherLogFile )
+    {
+        return this.getName().compareTo( ( (LogFile) anotherLogFile ).getName() );
+    }
 
 }

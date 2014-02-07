@@ -25,67 +25,67 @@ import java.util.Date;
  * Simplified VFS file object to be used via WS.
  */
 public class SimplifiedFileObject
-  implements Serializable
+    implements Serializable
 {
 
-  private String name;
+    private String name;
 
-  private String path;
+    private String path;
 
-  private boolean file;
+    private boolean file;
 
-  private long size;
+    private long size;
 
-  private Date lastModificationDate;
+    private Date lastModificationDate;
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getPath()
-  {
-    return this.path;
-  }
+    public String getPath()
+    {
+        return this.path;
+    }
 
-  public void setPath( String path )
-  {
-    this.path = path;
-  }
+    public void setPath( String path )
+    {
+        this.path = path;
+    }
 
-  public boolean isFile()
-  {
-    return this.file;
-  }
+    public boolean isFile()
+    {
+        return this.file;
+    }
 
-  public void setFile( boolean file )
-  {
-    this.file = file;
-  }
+    public void setFile( boolean file )
+    {
+        this.file = file;
+    }
 
-  public Date getLastModificationDate()
-  {
-    return this.lastModificationDate;
-  }
+    public Date getLastModificationDate()
+    {
+        return this.lastModificationDate;
+    }
 
-  public void setLastModificationDate( Date lastModificationDate )
-  {
-    this.lastModificationDate = lastModificationDate;
-  }
+    public void setLastModificationDate( Date lastModificationDate )
+    {
+        this.lastModificationDate = lastModificationDate;
+    }
 
-  public long getSize()
-  {
-    return this.size;
-  }
+    public long getSize()
+    {
+        return this.size;
+    }
 
-  public void setSize( long size )
-  {
-    this.size = size;
-  }
+    public void setSize( long size )
+    {
+        this.size = size;
+    }
 
 }

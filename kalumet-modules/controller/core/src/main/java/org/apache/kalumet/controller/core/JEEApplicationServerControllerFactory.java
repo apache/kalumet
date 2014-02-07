@@ -32,41 +32,41 @@ import java.lang.reflect.Constructor;
 public class JEEApplicationServerControllerFactory
 {
 
-  private final static transient Logger LOGGER =
-    LoggerFactory.getLogger( JEEApplicationServerControllerFactory.class );
+    private final static transient Logger LOGGER =
+        LoggerFactory.getLogger( JEEApplicationServerControllerFactory.class );
 
-  public static JEEApplicationServerController getController( Environment environment, JEEApplicationServer server )
-    throws ControllerException
-  {
-    LOGGER.debug( "Connecting to {}", VariableUtils.replace( server.getJmxurl(), environment.getVariables() ) );
-    String jmxUrl = VariableUtils.replace( server.getJmxurl(), environment.getVariables() );
-    String adminUser = VariableUtils.replace( server.getAdminuser(), environment.getVariables() );
-    String adminPassword = VariableUtils.replace( server.getAdminpassword(), environment.getVariables() );
-    JEEApplicationServerController controller = null;
-    try
+    public static JEEApplicationServerController getController( Environment environment, JEEApplicationServer server )
+        throws ControllerException
     {
-      Class controllerClass = Class.forName( server.getClassname() );
-      Constructor controllerConstructor = controllerClass.getConstructor(
-        new Class[]{ String.class, String.class, String.class, String.class, Boolean.class } );
-      controller = (JEEApplicationServerController) controllerConstructor.newInstance(
-        new Object[]{ jmxUrl, adminUser, adminPassword, server.getName(),
-          new Boolean( environment.getJEEApplicationServers().isCluster() ) } );
-    }
-    catch ( Exception e )
-    {
-      LOGGER.error( "Can't initialize controller", e );
-      if ( e != null )
-      {
-        throw new ControllerException( "Can't initialize controller", e );
-      }
-      else
-      {
-        throw new ControllerException(
-          "Can't initialize controller. Check if the JEE application server libraries are present in the agent classpath and check the agent log" );
-      }
-    }
-    return controller;
+        LOGGER.debug( "Connecting to {}", VariableUtils.replace( server.getJmxurl(), environment.getVariables() ) );
+        String jmxUrl = VariableUtils.replace( server.getJmxurl(), environment.getVariables() );
+        String adminUser = VariableUtils.replace( server.getAdminuser(), environment.getVariables() );
+        String adminPassword = VariableUtils.replace( server.getAdminpassword(), environment.getVariables() );
+        JEEApplicationServerController controller = null;
+        try
+        {
+            Class controllerClass = Class.forName( server.getClassname() );
+            Constructor controllerConstructor = controllerClass.getConstructor(
+                new Class[]{ String.class, String.class, String.class, String.class, Boolean.class } );
+            controller = (JEEApplicationServerController) controllerConstructor.newInstance(
+                new Object[]{ jmxUrl, adminUser, adminPassword, server.getName(),
+                    new Boolean( environment.getJEEApplicationServers().isCluster() ) } );
+        }
+        catch ( Exception e )
+        {
+            LOGGER.error( "Can't initialize controller", e );
+            if ( e != null )
+            {
+                throw new ControllerException( "Can't initialize controller", e );
+            }
+            else
+            {
+                throw new ControllerException(
+                    "Can't initialize controller. Check if the JEE application server libraries are present in the agent classpath and check the agent log" );
+            }
+        }
+        return controller;
 
-  }
+    }
 
 }

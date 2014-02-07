@@ -39,90 +39,90 @@ import java.util.Map;
  * Display the list of environments organized by groups.
  */
 public class EnvironmentsPane
-  extends ContentPane
+    extends ContentPane
 {
 
-  private AccordionPane mainPane;
+    private AccordionPane mainPane;
 
-  // edit
-  private ActionListener edit = new ActionListener()
-  {
-    public void actionPerformed( ActionEvent event )
+    // edit
+    private ActionListener edit = new ActionListener()
     {
-      String environmentName = event.getActionCommand();
-      if ( KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().getComponent(
-        "environmentwindow_" + environmentName ) == null )
-      {
-        KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add(
-          new EnvironmentWindow( environmentName ) );
-      }
-    }
-  };
+        public void actionPerformed( ActionEvent event )
+        {
+            String environmentName = event.getActionCommand();
+            if ( KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().getComponent(
+                "environmentwindow_" + environmentName ) == null )
+            {
+                KalumetConsoleApplication.getApplication().getDefaultWindow().getContent().add(
+                    new EnvironmentWindow( environmentName ) );
+            }
+        }
+    };
 
-  /**
-   * Create a new environments <code>AccordionPane</code>.
-   */
-  public EnvironmentsPane()
-  {
-    super();
-    mainPane = new AccordionPane();
-    mainPane.setStyleName( "environments" );
-    add( mainPane );
-    update();
-  }
-
-  /**
-   * Update the pane.
-   */
-  public void update()
-  {
-    // load Kalumet configuration
-    Kalumet kalumet = null;
-    try
+    /**
+     * Create a new environments <code>AccordionPane</code>.
+     */
+    public EnvironmentsPane()
     {
-      kalumet = ConfigurationManager.loadStore();
-    }
-    catch ( Exception e )
-    {
-      KalumetConsoleApplication.getApplication().getLogPane().addError(
-        Messages.getString( "db.read" ) + ": " + e.getMessage() );
-      return;
+        super();
+        mainPane = new AccordionPane();
+        mainPane.setStyleName( "environments" );
+        add( mainPane );
+        update();
     }
 
-    // get user environments by groups
-    Map userEnvironments =
-      kalumet.getUserEnvironmentsByGroups( KalumetConsoleApplication.getApplication().getUserid() );
-
-    // remove all
-    mainPane.removeAll();
-
-    // render environment groups
-    List groups = new LinkedList( userEnvironments.keySet() );
-    Collections.sort( groups );
-    for ( Iterator groupIterator = groups.iterator(); groupIterator.hasNext(); )
+    /**
+     * Update the pane.
+     */
+    public void update()
     {
-      String group = (String) groupIterator.next();
-      Column groupColumn = new Column();
-      groupColumn.setStyleName( "environments" );
-      AccordionPaneLayoutData layoutData = new AccordionPaneLayoutData();
-      // define the layoutData as the column layout
-      groupColumn.setLayoutData( layoutData );
-      // display the group
-      layoutData.setTitle( group );
-      // add the column to the pane
-      mainPane.add( groupColumn );
-      List environments = (List) userEnvironments.get( group );
-      Collections.sort( environments );
-      for ( Iterator environmentIterator = environments.iterator(); environmentIterator.hasNext(); )
-      {
-        Environment environment = (Environment) environmentIterator.next();
-        Button environmentButton = new Button( environment.getName() );
-        environmentButton.setStyleName( "default" );
-        environmentButton.setActionCommand( environment.getName() );
-        environmentButton.addActionListener( edit );
-        groupColumn.add( environmentButton );
-      }
+        // load Kalumet configuration
+        Kalumet kalumet = null;
+        try
+        {
+            kalumet = ConfigurationManager.loadStore();
+        }
+        catch ( Exception e )
+        {
+            KalumetConsoleApplication.getApplication().getLogPane().addError(
+                Messages.getString( "db.read" ) + ": " + e.getMessage() );
+            return;
+        }
+
+        // get user environments by groups
+        Map userEnvironments =
+            kalumet.getUserEnvironmentsByGroups( KalumetConsoleApplication.getApplication().getUserid() );
+
+        // remove all
+        mainPane.removeAll();
+
+        // render environment groups
+        List groups = new LinkedList( userEnvironments.keySet() );
+        Collections.sort( groups );
+        for ( Iterator groupIterator = groups.iterator(); groupIterator.hasNext(); )
+        {
+            String group = (String) groupIterator.next();
+            Column groupColumn = new Column();
+            groupColumn.setStyleName( "environments" );
+            AccordionPaneLayoutData layoutData = new AccordionPaneLayoutData();
+            // define the layoutData as the column layout
+            groupColumn.setLayoutData( layoutData );
+            // display the group
+            layoutData.setTitle( group );
+            // add the column to the pane
+            mainPane.add( groupColumn );
+            List environments = (List) userEnvironments.get( group );
+            Collections.sort( environments );
+            for ( Iterator environmentIterator = environments.iterator(); environmentIterator.hasNext(); )
+            {
+                Environment environment = (Environment) environmentIterator.next();
+                Button environmentButton = new Button( environment.getName() );
+                environmentButton.setStyleName( "default" );
+                environmentButton.setActionCommand( environment.getName() );
+                environmentButton.addActionListener( edit );
+                groupColumn.add( environmentButton );
+            }
+        }
     }
-  }
 
 }

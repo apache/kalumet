@@ -24,22 +24,22 @@ package org.apache.kalumet.console.utils;
 public class StackTraceUtils
 {
 
-  /**
-   * Convert a stack trace elements into a string.
-   * WARNING: depending of the exception chain, this method call consume heap memory.
-   *
-   * @param elements the stack trace elements.
-   * @return the string representation of the stack trace.
-   */
-  public static String toString( StackTraceElement[] elements )
-  {
-    StringBuilder builder = new StringBuilder();
-    for ( int i = 0, size = elements.length; i < size; i++ )
+    /**
+     * Convert a stack trace elements into a string.
+     * WARNING: depending of the exception chain, this method call consume heap memory.
+     *
+     * @param elements the stack trace elements.
+     * @return the string representation of the stack trace.
+     */
+    public static String toString( StackTraceElement[] elements )
     {
-      builder.append( elements[i].toString() );
-      builder.append( '\n' );
+        StringBuilder builder = new StringBuilder();
+        for ( int i = 0, size = elements.length; i < size; i++ )
+        {
+            builder.append( elements[i].toString() );
+            builder.append( '\n' );
+        }
+        return builder.toString();
     }
-    return builder.toString();
-  }
 
 }

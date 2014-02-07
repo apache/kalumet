@@ -22,39 +22,39 @@ package org.apache.kalumet.ws.client;
  * Environment WS client.
  */
 public class EnvironmentClient
-  extends AbstractClient
+    extends AbstractClient
 {
 
-  /**
-   * Default constructor.
-   *
-   * @param host the hostname or IP address of the Kalumet agent WS server.
-   * @param port the port number of the Kalumet agent WS server.
-   * @throws AbstractClient in case of communication failure.
-   */
-  public EnvironmentClient( String host, int port )
-    throws ClientException
-  {
-    super( "http://" + host + ":" + port + "/axis/services/EnvironmentService" );
-  }
+    /**
+     * Default constructor.
+     *
+     * @param host the hostname or IP address of the Kalumet agent WS server.
+     * @param port the port number of the Kalumet agent WS server.
+     * @throws AbstractClient in case of communication failure.
+     */
+    public EnvironmentClient( String host, int port )
+        throws ClientException
+    {
+        super( "http://" + host + ":" + port + "/axis/services/EnvironmentService" );
+    }
 
-  /**
-   * Wrapper method to update an environment.
-   *
-   * @param environmentName the target environment name.
-   * @throws ClientException in case of update failure.
-   */
-  public void update( String environmentName )
-    throws ClientException
-  {
-    try
+    /**
+     * Wrapper method to update an environment.
+     *
+     * @param environmentName the target environment name.
+     * @throws ClientException in case of update failure.
+     */
+    public void update( String environmentName )
+        throws ClientException
     {
-      call.invoke( "update", new Object[]{ environmentName } );
+        try
+        {
+            call.invoke( "update", new Object[]{ environmentName } );
+        }
+        catch ( Exception e )
+        {
+            throw new ClientException( "Environment " + environmentName + " update failed", e );
+        }
     }
-    catch ( Exception e )
-    {
-      throw new ClientException( "Environment " + environmentName + " update failed", e );
-    }
-  }
 
 }

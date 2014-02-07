@@ -24,38 +24,38 @@ import org.apache.kalumet.KalumetException;
  * Exception wrapper for the Kalumet controllers.
  */
 public class ControllerException
-  extends KalumetException
+    extends KalumetException
 {
 
-  /**
-   * Create a controller exception with an explanation message.
-   *
-   * @param message the explanation message.
-   */
-  public ControllerException( String message )
-  {
-    super( message );
-  }
+    /**
+     * Create a controller exception with an explanation message.
+     *
+     * @param message the explanation message.
+     */
+    public ControllerException( String message )
+    {
+        super( message );
+    }
 
-  /**
-   * Create a controller exception with the cause.
-   *
-   * @param cause the cause.
-   */
-  public ControllerException( Throwable cause )
-  {
-    super( cause );
-  }
+    /**
+     * Create a controller exception with the cause.
+     *
+     * @param cause the cause.
+     */
+    public ControllerException( Throwable cause )
+    {
+        super( cause );
+    }
 
-  /**
-   * Create a controller exception with the explanation message and the cause.
-   *
-   * @param message the explanation message.
-   * @param cause   the cause.
-   */
-  public ControllerException( String message, Throwable cause )
-  {
-    super( message, cause );
-  }
+    /**
+     * Create a controller exception with the explanation message and the cause.
+     *
+     * @param message the explanation message.
+     * @param cause   the cause.
+     */
+    public ControllerException( String message, Throwable cause )
+    {
+        super( message, cause );
+    }
 
 }

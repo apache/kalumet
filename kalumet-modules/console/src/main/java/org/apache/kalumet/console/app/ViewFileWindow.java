@@ -38,180 +38,179 @@ import org.apache.kalumet.ws.client.FileClient;
  * Window displaying the content of a file.
  */
 public class ViewFileWindow
-  extends WindowPane
+    extends WindowPane
 {
 
-  private String path;
+    private String path;
 
-  private String agentId;
+    private String agentId;
 
-  private Label statusLabel;
+    private Label statusLabel;
 
-  private TextArea contentArea;
+    private TextArea contentArea;
 
-  // view thread
-  class ViewThread
-    extends Thread
-  {
-
-    public boolean ended = false;
-
-    public boolean failure = false;
-
-    public String path;
-
-    public String agentId;
-
-    public String message;
-
-    public void run()
+    // view thread
+    class ViewThread
+        extends Thread
     {
-      try
-      {
-        // load Kalumet configuration
-        Kalumet kalumet = ConfigurationManager.loadStore();
-        // looking for the agent
-        Agent agent = kalumet.getAgent( agentId );
-        if ( agent == null )
+
+        public boolean ended = false;
+
+        public boolean failure = false;
+
+        public String path;
+
+        public String agentId;
+
+        public String message;
+
+        public void run()
         {
-          throw new IllegalArgumentException( "agent " + agentId + " not found." );
+            try
+            {
+                // load Kalumet configuration
+                Kalumet kalumet = ConfigurationManager.loadStore();
+                // looking for the agent
+                Agent agent = kalumet.getAgent( agentId );
+                if ( agent == null )
+                {
+                    throw new IllegalArgumentException( "agent " + agentId + " not found." );
+                }
+                // call the WebService
+                FileClient client = new FileClient( agent.getHostname(), agent.getPort() );
+                message = client.view( path );
+            }
+            catch ( Exception e )
+            {
+                failure = true;
+                message = "Can't view " + path + ": " + e.getMessage();
+            }
+            finally
+            {
+                ended = true;
+            }
         }
-        // call the WebService
-        FileClient client = new FileClient( agent.getHostname(), agent.getPort() );
-        message = client.view( path );
-      }
-      catch ( Exception e )
-      {
-        failure = true;
-        message = "Can't view " + path + ": " + e.getMessage();
-      }
-      finally
-      {
-        ended = true;
-      }
+
     }
 
-  }
-
-  // refresh
-  private ActionListener refresh = new ActionListener()
-  {
-    public void actionPerformed( ActionEvent event )
+    // refresh
+    private ActionListener refresh = new ActionListener()
     {
-      update();
+        public void actionPerformed( ActionEvent event )
+        {
+            update();
+        }
+    };
+
+    /**
+     * Create a window to display the content of the given file.
+     *
+     * @param path    the file path to display content.
+     * @param agentId the agent id to use to view the file.
+     */
+    public ViewFileWindow( String path, String agentId )
+    {
+        super();
+
+        this.path = path;
+        this.agentId = agentId;
+
+        this.setStyleName( "default" );
+        this.setTitle( "View file " + path );
+        this.setIcon( Styles.SCRIPT );
+        this.setWidth( new Extent( 600, Extent.PX ) );
+        this.setHeight( new Extent( 400, Extent.PX ) );
+
+        // add the split pane
+        SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+        add( splitPane );
+
+        // add the control row
+        Row controlRow = new Row();
+        controlRow.setStyleName( "control" );
+        splitPane.add( controlRow );
+
+        // add the refresh button
+        Button refreshButton = new Button( Messages.getString( "reload" ), Styles.DATABASE_REFRESH );
+        refreshButton.setStyleName( "control" );
+        refreshButton.addActionListener( refresh );
+        controlRow.add( refreshButton );
+
+        // add the close button
+        Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
+        closeButton.setStyleName( "control" );
+        closeButton.addActionListener( new ActionListener()
+        {
+            public void actionPerformed( ActionEvent event )
+            {
+                ViewFileWindow.this.userClose();
+            }
+        } );
+        controlRow.add( closeButton );
+
+        // add the content column
+        SplitPane content = new SplitPane( SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent( 20 ) );
+        splitPane.add( content );
+
+        // add the status label
+        statusLabel = new Label();
+        statusLabel.setStyleName( "default" );
+        SplitPaneLayoutData layoutData = new SplitPaneLayoutData();
+        layoutData.setInsets( new Insets( 4 ) );
+        statusLabel.setLayoutData( layoutData );
+        content.add( statusLabel );
+
+        // add the file content area
+        contentArea = new TextArea();
+        contentArea.setStyleName( "default" );
+        contentArea.setLayoutData( layoutData );
+        contentArea.setWidth( new Extent( 100, Extent.PERCENT ) );
+        contentArea.setHeight( new Extent( 98, Extent.PERCENT ) );
+        contentArea.setEnabled( false );
+        content.add( contentArea );
+
+        // update the pane
+        update();
     }
-  };
 
-  /**
-   * Create a window to display the content of the given file.
-   *
-   * @param path    the file path to display content.
-   * @param agentId the agent id to use to view the file.
-   */
-  public ViewFileWindow( String path, String agentId )
-  {
-    super();
-
-    this.path = path;
-    this.agentId = agentId;
-
-    this.setStyleName( "default" );
-    this.setTitle( "View file " + path );
-    this.setIcon( Styles.SCRIPT );
-    this.setWidth( new Extent( 600, Extent.PX ) );
-    this.setHeight( new Extent( 400, Extent.PX ) );
-
-    // add the split pane
-    SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
-    add( splitPane );
-
-    // add the control row
-    Row controlRow = new Row();
-    controlRow.setStyleName( "control" );
-    splitPane.add( controlRow );
-
-    // add the refresh button
-    Button refreshButton = new Button( Messages.getString( "reload" ), Styles.DATABASE_REFRESH );
-    refreshButton.setStyleName( "control" );
-    refreshButton.addActionListener( refresh );
-    controlRow.add( refreshButton );
-
-    // add the close button
-    Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
-    closeButton.setStyleName( "control" );
-    closeButton.addActionListener( new ActionListener()
+    public void update()
     {
-      public void actionPerformed( ActionEvent event )
-      {
-        ViewFileWindow.this.userClose();
-      }
-    } );
-    controlRow.add( closeButton );
+        statusLabel.setText( "Please wait ..." );
+        statusLabel.setIcon( Styles.ERROR );
 
-    // add the content column
-    SplitPane content = new SplitPane( SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent( 20 ) );
-    splitPane.add( content );
+        // launch the view thread
+        final ViewThread viewThread = new ViewThread();
+        viewThread.agentId = agentId;
+        viewThread.path = path;
+        viewThread.start();
 
-    // add the status label
-    statusLabel = new Label();
-    statusLabel.setStyleName( "default" );
-    SplitPaneLayoutData layoutData = new SplitPaneLayoutData();
-    layoutData.setInsets( new Insets( 4 ) );
-    statusLabel.setLayoutData( layoutData );
-    content.add( statusLabel );
-
-    // add the file content area
-    contentArea = new TextArea();
-    contentArea.setStyleName( "default" );
-    contentArea.setLayoutData( layoutData );
-    contentArea.setWidth( new Extent( 100, Extent.PERCENT ) );
-    contentArea.setHeight( new Extent( 98, Extent.PERCENT ) );
-    contentArea.setEnabled( false );
-    content.add( contentArea );
-
-    // update the pane
-    update();
-  }
-
-  public void update()
-  {
-    statusLabel.setText( "Please wait ..." );
-    statusLabel.setIcon( Styles.ERROR );
-
-    // launch the view thread
-    final ViewThread viewThread = new ViewThread();
-    viewThread.agentId = agentId;
-    viewThread.path = path;
-    viewThread.start();
-
-    // sync with the client
-    KalumetConsoleApplication.getApplication().enqueueTask( KalumetConsoleApplication.getApplication().getTaskQueue(),
-                                                            new Runnable()
-                                                            {
-                                                              public void run()
-                                                              {
-                                                                if ( viewThread.ended )
-                                                                {
-                                                                  if ( viewThread.failure )
-                                                                  {
-                                                                    statusLabel.setText( viewThread.message );
-                                                                    statusLabel.setIcon( Styles.EXCLAMATION );
-                                                                  }
-                                                                  else
-                                                                  {
-                                                                    statusLabel.setText( "File loaded." );
-                                                                    statusLabel.setIcon( Styles.ACCEPT );
-                                                                    contentArea.setText( viewThread.message );
-                                                                  }
-                                                                }
-                                                                else
-                                                                {
-                                                                  KalumetConsoleApplication.getApplication().enqueueTask(
-                                                                    KalumetConsoleApplication.getApplication().getTaskQueue(),
-                                                                    this );
-                                                                }
-                                                              }
-                                                            } );
-  }
+        // sync with the client
+        KalumetConsoleApplication.getApplication().enqueueTask(
+            KalumetConsoleApplication.getApplication().getTaskQueue(), new Runnable()
+        {
+            public void run()
+            {
+                if ( viewThread.ended )
+                {
+                    if ( viewThread.failure )
+                    {
+                        statusLabel.setText( viewThread.message );
+                        statusLabel.setIcon( Styles.EXCLAMATION );
+                    }
+                    else
+                    {
+                        statusLabel.setText( "File loaded." );
+                        statusLabel.setIcon( Styles.ACCEPT );
+                        contentArea.setText( viewThread.message );
+                    }
+                }
+                else
+                {
+                    KalumetConsoleApplication.getApplication().enqueueTask(
+                        KalumetConsoleApplication.getApplication().getTaskQueue(), this );
+                }
+            }
+        } );
+    }
 
 }

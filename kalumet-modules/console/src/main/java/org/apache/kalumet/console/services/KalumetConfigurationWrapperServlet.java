@@ -32,25 +32,25 @@ import java.io.PrintWriter;
  * servlet response stream.
  */
 public class KalumetConfigurationWrapperServlet
-  extends HttpServlet
+    extends HttpServlet
 {
 
-  public void doGet( HttpServletRequest req, HttpServletResponse resp )
-    throws ServletException, IOException
-  {
-    PrintWriter writer = resp.getWriter();
-    String content;
-    try
+    public void doGet( HttpServletRequest req, HttpServletResponse resp )
+        throws ServletException, IOException
     {
-      content = ConfigurationManager.readStore();
+        PrintWriter writer = resp.getWriter();
+        String content;
+        try
+        {
+            content = ConfigurationManager.readStore();
+        }
+        catch ( Exception e )
+        {
+            throw new ServletException( "Can't read the Apache Kalumet configuration store", e );
+        }
+        writer.print( content );
+        writer.flush();
+        writer.close();
     }
-    catch ( Exception e )
-    {
-      throw new ServletException( "Can't read the Apache Kalumet configuration store", e );
-    }
-    writer.print( content );
-    writer.flush();
-    writer.close();
-  }
 
 }

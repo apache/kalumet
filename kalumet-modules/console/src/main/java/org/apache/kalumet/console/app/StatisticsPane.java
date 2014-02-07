@@ -26,62 +26,62 @@ import nextapp.echo2.app.Label;
  * Environment statistics pane.
  */
 public class StatisticsPane
-  extends ContentPane
+    extends ContentPane
 {
 
-  private EnvironmentWindow parent;
+    private EnvironmentWindow parent;
 
-  private Label updateCount;
+    private Label updateCount;
 
-  private Label lastChangeDate;
+    private Label lastChangeDate;
 
-  private Label lastUpdateDate;
+    private Label lastUpdateDate;
 
 
-  /**
-   * Create a new <code>StatisticsPane</code>.
-   *
-   * @param parent the parent <code>EnvironmentWindow</code>.
-   */
-  public StatisticsPane( EnvironmentWindow parent )
-  {
-    super();
-    this.setStyleName( "tab.content" );
+    /**
+     * Create a new <code>StatisticsPane</code>.
+     *
+     * @param parent the parent <code>EnvironmentWindow</code>.
+     */
+    public StatisticsPane( EnvironmentWindow parent )
+    {
+        super();
+        this.setStyleName( "tab.content" );
 
-    // update the parent
-    this.parent = parent;
+        // update the parent
+        this.parent = parent;
 
-    Grid layout = new Grid( 2 );
-    layout.setStyleName( "default" );
-    add( layout );
+        Grid layout = new Grid( 2 );
+        layout.setStyleName( "default" );
+        add( layout );
 
-    Label updateCountLabel = new Label( Messages.getString( "update.count" ) );
-    layout.add( updateCountLabel );
+        Label updateCountLabel = new Label( Messages.getString( "update.count" ) );
+        layout.add( updateCountLabel );
 
-    updateCount = new Label();
-    layout.add( updateCount );
+        updateCount = new Label();
+        layout.add( updateCount );
 
-    Label lastChangeDateLabel = new Label( Messages.getString( "last.change.date" ) );
-    layout.add( lastChangeDateLabel );
+        Label lastChangeDateLabel = new Label( Messages.getString( "last.change.date" ) );
+        layout.add( lastChangeDateLabel );
 
-    lastChangeDate = new Label();
-    layout.add( lastChangeDate );
+        lastChangeDate = new Label();
+        layout.add( lastChangeDate );
 
-    Label lastUpLabelLabel = new Label( Messages.getString( "last.update.date" ) );
-    layout.add( lastUpLabelLabel );
+        Label lastUpLabelLabel = new Label( Messages.getString( "last.update.date" ) );
+        layout.add( lastUpLabelLabel );
 
-    lastUpdateDate = new Label();
-    layout.add( lastUpLabelLabel );
+        lastUpdateDate = new Label();
+        layout.add( lastUpLabelLabel );
 
-    update();
-  }
+        update();
+    }
 
-  /**
-   * Update the pane.
-   */
-  public void update()
-  {
+    /**
+     * Update the pane.
+     */
+    public void update()
+    {
 
-  }
+    }
 
 }

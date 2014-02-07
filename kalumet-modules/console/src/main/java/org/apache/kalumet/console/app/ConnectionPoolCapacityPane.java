@@ -28,94 +28,94 @@ import nextapp.echo2.app.TextField;
  * JDBC connection pool capacity tab pane.
  */
 public class ConnectionPoolCapacityPane
-  extends ContentPane
+    extends ContentPane
 {
 
-  private ConnectionPoolWindow parent;
+    private ConnectionPoolWindow parent;
 
-  private TextField initialField;
+    private TextField initialField;
 
-  private TextField maximalField;
+    private TextField maximalField;
 
-  private TextField incrementField;
+    private TextField incrementField;
 
-  /**
-   * Create a new <code>JDBCConnectionPoolCapacityTabPane</code>.
-   *
-   * @param parent the parent <code>JDBCConnectionPoolWindow</code>.
-   */
-  public ConnectionPoolCapacityPane( ConnectionPoolWindow parent )
-  {
-    super();
-    setStyleName( "tab.content" );
+    /**
+     * Create a new <code>JDBCConnectionPoolCapacityTabPane</code>.
+     *
+     * @param parent the parent <code>JDBCConnectionPoolWindow</code>.
+     */
+    public ConnectionPoolCapacityPane( ConnectionPoolWindow parent )
+    {
+        super();
+        setStyleName( "tab.content" );
 
-    // update parent
-    this.parent = parent;
+        // update parent
+        this.parent = parent;
 
-    // add the capacity layout grid
-    Grid layout = new Grid( 2 );
-    layout.setStyleName( "default" );
-    layout.setColumnWidth( 0, new Extent( 20, Extent.PERCENT ) );
-    layout.setColumnWidth( 1, new Extent( 80, Extent.PERCENT ) );
-    add( layout );
+        // add the capacity layout grid
+        Grid layout = new Grid( 2 );
+        layout.setStyleName( "default" );
+        layout.setColumnWidth( 0, new Extent( 20, Extent.PERCENT ) );
+        layout.setColumnWidth( 1, new Extent( 80, Extent.PERCENT ) );
+        add( layout );
 
-    // add the initial field
-    Label initialLabel = new Label( Messages.getString( "initial" ) );
-    initialLabel.setStyleName( "grid.cell" );
-    layout.add( initialLabel );
-    initialField = new TextField();
-    initialField.setStyleName( "default" );
-    initialField.setWidth( new Extent( 10, Extent.EX ) );
-    layout.add( initialField );
+        // add the initial field
+        Label initialLabel = new Label( Messages.getString( "initial" ) );
+        initialLabel.setStyleName( "grid.cell" );
+        layout.add( initialLabel );
+        initialField = new TextField();
+        initialField.setStyleName( "default" );
+        initialField.setWidth( new Extent( 10, Extent.EX ) );
+        layout.add( initialField );
 
-    // add the maximal field
-    Label maximalLabel = new Label( Messages.getString( "maximal" ) );
-    maximalLabel.setStyleName( "grid.cell" );
-    layout.add( maximalLabel );
-    maximalField = new TextField();
-    maximalField.setStyleName( "default" );
-    maximalField.setWidth( new Extent( 10, Extent.EX ) );
-    layout.add( maximalField );
+        // add the maximal field
+        Label maximalLabel = new Label( Messages.getString( "maximal" ) );
+        maximalLabel.setStyleName( "grid.cell" );
+        layout.add( maximalLabel );
+        maximalField = new TextField();
+        maximalField.setStyleName( "default" );
+        maximalField.setWidth( new Extent( 10, Extent.EX ) );
+        layout.add( maximalField );
 
-    // add the increment field
-    Label incrementLabel = new Label( Messages.getString( "increment" ) );
-    incrementLabel.setStyleName( "grid.cell" );
-    layout.add( incrementLabel );
-    incrementField = new TextField();
-    incrementField.setStyleName( "default" );
-    incrementField.setWidth( new Extent( 10, Extent.EX ) );
-    layout.add( incrementField );
+        // add the increment field
+        Label incrementLabel = new Label( Messages.getString( "increment" ) );
+        incrementLabel.setStyleName( "grid.cell" );
+        layout.add( incrementLabel );
+        incrementField = new TextField();
+        incrementField.setStyleName( "default" );
+        incrementField.setWidth( new Extent( 10, Extent.EX ) );
+        layout.add( incrementField );
 
-    // update the pane
-    update();
-  }
+        // update the pane
+        update();
+    }
 
-  /**
-   * Update the pane
-   */
-  public void update()
-  {
-    // update the JDBC connection pool initial field
-    initialField.setText( new Integer( parent.getConnectionPool().getInitial() ).toString() );
-    // update the JDBC connection pool maximal field
-    maximalField.setText( new Integer( parent.getConnectionPool().getMaximal() ).toString() );
-    // update the JDBC connection pool increment field
-    incrementField.setText( new Integer( parent.getConnectionPool().getIncrement() ).toString() );
-  }
+    /**
+     * Update the pane
+     */
+    public void update()
+    {
+        // update the JDBC connection pool initial field
+        initialField.setText( new Integer( parent.getConnectionPool().getInitial() ).toString() );
+        // update the JDBC connection pool maximal field
+        maximalField.setText( new Integer( parent.getConnectionPool().getMaximal() ).toString() );
+        // update the JDBC connection pool increment field
+        incrementField.setText( new Integer( parent.getConnectionPool().getIncrement() ).toString() );
+    }
 
-  public TextField getInitialField()
-  {
-    return this.initialField;
-  }
+    public TextField getInitialField()
+    {
+        return this.initialField;
+    }
 
-  public TextField getMaximalField()
-  {
-    return this.maximalField;
-  }
+    public TextField getMaximalField()
+    {
+        return this.maximalField;
+    }
 
-  public TextField getIncrementField()
-  {
-    return this.incrementField;
-  }
+    public TextField getIncrementField()
+    {
+        return this.incrementField;
+    }
 
 }

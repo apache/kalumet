@@ -22,38 +22,38 @@ package org.apache.kalumet;
  * Generic Kalumet exception wrapper.
  */
 public class KalumetException
-  extends Exception
+    extends Exception
 {
 
-  /**
-   * Create exception with the explanation message.
-   *
-   * @param message the explanation message.
-   */
-  public KalumetException( String message )
-  {
-    super( message );
-  }
+    /**
+     * Create exception with the explanation message.
+     *
+     * @param message the explanation message.
+     */
+    public KalumetException( String message )
+    {
+        super( message );
+    }
 
-  /**
-   * Create exception with the cause.
-   *
-   * @param cause the cause.
-   */
-  public KalumetException( Throwable cause )
-  {
-    super( cause );
-  }
+    /**
+     * Create exception with the cause.
+     *
+     * @param cause the cause.
+     */
+    public KalumetException( Throwable cause )
+    {
+        super( cause );
+    }
 
-  /**
-   * Create exception with the explanation message and the cause.
-   *
-   * @param message the explanation message.
-   * @param cause   the cause.
-   */
-  public KalumetException( String message, Throwable cause )
-  {
-    super( message, cause );
-  }
+    /**
+     * Create exception with the explanation message and the cause.
+     *
+     * @param message the explanation message.
+     * @param cause   the cause.
+     */
+    public KalumetException( String message, Throwable cause )
+    {
+        super( message, cause );
+    }
 
 }

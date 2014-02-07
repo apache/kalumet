@@ -25,40 +25,40 @@ import org.apache.kalumet.KalumetException;
  * the Kalumet configuration.
  */
 public final class ModelObjectAlreadyExistsException
-  extends KalumetException
+    extends KalumetException
 {
 
-  private static final long serialVersionUID = -6461646659257275924L;
+    private static final long serialVersionUID = -6461646659257275924L;
 
-  /**
-   * Creates a <code>ModelObjectAlreadyExistsException</code> with an explanation message.
-   *
-   * @param message the explanation message.
-   */
-  public ModelObjectAlreadyExistsException( String message )
-  {
-    super( message );
-  }
+    /**
+     * Creates a <code>ModelObjectAlreadyExistsException</code> with an explanation message.
+     *
+     * @param message the explanation message.
+     */
+    public ModelObjectAlreadyExistsException( String message )
+    {
+        super( message );
+    }
 
-  /**
-   * Creates a <code>ModelObjectAlreadyExistsException</code> with the underlying cause.
-   *
-   * @param cause the underlying cause.
-   */
-  public ModelObjectAlreadyExistsException( Throwable cause )
-  {
-    super( cause );
-  }
+    /**
+     * Creates a <code>ModelObjectAlreadyExistsException</code> with the underlying cause.
+     *
+     * @param cause the underlying cause.
+     */
+    public ModelObjectAlreadyExistsException( Throwable cause )
+    {
+        super( cause );
+    }
 
-  /**
-   * Creates a <code>ModelObjectAlreadyExistsException</code> with an explanation message and the underlying cause.
-   *
-   * @param message the explanation message.
-   * @param cause   the underlying cause.
-   */
-  public ModelObjectAlreadyExistsException( String message, Throwable cause )
-  {
-    super( message, cause );
-  }
+    /**
+     * Creates a <code>ModelObjectAlreadyExistsException</code> with an explanation message and the underlying cause.
+     *
+     * @param message the explanation message.
+     * @param cause   the underlying cause.
+     */
+    public ModelObjectAlreadyExistsException( String message, Throwable cause )
+    {
+        super( message, cause );
+    }
 
 }

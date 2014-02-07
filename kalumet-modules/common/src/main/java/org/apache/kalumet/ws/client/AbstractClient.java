@@ -29,22 +29,22 @@ import java.net.URL;
 public abstract class AbstractClient
 {
 
-  protected Call call;
+    protected Call call;
 
-  public AbstractClient( String url )
-    throws ClientException
-  {
-    try
+    public AbstractClient( String url )
+        throws ClientException
     {
-      Service service = new Service();
-      this.call = (Call) service.createCall();
-      call.setTimeout( new Integer( Integer.MAX_VALUE ) );
-      call.setTargetEndpointAddress( new URL( url ) );
+        try
+        {
+            Service service = new Service();
+            this.call = (Call) service.createCall();
+            call.setTimeout( new Integer( Integer.MAX_VALUE ) );
+            call.setTargetEndpointAddress( new URL( url ) );
+        }
+        catch ( Exception e )
+        {
+            throw new ClientException( "Can't to the Kalumet agent WS server", e );
+        }
     }
-    catch ( Exception e )
-    {
-      throw new ClientException( "Can't to the Kalumet agent WS server", e );
-    }
-  }
 
 }

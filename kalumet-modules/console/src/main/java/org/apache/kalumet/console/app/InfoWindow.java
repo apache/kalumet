@@ -31,48 +31,48 @@ import nextapp.echo2.app.event.ActionListener;
  * Info screen <code>WindowPane</code>
  */
 public class InfoWindow
-  extends WindowPane
+    extends WindowPane
 {
 
-  /**
-   * Create a new <code>WindowPane</code> with the information message
-   *
-   * @param message the info message to display
-   */
-  public InfoWindow( String message )
-  {
-    super();
-
-    setTitle( Messages.getString( "InfoWindow.Title" ) );
-    setStyleName( "InfoWindow" );
-    setModal( true );
-    setDefaultCloseOperation( WindowPane.DISPOSE_ON_CLOSE );
-
-    // create a split pane
-    SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
-    add( splitPane );
-
-    // define a row with the control pane
-    Row controlRow = new Row();
-    controlRow.setStyleName( "ControlPane" );
-    splitPane.add( controlRow );
-    // define the close button
-    Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
-    closeButton.setStyleName( "ControlPane.Button" );
-    closeButton.addActionListener( new ActionListener()
+    /**
+     * Create a new <code>WindowPane</code> with the information message
+     *
+     * @param message the info message to display
+     */
+    public InfoWindow( String message )
     {
-      public void actionPerformed( ActionEvent e )
-      {
-        InfoWindow.this.userClose();
-      }
-    } );
-    controlRow.add( closeButton );
+        super();
 
-    // define the info message label
-    Label infoMessageLabel = new Label( message );
-    infoMessageLabel.setStyleName( "InfoWindow.MessageLabel" );
-    splitPane.add( infoMessageLabel );
+        setTitle( Messages.getString( "InfoWindow.Title" ) );
+        setStyleName( "InfoWindow" );
+        setModal( true );
+        setDefaultCloseOperation( WindowPane.DISPOSE_ON_CLOSE );
 
-  }
+        // create a split pane
+        SplitPane splitPane = new SplitPane( SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP, new Extent( 32 ) );
+        add( splitPane );
+
+        // define a row with the control pane
+        Row controlRow = new Row();
+        controlRow.setStyleName( "ControlPane" );
+        splitPane.add( controlRow );
+        // define the close button
+        Button closeButton = new Button( Messages.getString( "close" ), Styles.CROSS );
+        closeButton.setStyleName( "ControlPane.Button" );
+        closeButton.addActionListener( new ActionListener()
+        {
+            public void actionPerformed( ActionEvent e )
+            {
+                InfoWindow.this.userClose();
+            }
+        } );
+        controlRow.add( closeButton );
+
+        // define the info message label
+        Label infoMessageLabel = new Label( message );
+        infoMessageLabel.setStyleName( "InfoWindow.MessageLabel" );
+        splitPane.add( infoMessageLabel );
+
+    }
 
 }

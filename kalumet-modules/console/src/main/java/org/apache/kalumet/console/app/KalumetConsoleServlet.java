@@ -28,12 +28,12 @@ import nextapp.echo2.webcontainer.WebContainerServlet;
  * images to the client. All such client interaction work is done behind the scene.
  */
 public class KalumetConsoleServlet
-  extends WebContainerServlet
+    extends WebContainerServlet
 {
 
-  public ApplicationInstance newApplicationInstance()
-  {
-    return new KalumetConsoleApplication();
-  }
+    public ApplicationInstance newApplicationInstance()
+    {
+        return new KalumetConsoleApplication();
+    }
 
 }

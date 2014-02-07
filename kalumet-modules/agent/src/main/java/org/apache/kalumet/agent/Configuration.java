@@ -26,10 +26,10 @@ import org.apache.kalumet.model.Kalumet;
 public class Configuration
 {
 
-  public static String CONFIG_LOCATION;
+    public static String CONFIG_LOCATION;
 
-  public static String AGENT_ID;
+    public static String AGENT_ID;
 
-  public static Kalumet CONFIG_CACHE = null;
+    public static Kalumet CONFIG_CACHE = null;
 
 }

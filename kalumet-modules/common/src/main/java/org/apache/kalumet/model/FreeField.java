@@ -29,72 +29,72 @@ import java.io.Serializable;
  * Represent the <code>freefield</code> tag in the Kalumet configuration DOM.
  */
 public class FreeField
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -39120916167747289L;
+    private static final long serialVersionUID = -39120916167747289L;
 
-  private String name;
+    private String name;
 
-  private String content;
+    private String content;
 
-  public FreeField()
-  {
-  }
+    public FreeField()
+    {
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getContent()
-  {
-    return this.content;
-  }
+    public String getContent()
+    {
+        return this.content;
+    }
 
-  public void setContent( String content )
-  {
-    this.content = content;
-  }
+    public void setContent( String content )
+    {
+        this.content = content;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    FreeField clone = new FreeField();
-    clone.setName( this.getName() );
-    clone.setContent( this.getContent() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        FreeField clone = new FreeField();
+        clone.setName( this.getName() );
+        clone.setContent( this.getContent() );
+        return clone;
+    }
 
-  /**
-   * Transform the <code>FreeField</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "freefield" );
-    element.setAttribute( "name", this.getName() );
-    CDATASectionImpl content = new CDATASectionImpl( document, this.getContent() );
-    element.appendChild( content );
-    return element;
-  }
+    /**
+     * Transform the <code>FreeField</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "freefield" );
+        element.setAttribute( "name", this.getName() );
+        CDATASectionImpl content = new CDATASectionImpl( document, this.getContent() );
+        element.appendChild( content );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherFreeField )
-  {
-    return this.getName().compareTo( ( (FreeField) anotherFreeField ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherFreeField )
+    {
+        return this.getName().compareTo( ( (FreeField) anotherFreeField ).getName() );
+    }
 
 }

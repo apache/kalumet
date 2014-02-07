@@ -90,9 +90,9 @@ field
       </logfiles>
       <jeeapplicationservers cluster="false">
         <jeeapplicationserver name="as_test" classname="org.apache.kalumet.jmx.plugins.DummyPlugin"
-                               jmxurl="dummy://localhost:1099" adminuser="admin_user" adminpassword="admin_password"
-                               updateRequireRestart="true" updateRequireCacheCleaning="true" usejmxstop="false"
-                               deletecomponents="false" agent="test">
+                              jmxurl="dummy://localhost:1099" adminuser="admin_user" adminpassword="admin_password"
+                              updateRequireRestart="true" updateRequireCacheCleaning="true" usejmxstop="false"
+                              deletecomponents="false" agent="test">
           <startupcommand>
             <![CDATA[
 echo "Startup"

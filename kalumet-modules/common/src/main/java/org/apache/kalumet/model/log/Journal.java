@@ -40,142 +40,142 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class Journal
 {
 
-  private LinkedList events;
+    private LinkedList events;
 
-  private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
-  public Journal()
-  {
-    this.events = new LinkedList();
-  }
-
-  /**
-   * Adds a new <code>Event</code> in the <code>Journal</code> container.
-   *
-   * @param event the <code>Event</code> to add.
-   */
-  public void addEvent( Event event )
-  {
-    this.events.add( event );
-  }
-
-  /**
-   * Gets the <code>Event</code> list in the <code>Journal</code>
-   * container.
-   *
-   * @return the <code>Event</code> list.
-   */
-  public List getEvents()
-  {
-    return this.events;
-  }
-
-  /**
-   * Transforms the <code>Journal</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "journal" );
-    // events
-    for ( Iterator eventIterator = this.getEvents().iterator(); eventIterator.hasNext(); )
+    public Journal()
     {
-      Event event = (Event) eventIterator.next();
-      element.appendChild( event.toDOMElement( document ) );
+        this.events = new LinkedList();
     }
-    return element;
-  }
 
-  /**
-   * Parses and loads a given XML log file and return the environment journal root tag.
-   *
-   * @param path the environment log XML to parse.
-   * @return the environment <code>Journal</code> corresponding with the journal root tag.
-   */
-  public static Journal digeste( String path )
-    throws KalumetException
-  {
-    if ( !path.startsWith( "http:" ) && !path.startsWith( "HTTP:" ) && !path.startsWith( "file:" ) && !path.startsWith(
-      "FILE:" ) )
+    /**
+     * Adds a new <code>Event</code> in the <code>Journal</code> container.
+     *
+     * @param event the <code>Event</code> to add.
+     */
+    public void addEvent( Event event )
     {
-      path = "file:" + path;
+        this.events.add( event );
     }
-    Journal journal = null;
-    try
+
+    /**
+     * Gets the <code>Event</code> list in the <code>Journal</code>
+     * container.
+     *
+     * @return the <code>Event</code> list.
+     */
+    public List getEvents()
     {
-
-      // init the digester with no validation on the XML file (no DTD)
-      Digester digester = new Digester();
-      digester.setValidating( false );
-
-      // journal tag rules
-      digester.addObjectCreate( "journal", "org.apache.kalumet.model.log.Journal" );
-      digester.addSetProperties( "journal" );
-
-      // event tag rules
-      digester.addObjectCreate( "journal/event", "org.apache.kalumet.model.log.Event" );
-      digester.addSetProperties( "journal/event" );
-
-      // event content
-      digester.addCallMethod( "journal/event", "setContent", 0 );
-
-      // add event to journal
-      digester.addSetNext( "journal/event", "addEvent", "org.apache.kalumet.model.log.Event" );
-
-      // parse the XML file
-      journal = (Journal) digester.parse( path );
+        return this.events;
     }
-    catch ( IOException ioException )
+
+    /**
+     * Transforms the <code>Journal</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
     {
-      // most of the time IOException occurs because the journal file path
-      // doesn't exist, try to create it
-      journal = new Journal();
-      journal.writeXMLFile( path );
+        ElementImpl element = new ElementImpl( document, "journal" );
+        // events
+        for ( Iterator eventIterator = this.getEvents().iterator(); eventIterator.hasNext(); )
+        {
+            Event event = (Event) eventIterator.next();
+            element.appendChild( event.toDOMElement( document ) );
+        }
+        return element;
     }
-    catch ( Exception e )
-    {
-      throw new KalumetException( "Can't read journal", e );
-    }
-    return journal;
-  }
 
-  /**
-   * Writes the environment journal log XML file with the in-memory DOM.
-   *
-   * @param path the path to the file to write.
-   */
-  public void writeXMLFile( String path )
-    throws KalumetException
-  {
-    try
+    /**
+     * Parses and loads a given XML log file and return the environment journal root tag.
+     *
+     * @param path the environment log XML to parse.
+     * @return the environment <code>Journal</code> corresponding with the journal root tag.
+     */
+    public static Journal digeste( String path )
+        throws KalumetException
     {
-      lock.writeLock().lock();
-      OutputFormat format = new OutputFormat();
-      format.setLineWidth( 72 );
-      format.setIndenting( true );
-      format.setIndent( 3 );
-      format.setEncoding( "ISO-8859-1" );
-      if ( path.startsWith( "http:" ) || path.startsWith( "http:" ) )
-      {
-        throw new KalumetException( "Can't write journal file over a HTTP URL" );
-      }
-      if ( path.startsWith( "file:" ) || path.startsWith( "FILE:" ) )
-      {
-        path = path.substring( 5 );
-      }
-      XMLSerializer serializer = new XMLSerializer( new FileOutputStream( path ), format );
-      serializer.serialize( this.toDOMElement( new CoreDocumentImpl( true ) ) );
+        if ( !path.startsWith( "http:" ) && !path.startsWith( "HTTP:" ) && !path.startsWith( "file:" )
+            && !path.startsWith( "FILE:" ) )
+        {
+            path = "file:" + path;
+        }
+        Journal journal = null;
+        try
+        {
+
+            // init the digester with no validation on the XML file (no DTD)
+            Digester digester = new Digester();
+            digester.setValidating( false );
+
+            // journal tag rules
+            digester.addObjectCreate( "journal", "org.apache.kalumet.model.log.Journal" );
+            digester.addSetProperties( "journal" );
+
+            // event tag rules
+            digester.addObjectCreate( "journal/event", "org.apache.kalumet.model.log.Event" );
+            digester.addSetProperties( "journal/event" );
+
+            // event content
+            digester.addCallMethod( "journal/event", "setContent", 0 );
+
+            // add event to journal
+            digester.addSetNext( "journal/event", "addEvent", "org.apache.kalumet.model.log.Event" );
+
+            // parse the XML file
+            journal = (Journal) digester.parse( path );
+        }
+        catch ( IOException ioException )
+        {
+            // most of the time IOException occurs because the journal file path
+            // doesn't exist, try to create it
+            journal = new Journal();
+            journal.writeXMLFile( path );
+        }
+        catch ( Exception e )
+        {
+            throw new KalumetException( "Can't read journal", e );
+        }
+        return journal;
     }
-    catch ( Exception e )
+
+    /**
+     * Writes the environment journal log XML file with the in-memory DOM.
+     *
+     * @param path the path to the file to write.
+     */
+    public void writeXMLFile( String path )
+        throws KalumetException
     {
-      throw new KalumetException( "Can't write journal", e );
+        try
+        {
+            lock.writeLock().lock();
+            OutputFormat format = new OutputFormat();
+            format.setLineWidth( 72 );
+            format.setIndenting( true );
+            format.setIndent( 3 );
+            format.setEncoding( "ISO-8859-1" );
+            if ( path.startsWith( "http:" ) || path.startsWith( "http:" ) )
+            {
+                throw new KalumetException( "Can't write journal file over a HTTP URL" );
+            }
+            if ( path.startsWith( "file:" ) || path.startsWith( "FILE:" ) )
+            {
+                path = path.substring( 5 );
+            }
+            XMLSerializer serializer = new XMLSerializer( new FileOutputStream( path ), format );
+            serializer.serialize( this.toDOMElement( new CoreDocumentImpl( true ) ) );
+        }
+        catch ( Exception e )
+        {
+            throw new KalumetException( "Can't write journal", e );
+        }
+        finally
+        {
+            lock.writeLock().unlock();
+        }
     }
-    finally
-    {
-      lock.writeLock().unlock();
-    }
-  }
 
 }

@@ -28,183 +28,183 @@ import java.io.Serializable;
  * Represents the <code>archive</code> tag in the Kalumet DOM.
  */
 public class Archive
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = 7125281479795326133L;
+    private static final long serialVersionUID = 7125281479795326133L;
 
-  private String name;
+    private String name;
 
-  private String uri;
+    private String uri;
 
-  private String classloaderorder;
+    private String classloaderorder;
 
-  private String classloaderpolicy;
+    private String classloaderpolicy;
 
-  private String vhost;
+    private String vhost;
 
-  private String path;
+    private String path;
 
-  private String context;
+    private String context;
 
-  private boolean active;
+    private boolean active;
 
-  private boolean blocker;
+    private boolean blocker;
 
-  private String agent;
+    private String agent;
 
-  public Archive()
-  {
-  }
+    public Archive()
+    {
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getUri()
-  {
-    return this.uri;
-  }
+    public String getUri()
+    {
+        return this.uri;
+    }
 
-  public void setUri( String uri )
-  {
-    this.uri = uri;
-  }
+    public void setUri( String uri )
+    {
+        this.uri = uri;
+    }
 
-  public String getClassloaderorder()
-  {
-    return classloaderorder;
-  }
+    public String getClassloaderorder()
+    {
+        return classloaderorder;
+    }
 
-  public void setClassloaderorder( String classloaderorder )
-  {
-    this.classloaderorder = classloaderorder;
-  }
+    public void setClassloaderorder( String classloaderorder )
+    {
+        this.classloaderorder = classloaderorder;
+    }
 
-  public String getClassloaderpolicy()
-  {
-    return classloaderpolicy;
-  }
+    public String getClassloaderpolicy()
+    {
+        return classloaderpolicy;
+    }
 
-  public void setClassloaderpolicy( String classloaderpolicy )
-  {
-    this.classloaderpolicy = classloaderpolicy;
-  }
+    public void setClassloaderpolicy( String classloaderpolicy )
+    {
+        this.classloaderpolicy = classloaderpolicy;
+    }
 
-  public String getVhost()
-  {
-    return this.vhost;
-  }
+    public String getVhost()
+    {
+        return this.vhost;
+    }
 
-  public void setVhost( String vhost )
-  {
-    this.vhost = vhost;
-  }
+    public void setVhost( String vhost )
+    {
+        this.vhost = vhost;
+    }
 
-  public String getPath()
-  {
-    return this.path;
-  }
+    public String getPath()
+    {
+        return this.path;
+    }
 
-  public void setPath( String path )
-  {
-    this.path = path;
-  }
+    public void setPath( String path )
+    {
+        this.path = path;
+    }
 
-  public String getContext()
-  {
-    return this.context;
-  }
+    public String getContext()
+    {
+        return this.context;
+    }
 
-  public void setContext( String context )
-  {
-    this.context = context;
-  }
+    public void setContext( String context )
+    {
+        this.context = context;
+    }
 
-  public boolean isActive()
-  {
-    return this.active;
-  }
+    public boolean isActive()
+    {
+        return this.active;
+    }
 
-  public void setActive( boolean active )
-  {
-    this.active = active;
-  }
+    public void setActive( boolean active )
+    {
+        this.active = active;
+    }
 
-  public boolean isBlocker()
-  {
-    return this.blocker;
-  }
+    public boolean isBlocker()
+    {
+        return this.blocker;
+    }
 
-  public void setBlocker( boolean blocker )
-  {
-    this.blocker = blocker;
-  }
+    public void setBlocker( boolean blocker )
+    {
+        this.blocker = blocker;
+    }
 
-  public String getAgent()
-  {
-    return agent;
-  }
+    public String getAgent()
+    {
+        return agent;
+    }
 
-  public void setAgent( String agent )
-  {
-    this.agent = agent;
-  }
+    public void setAgent( String agent )
+    {
+        this.agent = agent;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    Archive clone = new Archive();
-    clone.setName( this.getName() );
-    clone.setUri( this.getUri() );
-    clone.setClassloaderorder( this.getClassloaderorder() );
-    clone.setClassloaderpolicy( this.getClassloaderpolicy() );
-    clone.setVhost( this.getVhost() );
-    clone.setPath( this.getPath() );
-    clone.setContext( this.getContext() );
-    clone.setActive( this.isActive() );
-    clone.setBlocker( this.isBlocker() );
-    clone.setAgent( this.getAgent() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        Archive clone = new Archive();
+        clone.setName( this.getName() );
+        clone.setUri( this.getUri() );
+        clone.setClassloaderorder( this.getClassloaderorder() );
+        clone.setClassloaderpolicy( this.getClassloaderpolicy() );
+        clone.setVhost( this.getVhost() );
+        clone.setPath( this.getPath() );
+        clone.setContext( this.getContext() );
+        clone.setActive( this.isActive() );
+        clone.setBlocker( this.isBlocker() );
+        clone.setAgent( this.getAgent() );
+        return clone;
+    }
 
-  /**
-   * Transforms the <code>Archive</code> specific POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "archive" );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "uri", this.getUri() );
-    element.setAttribute( "classloaderorder", this.getClassloaderorder() );
-    element.setAttribute( "classloaderpolicy", this.getClassloaderpolicy() );
-    element.setAttribute( "vhost", this.getVhost() );
-    element.setAttribute( "path", this.getPath() );
-    element.setAttribute( "context", this.getContext() );
-    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
-    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
-    element.setAttribute( "agent", this.getAgent() );
-    return element;
-  }
+    /**
+     * Transforms the <code>Archive</code> specific POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "archive" );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "uri", this.getUri() );
+        element.setAttribute( "classloaderorder", this.getClassloaderorder() );
+        element.setAttribute( "classloaderpolicy", this.getClassloaderpolicy() );
+        element.setAttribute( "vhost", this.getVhost() );
+        element.setAttribute( "path", this.getPath() );
+        element.setAttribute( "context", this.getContext() );
+        element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+        element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+        element.setAttribute( "agent", this.getAgent() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherArchive )
-  {
-    return this.getName().compareTo( ( (Archive) anotherArchive ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherArchive )
+    {
+        return this.getName().compareTo( ( (Archive) anotherArchive ).getName() );
+    }
 
 }

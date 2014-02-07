@@ -24,38 +24,38 @@ import org.apache.kalumet.KalumetException;
  * WebService client exception wrapper.
  */
 public class ClientException
-  extends KalumetException
+    extends KalumetException
 {
 
-  /**
-   * Create a WebService client exception with the explanation message.
-   *
-   * @param message the explanation message.
-   */
-  public ClientException( String message )
-  {
-    super( message );
-  }
+    /**
+     * Create a WebService client exception with the explanation message.
+     *
+     * @param message the explanation message.
+     */
+    public ClientException( String message )
+    {
+        super( message );
+    }
 
-  /**
-   * Create a WebService client exception with the cause.
-   *
-   * @param cause the cause.
-   */
-  public ClientException( Throwable cause )
-  {
-    super( cause );
-  }
+    /**
+     * Create a WebService client exception with the cause.
+     *
+     * @param cause the cause.
+     */
+    public ClientException( Throwable cause )
+    {
+        super( cause );
+    }
 
-  /**
-   * Create a WebService client exception with the explanation message and the cause.
-   *
-   * @param message the explanation message.
-   * @param cause   the cause.
-   */
-  public ClientException( String message, Throwable cause )
-  {
-    super( message, cause );
-  }
+    /**
+     * Create a WebService client exception with the explanation message and the cause.
+     *
+     * @param message the explanation message.
+     * @param cause   the cause.
+     */
+    public ClientException( String message, Throwable cause )
+    {
+        super( message, cause );
+    }
 
 }

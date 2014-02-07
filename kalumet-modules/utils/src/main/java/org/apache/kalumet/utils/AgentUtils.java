@@ -24,20 +24,20 @@ package org.apache.kalumet.utils;
 public class AgentUtils
 {
 
-  /**
-   * Get the version from Kalumet package.
-   *
-   * @return the Kalumet version.
-   */
-  public static String getVersion()
-  {
-    String version = "";
-    Package p = Package.getPackage( "org.apache.kalumet.agent" );
-    if ( p != null )
+    /**
+     * Get the version from Kalumet package.
+     *
+     * @return the Kalumet version.
+     */
+    public static String getVersion()
     {
-      version = p.getImplementationVersion();
+        String version = "";
+        Package p = Package.getPackage( "org.apache.kalumet.agent" );
+        if ( p != null )
+        {
+            version = p.getImplementationVersion();
+        }
+        return version;
     }
-    return version;
-  }
 
 }

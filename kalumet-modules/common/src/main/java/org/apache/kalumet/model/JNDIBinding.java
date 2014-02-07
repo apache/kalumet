@@ -28,127 +28,127 @@ import java.io.Serializable;
  * Represent the <code>jndibinding</code> tag in the Kalumet configuration DOM.
  */
 public class JNDIBinding
-  implements Serializable, Cloneable, Comparable
+    implements Serializable, Cloneable, Comparable
 {
 
-  private static final long serialVersionUID = -2336476111740231781L;
+    private static final long serialVersionUID = -2336476111740231781L;
 
-  private String name;
+    private String name;
 
-  private String jndiname;
+    private String jndiname;
 
-  private String jndialias;
+    private String jndialias;
 
-  private String providerurl;
+    private String providerurl;
 
-  private boolean active;
+    private boolean active;
 
-  private boolean blocker;
+    private boolean blocker;
 
-  public JNDIBinding()
-  {
-  }
+    public JNDIBinding()
+    {
+    }
 
-  public String getName()
-  {
-    return this.name;
-  }
+    public String getName()
+    {
+        return this.name;
+    }
 
-  public void setName( String name )
-  {
-    this.name = name;
-  }
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-  public String getJndiname()
-  {
-    return this.jndiname;
-  }
+    public String getJndiname()
+    {
+        return this.jndiname;
+    }
 
-  public void setJndiname( String jndiname )
-  {
-    this.jndiname = jndiname;
-  }
+    public void setJndiname( String jndiname )
+    {
+        this.jndiname = jndiname;
+    }
 
-  public String getJndialias()
-  {
-    return this.jndialias;
-  }
+    public String getJndialias()
+    {
+        return this.jndialias;
+    }
 
-  public void setJndialias( String jndialias )
-  {
-    this.jndialias = jndialias;
-  }
+    public void setJndialias( String jndialias )
+    {
+        this.jndialias = jndialias;
+    }
 
-  public String getProviderurl()
-  {
-    return this.providerurl;
-  }
+    public String getProviderurl()
+    {
+        return this.providerurl;
+    }
 
-  public void setProviderurl( String providerurl )
-  {
-    this.providerurl = providerurl;
-  }
+    public void setProviderurl( String providerurl )
+    {
+        this.providerurl = providerurl;
+    }
 
-  public boolean isActive()
-  {
-    return this.active;
-  }
+    public boolean isActive()
+    {
+        return this.active;
+    }
 
-  public void setActive( boolean active )
-  {
-    this.active = active;
-  }
+    public void setActive( boolean active )
+    {
+        this.active = active;
+    }
 
-  public boolean isBlocker()
-  {
-    return this.blocker;
-  }
+    public boolean isBlocker()
+    {
+        return this.blocker;
+    }
 
-  public void setBlocker( boolean blocker )
-  {
-    this.blocker = blocker;
-  }
+    public void setBlocker( boolean blocker )
+    {
+        this.blocker = blocker;
+    }
 
-  /**
-   * @see java.lang.Object#clone()
-   */
-  public Object clone()
-    throws CloneNotSupportedException
-  {
-    JNDIBinding clone = new JNDIBinding();
-    clone.setName( this.getName() );
-    clone.setJndiname( this.getJndiname() );
-    clone.setJndialias( this.getJndialias() );
-    clone.setProviderurl( this.getProviderurl() );
-    clone.setActive( this.isActive() );
-    clone.setBlocker( this.isBlocker() );
-    return clone;
-  }
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+        throws CloneNotSupportedException
+    {
+        JNDIBinding clone = new JNDIBinding();
+        clone.setName( this.getName() );
+        clone.setJndiname( this.getJndiname() );
+        clone.setJndialias( this.getJndialias() );
+        clone.setProviderurl( this.getProviderurl() );
+        clone.setActive( this.isActive() );
+        clone.setBlocker( this.isBlocker() );
+        return clone;
+    }
 
-  /**
-   * Transform the <code>JNDIBinding</code> POJO to a DOM element.
-   *
-   * @param document the DOM document.
-   * @return the DOM element.
-   */
-  protected Element toDOMElement( CoreDocumentImpl document )
-  {
-    ElementImpl element = new ElementImpl( document, "jndibinding" );
-    element.setAttribute( "name", this.getName() );
-    element.setAttribute( "jndiname", this.getJndiname() );
-    element.setAttribute( "jndialias", this.getJndialias() );
-    element.setAttribute( "providerurl", this.getProviderurl() );
-    element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
-    element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
-    return element;
-  }
+    /**
+     * Transform the <code>JNDIBinding</code> POJO to a DOM element.
+     *
+     * @param document the DOM document.
+     * @return the DOM element.
+     */
+    protected Element toDOMElement( CoreDocumentImpl document )
+    {
+        ElementImpl element = new ElementImpl( document, "jndibinding" );
+        element.setAttribute( "name", this.getName() );
+        element.setAttribute( "jndiname", this.getJndiname() );
+        element.setAttribute( "jndialias", this.getJndialias() );
+        element.setAttribute( "providerurl", this.getProviderurl() );
+        element.setAttribute( "active", new Boolean( this.isActive() ).toString() );
+        element.setAttribute( "blocker", new Boolean( this.isBlocker() ).toString() );
+        return element;
+    }
 
-  /**
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  public int compareTo( Object anotherNameSpaceBinding )
-  {
-    return this.getName().compareTo( ( (JNDIBinding) anotherNameSpaceBinding ).getName() );
-  }
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo( Object anotherNameSpaceBinding )
+    {
+        return this.getName().compareTo( ( (JNDIBinding) anotherNameSpaceBinding ).getName() );
+    }
 
 }
