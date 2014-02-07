@@ -76,7 +76,6 @@
         <include>org.apache.commons:commons-email</include>
         <include>commons-lang:commons-lang</include>
         <include>commons-discovery:commons-discovery</include>
-        <include>concurrent:concurrent</include>
         <include>opensymphony:quartz</include>
         <include>oro:oro</include>
         <include>xml-apis:xml-apis</include>

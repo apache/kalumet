@@ -18,7 +18,6 @@
  */
 package org.apache.kalumet.model.log;
 
-import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
 import org.apache.commons.digester.Digester;
 import org.apache.kalumet.KalumetException;
 import org.apache.xerces.dom.CoreDocumentImpl;
@@ -32,6 +31,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Manages the environment log file and represents the <code>journal</code>
@@ -42,7 +42,7 @@ public class Journal
 
   private LinkedList events;
 
-  private WriterPreferenceReadWriteLock lock = new WriterPreferenceReadWriteLock();
+  private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
   public Journal()
   {
@@ -151,7 +151,7 @@ public class Journal
   {
     try
     {
-      lock.writeLock().acquire();
+      lock.writeLock().lock();
       OutputFormat format = new OutputFormat();
       format.setLineWidth( 72 );
       format.setIndenting( true );
@@ -174,7 +174,7 @@ public class Journal
     }
     finally
     {
-      lock.writeLock().release();
+      lock.writeLock().unlock();
     }
   }
 
