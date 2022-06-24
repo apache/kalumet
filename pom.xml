@@ -176,7 +176,7 @@
     <quartz.version>1.6.3</quartz.version>
     <slf4j.version>1.7.6</slf4j.version>
     <xalan.version>2.7.1</xalan.version>
-    <xerces.version>2.9.1</xerces.version>
+    <xerces.version>2.12.2</xerces.version>
     <xml-apis.version>2.0.2</xml-apis.version>
 
     <sonar.host.url>https://analysis.apache.org/</sonar.host.url>
