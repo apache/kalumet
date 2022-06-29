@@ -161,7 +161,7 @@
     <commons-compress.version>20050911</commons-compress.version>
     <commons-digester.version>1.8.1</commons-digester.version>
     <commons-discovery.version>0.5</commons-discovery.version>
-    <commons-email.version>1.1</commons-email.version>
+    <commons-email.version>1.5</commons-email.version>
     <commons-httpclient.version>3.1</commons-httpclient.version>
     <commons-io.version>2.1</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
