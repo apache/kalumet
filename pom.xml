@@ -165,7 +165,7 @@
     <commons-httpclient.version>3.1</commons-httpclient.version>
     <commons-io.version>2.1</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
-    <commons-net.version>3.0.1</commons-net.version>
+    <commons-net.version>3.9.0</commons-net.version>
     <commons-vfs.version>1.0</commons-vfs.version>
     <echo2.version>2.1.1</echo2.version>
     <echo2.extras.version>2.1.0</echo2.extras.version>
